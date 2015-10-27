@@ -23,12 +23,6 @@ int main(int argc, char *argv[])
 	
 	win.clearToColor(0.0f, 0.2f, 0.7f, 1.0f);
 
-	/*win.update();
-	Sleep(1000);
-	win.grabMouse(true);
-	Sleep(5000);
-	win.grabMouse(false);*/
-
 	printf("OK!");
 	while (!win.closed())
 	{
