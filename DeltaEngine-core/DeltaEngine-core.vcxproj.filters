@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Archivos de código fuente">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Archivos de encabezado">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Archivos de recursos">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Archivos de código fuente\DeltaEngine">
+      <UniqueIdentifier>{63d9ca65-eb28-4b4e-b11e-47df4e323368}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\DeltaEngine">
+      <UniqueIdentifier>{389e2ae0-2cf2-4c51-bdb6-07936eabd194}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\DeltaEngine\Graphics">
+      <UniqueIdentifier>{57e7b2d3-8b77-406c-a2fa-a087e4856085}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\DeltaEngine\Graphics">
+      <UniqueIdentifier>{38423df7-8220-4a8e-b47d-bcaeb01aa50d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\DeltaEngine\FileIO">
+      <UniqueIdentifier>{f8acc893-8338-4057-b88f-85f20b99cadb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\DeltaEngine\FileIO">
+      <UniqueIdentifier>{d29edda7-4632-40a4-a85a-096885a3735b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\DeltaEngine\Logger">
+      <UniqueIdentifier>{a65fc4d5-6443-4880-a6bc-4a9906b47202}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\DeltaEngine\Logger">
+      <UniqueIdentifier>{2032139a-9d79-4a70-bcd5-305bb686939e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\DeltaEngine\Utils">
+      <UniqueIdentifier>{aab05b10-f3f5-4c8c-b7d8-944acefa64d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\DeltaEngine\Utils">
+      <UniqueIdentifier>{1e27ae35-757f-406b-8c8b-d754475d9e0f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DeltaEngine.h">
+      <Filter>Archivos de encabezado\DeltaEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="window.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="errors.h">
+      <Filter>Archivos de encabezado\DeltaEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="fileIO.h">
+      <Filter>Archivos de encabezado\DeltaEngine\FileIO</Filter>
+    </ClInclude>
+    <ClInclude Include="logger.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Utils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="window.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="fileIO.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\FileIO</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Utils</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
