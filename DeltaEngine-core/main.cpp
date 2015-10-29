@@ -2,19 +2,19 @@
 //
 
 #include <Windows.h>
-#include "window.h"
-
-#include"logger.h"
-
 #include <stdio.h>
 #include <string>
+
+#include "window.h"
+#include <FreeGLUT\freeglut.h> //Remove extra configurations! (additional lib dirs, additional dependencies)
 
 using namespace DeltaEngine;
 using namespace std;
 
-void handler(int err)
+void handler(Graphics::Window* window, int err)
 {
-	printf("Error: %i\n", err);
+	//You can also use: window->getErrorString(window->getError).c_str();
+	printf("Error %i: %s\n", err, window->getErrorString(err).c_str()); 
 }
 
 int main(int argc, char *argv[])
@@ -27,6 +27,8 @@ int main(int argc, char *argv[])
 	while (!win.closed())
 	{
 		win.clear();
+		glColor3f(1.0f, 1.0f, 1.0f);
+		glRectf(-0.75f, 0.75f, 0.75f, -0.75f);
 		win.update();
 	}
 

@@ -1,6 +1,7 @@
 //#include <GL\freeglut.h>
 #include <string> //Not needed, already included in "window.h"
-#include <GLFW/glfw3.h>
+#include <GLEW\glew.h>
+#include <GLFW\glfw3.h>
 
 #include "window.h"
 #include "errors.h"
@@ -26,7 +27,7 @@ namespace DeltaEngine {
 		}
 
 		//Creates a window with an error handler
-		Window::Window(string title, int width, int height, void(*handler)(int))
+		Window::Window(string title, int width, int height, void(*handler)(Window*, int))
 		{
 			this->errorIndex = 0;
 			this->errorHandler = handler;
@@ -56,7 +57,7 @@ namespace DeltaEngine {
 		void Window::setError(int error)
 		{
 			this->errorIndex = error;
-			if (errorHandler != nullptr) errorHandler(error);
+			if (errorHandler != nullptr) errorHandler(this, error);
 		}
 
 		//returns the last error
@@ -65,8 +66,35 @@ namespace DeltaEngine {
 			return -this->errorIndex;
 		}
 
+		string Window::getErrorString(int error) const
+		{
+			unsigned int err = abs(error);
+			switch (err)
+			{
+			case ERR_GLFW_INIT:
+				return string("ERR_GLFW_INIT"); break;
+
+			case ERR_GLEW_INIT:
+				return string("ERR_GLEW_INIT"); break;
+
+			case ERR_GLFW_CREATE_WINDOW:
+				return string("ERR_GLFW_CREATE_WINDOW"); break;
+
+			case ERR_CREATING_FILE:
+				return string("ERR_CREATING_FILE"); break;
+
+			case ERR_EXPECTED_ARGUMENT:
+				return string("ERR_EXPECTED_ARGUMENT"); break;
+
+			case ERR_INVALID_ARGUMENT:
+				return string("ERR_INVALID_ARGUMENT"); break;
+			}
+
+			return string("ERR_UNKNOWN_ERROR");
+		}
+
 		//Sets an error handler for window errors
-		void Window::setWindowErrorHandler(void(*handler)(int))
+		void Window::setWindowErrorHandler(void(*handler)(class Window*, int))
 		{
 			this->errorHandler = handler;
 		}
@@ -83,14 +111,20 @@ namespace DeltaEngine {
 			window = glfwCreateWindow(this->width, this->height, this->title.c_str(), NULL, NULL);
 			if (!window)
 			{
-				glfwTerminate();
+				//glfwTerminate();
 				setError(ERR_GLFW_CREATE_WINDOW);
 				return false;
 			}
 
 			glfwMakeContextCurrent(window);
-			//glfwSetWindowSizeCallback(window, windowResize);
 			glfwSetFramebufferSizeCallback(window, windowResize);
+
+			if (glewInit() != GLEW_OK)
+			{
+				setError(ERR_GLEW_INIT);
+				return false;
+			}
+
 			return true;
 		}
 
@@ -111,7 +145,7 @@ namespace DeltaEngine {
 			glClearColor(r, g, b, alpha);
 		}
 
-		inline void windowResize(GLFWwindow* window, int width, int height)
+		inline void Window::windowResize(GLFWwindow* window, int width, int height)
 		{
 			glViewport(0, 0, width, height);
 		}

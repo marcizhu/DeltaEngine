@@ -6,14 +6,16 @@
 #include <GLFW\glfw3.h>
 #include <string>
 
+#ifdef DELTAENGINE_STATIC
+#include <FreeGLUT\freeglut.h>
+#endif
+
 #include "DeltaEngine.h"
 
 using namespace std;
 
 namespace DeltaEngine {
 	namespace Graphics {
-
-		inline void windowResize(GLFWwindow* window, int width, int height);
 
 		class Window {
 
@@ -27,7 +29,7 @@ namespace DeltaEngine {
 			bool vsync = false;
 			bool mouseGrabbed = false;
 
-			void(*errorHandler)(int);
+			void(*errorHandler)(class Window*, int);
 
 			void setError(int error);
 			bool init();
@@ -35,9 +37,10 @@ namespace DeltaEngine {
 			//const void* INSTANCE;
 
 			inline void updateSize() { glfwGetFramebufferSize(this->window, &width, &height); }
+			static inline void windowResize(GLFWwindow* window, int width, int height);
 			
 		public:
-			DELTAENGINE_API Window(string title, int height, int width, void(*handler)(int));
+			DELTAENGINE_API Window(string title, int height, int width, void(*handler)(class Window*, int));
 			DELTAENGINE_API Window(string title, int height, int width);
 			DELTAENGINE_API ~Window();
 
@@ -51,7 +54,8 @@ namespace DeltaEngine {
 			DELTAENGINE_API inline bool IsVSync() const { return vsync; }
 
 			DELTAENGINE_API int getError() const;
-			DELTAENGINE_API void setWindowErrorHandler(void(*handler)(int));
+			DELTAENGINE_API string getErrorString(int error) const;
+			DELTAENGINE_API void setWindowErrorHandler(void(*handler)(class Window*, int));
 
 			DELTAENGINE_API void clear() const;
 			DELTAENGINE_API void clearToColor(float r, float g, float b, float alpha) const;

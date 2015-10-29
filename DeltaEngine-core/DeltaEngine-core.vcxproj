@@ -88,28 +88,30 @@
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\Intermediates\</IntDir>
     <IncludePath>$(SolutionDir)\dependencies\include\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\dependencies\lib\GLFW\;$(SolutionDir)\dependencies\lib\GLEW\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\dependencies\lib\GLFW\;$(SolutionDir)\dependencies\lib\GLEW\;$(SolutionDir)\dependencies\lib\FreeGLUT\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\Intermediates\</IntDir>
-    <IncludePath>$(SolutionDir)\dependencies\include\GLFW\;$(SolutionDir)\dependencies\include\GLEW\;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\dependencies\include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\dependencies\lib\GLFW\;$(SolutionDir)\dependencies\lib\GLEW\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Static|Win32'">
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\Intermediates\</IntDir>
+    <IncludePath>$(SolutionDir)\dependencies\include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\dependencies\lib\GLFW\;$(SolutionDir)\dependencies\lib\GLEW\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>DELTAENGINE_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>DELTAENGINE_BUILD;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glew32s.lib;OpenGL32.lib;freeglut.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -159,7 +161,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Static|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>DELTAENGINE_STATIC;DELTAENGINE_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>DELTAENGINE_STATIC;DELTAENGINE_BUILD;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
