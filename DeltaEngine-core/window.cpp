@@ -1,5 +1,4 @@
-//#include <GL\freeglut.h>
-#include <string> //Not needed, already included in "window.h"
+#include <string>
 #include <GLEW\glew.h>
 #include <GLFW\glfw3.h>
 
@@ -10,7 +9,7 @@ namespace DeltaEngine {
 	namespace Graphics {
 
 		//Creates a window without an error handler
-		Window::Window(string title, int width, int height)
+		Window::Window(string& title, int width, int height)
 		{
 			this->errorIndex = 0;
 			this->errorHandler = nullptr;
@@ -27,7 +26,7 @@ namespace DeltaEngine {
 		}
 
 		//Creates a window with an error handler
-		Window::Window(string title, int width, int height, void(*handler)(Window*, int))
+		Window::Window(string& title, int width, int height, void(*handler)(Window*, int))
 		{
 			this->errorIndex = 0;
 			this->errorHandler = handler;
@@ -49,7 +48,6 @@ namespace DeltaEngine {
 		void Window::update()
 		{
 			glfwPollEvents();
-			//glfwGetFramebufferSize(this->window, &width, &height);
 			glfwSwapBuffers(this->window);
 		}
 
@@ -79,15 +77,6 @@ namespace DeltaEngine {
 
 			case ERR_GLFW_CREATE_WINDOW:
 				return string("ERR_GLFW_CREATE_WINDOW"); break;
-
-			case ERR_CREATING_FILE:
-				return string("ERR_CREATING_FILE"); break;
-
-			case ERR_EXPECTED_ARGUMENT:
-				return string("ERR_EXPECTED_ARGUMENT"); break;
-
-			case ERR_INVALID_ARGUMENT:
-				return string("ERR_INVALID_ARGUMENT"); break;
 			}
 
 			return string("ERR_UNKNOWN_ERROR");
@@ -111,13 +100,13 @@ namespace DeltaEngine {
 			window = glfwCreateWindow(this->width, this->height, this->title.c_str(), NULL, NULL);
 			if (!window)
 			{
-				//glfwTerminate();
 				setError(ERR_GLFW_CREATE_WINDOW);
 				return false;
 			}
 
 			glfwMakeContextCurrent(window);
 			glfwSetFramebufferSizeCallback(window, windowResize);
+			glfwSetWindowUserPointer(this->window, this);
 
 			if (glewInit() != GLEW_OK)
 			{
@@ -145,15 +134,70 @@ namespace DeltaEngine {
 			glClearColor(r, g, b, alpha);
 		}
 
+		//window resize event handler
 		inline void Window::windowResize(GLFWwindow* window, int width, int height)
 		{
 			glViewport(0, 0, width, height);
+		}
+
+		//text mode input handler
+		void Window::textInputModsCallback(GLFWwindow* window, unsigned int codepoint, int mods)
+		{
+			Window* win = (Window*)glfwGetWindowUserPointer(window);
+			if (!win->textMode) return;
+			win->textInput.push(codepoint);
+		}
+
+		//keypress input handler
+		void Window::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+		{
+			if ((key > MAX_KEYS) || (key == GLFW_KEY_UNKNOWN)) return;
+
+			Window* win = (Window*)glfwGetWindowUserPointer(window);
+			if (win->textMode) return;
+			win->keys[key] = (action != GLFW_RELEASE);
+		}
+
+		//mouse move handler
+		void Window::mouseMoveCallback(GLFWwindow* window, double xpos, double ypos)
+		{
+			Window* win = (Window*)glfwGetWindowUserPointer(window);
+			win->mousePos.X = xpos;
+			win->mousePos.Y = ypos;
+		}
+
+		//mouse button click handler
+		void Window::mouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
+		{
+			Window* win = (Window*)glfwGetWindowUserPointer(window);
+			win->mouseButtons[button] = (action != GLFW_RELEASE);
+		}
+
+		//mouse scroll handler
+		void Window::mouseScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
+		{
+			Window* win = (Window*)glfwGetWindowUserPointer(window);
+			win->scroll.X += xoffset;
+			win->scroll.Y += yoffset;
 		}
 
 		void Window::grabMouse(bool grab)
 		{
 			this->mouseGrabbed = grab;
 			grab ? glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED) : glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-		};
+		}
+
+		void Window::installKeyboard() const
+		{
+			glfwSetKeyCallback(this->window, keyCallback);
+			glfwSetCharModsCallback(this->window, textInputModsCallback);
+		}
+
+		void Window::installMouse() const
+		{
+			glfwSetCursorPosCallback(this->window, mouseMoveCallback);
+			glfwSetMouseButtonCallback(this->window, mouseButtonCallback);
+			glfwSetScrollCallback(this->window, mouseScrollCallback);
+		}
 	}
 }

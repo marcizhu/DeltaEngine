@@ -5,8 +5,19 @@
 
 #include <Windows.h>
 #include <stdio.h>
+#include <string>
 
-#include"DeltaEngine.h"
+#include "DeltaEngine.h"
+
+#if defined(WIN32) || defined(_WIN32)
+	#include <direct.h>
+	#define GetCurrentDir _getcwd
+#else
+	#include <unistd.h>
+	#define GetCurrentDir getcwd
+#endif
+
+using namespace std;
 
 namespace DeltaEngine {
 	namespace Utils {
@@ -41,6 +52,8 @@ namespace DeltaEngine {
 
 		DELTAENGINE_API time timestampToTime(const timestamp& t);
 		DELTAENGINE_API date timestampToDate(const timestamp& t);
+
+		DELTAENGINE_API string getCurrentPath();
 	}
 }
 

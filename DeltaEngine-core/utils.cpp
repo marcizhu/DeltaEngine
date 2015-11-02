@@ -1,4 +1,8 @@
+#include <string>
+
 #include "utils.h"
+
+using namespace std;
 
 namespace DeltaEngine {
 	namespace Utils {
@@ -9,15 +13,7 @@ namespace DeltaEngine {
 			GetLocalTime(&st);
 
 			timestamp ret;
-			ret.Milliseconds = st.wMilliseconds;
-			ret.Second = st.wSecond;
-			ret.Minute = st.wMinute;
-			ret.Hour = st.wHour;
-			ret.Day = st.wDay;
-			ret.DayOfWeek = st.wDayOfWeek;
-			ret.Month = st.wMonth;
-			ret.Year = st.wYear;
-
+			memcpy_s(&ret, sizeof(ret), &st, sizeof(ret));
 			return ret;
 		}
 
@@ -27,39 +23,31 @@ namespace DeltaEngine {
 			GetSystemTime(&st);
 
 			timestamp ret;
-			ret.Milliseconds = st.wMilliseconds;
-			ret.Second = st.wSecond;
-			ret.Minute = st.wMinute;
-			ret.Hour = st.wHour;
-			ret.Day = st.wDay;
-			ret.DayOfWeek = st.wDayOfWeek;
-			ret.Month = st.wMonth;
-			ret.Year = st.wYear;
-
+			memcpy_s(&ret, sizeof(ret), &st, sizeof(ret));
 			return ret;
 		}
 
 		time timestampToTime(const timestamp& t)
 		{
 			time ret;
-			ret.Milliseconds = t.Milliseconds;
-			ret.Second = t.Second;
-			ret.Minute = t.Minute;
-			ret.Hour = t.Hour;
-
+			memcpy_s(&ret, sizeof(ret), &t.Hour, sizeof(ret));
 			return ret;
 		}
 
 		date timestampToDate(const timestamp& t)
 		{
 			date ret;
-			ret.Day = t.Day;
-			ret.DayOfWeek = t.DayOfWeek;
-			ret.Month = t.Month;
-			ret.Year = t.Year;
-
+			memcpy_s(&ret, sizeof(ret), &t.Year, sizeof(ret));
 			return ret;
 		}
 
+		string getCurrentPath()
+		{
+			char path[1024];
+			memset(path, 0, 1024);
+			if (!GetCurrentDir(path, sizeof(path))) return string("NULL");
+			
+			return path;
+		}
 	}
 }
