@@ -173,13 +173,19 @@
     <ClInclude Include="fileIO.h" />
     <ClInclude Include="logger.h" />
     <ClInclude Include="utils.h" />
+    <ClInclude Include="vector2d.h" />
+    <ClInclude Include="vector3d.h" />
+    <ClInclude Include="vector4d.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="fileIO.cpp" />
+    <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="Logger.cpp" />
-    <ClCompile Include="utils.cpp" />
-    <ClCompile Include="window.cpp" />
+    <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="Vector2D.cpp" />
+    <ClCompile Include="Vector3D.cpp" />
+    <ClCompile Include="Vector4D.cpp" />
+    <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

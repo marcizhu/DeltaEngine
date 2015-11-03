@@ -43,6 +43,12 @@
     <Filter Include="Archivos de encabezado\DeltaEngine\Utils">
       <UniqueIdentifier>{1e27ae35-757f-406b-8c8b-d754475d9e0f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de código fuente\DeltaEngine\Maths">
+      <UniqueIdentifier>{1b76a1ae-3288-4304-adce-2e77681ab4c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\DeltaEngine\Maths">
+      <UniqueIdentifier>{b5e476cd-929d-4181-8bf0-d4760df504cf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DeltaEngine.h">
@@ -63,18 +69,36 @@
     <ClInclude Include="utils.h">
       <Filter>Archivos de encabezado\DeltaEngine\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="vector4d.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="vector3d.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="vector2d.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Maths</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="window.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="fileIO.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\FileIO</Filter>
-    </ClCompile>
     <ClCompile Include="Logger.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Logger</Filter>
     </ClCompile>
-    <ClCompile Include="utils.cpp">
+    <ClCompile Include="Vector3D.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2D.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector4D.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="FileIO.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\FileIO</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Utils</Filter>
     </ClCompile>
   </ItemGroup>
