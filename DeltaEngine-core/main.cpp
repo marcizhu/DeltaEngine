@@ -6,12 +6,11 @@
 #include <Windows.h>
 #include <stdio.h>
 #include <string>
-#include <FreeGLUT\freeglut.h> //Remove extra configurations! (additional lib dirs, additional dependencies)
-
 #include <iostream>
 
+#include <FreeGLUT\freeglut.h> //Remove extra configurations! (additional lib dirs, additional dependencies)
+
 #include "window.h"
-#include "vector4d.h"
 
 using namespace DeltaEngine;
 using namespace std;
@@ -27,13 +26,7 @@ int main(int argc, char *argv[])
 	
 	Graphics::Window win(string("DeltaEngine Test Program!"), 960, 540, &handler);
 
-	win.clearToColor(0.0f, 0.2f, 0.7f, 1.0f);
-
-	Maths::Vector4D vector(1, 3, 1, 1);
-	Maths::Vector4D other(2, 2, 2, 2);
-	vector /= other;
-
-	cout << vector << endl;
+	win.clearToColor(0.0, 0.2, 0.7, 1.0);
 
 	printf("OK!\n");
 	win.setVSync(true);

@@ -8,18 +8,15 @@
 #include <queue>
 
 #include "DeltaEngine.h"
+#include "types.h"
 
 using namespace std;
 
 namespace DeltaEngine {
 	namespace Graphics {
 
-		typedef struct mouseCoord {
-			double X;
-			double Y;
-		} mouseCoord;
-
 		class Window {
+
 		private:
 			string title;
 			GLFWwindow* window;
@@ -36,8 +33,8 @@ namespace DeltaEngine {
 			bool mouseButtons[GLFW_MOUSE_BUTTON_LAST];
 			bool keys[GLFW_KEY_LAST];
 
-			mouseCoord mousePos;
-			mouseCoord scroll;
+			Types::Coord2D mousePos;
+			Types::Coord2D scroll;
 			
 			void(*errorHandler)(class Window*, int);
 
@@ -81,8 +78,8 @@ namespace DeltaEngine {
 			//Mouse functions
 			DELTAENGINE_API inline void getMousePosition(double& x, double& y) const { x = mousePos.X; y = mousePos.Y; };
 			DELTAENGINE_API inline void getMouseScroll(double& x, double& y) const { x = scroll.X; y = scroll.Y; };
-			DELTAENGINE_API inline mouseCoord getMousePosition() const { return mousePos; }
-			DELTAENGINE_API inline mouseCoord getMouseScroll() const { return scroll; }
+			DELTAENGINE_API inline Types::Coord2D getMousePosition() const { return mousePos; }
+			DELTAENGINE_API inline Types::Coord2D getMouseScroll() const { return scroll; }
 			DELTAENGINE_API inline void grabMouse(bool grab);
 			DELTAENGINE_API inline bool isMouseGrabbed() { return mouseGrabbed; };
 			DELTAENGINE_API inline bool isMouseButtonPressed(int button) const { return mouseButtons[button]; };

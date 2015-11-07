@@ -78,6 +78,9 @@
     <ClInclude Include="vector2d.h">
       <Filter>Archivos de encabezado\DeltaEngine\Maths</Filter>
     </ClInclude>
+    <ClInclude Include="types.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Logger.cpp">

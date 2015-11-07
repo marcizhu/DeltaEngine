@@ -11,6 +11,7 @@ namespace DeltaEngine {
 	namespace Maths {
 
 		class Vector2D {
+
 		public:
 			float x, y;
 
@@ -27,7 +28,7 @@ namespace DeltaEngine {
 			DELTAENGINE_API Vector2D& operator*=(const Vector2D& other);
 			DELTAENGINE_API Vector2D& operator/=(const Vector2D& other);
 
-			DELTAENGINE_API bool operator==(const Vector2D& other) { return x == other.x && y == other.y && z == other.z; };
+			DELTAENGINE_API bool operator==(const Vector2D& other) { return x == other.x && y == other.y; };
 			DELTAENGINE_API bool Vector2D::operator!=(const Vector2D& other) { return !(*this == other); }
 
 			DELTAENGINE_API friend std::ostream& operator<<(std::ostream& stream, const Vector2D& vector);
