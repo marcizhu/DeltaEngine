@@ -1,42 +1,44 @@
 #include <string>
+#include <Windows.h>
 
 #include "utils.h"
+#include "types.h"
 
 using namespace std;
 
 namespace DeltaEngine {
 	namespace Utils {
 
-		timestamp getSystemTime()
+		Types::timestamp getSystemTime()
 		{
 			SYSTEMTIME st;
 			GetLocalTime(&st);
 
-			timestamp ret;
+			Types::timestamp ret;
 			memcpy_s(&ret, sizeof(ret), &st, sizeof(ret));
 			return ret;
 		}
 
-		timestamp getUTCTime()
+		Types::timestamp getUTCTime()
 		{
 			SYSTEMTIME st;
 			GetSystemTime(&st);
 
-			timestamp ret;
+			Types::timestamp ret;
 			memcpy_s(&ret, sizeof(ret), &st, sizeof(ret));
 			return ret;
 		}
 
-		time timestampToTime(const timestamp& t)
+		Types::time timestampToTime(const Types::timestamp& t)
 		{
-			time ret;
+			Types::time ret;
 			memcpy_s(&ret, sizeof(ret), &t.Hour, sizeof(ret));
 			return ret;
 		}
 
-		date timestampToDate(const timestamp& t)
+		Types::date timestampToDate(const Types::timestamp& t)
 		{
-			date ret;
+			Types::date ret;
 			memcpy_s(&ret, sizeof(ret), &t.Year, sizeof(ret));
 			return ret;
 		}

@@ -151,7 +151,7 @@ namespace DeltaEngine {
 		//keypress input handler
 		void Window::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 		{
-			if ((key > MAX_KEYS) || (key == GLFW_KEY_UNKNOWN)) return;
+			if ((key > GLFW_KEY_LAST) || (key == GLFW_KEY_UNKNOWN)) return;
 
 			Window* win = (Window*)glfwGetWindowUserPointer(window);
 			if (win->textMode) return;

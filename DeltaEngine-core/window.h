@@ -8,19 +8,12 @@
 #include <queue>
 
 #include "DeltaEngine.h"
+#include "types.h"
 
 using namespace std;
 
 namespace DeltaEngine {
 	namespace Graphics {
-
-#define MAX_BUTTONS	GLFW_MOUSE_BUTTON_LAST
-#define MAX_KEYS	GLFW_KEY_LAST
-
-		typedef struct _mouseCoord {
-			double X;
-			double Y;
-		} mouseCoord;
 
 		class Window {
 
@@ -37,11 +30,11 @@ namespace DeltaEngine {
 			bool mouseGrabbed = false;
 			bool textMode = false;
 
-			bool mouseButtons[MAX_BUTTONS];
-			bool keys[MAX_KEYS];
+			bool mouseButtons[GLFW_MOUSE_BUTTON_LAST];
+			bool keys[GLFW_KEY_LAST];
 
-			mouseCoord mousePos;
-			mouseCoord scroll;
+			Types::Coord2D mousePos;
+			Types::Coord2D scroll;
 			
 			void(*errorHandler)(class Window*, int);
 
@@ -54,7 +47,6 @@ namespace DeltaEngine {
 			
 			static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 			static void textInputModsCallback(GLFWwindow* window, unsigned int codepoint, int mods);
-			//static void textInputCallback(GLFWwindow* window, unsigned int codepoint);
 
 			static void mouseMoveCallback(GLFWwindow* window, double xpos, double ypos);
 			static void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
@@ -78,7 +70,7 @@ namespace DeltaEngine {
 			//error-related functions
 			DELTAENGINE_API int getError() const;
 			DELTAENGINE_API string getErrorString(int error) const;
-			DELTAENGINE_API void setWindowErrorHandler(void(*handler)(class Window*, int));
+			DELTAENGINE_API inline void setWindowErrorHandler(void(*handler)(class Window*, int));
 
 			DELTAENGINE_API void clear() const;
 			DELTAENGINE_API void clearToColor(float r, float g, float b, float alpha) const;
@@ -86,8 +78,8 @@ namespace DeltaEngine {
 			//Mouse functions
 			DELTAENGINE_API inline void getMousePosition(double& x, double& y) const { x = mousePos.X; y = mousePos.Y; };
 			DELTAENGINE_API inline void getMouseScroll(double& x, double& y) const { x = scroll.X; y = scroll.Y; };
-			DELTAENGINE_API inline mouseCoord getMousePosition() const { return mousePos; }
-			DELTAENGINE_API inline mouseCoord getMouseScroll() const { return scroll; }
+			DELTAENGINE_API inline Types::Coord2D getMousePosition() const { return mousePos; }
+			DELTAENGINE_API inline Types::Coord2D getMouseScroll() const { return scroll; }
 			DELTAENGINE_API inline void grabMouse(bool grab);
 			DELTAENGINE_API inline bool isMouseGrabbed() { return mouseGrabbed; };
 			DELTAENGINE_API inline bool isMouseButtonPressed(int button) const { return mouseButtons[button]; };
@@ -102,5 +94,4 @@ namespace DeltaEngine {
 		};
 	}
 }
-
 #endif

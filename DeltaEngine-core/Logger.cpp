@@ -3,6 +3,7 @@
 
 #include "logger.h"
 #include "utils.h"
+#include "types.h"
 #include "fileIO.h"
 #include "errors.h"
 
@@ -18,13 +19,13 @@ namespace DeltaEngine {
 
 			if (this->_showDate)
 			{
-				Utils::date t = Utils::timestampToDate(Utils::getSystemTime());
+				Types::date t = Utils::timestampToDate(Utils::getSystemTime());
 				result += "[" + to_string(t.Day) + "/" + to_string(t.Month) + "/" + to_string(t.Year) + "] ";
 			}
 
 			if (this->_showTime)
 			{
-				Utils::time t = Utils::timestampToTime(Utils::getSystemTime());
+				Types::time t = Utils::timestampToTime(Utils::getSystemTime());
 				result += "[" + to_string(t.Hour) + ":" + to_string(t.Minute) + ":" + to_string(t.Second) + "] ";
 			}
 
@@ -72,13 +73,13 @@ namespace DeltaEngine {
 
 			if (this->_showDate)
 			{
-				Utils::date t = Utils::timestampToDate(Utils::getSystemTime());
+				Types::date t = Utils::timestampToDate(Utils::getSystemTime());
 				result += "[" + to_string(t.Day) + "/" + to_string(t.Month) + "/" + to_string(t.Year) + "] ";
 			}
 
 			if (this->_showTime)
 			{
-				Utils::time t = Utils::timestampToTime(Utils::getSystemTime());
+				Types::time t = Utils::timestampToTime(Utils::getSystemTime());
 				result += "[" + to_string(t.Hour) + ":" + to_string(t.Minute) + ":" + to_string(t.Second) + "] ";
 			}
 
