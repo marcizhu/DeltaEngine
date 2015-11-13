@@ -30,6 +30,9 @@ namespace DeltaEngine {
 		DELTAENGINE_API Types::date timestampToDate(const Types::timestamp& t);
 
 		DELTAENGINE_API string getCurrentPath();
+		
+		template<typename T>
+		inline T constrain(T val, T min, T max) { return val > max ? max : val < min ? min : val; };
 	}
 }
 

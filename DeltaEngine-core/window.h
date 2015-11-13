@@ -33,8 +33,8 @@ namespace DeltaEngine {
 			bool mouseButtons[GLFW_MOUSE_BUTTON_LAST];
 			bool keys[GLFW_KEY_LAST];
 
-			Types::Coord2D mousePos;
-			Types::Coord2D scroll;
+			Types::Point2D mousePos;
+			Types::Point2D scroll;
 			
 			void(*errorHandler)(class Window*, int);
 
@@ -43,6 +43,7 @@ namespace DeltaEngine {
 
 			inline void updateSize() { glfwGetFramebufferSize(this->window, &width, &height); }
 
+			//Callbacks:
 			static void windowResize(GLFWwindow* window, int width, int height);
 			
 			static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
@@ -78,8 +79,8 @@ namespace DeltaEngine {
 			//Mouse functions
 			DELTAENGINE_API inline void getMousePosition(double& x, double& y) const { x = mousePos.X; y = mousePos.Y; };
 			DELTAENGINE_API inline void getMouseScroll(double& x, double& y) const { x = scroll.X; y = scroll.Y; };
-			DELTAENGINE_API inline Types::Coord2D getMousePosition() const { return mousePos; }
-			DELTAENGINE_API inline Types::Coord2D getMouseScroll() const { return scroll; }
+			DELTAENGINE_API inline Types::Point2D getMousePosition() const { return mousePos; }
+			DELTAENGINE_API inline Types::Point2D getMouseScroll() const { return scroll; }
 			DELTAENGINE_API inline void grabMouse(bool grab);
 			DELTAENGINE_API inline bool isMouseGrabbed() { return mouseGrabbed; };
 			DELTAENGINE_API inline bool isMouseButtonPressed(int button) const { return mouseButtons[button]; };
@@ -92,6 +93,8 @@ namespace DeltaEngine {
 			DELTAENGINE_API inline bool isTextInputAvailable() const { return (!textInput.empty()) && (textMode == true); };
 			DELTAENGINE_API unsigned int getTextInput() { unsigned int i = textInput.front(); textInput.pop(); return i; };
 		};
+
 	}
 }
+
 #endif
