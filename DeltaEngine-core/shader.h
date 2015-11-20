@@ -14,8 +14,6 @@
 
 using namespace std;
 
-DELTAENGINE_API void doMyJobForTesting();
-
 namespace DeltaEngine {
 	namespace Graphics {
 

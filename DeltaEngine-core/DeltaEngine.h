@@ -18,3 +18,32 @@
 #define DELTAENGINE_VERSION_REV		1
 #define DELTAENGINE_VERSION			"0.0.1"
 #define DELTAENGINE_PHASE			"Pre-Alpha"
+
+#ifdef DELTAENGINE_DEBUG
+
+#include <Windows.h>
+#include <iostream>
+
+namespace DeltaEngine {
+
+	inline int init(int argc, char *argv[])
+	{
+		//TODO: Check for parameters!
+
+		if (glewInit() != GLEW_OK) return -1;
+
+		std::cout << "DeltaEngine Version " << DELTAENGINE_VERSION " " << DELTAENGINE_PHASE << std::endl << std::endl;
+
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x0E);
+		std::cout << "OpenGL:" << std::endl << std::endl;
+		std::cout << "Version : " << glGetString(GL_VERSION) << std::endl;
+		std::cout << "Vendor  : " << glGetString(GL_VENDOR) << std::endl;
+		std::cout << "Renderer: " << glGetString(GL_RENDERER) << std::endl << std::endl;
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x07);
+
+		return 0;
+	}
+
+}
+
+#endif
