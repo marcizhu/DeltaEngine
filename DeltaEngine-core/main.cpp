@@ -16,6 +16,8 @@
 #include "Matrix4.h"
 #include "vector2d.h"
 #include "shader.h"
+#include "sound.h"
+#include "soundManager.h"
 
 using namespace DeltaEngine;
 using namespace std;
@@ -26,15 +28,16 @@ void handler(Graphics::Window* window, int err)
 }
 
 int main(int argc, char *argv[])
-{
-
-	//printf("DeltaEngine Version %s %s\n", DELTAENGINE_VERSION, DELTAENGINE_PHASE);
-	
+{	
 	Graphics::Window win(string("DeltaEngine Test Program!"), 960, 540, &handler);
 
 	if(init(argc, argv) == DELTAENGINE_NOT_INITIALIZED) return -1;
 
 	win.installMouse();
+
+	Audio::SoundManager::init();
+	Audio::SoundManager::add(new Audio::Sound("Music", Utils::getCurrentPath() + "\\music.ogg"));
+	Audio::SoundManager::get("Music")->play();
 	
 	GLfloat vertices[] =
 	{
@@ -78,6 +81,9 @@ int main(int argc, char *argv[])
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 
 		win.update();
+		Audio::SoundManager::update();
 	}
+
+	Audio::SoundManager::clean();
 	return 0;
 }

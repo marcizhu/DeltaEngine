@@ -30,6 +30,8 @@
 // we will use this naming convention for versions
 //#define DELTAENGINE_VERSION_1_0_0	100
 
+#ifndef DELTAENGINE_BUILD
+
 #include <Windows.h>
 #include <GLEW\glew.h>
 #include <iostream>
@@ -57,3 +59,5 @@ namespace DeltaEngine {
 	}
 
 }
+
+#endif

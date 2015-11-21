@@ -87,8 +87,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\Intermediates\$(ProjectName)\</IntDir>
-    <IncludePath>$(SolutionDir)\dependencies\include\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\dependencies\lib\GLFW\;$(SolutionDir)\dependencies\lib\GLEW\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)dependencies\include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)dependencies\lib\GLFW\;$(SolutionDir)dependencies\lib\GLEW\;$(SolutionDir)dependencies\lib\gorilla\$(Configuration)\;$(SolutionDir)dependencies\lib\OpenAL\;$(LibraryPath)</LibraryPath>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
@@ -96,7 +96,7 @@
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\Intermediates\$(ProjectName)\</IntDir>
     <IncludePath>$(SolutionDir)\dependencies\include\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\dependencies\lib\GLFW\;$(SolutionDir)\dependencies\lib\GLEW\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\dependencies\lib\GLFW\;$(SolutionDir)\dependencies\lib\GLEW\;$(SolutionDir)\dependencies\lib\gorilla\$(Configuration)\;$(LibraryPath)</LibraryPath>
     <CodeAnalysisRuleSet>C:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Static Analysis Tools\Rule Sets\NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
@@ -116,7 +116,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;glew32s.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glew32s.lib;OpenGL32.lib;gorillaD.lib;OpenAL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -149,7 +149,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>glfw3.lib;glew32s.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glew32s.lib;OpenGL32.lib;gorilla.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -182,6 +182,8 @@
     <ClInclude Include="maths.h" />
     <ClInclude Include="Matrix4.h" />
     <ClInclude Include="shader.h" />
+    <ClInclude Include="sound.h" />
+    <ClInclude Include="soundManager.h" />
     <ClInclude Include="types.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="vector2d.h" />
@@ -194,6 +196,8 @@
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Matrix4.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Vector2D.cpp" />
     <ClCompile Include="Vector3D.cpp" />

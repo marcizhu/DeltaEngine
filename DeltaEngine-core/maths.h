@@ -3,7 +3,7 @@
 #ifndef __DELTAENGINE_MATHS__
 #define __DELTAENGINE_MATHS__
 
-#include <math.h>
+//#include <math.h>
 
 #include <iostream>
 
