@@ -9,7 +9,6 @@
 #include <iostream>
 
 #include <GLEW\glew.h>
-#include <FreeGLUT\freeglut.h> //Remove extra configurations! (additional lib dirs, additional dependencies)
 
 #include "window.h"
 #include "maths.h"
@@ -33,7 +32,7 @@ int main(int argc, char *argv[])
 	
 	Graphics::Window win(string("DeltaEngine Test Program!"), 960, 540, &handler);
 
-	if(init(argc, argv)) return -1;
+	if(init(argc, argv) == DELTAENGINE_NOT_INITIALIZED) return -1;
 
 	win.installMouse();
 	

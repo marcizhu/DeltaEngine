@@ -12,16 +12,26 @@
 #	endif
 #endif
 
+#define DELTAENGINE_NOT_INITIALIZED	0
+#define DELTAENGINE_VERSION_0_0_1	1
+
 #define DELTAENGINE_BUILD_TIME		__TIMESTAMP__
 #define DELTAENGINE_VERSION_MAJOR	0
 #define DELTAENGINE_VERSION_MINOR	0
 #define DELTAENGINE_VERSION_REV		1
-#define DELTAENGINE_VERSION			"0.0.1"
-#define DELTAENGINE_PHASE			"Pre-Alpha"
 
-#ifdef DELTAENGINE_DEBUG
+// string versions
+#define DELTAENGINE_VERSION_S		"0.0.1"
+#define DELTAENGINE_PHASE_S			"Pre-Alpha"
+
+#define DELTAENGINE_VERSION			DELTAENGINE_VERSION_0_0_1
+
+
+// we will use this naming convention for versions
+//#define DELTAENGINE_VERSION_1_0_0	100
 
 #include <Windows.h>
+#include <GLEW\glew.h>
 #include <iostream>
 
 namespace DeltaEngine {
@@ -30,20 +40,20 @@ namespace DeltaEngine {
 	{
 		//TODO: Check for parameters!
 
-		if (glewInit() != GLEW_OK) return -1;
+		if (glewInit() != GLEW_OK) return DELTAENGINE_NOT_INITIALIZED;
 
-		std::cout << "DeltaEngine Version " << DELTAENGINE_VERSION " " << DELTAENGINE_PHASE << std::endl << std::endl;
+		std::cout << "DeltaEngine Version " << DELTAENGINE_VERSION_S " " << DELTAENGINE_PHASE_S << std::endl << std::endl;
 
+#ifdef DELTAENGINE_DEBUG
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x0E);
 		std::cout << "OpenGL:" << std::endl << std::endl;
 		std::cout << "Version : " << glGetString(GL_VERSION) << std::endl;
 		std::cout << "Vendor  : " << glGetString(GL_VENDOR) << std::endl;
 		std::cout << "Renderer: " << glGetString(GL_RENDERER) << std::endl << std::endl;
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x07);
+#endif
 
-		return 0;
+		return DELTAENGINE_VERSION;
 	}
 
 }
-
-#endif
