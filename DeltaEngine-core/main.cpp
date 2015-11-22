@@ -34,11 +34,11 @@ int main(int argc, char *argv[])
 	if(init(argc, argv) == DELTAENGINE_NOT_INITIALIZED) return -1;
 
 	win.installMouse();
-
+	
 	Audio::SoundManager::init();
 	Audio::SoundManager::add(new Audio::Sound("Music", Utils::getCurrentPath() + "\\music.ogg"));
 	Audio::SoundManager::get("Music")->play();
-	
+
 	GLfloat vertices[] =
 	{
 		 0, 0, 0,
@@ -68,8 +68,10 @@ int main(int argc, char *argv[])
 
 	win.setVSync(true);
 	printf("OK!\n");
+	int i = 0;
 	while (!win.closed())
 	{
+		i++;
 		win.clear();
 		//MINE!
 		/*glColor3f(0.7f, 0.7f, 1.0f);
@@ -83,6 +85,7 @@ int main(int argc, char *argv[])
 		win.update();
 		Audio::SoundManager::update();
 	}
+
 
 	Audio::SoundManager::clean();
 	return 0;

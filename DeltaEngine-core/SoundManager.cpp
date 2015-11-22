@@ -1,6 +1,8 @@
 #include <gorilla\ga.h>
 #include <gorilla\gau.h>
 
+#include <vector>
+
 #include "soundManager.h"
 
 namespace DeltaEngine {
@@ -18,33 +20,28 @@ namespace DeltaEngine {
 			mixer = gau_manager_mixer(manager);
 		}
 
-		void SoundManager::add(Sound* sound)
-		{
-			sounds.push_back(sound);
-		}
-
 		Sound* SoundManager::get(const std::string& name)
 		{
 			for (Sound* sound : sounds)
-			{
-				if (sound->getName() == name)
-					return sound;
-			}
+				if (sound->getName() == name) return sound;
+
 			return nullptr;
 		}
 
 		void SoundManager::clean()
 		{
-			for (int i = 0; i < sounds.size(); i)
+			for (int i = 0; i < sounds.size(); i++)
 				delete sounds[i];
 
 			gau_manager_destroy(manager);
 			gc_shutdown();
 		}
 
-		void SoundManager::update()
+		bool SoundManager::areAllSoundsLoaded()
 		{
-			gau_manager_update(manager);
+			for (int i = 0; i < sounds.size(); i++)
+				if (sounds[i]->isReady() == false) return false;
 		}
+
 	}
 }

@@ -41,7 +41,7 @@ namespace DeltaEngine {
 	inline int init(int argc, char *argv[])
 	{
 		//TODO: Check for parameters!
-
+		
 		if (glewInit() != GLEW_OK) return DELTAENGINE_NOT_INITIALIZED;
 
 		std::cout << "DeltaEngine Version " << DELTAENGINE_VERSION_S " " << DELTAENGINE_PHASE_S << std::endl << std::endl;

@@ -3,10 +3,9 @@
 #ifndef __DELTAENGINE_SOUND_MANAGER__
 #define __DELTAENGINE_SOUND_MANAGER__
 
-#define GAU_THREAD_POLICY_MULTI 2
-
 #include <gorilla\ga.h>
 #include <gorilla\gau.h>
+
 #include <vector>
 
 #include "DeltaEngine.h"
@@ -24,16 +23,15 @@ namespace DeltaEngine {
 			static gau_Manager* manager;
 			static ga_Mixer* mixer;
 
-			static std::vector<Sound*> sounds;
+			static vector<Sound*> sounds;
 
 		public:
 			DELTAENGINE_API static void init();
-			DELTAENGINE_API static void add(Sound* sound);
-			DELTAENGINE_API static Sound* get(const std::string& name);
-			DELTAENGINE_API static void update();
+			DELTAENGINE_API static void add(Sound* sound) { sounds.push_back(sound); };
+			DELTAENGINE_API static Sound* get(const string& name);
+			DELTAENGINE_API inline static void update() { gau_manager_update(manager); }
 			DELTAENGINE_API static void clean();
-
-			//SoundManager() {}
+			DELTAENGINE_API static bool areAllSoundsLoaded();
 		};
 
 
