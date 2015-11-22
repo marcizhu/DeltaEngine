@@ -8,7 +8,7 @@
 #include <queue>
 
 #include "DeltaEngine.h"
-#include "types.h"
+#include "vector2d.h"
 
 using namespace std;
 
@@ -33,8 +33,8 @@ namespace DeltaEngine {
 			bool mouseButtons[GLFW_MOUSE_BUTTON_LAST];
 			bool keys[GLFW_KEY_LAST];
 
-			Types::Point2D mousePos;
-			Types::Point2D scroll;
+			Maths::Vector2D mousePos;
+			Maths::Vector2D scroll;
 			
 			void(*errorHandler)(class Window*, int);
 
@@ -77,10 +77,10 @@ namespace DeltaEngine {
 			DELTAENGINE_API void clearToColor(float r, float g, float b, float alpha) const;
 
 			//Mouse functions
-			DELTAENGINE_API inline void getMousePosition(double& x, double& y) const { x = mousePos.X; y = mousePos.Y; };
-			DELTAENGINE_API inline void getMouseScroll(double& x, double& y) const { x = scroll.X; y = scroll.Y; };
-			DELTAENGINE_API inline Types::Point2D getMousePosition() const { return mousePos; }
-			DELTAENGINE_API inline Types::Point2D getMouseScroll() const { return scroll; }
+			DELTAENGINE_API inline void getMousePosition(double& x, double& y) const { x = mousePos.x; y = mousePos.y; };
+			DELTAENGINE_API inline void getMouseScroll(double& x, double& y) const { x = scroll.x; y = scroll.y; };
+			DELTAENGINE_API inline Maths::Vector2D getMousePosition() const { return mousePos; }
+			DELTAENGINE_API inline Maths::Vector2D getMouseScroll() const { return scroll; }
 			DELTAENGINE_API inline void grabMouse(bool grab);
 			DELTAENGINE_API inline bool isMouseGrabbed() { return mouseGrabbed; };
 			DELTAENGINE_API inline bool isMouseButtonPressed(int button) const { return mouseButtons[button]; };

@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
 	
 	Audio::SoundManager::init();
 	Audio::SoundManager::add(new Audio::Sound("Music", Utils::getCurrentPath() + "\\music.ogg"));
-	Audio::SoundManager::get("Music")->play();
+	Audio::SoundManager::get("Music")->loop();
 
 	GLfloat vertices[] =
 	{
@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
 	shader.setUniform2f("light_pos", Maths::Vector2D(4.0f, 1.5f));
 	shader.setUniform4f("colour", Maths::Vector4D(0.2f, 0.3f, 0.8f, 1.0f));
 
-	win.setVSync(true);
+	//win.setVSync(true);
 	printf("OK!\n");
 	int i = 0;
 	while (!win.closed())
