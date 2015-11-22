@@ -51,17 +51,6 @@ namespace DeltaEngine {
 			word Milliseconds;
 		} time;
 
-		typedef struct Coord2D {
-			double X;
-			double Y;
-		} Coord2D;
-
-		typedef struct Coord3D {
-			double X;
-			double Y;
-			double Z;
-		} Coord3D;
-
 		typedef struct Color {
 			Color(byte r, byte g, byte b, byte alpha) : R(r), G(g), B(b), A(alpha) {};
 			Color(unsigned int rgba) { R = (rgba >> 24) & 0xFF; G = (rgba >> 16) & 0xFF; B = (rgba >> 8) & 0xFF; A = rgba & 0xFF; };
