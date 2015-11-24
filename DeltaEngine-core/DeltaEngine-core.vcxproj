@@ -175,9 +175,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="buffer.h" />
+    <ClInclude Include="debug.h" />
     <ClInclude Include="DeltaEngine.h" />
     <ClInclude Include="errors.h" />
     <ClInclude Include="fileIO.h" />
+    <ClInclude Include="indexBuffer.h" />
     <ClInclude Include="logger.h" />
     <ClInclude Include="maths.h" />
     <ClInclude Include="Matrix4.h" />
@@ -189,10 +192,14 @@
     <ClInclude Include="vector2d.h" />
     <ClInclude Include="vector3d.h" />
     <ClInclude Include="vector4d.h" />
+    <ClInclude Include="vertexArray.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Buffer.cpp" />
+    <ClCompile Include="Debug.cpp" />
     <ClCompile Include="FileIO.cpp" />
+    <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Matrix4.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -202,6 +209,7 @@
     <ClCompile Include="Vector2D.cpp" />
     <ClCompile Include="Vector3D.cpp" />
     <ClCompile Include="Vector4D.cpp" />
+    <ClCompile Include="VertexArray.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
