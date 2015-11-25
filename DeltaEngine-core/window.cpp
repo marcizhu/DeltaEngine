@@ -45,7 +45,7 @@ namespace DeltaEngine {
 			glfwTerminate();
 		}
 
-		void Window::update()
+		void Window::update() const
 		{
 			glfwPollEvents();
 			glfwSwapBuffers(this->window);

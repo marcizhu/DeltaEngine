@@ -13,8 +13,6 @@ namespace DeltaEngine {
 		typedef unsigned short word;
 		typedef unsigned long dword;
 
-		//typedef word WORD;
-
 		//unix-like types:
 		typedef unsigned char uchar8;
 		typedef unsigned short ushort16;

@@ -102,6 +102,18 @@
     <ClInclude Include="soundManager.h">
       <Filter>Archivos de encabezado\DeltaEngine\Sound</Filter>
     </ClInclude>
+    <ClInclude Include="buffer.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="indexBuffer.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="vertexArray.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="debug.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Logger.cpp">
@@ -136,6 +148,18 @@
     </ClCompile>
     <ClCompile Include="SoundManager.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="Buffer.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="IndexBuffer.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexArray.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Utils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

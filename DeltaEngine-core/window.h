@@ -61,8 +61,8 @@ namespace DeltaEngine {
 			DELTAENGINE_API inline int getHeight() { updateSize(); return height; }
 			DELTAENGINE_API inline int getWidth() { updateSize(); return width; }
 
-			DELTAENGINE_API void update();
-			DELTAENGINE_API bool closed() const;
+			DELTAENGINE_API void update() const;
+			DELTAENGINE_API inline bool closed() const;
 
 			//vsync functions
 			DELTAENGINE_API inline void setVSync(bool enable) { enable ? glfwSwapInterval(1) : glfwSwapInterval(0); vsync = enable; }
