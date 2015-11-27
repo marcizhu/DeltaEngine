@@ -154,7 +154,13 @@ namespace DeltaEngine {
 			if ((key > GLFW_KEY_LAST) || (key == GLFW_KEY_UNKNOWN)) return;
 
 			Window* win = (Window*)glfwGetWindowUserPointer(window);
-			if (win->textMode) return;
+			if (win->textMode)
+			{
+				//TODO: Add tab and return keys!
+				if (key == 257) win->textInput.push('\n');
+				if (key == 258) win->textInput.push('\t');
+				return;
+			}
 			win->keys[key] = (action != GLFW_RELEASE);
 		}
 

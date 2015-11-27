@@ -40,9 +40,11 @@ int main(int argc, char *argv[])
 
 	win.installMouse();
 	
-	//Audio::SoundManager::init();
-	//Audio::SoundManager::add(new Audio::Sound("Music", Utils::getCurrentPath()  "\\music.ogg"));
-	//Audio::SoundManager::get("Music")->loop();
+#ifdef TEST_AUDIO
+	Audio::SoundManager::init();
+	Audio::SoundManager::add(new Audio::Sound("Music", Utils::getCurrentPath()  "\\music.ogg"));
+	Audio::SoundManager::get("Music")->loop();
+#endif
 
 	GLfloat vertices[] =
 	{
@@ -60,10 +62,10 @@ int main(int argc, char *argv[])
 
 	GLfloat colorsA[] =
 	{
-		1, 0, 1, 1,
-		1, 0, 1, 1,
-		1, 0, 1, 1,
-		1, 0, 1, 1
+		1, 1.0, 0, 1,
+		1, 0.6, 0, 1,
+		1, 0.3, 0, 1,
+		1, 0.0, 0, 1
 	};
 
 	GLfloat colorsB[] =
@@ -88,22 +90,16 @@ int main(int argc, char *argv[])
 	Graphics::Shader shader(Utils::getCurrentPath() + "\\basic.vert", Utils::getCurrentPath() + "\\basic.frag");
 	shader.enable();
 	shader.setUniformMat4("pr_matrix", ortho);
-	shader.setUniformMat4("ml_matrix", Maths::Matrix4::translate(Maths::Vector3D(0, 0, 0)));
-
-	shader.setUniform2f("light_pos", Maths::Vector2D(4.0f, 1.5f));
-	shader.setUniform4f("colour", Maths::Vector4D(0.2f, 0.3f, 0.8f, 1.0f));
 
 	win.setVSync(true);
 	printf("OK!\n");
-	int i = 0;
 	while (!win.closed())
 	{
-		i;
 		win.clear();
 
 		double x, y;
 		win.getMousePosition(x, y);
-		shader.setUniform2f("light_pos", Maths::Vector2D((float)(x * 16.0f / win.getWidth()), (float)(9.0f - y * 9.0f / win.getHeight())));
+		shader.setUniform2f("light_pos", Maths::Vector2D((float)(x * 16.0f / win.getWidth()), (float)(y * 9.0f / win.getHeight())));
 		
 		sprite1.bind();
 		ibo.bind();
@@ -121,9 +117,14 @@ int main(int argc, char *argv[])
 
 		win.update();
 		Debug::Debug::checkErrors();
-		//Audio::SoundManager::update();
+
+#ifdef TEST_AUDIO
+		Audio::SoundManager::update();
+#endif
 	}
 
-	//Audio::SoundManager::clean();
+#ifdef TEST_AUDIO
+	Audio::SoundManager::clean();
+#endif
 	return 0;
 }

@@ -29,18 +29,21 @@ namespace DeltaEngine {
 
 		Matrix4& Matrix4::multiply(const Matrix4& other)
 		{
+			float data[16];
+
 			for (int y = 0; y < 4; y++)
 			{
 				for (int x = 0; x < 4; x++)
 				{
 					float sum = 0.0f;
-					for (int e = 0; e < 4; e++)
-					{
+					
+					for (int e = 0; e < 4; e++) 
 						sum += elements[x + e * 4] * other.elements[e + y * 4];
-					}
-					elements[x + y * 4] = sum;
+
+					data[x + y * 4] = sum;
 				}
 			}
+			memcpy(elements, data, 4 * 4 * sizeof(float));
 
 			return *this;
 		}
@@ -55,7 +58,7 @@ namespace DeltaEngine {
 			return multiply(other);
 		}
 
-		Matrix4 Matrix4::orthographic(float left, float right, float bottom, float top, float near, float far)
+		Matrix4 Matrix4::orthographic(float left, float right, float top, float bottom, float near, float far)
 		{
 			Matrix4 result(1.0f);
 

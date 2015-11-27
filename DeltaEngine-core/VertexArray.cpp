@@ -5,7 +5,7 @@ namespace DeltaEngine {
 		
 		VertexArray::~VertexArray()
 		{
-			for (int i = 0; i < buffers.size(); i)
+			for (int i = 0; i < buffers.size(); i++)
 				delete buffers[i];
 		}
 		
@@ -19,6 +19,8 @@ namespace DeltaEngine {
 
 			buffer->unbind();
 			unbind();
+
+			buffers.push_back(buffer);
 		}
 			
 	}
