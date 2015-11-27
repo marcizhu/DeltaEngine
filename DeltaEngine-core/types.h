@@ -49,7 +49,7 @@ namespace DeltaEngine {
 			word Milliseconds;
 		} time;
 
-		typedef struct Color {
+		/*typedef struct Color {
 			Color(byte r, byte g, byte b, byte alpha) : R(r), G(g), B(b), A(alpha) {};
 			Color(unsigned int rgba) { R = (rgba >> 24) & 0xFF; G = (rgba >> 16) & 0xFF; B = (rgba >> 8) & 0xFF; A = rgba & 0xFF; };
 			Color() : R(0), G(0), B(0), A(0) {};
@@ -62,6 +62,18 @@ namespace DeltaEngine {
 			byte G;
 			byte B;
 			byte A;
+		} Color;*/
+
+		typedef struct Color {
+			Color(float r, float g, float b, float alpha) : R(r), G(g), B(b), A(alpha) {};
+			Color() : R(0), G(0), B(0), A(0) {};
+
+			void setColor(float r, float g, float b, float alpha) { R = r; G = g; B = b, A = alpha; };
+
+			float R;
+			float G;
+			float B;
+			float A;
 		} Color;
 	}
 }

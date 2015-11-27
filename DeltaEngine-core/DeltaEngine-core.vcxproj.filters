@@ -114,6 +114,12 @@
     <ClInclude Include="debug.h">
       <Filter>Archivos de encabezado\DeltaEngine\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="renderable2d.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer2d.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Logger.cpp">
@@ -160,6 +166,12 @@
     </ClCompile>
     <ClCompile Include="Debug.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderable2D.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer2D.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
