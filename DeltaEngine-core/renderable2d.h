@@ -28,13 +28,14 @@ namespace DeltaEngine {
 			IndexBuffer* indexBuffer;
 			Shader& shader;
 
-			std::vector<Maths::Vector3D> positions;
+			std::vector<Maths::Vector2D> positions;
 
 			bool multiplePositions;
+			int zorder;
 
 		public:
 			DELTAENGINE_API Renderable2D(Maths::Vector3D position, Maths::Vector2D size, Types::Color color, Shader& shader);
-			DELTAENGINE_API Renderable2D(std::vector<Maths::Vector3D>& positions, Maths::Vector2D size, Types::Color color, Shader& shader);
+			DELTAENGINE_API Renderable2D(std::vector<Maths::Vector2D>& positions, int zorder, Maths::Vector2D size, Types::Color color, Shader& shader);
 
 			DELTAENGINE_API virtual ~Renderable2D();
 
@@ -44,11 +45,12 @@ namespace DeltaEngine {
 			DELTAENGINE_API inline Shader& getShader() const { return shader; };
 
 			DELTAENGINE_API inline const Maths::Vector3D& getPosition() const { return position; };
-			DELTAENGINE_API inline const std::vector<Maths::Vector3D> getMultiplePositions() const { return positions; };
+			DELTAENGINE_API inline const std::vector<Maths::Vector2D> getMultiplePositions() const { return positions; };
 			DELTAENGINE_API inline const Maths::Vector2D& getSize() const { return size; };
 			DELTAENGINE_API inline const Types::Color& getColor() const { return color; };
 
 			DELTAENGINE_API inline const bool hasMultiplePositions() const { return multiplePositions; };
+			DELTAENGINE_API inline const int getZorder() const { return zorder; };
 		};
 
 

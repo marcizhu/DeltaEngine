@@ -42,10 +42,11 @@ namespace DeltaEngine {
 			delete indexBuffer;
 		}
 
-		Renderable2D::Renderable2D(std::vector<Maths::Vector3D>& positions, Maths::Vector2D size, Types::Color color, Shader& shader)
+		Renderable2D::Renderable2D(std::vector<Maths::Vector2D>& positions, int zorder, Maths::Vector2D size, Types::Color color, Shader& shader)
 			: size(size), color(color), shader(shader), multiplePositions(true)
 		{
 			this->positions = positions;
+			this->zorder = zorder;
 
 			vertexArray = new VertexArray();
 			GLfloat vertices[] =
