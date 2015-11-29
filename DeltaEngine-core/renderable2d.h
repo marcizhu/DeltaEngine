@@ -9,8 +9,6 @@
 #include "indexBuffer.h"
 #include "vertexArray.h"
 #include "vector2d.h"
-#include "vector3d.h"
-#include "vector4d.h"
 #include "shader.h"
 #include "types.h"
 
@@ -20,7 +18,6 @@ namespace DeltaEngine {
 		class Renderable2D
 		{
 		protected:
-			Maths::Vector3D position;
 			Maths::Vector2D size;
 			Types::Color color;
 
@@ -34,9 +31,8 @@ namespace DeltaEngine {
 			int zorder;
 
 		public:
-			DELTAENGINE_API Renderable2D(Maths::Vector3D position, Maths::Vector2D size, Types::Color color, Shader& shader);
-			DELTAENGINE_API Renderable2D(std::vector<Maths::Vector2D>& positions, int zorder, Maths::Vector2D size, Types::Color color, Shader& shader);
-
+			DELTAENGINE_API Renderable2D(const Maths::Vector2D& position, int zorder, const Maths::Vector2D& size, const Types::Color& color, Shader& shader);
+			DELTAENGINE_API Renderable2D(const std::vector<Maths::Vector2D>& positions, int zorder, const Maths::Vector2D& size, const Types::Color& color, Shader& shader);
 			DELTAENGINE_API virtual ~Renderable2D();
 
 			DELTAENGINE_API inline const VertexArray* getVertexArray() const { return vertexArray; };
@@ -44,8 +40,8 @@ namespace DeltaEngine {
 
 			DELTAENGINE_API inline Shader& getShader() const { return shader; };
 
-			DELTAENGINE_API inline const Maths::Vector3D& getPosition() const { return position; };
-			DELTAENGINE_API inline const std::vector<Maths::Vector2D> getMultiplePositions() const { return positions; };
+			DELTAENGINE_API inline const Maths::Vector2D& getFirstPosition() const { return positions[0]; };
+			DELTAENGINE_API inline const std::vector<Maths::Vector2D> getPositions() const { return positions; };
 			DELTAENGINE_API inline const Maths::Vector2D& getSize() const { return size; };
 			DELTAENGINE_API inline const Types::Color& getColor() const { return color; };
 

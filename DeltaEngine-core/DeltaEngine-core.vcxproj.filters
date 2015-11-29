@@ -120,6 +120,9 @@
     <ClInclude Include="renderer2d.h">
       <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="timer.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Logger.cpp">

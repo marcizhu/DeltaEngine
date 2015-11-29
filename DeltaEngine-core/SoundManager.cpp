@@ -41,6 +41,8 @@ namespace DeltaEngine {
 		{
 			for (int i = 0; i < sounds.size(); i++)
 				if (sounds[i]->isReady() == false) return false;
+
+			return true;
 		}
 
 	}

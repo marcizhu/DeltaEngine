@@ -21,8 +21,10 @@
 #include "indexbuffer.h"
 #include "vertexarray.h"
 
+#include "timer.h"
 #include "renderable2d.h"
 #include "renderer2d.h"
+
 
 using namespace DeltaEngine;
 using namespace std;
@@ -50,28 +52,38 @@ int main(int argc, char *argv[])
 	positions.push_back(Maths::Vector2D(0, 0));
 	positions.push_back(Maths::Vector2D(5, 0));
 
-	Graphics::Renderable2D sprite(positions, 0, Maths::Vector2D(1, 1), Types::Color(1, 0, 0, 1), shader);
-	Graphics::Renderable2D sprite2(Maths::Vector3D(0.5, 0.5, 2), Maths::Vector2D(1, 1), Types::Color(0, 1, 0, 1), shader);
-	Graphics::Renderable2D sprite3(Maths::Vector3D(1, 1, 1), Maths::Vector2D(1, 1), Types::Color(0, 0, 1, 1), shader);
+	Graphics::Renderable2D sprite(positions, 0, Maths::Vector2D(1, 1), Types::Color(255, 0, 0, 255), shader);
+	Graphics::Renderable2D sprite2(Maths::Vector2D(0.5, 0.5), 2, Maths::Vector2D(1, 1), Types::Color(0, 255, 0, 255), shader);
+	Graphics::Renderable2D sprite3(Maths::Vector2D(  1,   1), 1, Maths::Vector2D(1, 1), Types::Color(0, 0, 255, 255), shader);
 	Graphics::Renderer2D renderer;
 
-	win.setVSync(true);
-	printf("OK!\n");
+	win.setVSync(false);
+	Timer::Timer myTimer;
+	int i = 0;
+	double x, y;
 	while (!win.closed())
 	{
 		win.clear();
+		i++;
 
-		double x, y;
 		win.getMousePosition(x, y);
 		shader.setUniform2f("light_pos", Maths::Vector2D((float)(x * 16.0f / win.getWidth()), (float)(y * 9.0f / win.getHeight())));
+		
 		renderer.submit(&sprite);
 		renderer.submit(&sprite2);
 		renderer.submit(&sprite3);
-		renderer.sort();
+		//renderer.sort();
 		renderer.flush();
 
+		//Debug::Debug::checkErrors();
+
+		if (myTimer.getElapsedTime() >= 1)
+		{
+			printf("FPS: %i\n", i);
+			myTimer.reset();
+			i = 0;
+		}
 		win.update();
-		Debug::Debug::checkErrors();
 	}
 
 	return 0;

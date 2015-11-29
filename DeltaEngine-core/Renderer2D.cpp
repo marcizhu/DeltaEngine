@@ -1,3 +1,5 @@
+#include <deque>
+
 #include "renderer2d.h"
 
 namespace DeltaEngine {
@@ -10,17 +12,11 @@ namespace DeltaEngine {
 				const Renderable2D* renderable = renderQueue.front();
 				renderable->getVertexArray()->bind();
 				renderable->getIndexBuffer()->bind();
-				
-				if (renderable->hasMultiplePositions() == false)
+
+				for (Maths::Vector2D t_pos : renderable->getPositions())
 				{
-					renderable->getShader().setUniformMat4("ml_matrix", Maths::Matrix4::translate(Maths::Vector3D(renderable->getPosition().x, renderable->getPosition().y, 0)));
+					renderable->getShader().setUniformMat4("ml_matrix", Maths::Matrix4::translate(Maths::Vector3D(t_pos.x, t_pos.y, 0)));
 					glDrawElements(GL_TRIANGLES, renderable->getIndexBuffer()->getCount(), GL_UNSIGNED_SHORT, nullptr);
-				} else {
-					for (Maths::Vector2D t_pos : renderable->getMultiplePositions())
-					{
-						renderable->getShader().setUniformMat4("ml_matrix", Maths::Matrix4::translate(Maths::Vector3D(t_pos.x, t_pos.y, 0)));
-						glDrawElements(GL_TRIANGLES, renderable->getIndexBuffer()->getCount(), GL_UNSIGNED_SHORT, nullptr);
-					}
 				}
 				
 				renderable->getIndexBuffer()->unbind();
@@ -39,34 +35,17 @@ namespace DeltaEngine {
 			{
 				for (int i = 0; i < renderQueue.size(); i++)
 				{
-					if (renderQueue[i]->hasMultiplePositions() == false)
+					if (renderQueue[i]->getZorder() == index)
 					{
-						int z = renderQueue[i]->getPosition().z;
-						if (z == index)
-						{
-							temp.push_back(renderQueue[i]);
-							renderQueue.erase(renderQueue.begin() + i);
-						}
-					} 
-					else
-					{
-						if(renderQueue[i]->getZorder() == index)
-						{
-							temp.push_back(renderQueue[i]);
-							renderQueue.erase(renderQueue.begin() + i);
-						}
+						temp.push_back(renderQueue[i]);
+						renderQueue.erase(renderQueue.begin() + i);
 					}
 				}
 
 				index++;
 			}
 
-			//renderQueue = temp;
-			//memcpy_s(&renderQueue, sizeof(temp), &temp, sizeof(temp));
-			for (int i = 0; i < temp.size(); i++)
-			{
-				renderQueue.push_back(temp[i]);
-			}
+			renderQueue = temp;
 		}
 
 	}

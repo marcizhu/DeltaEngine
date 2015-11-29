@@ -138,6 +138,9 @@ namespace DeltaEngine {
 		inline void Window::windowResize(GLFWwindow* window, int width, int height)
 		{
 			glViewport(0, 0, width, height);
+
+			Window* win = (Window*)glfwGetWindowUserPointer(window);
+			glfwGetFramebufferSize(window, &win->width, &win->height);
 		}
 
 		//text mode input handler

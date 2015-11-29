@@ -58,8 +58,8 @@ namespace DeltaEngine {
 			DELTAENGINE_API Window(string& title, int height, int width);
 			DELTAENGINE_API ~Window();
 
-			DELTAENGINE_API inline int getHeight() { updateSize(); return height; }
-			DELTAENGINE_API inline int getWidth() { updateSize(); return width; }
+			DELTAENGINE_API inline int getHeight() { /*updateSize();*/ return height; }
+			DELTAENGINE_API inline int getWidth() { /*updateSize();*/ return width; }
 
 			DELTAENGINE_API void update() const;
 			DELTAENGINE_API inline bool closed() const;
