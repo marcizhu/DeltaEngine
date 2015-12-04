@@ -30,6 +30,10 @@
 // we will use this naming convention for versions
 //#define DELTAENGINE_VERSION_1_0_0	100
 
+#ifdef _DEBUG
+#define DELTAENGINE_DEBUG
+#endif
+
 #ifndef DELTAENGINE_BUILD
 
 #include <Windows.h>

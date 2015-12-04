@@ -49,7 +49,6 @@ namespace DeltaEngine {
 			DELTAENGINE_API inline const int getZorder() const { return zorder; };
 		};
 
-
 	}
 }
 

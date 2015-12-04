@@ -9,7 +9,7 @@ namespace DeltaEngine {
 	namespace Graphics {
 
 		//Creates a window without an error handler
-		Window::Window(string& title, int width, int height)
+		Window::Window(string& title, int width, int height, bool fullscreen)
 		{
 			this->errorIndex = 0;
 			this->errorHandler = nullptr;
@@ -18,15 +18,11 @@ namespace DeltaEngine {
 			this->height = height;
 			this->width = width;
 
-			if (!init())
-			{
-				glfwTerminate();
-				return; //At this point we must have something in 'errorIndex'
-			}
+			if (!init(fullscreen)) return; //At this point we must have something in 'errorIndex'
 		}
 
 		//Creates a window with an error handler
-		Window::Window(string& title, int width, int height, void(*handler)(Window*, int))
+		Window::Window(string& title, int width, int height, void(*handler)(Window*, int), bool fullscreen)
 		{
 			this->errorIndex = 0;
 			this->errorHandler = handler;
@@ -35,7 +31,7 @@ namespace DeltaEngine {
 			this->height = height;
 			this->width = width;
 
-			if (!init()) return; //At this point we must have something in 'errorIndex'
+			if (!init(fullscreen)) return; //At this point we must have something in 'errorIndex'
 		}
 
 		//Destroys the window
@@ -89,7 +85,7 @@ namespace DeltaEngine {
 		}
 
 		//initializes everything
-		bool Window::init()
+		bool Window::init(bool fullscreen)
 		{
 			if (!glfwInit())
 			{
@@ -97,7 +93,23 @@ namespace DeltaEngine {
 				return false;
 			}
 			
-			window = glfwCreateWindow(this->width, this->height, this->title.c_str(), NULL, NULL);
+			if (fullscreen)
+			{
+				const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+				glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+				glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
+				glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
+				glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+
+				window = glfwCreateWindow(mode->width, mode->height, this->title.c_str(), glfwGetPrimaryMonitor(), NULL);
+				this->height = mode->height;
+				this->width = mode->width;
+			} 
+			else
+			{
+				window = glfwCreateWindow(this->width, this->height, this->title.c_str(), NULL, NULL);
+			}
+
 			if (!window)
 			{
 				setError(ERR_GLFW_CREATE_WINDOW);
@@ -171,8 +183,8 @@ namespace DeltaEngine {
 		void Window::mouseMoveCallback(GLFWwindow* window, double xpos, double ypos)
 		{
 			Window* win = (Window*)glfwGetWindowUserPointer(window);
-			win->mousePos.x = xpos;
-			win->mousePos.y = ypos;
+			win->mousePosX = xpos;
+			win->mousePosY = ypos;
 		}
 
 		//mouse button click handler

@@ -33,12 +33,13 @@ namespace DeltaEngine {
 			bool mouseButtons[GLFW_MOUSE_BUTTON_LAST];
 			bool keys[GLFW_KEY_LAST];
 
-			Maths::Vector2D mousePos;
+			float mousePosX;
+			float mousePosY;
 			Maths::Vector2D scroll;
 			
 			void(*errorHandler)(class Window*, int);
 
-			bool init();
+			bool init(bool fullscreen);
 			void setError(int error);
 
 			inline void updateSize() { glfwGetFramebufferSize(this->window, &width, &height); }
@@ -54,8 +55,8 @@ namespace DeltaEngine {
 			static void mouseScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
 			
 		public:
-			DELTAENGINE_API Window(string& title, int height, int width, void(*handler)(class Window*, int));
-			DELTAENGINE_API Window(string& title, int height, int width);
+			DELTAENGINE_API Window(string& title, int height, int width, void(*handler)(class Window*, int), bool fullscreen = false);
+			DELTAENGINE_API Window(string& title, int height, int width, bool fullscreen = false);
 			DELTAENGINE_API ~Window();
 
 			DELTAENGINE_API inline int getHeight() { /*updateSize();*/ return height; }
@@ -77,9 +78,9 @@ namespace DeltaEngine {
 			DELTAENGINE_API void clearToColor(float r, float g, float b, float alpha) const;
 
 			//Mouse functions
-			DELTAENGINE_API inline void getMousePosition(double& x, double& y) const { x = mousePos.x; y = mousePos.y; };
+			DELTAENGINE_API inline void getMousePosition(float& x, float& y) const { x = mousePosX; y = mousePosY; };
 			DELTAENGINE_API inline void getMouseScroll(double& x, double& y) const { x = scroll.x; y = scroll.y; };
-			DELTAENGINE_API inline Maths::Vector2D getMousePosition() const { return mousePos; }
+			DELTAENGINE_API inline Maths::Vector2D getMousePosition() const { return Maths::Vector2D(mousePosX, mousePosY); }
 			DELTAENGINE_API inline Maths::Vector2D getMouseScroll() const { return scroll; }
 			DELTAENGINE_API inline void grabMouse(bool grab);
 			DELTAENGINE_API inline bool isMouseGrabbed() { return mouseGrabbed; };
