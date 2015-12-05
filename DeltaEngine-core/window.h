@@ -35,7 +35,8 @@ namespace DeltaEngine {
 
 			float mousePosX;
 			float mousePosY;
-			Maths::Vector2D scroll;
+			float scrollX;
+			float scrollY;
 			
 			void(*errorHandler)(class Window*, int);
 
@@ -59,29 +60,29 @@ namespace DeltaEngine {
 			DELTAENGINE_API Window(string& title, int height, int width, bool fullscreen = false);
 			DELTAENGINE_API ~Window();
 
-			DELTAENGINE_API inline int getHeight() { /*updateSize();*/ return height; }
-			DELTAENGINE_API inline int getWidth() { /*updateSize();*/ return width; }
+			DELTAENGINE_API inline int getHeight() { return height; }
+			DELTAENGINE_API inline int getWidth() { return width; }
 
 			DELTAENGINE_API void update() const;
-			DELTAENGINE_API inline bool closed() const;
+			DELTAENGINE_API inline bool closed() const { return (glfwWindowShouldClose(this->window) != 0); };
 
 			//vsync functions
 			DELTAENGINE_API inline void setVSync(bool enable) { enable ? glfwSwapInterval(1) : glfwSwapInterval(0); vsync = enable; }
 			DELTAENGINE_API inline bool IsVSync() const { return vsync; }
 
 			//error-related functions
-			DELTAENGINE_API int getError() const;
+			DELTAENGINE_API int getError() const { return -this->errorIndex; };
 			DELTAENGINE_API string getErrorString(int error) const;
-			DELTAENGINE_API inline void setWindowErrorHandler(void(*handler)(class Window*, int));
+			DELTAENGINE_API inline void setWindowErrorHandler(void(*handler)(class Window*, int)) { this->errorHandler = handler; };
 
-			DELTAENGINE_API void clear() const;
+			DELTAENGINE_API void clear() const { glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); };
 			DELTAENGINE_API void clearToColor(float r, float g, float b, float alpha) const;
 
 			//Mouse functions
 			DELTAENGINE_API inline void getMousePosition(float& x, float& y) const { x = mousePosX; y = mousePosY; };
-			DELTAENGINE_API inline void getMouseScroll(double& x, double& y) const { x = scroll.x; y = scroll.y; };
+			DELTAENGINE_API inline void getMouseScroll(double& x, double& y) const { x = scrollX; y = scrollY; };
 			DELTAENGINE_API inline Maths::Vector2D getMousePosition() const { return Maths::Vector2D(mousePosX, mousePosY); }
-			DELTAENGINE_API inline Maths::Vector2D getMouseScroll() const { return scroll; }
+			DELTAENGINE_API inline Maths::Vector2D getMouseScroll() const { return Maths::Vector2D(scrollX, scrollY); }
 			DELTAENGINE_API inline void grabMouse(bool grab);
 			DELTAENGINE_API inline bool isMouseGrabbed() { return mouseGrabbed; };
 			DELTAENGINE_API inline bool isMouseButtonPressed(int button) const { return mouseButtons[button]; };

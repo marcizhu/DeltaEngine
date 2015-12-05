@@ -54,12 +54,6 @@ namespace DeltaEngine {
 			if (errorHandler != nullptr) errorHandler(this, error);
 		}
 
-		//returns the last error
-		int Window::getError() const
-		{
-			return -this->errorIndex;
-		}
-
 		string Window::getErrorString(int error) const
 		{
 			unsigned int err = abs(error);
@@ -76,12 +70,6 @@ namespace DeltaEngine {
 			}
 
 			return string("ERR_UNKNOWN_ERROR");
-		}
-
-		//Sets an error handler for window errors
-		void Window::setWindowErrorHandler(void(*handler)(class Window*, int))
-		{
-			this->errorHandler = handler;
 		}
 
 		//initializes everything
@@ -129,20 +117,9 @@ namespace DeltaEngine {
 			return true;
 		}
 
-		//Returns if the window should close
-		bool Window::closed() const
-		{
-			return (glfwWindowShouldClose(this->window) != 0);
-		}
-
-		void Window::clear() const
-		{
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		}
-
 		void Window::clearToColor(float r, float g, float b, float alpha) const
 		{
-			clear();
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			glClearColor(r, g, b, alpha);
 		}
 
@@ -198,14 +175,14 @@ namespace DeltaEngine {
 		void Window::mouseScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 		{
 			Window* win = (Window*)glfwGetWindowUserPointer(window);
-			win->scroll.x += (float)xoffset;
-			win->scroll.y += (float)yoffset;
+			win->scrollX += (float)xoffset;
+			win->scrollY += (float)yoffset;
 		}
 
 		void Window::grabMouse(bool grab)
 		{
 			this->mouseGrabbed = grab;
-			grab ? glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED) : glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+			glfwSetInputMode(window, GLFW_CURSOR, grab ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
 		}
 
 		void Window::installKeyboard() const

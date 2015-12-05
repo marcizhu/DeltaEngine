@@ -1,6 +1,9 @@
 #include <deque>
 
 #include "renderer2d.h"
+#include "types.h"
+
+using namespace DeltaEngine::Types;
 
 namespace DeltaEngine {
 	namespace Graphics {
@@ -26,6 +29,7 @@ namespace DeltaEngine {
 			}
 		}
 
+		// FIXME: Error if more than 1 renderable have the same z order
 		void Renderer2D::sort()
 		{
 			int index = 0;
@@ -33,7 +37,7 @@ namespace DeltaEngine {
 			std::deque<const Renderable2D*> temp;
 			while (!renderQueue.empty())
 			{
-				for (int i = 0; i < renderQueue.size(); i++)
+				for (uint32 i = 0; i < renderQueue.size(); i++)
 				{
 					if (renderQueue[i]->getZorder() == index)
 					{

@@ -18,7 +18,7 @@ namespace DeltaEngine {
 			DELTAENGINE_API inline void submit(std::deque<const Renderable2D*> queue) { renderQueue = queue; };
 			DELTAENGINE_API void flush();
 
-			//sorts by Z order (z coordinate on Vector3D)
+			//sorts by Z order
 			DELTAENGINE_API void sort();
 
 			DELTAENGINE_API inline const std::deque<const Renderable2D*> getActualQueue() { return renderQueue; };

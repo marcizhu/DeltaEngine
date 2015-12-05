@@ -58,18 +58,17 @@ int main(int argc, char *argv[])
 	positions.push_back(Maths::Vector2D(5, 0));
 
 	Graphics::Renderable2D sprite(positions, 0, Maths::Vector2D(1, 1), Types::Color(255, 0, 0, 255), shader);
-	Graphics::Renderable2D sprite2(Maths::Vector2D(0.5, 8.0), 1, Maths::Vector2D(1, 1), Types::Color(0, 255, 0, 255), shader);
-	Graphics::Renderable2D sprite3(Maths::Vector2D(1.0, 1.0), 2, Maths::Vector2D(1, 1), Types::Color(0, 0, 255, 255), shader);
+	Graphics::Renderable2D sprite2(Maths::Vector2D(0.5, 8.0), 2, Maths::Vector2D(1, 1), Types::Color(0, 255, 0, 255), shader);
+	Graphics::Renderable2D sprite3(Maths::Vector2D(1.0, 1.0), 1, Maths::Vector2D(1, 1), Types::Color(0, 0, 255, 255), shader);
 	Graphics::Renderer2D renderer;
 
 	win.setVSync(true);
 
 	Timer::Timer myTimer;
-	Types::ushort16 i = 0;
+	Types::ushort16 i = 0, last = 0;
 	float x, y;
 
-	unsigned int data[] = { 0xff00, 0xaabbccdd };
-	Debug::Debug::dump(data, sizeof(data));
+	Debug::dump(&camera, sizeof(camera));
 
 	while (!win.closed())
 	{
@@ -96,12 +95,13 @@ int main(int argc, char *argv[])
 		
 		if (myTimer.getElapsedTime() >= 1)
 		{
-			printf("FPS: %i\n", i);
+			if(i != last) printf("FPS: %i\n", i);
 			myTimer.restart();
+			last = i;
 			i = 0;
 		}
 
-		Debug::Debug::checkErrors();
+		Debug::checkErrors();
 		camera.track(sprite2, -0.5f, 0.0f);
 		win.update();
 	}

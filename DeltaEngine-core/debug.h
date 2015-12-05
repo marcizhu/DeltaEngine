@@ -9,11 +9,8 @@
 namespace DeltaEngine {
 	namespace Debug {
 
-		class Debug {
-		public:
-			DELTAENGINE_API static void checkErrors();
-			DELTAENGINE_API static void dump(void* object, Types::uint32 size);
-		};
+		DELTAENGINE_API void checkErrors();
+		DELTAENGINE_API void dump(const void* object, Types::uint32 size, int color = 0x03);
 
 	}
 }

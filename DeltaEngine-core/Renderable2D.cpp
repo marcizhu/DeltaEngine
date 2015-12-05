@@ -22,10 +22,10 @@ namespace DeltaEngine {
 				size.x,      0, 0
 			};
 
-			float fr = color.R / 255;
-			float fg = color.G / 255;
-			float fb = color.B / 255;
-			float fa = color.A / 255;
+			float fr = color.R / 255.0f;
+			float fg = color.G / 255.0f;
+			float fb = color.B / 255.0f;
+			float fa = color.A / 255.0f;
 
 			GLfloat colors[] =
 			{
@@ -63,10 +63,10 @@ namespace DeltaEngine {
 				size.x,      0, 0
 			};
 
-			float fr = color.R / 255;
-			float fg = color.G / 255;
-			float fb = color.B / 255;
-			float fa = color.A / 255;
+			float fr = color.R / 255.0f;
+			float fg = color.G / 255.0f;
+			float fb = color.B / 255.0f;
+			float fa = color.A / 255.0f;
 
 			GLfloat colors[] =
 			{

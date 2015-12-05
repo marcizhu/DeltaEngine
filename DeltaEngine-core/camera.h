@@ -36,7 +36,7 @@ namespace DeltaEngine {
 			DELTAENGINE_API inline float getX() const { return posX; };
 			DELTAENGINE_API inline float getY() const { return posY; };
 			DELTAENGINE_API inline const void getPosition(float& x, float& y) const { x = posX; y = posY; };
-			DELTAENGINE_API inline const Maths::Vector2D& getPosition() const { return Maths::Vector2D(posX, posY); };
+			DELTAENGINE_API inline Maths::Vector2D getPosition() const { return Maths::Vector2D(posX, posY); };
 		};
 
 	}

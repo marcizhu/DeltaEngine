@@ -3,9 +3,10 @@
 #ifndef __DELTAENGINE_MATHS__
 #define __DELTAENGINE_MATHS__
 
-//#include <math.h>
-
 #include <iostream>
+#include <vector>
+
+#include "types.h"
 
 const double PI = 3.14159265358979323846;
 const double PHI = (sqrt(5) + 1) / 2; //Golden ratio
@@ -15,7 +16,7 @@ namespace DeltaEngine {
 
 		inline float toRadians(float degrees)
 		{
-			return degrees * (PI / 180.0f);
+			return degrees * (float)(PI / 180.0f);
 		}
 
 		bool isPrime(unsigned int n)
@@ -40,18 +41,18 @@ namespace DeltaEngine {
 			return start;
 		}
 
-		void factorialDecomposition(unsigned int number)
+		std::vector<Types::uint32> factorialDecomposition(Types::uint32 number)
 		{
-			std::cout << "Decomposition of " << number << ": ";
-			unsigned int prime = 1;
+			Types::uint32 prime = 1;
+			std::vector<Types::uint32> temp;
+
 			while (number != 1)
 			{
 				prime = findPrime(prime);
 				if (number % prime == 0)
 				{
-					std::cout << prime;
+					temp.push_back(prime);
 					number /= prime;
-					if (number > 1) std::cout << " * ";
 				} else
 				{
 					while (number % prime != 0)
@@ -59,13 +60,12 @@ namespace DeltaEngine {
 						prime = findPrime(prime + 1);
 					}
 
-					std::cout << prime;
+					temp.push_back(prime);
 					number /= prime;
-					if (number > 1) std::cout << " * ";
 				}
 			}
 
-			std::cout << std::endl << std::endl;
+			return temp;
 		}
 
 	}
