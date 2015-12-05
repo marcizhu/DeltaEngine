@@ -87,9 +87,6 @@
     <ClInclude Include="types.h">
       <Filter>Archivos de encabezado\DeltaEngine\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Matrix4.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Maths</Filter>
-    </ClInclude>
     <ClInclude Include="maths.h">
       <Filter>Archivos de encabezado\DeltaEngine\Maths</Filter>
     </ClInclude>
@@ -122,6 +119,12 @@
     </ClInclude>
     <ClInclude Include="timer.h">
       <Filter>Archivos de encabezado\DeltaEngine\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix4.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Maths</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -174,6 +177,9 @@
       <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Renderer2D.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
     </ClCompile>
   </ItemGroup>

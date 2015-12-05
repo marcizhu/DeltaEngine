@@ -82,5 +82,6 @@ namespace DeltaEngine {
 			GLushort indices[] = { 0, 1, 2, 2, 3, 0 };
 			indexBuffer = new IndexBuffer(indices, 6);
 		}
+
 	}
 }

@@ -23,15 +23,27 @@ namespace DeltaEngine {
 
 		GLuint Shader::load()
 		{
+			FileIO::File vShader = FileIO::File(vertPath);
+			FileIO::File fShader = FileIO::File(fragPath);
+
+			if (vShader.exists() == false || fShader.exists() == false)
+			{
+#ifdef DELTAENGINE_DEBUG
+				if (vShader.exists() == false) cout << "Vertex shader file doesn't exists!" << endl;
+				if (fShader.exists() == false) cout << "Fragment shader file doesn't exists!" << endl;
+#endif
+				return 0;
+			}
+
 			GLuint program = glCreateProgram();
 			GLuint vertex = glCreateShader(GL_VERTEX_SHADER);
 			GLuint fragment = glCreateShader(GL_FRAGMENT_SHADER);
 
-			string vertSourceString = FileIO::File(vertPath).read();
-			string fragSourceString = FileIO::File(fragPath).read();
+			string vertexShader = vShader.read();
+			string fragmentShader = fShader.read();
 
-			const char* vertSource = vertSourceString.c_str();
-			const char* fragSource = fragSourceString.c_str();
+			const char* vertSource = vertexShader.c_str();
+			const char* fragSource = fragmentShader.c_str();
 
 			glShaderSource(vertex, 1, &vertSource, NULL);
 			glCompileShader(vertex);

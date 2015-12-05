@@ -168,6 +168,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="buffer.h" />
+    <ClInclude Include="camera.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="DeltaEngine.h" />
     <ClInclude Include="errors.h" />
@@ -175,7 +176,7 @@
     <ClInclude Include="indexBuffer.h" />
     <ClInclude Include="logger.h" />
     <ClInclude Include="maths.h" />
-    <ClInclude Include="Matrix4.h" />
+    <ClInclude Include="matrix4.h" />
     <ClInclude Include="renderable2d.h" />
     <ClInclude Include="renderer2d.h" />
     <ClInclude Include="shader.h" />
@@ -192,6 +193,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Buffer.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />

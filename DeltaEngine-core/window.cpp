@@ -183,8 +183,8 @@ namespace DeltaEngine {
 		void Window::mouseMoveCallback(GLFWwindow* window, double xpos, double ypos)
 		{
 			Window* win = (Window*)glfwGetWindowUserPointer(window);
-			win->mousePosX = xpos;
-			win->mousePosY = ypos;
+			win->mousePosX = (float)xpos;
+			win->mousePosY = (float)ypos;
 		}
 
 		//mouse button click handler
@@ -198,8 +198,8 @@ namespace DeltaEngine {
 		void Window::mouseScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 		{
 			Window* win = (Window*)glfwGetWindowUserPointer(window);
-			win->scroll.x += xoffset;
-			win->scroll.y += yoffset;
+			win->scroll.x += (float)xoffset;
+			win->scroll.y += (float)yoffset;
 		}
 
 		void Window::grabMouse(bool grab)
