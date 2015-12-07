@@ -126,6 +126,9 @@
     <ClInclude Include="matrix4.h">
       <Filter>Archivos de encabezado\DeltaEngine\Maths</Filter>
     </ClInclude>
+    <ClInclude Include="simpleRenderer2d.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Logger.cpp">
@@ -176,10 +179,10 @@
     <ClCompile Include="Renderable2D.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer2D.cpp">
+    <ClCompile Include="Camera.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
+    <ClCompile Include="SimpleRenderer2D.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
     </ClCompile>
   </ItemGroup>

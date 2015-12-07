@@ -10,18 +10,13 @@ namespace DeltaEngine {
 
 		class Renderer2D
 		{
-		private:
+		protected:
 			std::deque<const Renderable2D*> renderQueue;
 
 		public:
-			DELTAENGINE_API inline void submit(const Renderable2D* renderable) { renderQueue.push_back(renderable); };
-			DELTAENGINE_API inline void submit(std::deque<const Renderable2D*> queue) { renderQueue = queue; };
-			DELTAENGINE_API void flush();
-
-			//sorts by Z order
-			DELTAENGINE_API void sort();
-
-			DELTAENGINE_API inline const std::deque<const Renderable2D*> getActualQueue() { return renderQueue; };
+			DELTAENGINE_API virtual void submit(const Renderable2D* renderable) = 0;
+			DELTAENGINE_API virtual void submit(std::deque<const Renderable2D*> queue) = 0;
+			DELTAENGINE_API virtual void flush() = 0;
 		};
 
 	}

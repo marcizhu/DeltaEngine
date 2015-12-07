@@ -23,9 +23,10 @@
 
 #include "timer.h"
 #include "renderable2d.h"
-#include "renderer2d.h"
+#include "simpleRenderer2d.h"
 
 #include "camera.h"
+#include "joystick.h"
 
 using namespace DeltaEngine;
 using namespace std;
@@ -60,15 +61,16 @@ int main(int argc, char *argv[])
 	Graphics::Renderable2D sprite(positions, 0, Maths::Vector2D(1, 1), Types::Color(255, 0, 0, 255), shader);
 	Graphics::Renderable2D sprite2(Maths::Vector2D(0.5, 8.0), 2, Maths::Vector2D(1, 1), Types::Color(0, 255, 0, 255), shader);
 	Graphics::Renderable2D sprite3(Maths::Vector2D(1.0, 1.0), 2, Maths::Vector2D(1, 1), Types::Color(0, 0, 255, 255), shader);
-	Graphics::Renderer2D renderer;
+	Graphics::SimpleRenderer2D renderer;
 
 	win.setVSync(true);
 
-	Timer::Timer myTimer;
 	Types::ushort16 i = 0, last = 0;
 	float x, y;
 
 	Debug::dump(&camera, sizeof(camera));
+
+	Timer::Timer myTimer;
 
 	while (!win.closed())
 	{
@@ -83,17 +85,17 @@ int main(int argc, char *argv[])
 		renderer.submit(&sprite);
 		renderer.submit(&sprite2);
 		renderer.submit(&sprite3);
-		renderer.sort();
+		renderer.sort(); //This function drops down the FPS counter from ~950 to ~750 on my computer, so you know...
 		renderer.flush();
 
 		if (win.isKeyPressed(65) && i == 1) Debug::dump(&camera, sizeof(camera));
 
 		if (win.isKeyPressed(256)) break;
 
-		if (win.isKeyPressed(262)) sprite2.move( 0.1f,  0.0f);
-		if (win.isKeyPressed(263)) sprite2.move(-0.1f,  0.0f);
-		if (win.isKeyPressed(264)) sprite2.move( 0.0f,  0.1f);
-		if (win.isKeyPressed(265)) sprite2.move( 0.0f, -0.1);
+		if (win.isKeyPressed(262)) sprite2.move( 0.1f,  0.0f); // Right arrow
+		if (win.isKeyPressed(263)) sprite2.move(-0.1f,  0.0f); // Left arrow
+		if (win.isKeyPressed(264)) sprite2.move( 0.0f,  0.1f); // Down arrow
+		if (win.isKeyPressed(265)) sprite2.move( 0.0f, -0.1f); // Up arrow
 		
 		if (myTimer.getElapsedTime() >= 1)
 		{
@@ -103,9 +105,9 @@ int main(int argc, char *argv[])
 			i = 0;
 		}
 
-		Debug::checkErrors();
 		camera.track(sprite2, 7.5f, 4.0f);
 		win.update();
+		Debug::checkErrors();
 	}
 
 	return 0;

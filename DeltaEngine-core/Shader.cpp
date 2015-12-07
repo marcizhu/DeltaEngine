@@ -21,6 +21,7 @@ namespace DeltaEngine {
 			shaderID = load();
 		}
 
+		//TODO: Add "Internal:" parameter to load from an array instead of a file
 		GLuint Shader::load()
 		{
 			FileIO::File vShader = FileIO::File(vertPath);

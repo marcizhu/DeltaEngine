@@ -179,6 +179,7 @@
     <ClInclude Include="renderable2d.h" />
     <ClInclude Include="renderer2d.h" />
     <ClInclude Include="shader.h" />
+    <ClInclude Include="simpleRenderer2d.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="soundManager.h" />
     <ClInclude Include="timer.h" />
@@ -199,7 +200,7 @@
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Matrix4.cpp" />
     <ClCompile Include="Renderable2D.cpp" />
-    <ClCompile Include="Renderer2D.cpp" />
+    <ClCompile Include="SimpleRenderer2D.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SoundManager.cpp" />

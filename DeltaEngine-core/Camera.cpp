@@ -40,9 +40,6 @@ namespace DeltaEngine {
 			posY < 0.0f ? y = 0.0f : y = posY;
 			posX > 0.0f ? x = 0.0f : x = posX;
 
-			/*if (y < 0.0f) y = 0.0f;
-			if (x > 0.0f) x = 0.0f;*/
-
 			if (object.getFirstPosition().x >= left) x = object.getFirstPosition().x - left;
 			if (object.getFirstPosition().y <= top) y = object.getFirstPosition().y - top;
 
