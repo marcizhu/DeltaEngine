@@ -19,15 +19,13 @@ namespace DeltaEngine {
 			Maths::Matrix4 matrix;
 
 			float sizeX, sizeY;
-
 			float posX, posY;
 
 		public:
 			DELTAENGINE_API Camera(float left, float right, float top, float bottom, float near, float far);
 			//DELTAENGINE_API Camera(float fov, float aspectRatio, float near, float far);
 
-			DELTAENGINE_API void setRelativePosition(float dx = 0, float dy = 0);
-			DELTAENGINE_API void setAbsolutePosition(float x, float y);
+			DELTAENGINE_API void setPosition(float x, float y, bool absolute = false);
 
 			DELTAENGINE_API void track(const Renderable2D& object, float left, float bottom);
 

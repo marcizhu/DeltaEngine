@@ -3,32 +3,19 @@
 
 namespace DeltaEngine {
 	namespace Graphics {
-
-		void Camera::setRelativePosition(float dx, float dy)
+		
+		void Camera::setPosition(float dx, float dy, bool absolute)
 		{
-			posX += dx;
-			posY += dy;
-
+			absolute ? posX = dx : posX += dx;
+			absolute ? posY = dy : posY += dy;
+			
 			matrix.elements[0 + 0 * 4] = 2.0f / sizeX;
 			matrix.elements[1 + 1 * 4] = 2.0f / -sizeY;
 
-			matrix.elements[0 + 3 * 4] = (posX + (sizeX + posX)) / (posX - (sizeX + posX));
-			matrix.elements[1 + 3 * 4] = ((sizeY + posY) + posY) / ((sizeY + posY) - posY);
+			matrix.elements[0 + 3 * 4] = (2 * posX + sizeX) / -sizeX;
+			matrix.elements[1 + 3 * 4] = (sizeY + 2 * posY) / sizeY;
 		}
 		
-		void Camera::setAbsolutePosition(float x, float y)
-		{
-			posX = x;
-			posY = y;
-
-			matrix.elements[0 + 0 * 4] = 2.0f / sizeX;
-			matrix.elements[1 + 1 * 4] = 2.0f / -sizeY;
-
-			matrix.elements[0 + 3 * 4] = (posX + (sizeX + posX)) / (posX - (sizeX + posX));
-			matrix.elements[1 + 3 * 4] = ((sizeY + posY) + posY) / ((sizeY + posY) - posY);
-		}
-
-
 		Camera::Camera(float left, float right, float top, float bottom, float near, float far)
 			: posX(0), posY(0)
 		{
@@ -48,19 +35,18 @@ namespace DeltaEngine {
 
 		void Camera::track(const Renderable2D& object, float left, float top)
 		{
-			float x = posX, y = posY;
+			float x, y;
 
-			if (object.getFirstPosition().x - (this->sizeX / 2) >= left)
-			{
-				x = object.getFirstPosition().x - (this->sizeX / 2) - left;
-			}
+			posY < 0.0f ? y = 0.0f : y = posY;
+			posX > 0.0f ? x = 0.0f : x = posX;
 
-			if (object.getFirstPosition().y - (this->sizeY / 2) <= top)
-			{
-				y = object.getFirstPosition().y - (this->sizeY / 2) - top;
-			}
+			/*if (y < 0.0f) y = 0.0f;
+			if (x > 0.0f) x = 0.0f;*/
 
-			setAbsolutePosition(x, y);
+			if (object.getFirstPosition().x >= left) x = object.getFirstPosition().x - left;
+			if (object.getFirstPosition().y <= top) y = object.getFirstPosition().y - top;
+
+			setPosition(x, y, true);
 		}
 
 	}

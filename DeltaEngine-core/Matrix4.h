@@ -36,8 +36,8 @@ namespace DeltaEngine {
 			DELTAENGINE_API static Matrix4 orthographic(float left, float right, float top, float bottom, float near, float far);
 			DELTAENGINE_API static Matrix4 perspective(float fov, float aspectRatio, float near, float far);
 
-			DELTAENGINE_API static Matrix4 translate(const Vector3D& translation);
-			DELTAENGINE_API static Matrix4 rotate(float angle, const Vector3D& axis);
+			DELTAENGINE_API void translate(const Vector3D& translation);
+			DELTAENGINE_API void rotate(float angle, const Vector3D& axis);
 			DELTAENGINE_API static Matrix4 scale(const Vector3D& scale);
 		};
 

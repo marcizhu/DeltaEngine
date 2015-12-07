@@ -92,21 +92,15 @@ namespace DeltaEngine {
 			return result;
 		}
 
-		Matrix4 Matrix4::translate(const Vector3D& translation)
+		void Matrix4::translate(const Vector3D& translation)
 		{
-			Matrix4 result(1.0f);
-
-			result.elements[0 + 3 * 4] = translation.x;
-			result.elements[1 + 3 * 4] = translation.y;
-			result.elements[2 + 3 * 4] = translation.z;
-
-			return result;
+			this->elements[0 + 3 * 4] = translation.x;
+			this->elements[1 + 3 * 4] = translation.y;
+			this->elements[2 + 3 * 4] = translation.z;
 		}
 
-		Matrix4 Matrix4::rotate(float angle, const Vector3D& axis)
+		void Matrix4::rotate(float angle, const Vector3D& axis)
 		{
-			Matrix4 result(1.0f);
-
 			float r = toRadians(angle);
 			float c = cos(r);
 			float s = sin(r);
@@ -116,19 +110,17 @@ namespace DeltaEngine {
 			float y = axis.y;
 			float z = axis.z;
 
-			result.elements[0 + 0 * 4] = x * omc + c;
-			result.elements[1 + 0 * 4] = y * x * omc + z * s;
-			result.elements[2 + 0 * 4] = x * z * omc - y * s;
-
-			result.elements[0 + 1 * 4] = x * y * omc - z * s;
-			result.elements[1 + 1 * 4] = y * omc + c;
-			result.elements[2 + 1 * 4] = y * z * omc + x * s;
-
-			result.elements[0 + 2 * 4] = x * z * omc + y * s;
-			result.elements[1 + 2 * 4] = y * z * omc - x * s;
-			result.elements[2 + 2 * 4] = z * omc + c;
-
-			return result;
+			this->elements[0 + 0 * 4] = x * omc + c;
+			this->elements[1 + 0 * 4] = y * x * omc + z * s;
+			this->elements[2 + 0 * 4] = x * z * omc - y * s;
+			
+			this->elements[0 + 1 * 4] = x * y * omc - z * s;
+			this->elements[1 + 1 * 4] = y * omc + c;
+			this->elements[2 + 1 * 4] = y * z * omc + x * s;
+			
+			this->elements[0 + 2 * 4] = x * z * omc + y * s;
+			this->elements[1 + 2 * 4] = y * z * omc - x * s;
+			this->elements[2 + 2 * 4] = z * omc + c;
 		}
 
 		Matrix4 Matrix4::scale(const Vector3D& scale)

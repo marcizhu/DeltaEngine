@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 	FreeConsole();
 #endif
 
-	Graphics::Window win(string("DeltaEngine Test Program!"), 960, 540, &handler);
+	Graphics::Window win(string("DeltaEngine Sandbox"), 960, 540, &handler);
 
 	if(init(argc, argv) == DELTAENGINE_NOT_INITIALIZED) return -1;
 
@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
 
 	Graphics::Renderable2D sprite(positions, 0, Maths::Vector2D(1, 1), Types::Color(255, 0, 0, 255), shader);
 	Graphics::Renderable2D sprite2(Maths::Vector2D(0.5, 8.0), 2, Maths::Vector2D(1, 1), Types::Color(0, 255, 0, 255), shader);
-	Graphics::Renderable2D sprite3(Maths::Vector2D(1.0, 1.0), 1, Maths::Vector2D(1, 1), Types::Color(0, 0, 255, 255), shader);
+	Graphics::Renderable2D sprite3(Maths::Vector2D(1.0, 1.0), 2, Maths::Vector2D(1, 1), Types::Color(0, 0, 255, 255), shader);
 	Graphics::Renderer2D renderer;
 
 	win.setVSync(true);
@@ -86,6 +86,8 @@ int main(int argc, char *argv[])
 		renderer.sort();
 		renderer.flush();
 
+		if (win.isKeyPressed(65) && i == 1) Debug::dump(&camera, sizeof(camera));
+
 		if (win.isKeyPressed(256)) break;
 
 		if (win.isKeyPressed(262)) sprite2.move( 0.1f,  0.0f);
@@ -102,7 +104,7 @@ int main(int argc, char *argv[])
 		}
 
 		Debug::checkErrors();
-		camera.track(sprite2, -0.5f, 0.0f);
+		camera.track(sprite2, 7.5f, 4.0f);
 		win.update();
 	}
 
