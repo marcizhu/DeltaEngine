@@ -198,6 +198,7 @@
     <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="Maths.cpp" />
     <ClCompile Include="Matrix4.cpp" />
     <ClCompile Include="Renderable2D.cpp" />
     <ClCompile Include="SimpleRenderer2D.cpp" />

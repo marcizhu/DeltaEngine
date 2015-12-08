@@ -185,5 +185,8 @@
     <ClCompile Include="SimpleRenderer2D.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Maths.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Maths</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

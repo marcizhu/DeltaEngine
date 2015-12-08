@@ -1,6 +1,6 @@
-#include "maths.h"
 #include "matrix4.h"
 #include "vector3d.h"
+#include "maths.h"
 
 namespace DeltaEngine {
 	namespace Maths {

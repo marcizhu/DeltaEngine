@@ -25,10 +25,8 @@ namespace DeltaEngine {
 			for (Types::uint32 i = 1; i <= size; i++)
 			{
 				x[i - 1] >= 32 ? x[i - 1] < 127 ? Utils::setConsoleColor(color) : Utils::setConsoleColor(0x07) : Utils::setConsoleColor(0x07);
-				
-				if (x[i - 1] < 0x10) printf("0");
 
-				printf("%X ", x[i - 1]);
+				printf("%02X ", x[i - 1]);
 				data.push_back(x[i - 1]);
 
 				if (((i % 16 == 0) && (i > 0)) || (i == size))
@@ -46,6 +44,7 @@ namespace DeltaEngine {
 			}
 
 			printf("\n\n");
+			Utils::setConsoleColor(0x07);
 		}
 
 		//TODO: Add more debug features!

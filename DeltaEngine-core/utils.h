@@ -34,13 +34,6 @@ namespace DeltaEngine {
 		// Console utilities
 		DELTAENGINE_API void gotoxy(int x, int y);
 		DELTAENGINE_API void setConsoleColor(int color);
-
-		// Math utilities
-		template<typename T>
-		inline T constrain(T val, T min, T max) { return val > max ? max : val < min ? min : val; };
-		
-		template<typename T>
-		inline bool isBetween(T x, T min, T max) { return x <= max ? x => min ? true : false : false; }
 	}
 }
 

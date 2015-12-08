@@ -21,6 +21,9 @@ namespace DeltaEngine {
 			float sizeX, sizeY;
 			float posX, posY;
 
+			bool hFlip;
+			bool vFlip;
+
 		public:
 			DELTAENGINE_API Camera(float left, float right, float top, float bottom, float near, float far);
 			//DELTAENGINE_API Camera(float fov, float aspectRatio, float near, float far);

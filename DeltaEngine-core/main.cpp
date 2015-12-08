@@ -1,8 +1,6 @@
 //main.cpp: For testing purposes only
 //
 
-//#define DELTAENGINE_DEBUG
-
 #include <Windows.h>
 #include <stdio.h>
 #include <string>
@@ -49,7 +47,7 @@ int main(int argc, char *argv[])
 	win.installMouse();
 	win.installKeyboard();
 
-	Graphics::Camera camera(0.0f, 16.0f, 0.0f, 9.0f, -1.0f, 1.0f);
+	Graphics::Camera camera(0.0f, 16.0f, 9.0f, 0.0f, -1.0f, 1.0f);
 
 	Graphics::Shader shader(Utils::getCurrentPath() + "\\basic.vert", Utils::getCurrentPath() + "\\basic.frag");
 	shader.enable();
@@ -59,7 +57,7 @@ int main(int argc, char *argv[])
 	positions.push_back(Maths::Vector2D(5, 0));
 
 	Graphics::Renderable2D sprite(positions, 0, Maths::Vector2D(1, 1), Types::Color(255, 0, 0, 255), shader);
-	Graphics::Renderable2D sprite2(Maths::Vector2D(0.5, 8.0), 2, Maths::Vector2D(1, 1), Types::Color(0, 255, 0, 255), shader);
+	Graphics::Renderable2D sprite2(Maths::Vector2D(2.0, 0.0), 2, Maths::Vector2D(1, 1), Types::Color(0, 255, 0, 255), shader);
 	Graphics::Renderable2D sprite3(Maths::Vector2D(1.0, 1.0), 2, Maths::Vector2D(1, 1), Types::Color(0, 0, 255, 255), shader);
 	Graphics::SimpleRenderer2D renderer;
 
@@ -67,8 +65,6 @@ int main(int argc, char *argv[])
 
 	Types::ushort16 i = 0, last = 0;
 	float x, y;
-
-	Debug::dump(&camera, sizeof(camera));
 
 	Timer::Timer myTimer;
 
@@ -78,7 +74,7 @@ int main(int argc, char *argv[])
 		i++;
 
 		win.getMousePosition(x, y);
-		shader.setUniform2f("light_pos", Maths::Vector2D((float)(x * 16.0f / win.getWidth()) + camera.getX(), (float)(y * 9.0f / win.getHeight()) + camera.getY()));
+		shader.setUniform2f("light_pos", Maths::Vector2D((float)(x * 16.0f / win.getWidth()) + camera.getX(), (float)(9.0 - y * 9.0f / win.getHeight()) + camera.getY()));
 		
 		shader.setUniformMat4("pr_matrix", camera.getMatrix4());
 
@@ -94,8 +90,8 @@ int main(int argc, char *argv[])
 
 		if (win.isKeyPressed(262)) sprite2.move( 0.1f,  0.0f); // Right arrow
 		if (win.isKeyPressed(263)) sprite2.move(-0.1f,  0.0f); // Left arrow
-		if (win.isKeyPressed(264)) sprite2.move( 0.0f,  0.1f); // Down arrow
-		if (win.isKeyPressed(265)) sprite2.move( 0.0f, -0.1f); // Up arrow
+		if (win.isKeyPressed(264)) sprite2.move( 0.0f, -0.1f); // Down arrow
+		if (win.isKeyPressed(265)) sprite2.move( 0.0f,  0.1f); // Up arrow
 		
 		if (myTimer.getElapsedTime() >= 1)
 		{
