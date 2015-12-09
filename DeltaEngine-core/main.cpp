@@ -24,7 +24,6 @@
 #include "simpleRenderer2d.h"
 
 #include "camera.h"
-#include "joystick.h"
 
 using namespace DeltaEngine;
 using namespace std;
