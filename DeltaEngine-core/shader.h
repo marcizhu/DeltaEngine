@@ -21,25 +21,34 @@ namespace DeltaEngine {
 		{
 		private:
 			GLuint shaderID;
-			string vertPath;
-			string fragPath;
 
-			GLuint load();
+			GLuint load(string& vertPath, string& fragPath);
 			GLint getUniformLocation(const GLchar* name) { return glGetUniformLocation(shaderID, name); };
 
 		public:
-			DELTAENGINE_API Shader(string vertPath, string fragPath);
+			DELTAENGINE_API Shader(string& vertPath, string& fragPath);
 			DELTAENGINE_API ~Shader() { glDeleteProgram(shaderID); };
+			
+			DELTAENGINE_API void setUniform1f(const GLchar* name, float x) { glUniform1f(getUniformLocation(name), x); };
+			DELTAENGINE_API void setUniform2f(const GLchar* name, float x, float y) { glUniform2f(getUniformLocation(name), x, y); };
+			DELTAENGINE_API void setUniform3f(const GLchar* name, float x, float y, float z) { glUniform3f(getUniformLocation(name), x, y, z); };
+			DELTAENGINE_API void setUniform4f(const GLchar* name, float x, float y, float z, float w) { glUniform4f(getUniformLocation(name), x, y, z, w); };
 
-			DELTAENGINE_API void setUniform1f(const GLchar* name, float value) { glUniform1f(getUniformLocation(name), value); };
-			DELTAENGINE_API void setUniform1i(const GLchar* name, int value) { glUniform1i(getUniformLocation(name), value); };
-			DELTAENGINE_API void setUniform2f(const GLchar* name, const Maths::Vector2D& vector) { glUniform2f(getUniformLocation(name), vector.x, vector.y); };
-			DELTAENGINE_API void setUniform3f(const GLchar* name, const Maths::Vector3D& vector) { glUniform3f(getUniformLocation(name), vector.x, vector.y, vector.z);	};
-			DELTAENGINE_API void setUniform4f(const GLchar* name, const Maths::Vector4D& vector) { glUniform4f(getUniformLocation(name), vector.x, vector.y, vector.z, vector.w); };
-			DELTAENGINE_API void setUniformMat4(const GLchar* name, const Maths::Matrix4& matrix) {	glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, matrix.elements);	};
+			DELTAENGINE_API void setUniform1i(const GLchar* name, int x) { glUniform1i(getUniformLocation(name), x); };
+			DELTAENGINE_API void setUniform2i(const GLchar* name, int x, int y) { glUniform2i(getUniformLocation(name), x, y); };
+			DELTAENGINE_API void setUniform3i(const GLchar* name, int x, int y, int z) { glUniform3i(getUniformLocation(name), x, y, z); };
+			DELTAENGINE_API void setUniform4i(const GLchar* name, int x, int y, int z, int w) { glUniform4i(getUniformLocation(name), x, y, z, w); };
 						    
+			DELTAENGINE_API void setUniform3f(const GLchar* name, const Maths::Vector3D& vector) { glUniform3f(getUniformLocation(name), vector.x, vector.y, vector.z);	};
+			DELTAENGINE_API void setUniform2f(const GLchar* name, const Maths::Vector2D& vector) { glUniform2f(getUniformLocation(name), vector.x, vector.y); };
+			DELTAENGINE_API void setUniform4f(const GLchar* name, const Maths::Vector4D& vector) { glUniform4f(getUniformLocation(name), vector.x, vector.y, vector.z, vector.w); };
+			
+			DELTAENGINE_API void setUniformMat4(const GLchar* name, const Maths::Matrix4& matrix) {	glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, matrix.elements);	};
+			
 			DELTAENGINE_API void enable() const { glUseProgram(this->shaderID); };
 			DELTAENGINE_API void disable() const { glUseProgram(0); };
+
+			DELTAENGINE_API GLuint getShaderID() const { return this->shaderID; };
 		};
 
 	}

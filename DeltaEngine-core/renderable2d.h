@@ -27,8 +27,7 @@ namespace DeltaEngine {
 
 			std::vector<Maths::Vector2D> positions;
 
-			bool multiplePositions;
-			int zorder;
+			Types::schar8 zorder;
 
 		public:
 			DELTAENGINE_API Renderable2D(const Maths::Vector2D& position, int zorder, const Maths::Vector2D& size, const Types::Color& color, Shader& shader);
@@ -48,7 +47,6 @@ namespace DeltaEngine {
 			DELTAENGINE_API inline void moveTo(float x, float y, Types::ushort16 index = 0) { positions[index].x = x; positions[index].y = y; }
 			DELTAENGINE_API inline void move(float dx, float dy, Types::ushort16 index = 0) { positions[index].x += dx; positions[index].y += dy; }
 
-			DELTAENGINE_API inline const bool hasMultiplePositions() const { return multiplePositions; };
 			DELTAENGINE_API inline const int getZorder() const { return zorder; };
 		};
 

@@ -14,15 +14,13 @@ using namespace std;
 namespace DeltaEngine {
 	namespace Graphics {
 
-		Shader::Shader(string vertPath, string fragPath)
+		Shader::Shader(string& vertPath, string& fragPath)
 		{
-			this->vertPath = vertPath;
-			this->fragPath = fragPath;
-			shaderID = load();
+			shaderID = load(vertPath, fragPath);
 		}
 
 		//TODO: Add "Internal:" parameter to load from an array instead of a file
-		GLuint Shader::load()
+		GLuint Shader::load(string& vertPath, string& fragPath)
 		{
 			FileIO::File vShader = FileIO::File(vertPath);
 			FileIO::File fShader = FileIO::File(fragPath);

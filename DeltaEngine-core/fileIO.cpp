@@ -2,6 +2,9 @@
 #include <stdio.h>
 
 #include "fileIO.h"
+#include "types.h"
+
+using namespace DeltaEngine::Types;
 
 namespace DeltaEngine {
 	namespace FileIO {
@@ -67,14 +70,14 @@ namespace DeltaEngine {
 			this->fSize = getFileSize();
 		}
 
-		unsigned long File::getFileSize()
+		uint32 File::getFileSize()
 		{
 			FILE* file;
 			fopen_s(&file, this->path.c_str(), "r");
 			if (file == nullptr) return 0;
 
 			fseek(file, 0, SEEK_END);
-			unsigned long len = ftell(file);
+			uint32 len = ftell(file);
 
 			fclose(file);
 

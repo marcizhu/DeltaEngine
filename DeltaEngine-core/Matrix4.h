@@ -38,7 +38,11 @@ namespace DeltaEngine {
 
 			DELTAENGINE_API void translate(const Vector3D& translation);
 			DELTAENGINE_API void rotate(float angle, const Vector3D& axis);
-			DELTAENGINE_API static Matrix4 scale(const Vector3D& scale);
+			DELTAENGINE_API void scale(const Vector3D& scale);
+
+			DELTAENGINE_API void translate(float x, float y, float z);
+			DELTAENGINE_API void rotate(float angle, float xAxis, float yAxis, float zAxis);
+			DELTAENGINE_API void scale(float x, float y, float z);
 		};
 
 	}

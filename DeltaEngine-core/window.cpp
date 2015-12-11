@@ -188,6 +188,7 @@ namespace DeltaEngine {
 		void Window::installKeyboard() const
 		{
 			memset((void*)keys, 0, sizeof(keys));
+
 			glfwSetKeyCallback(this->window, keyCallback);
 			glfwSetCharModsCallback(this->window, textInputModsCallback);
 		}
@@ -195,6 +196,7 @@ namespace DeltaEngine {
 		void Window::installMouse() const
 		{
 			memset((void*)mouseButtons, 0, sizeof(mouseButtons));
+
 			glfwSetCursorPosCallback(this->window, mouseMoveCallback);
 			glfwSetMouseButtonCallback(this->window, mouseButtonCallback);
 			glfwSetScrollCallback(this->window, mouseScrollCallback);

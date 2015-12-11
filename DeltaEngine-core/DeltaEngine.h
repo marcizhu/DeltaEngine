@@ -48,6 +48,8 @@ namespace DeltaEngine {
 		
 		if (glewInit() != GLEW_OK) return DELTAENGINE_NOT_INITIALIZED;
 
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x0F);
+
 		std::cout << "DeltaEngine Version " << DELTAENGINE_VERSION_S " " << DELTAENGINE_PHASE_S << std::endl << std::endl;
 
 #ifdef DELTAENGINE_DEBUG

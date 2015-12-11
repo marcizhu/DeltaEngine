@@ -60,7 +60,10 @@ int main(int argc, char *argv[])
 	Graphics::Renderable2D sprite3(Maths::Vector2D(1.0, 1.0), 2, Maths::Vector2D(1, 1), Types::Color(0, 0, 255, 255), shader);
 	Graphics::SimpleRenderer2D renderer;
 
-	win.setVSync(true);
+	Maths::Matrix4 view = Maths::Matrix4::identity();
+	//view.translate(-1.0f, 0.0f, 0.0f);
+
+	win.setVSync(false);
 
 	Types::ushort16 i = 0, last = 0;
 	float x, y;
@@ -73,9 +76,10 @@ int main(int argc, char *argv[])
 		i++;
 
 		win.getMousePosition(x, y);
-		shader.setUniform2f("light_pos", Maths::Vector2D((float)(x * 16.0f / win.getWidth()) + camera.getX(), (float)(9.0 - y * 9.0f / win.getHeight()) + camera.getY()));
+		shader.setUniform2f("light_pos", (float)(x * 16.0f / win.getWidth()) - view.elements[12], (float)(9.0 - y * 9.0f / win.getHeight()) - view.elements[13]);
 		
 		shader.setUniformMat4("pr_matrix", camera.getMatrix4());
+		shader.setUniformMat4("vw_matrix", view);
 
 		renderer.submit(&sprite);
 		renderer.submit(&sprite2);

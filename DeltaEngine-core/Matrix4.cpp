@@ -43,8 +43,8 @@ namespace DeltaEngine {
 					data[x + y * 4] = sum;
 				}
 			}
+			
 			memcpy(elements, data, 4 * 4 * sizeof(float));
-
 			return *this;
 		}
 
@@ -99,11 +99,17 @@ namespace DeltaEngine {
 			this->elements[2 + 3 * 4] = translation.z;
 		}
 
+		void Matrix4::translate(float x, float y, float z)
+		{
+			this->elements[0 + 3 * 4] = x;
+			this->elements[1 + 3 * 4] = y;
+			this->elements[2 + 3 * 4] = z;
+		}
+
 		void Matrix4::rotate(float angle, const Vector3D& axis)
 		{
-			float r = toRadians(angle);
-			float c = cos(r);
-			float s = sin(r);
+			float c = cos(toRadians(angle));
+			float s = sin(toRadians(angle));
 			float omc = 1.0f - c;
 
 			float x = axis.x;
@@ -123,15 +129,38 @@ namespace DeltaEngine {
 			this->elements[2 + 2 * 4] = z * omc + c;
 		}
 
-		Matrix4 Matrix4::scale(const Vector3D& scale)
+		void Matrix4::rotate(float angle, float xAxis, float yAxis, float zAxis)
 		{
-			Matrix4 result(1.0f);
+			float c = cos(toRadians(angle));
+			float s = sin(toRadians(angle));
+			float omc = 1.0f - c;
 
-			result.elements[0 + 0 * 4] = scale.x;
-			result.elements[1 + 1 * 4] = scale.y;
-			result.elements[2 + 2 * 4] = scale.z;
 
-			return result;
+			this->elements[0 + 0 * 4] = xAxis * omc + c;
+			this->elements[1 + 0 * 4] = yAxis * xAxis * omc + zAxis * s;
+			this->elements[2 + 0 * 4] = xAxis * zAxis * omc - yAxis * s;
+
+			this->elements[0 + 1 * 4] = xAxis * yAxis * omc - zAxis * s;
+			this->elements[1 + 1 * 4] = yAxis * omc + c;
+			this->elements[2 + 1 * 4] = yAxis * zAxis * omc + xAxis * s;
+
+			this->elements[0 + 2 * 4] = xAxis * zAxis * omc + yAxis * s;
+			this->elements[1 + 2 * 4] = yAxis * zAxis * omc - xAxis * s;
+			this->elements[2 + 2 * 4] = zAxis * omc + c;
+		}
+
+		void Matrix4::scale(const Vector3D& scale)
+		{
+			this->elements[0 + 0 * 4] = scale.x;
+			this->elements[1 + 1 * 4] = scale.y;
+			this->elements[2 + 2 * 4] = scale.z;
+		}
+
+		void Matrix4::scale(float x, float y, float z)
+		{
+			this->elements[0 + 0 * 4] = x;
+			this->elements[1 + 1 * 4] = y;
+			this->elements[2 + 2 * 4] = z;
 		}
 
 		Vector4D Matrix4::getColumn(int index) const

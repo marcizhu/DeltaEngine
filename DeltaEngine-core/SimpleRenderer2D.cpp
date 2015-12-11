@@ -19,8 +19,8 @@ namespace DeltaEngine {
 				for (Maths::Vector2D t_pos : renderable->getPositions())
 				{
 					Maths::Matrix4 matrix = Maths::Matrix4(1.0f);
-					matrix.translate(Maths::Vector3D(t_pos.x, t_pos.y, 0));
-					//if(t_pos.x == 1.0f && t_pos.y == 1.0f) matrix.rotate(45.0f, Maths::Vector3D(0, 0, 1));
+					matrix.translate(t_pos.x, t_pos.y, 0);
+					//if(t_pos.x == 1.0f && t_pos.y == 1.0f) matrix.rotate(45.0f, 0.0f, 0.0f, 1.0f);
 
 					renderable->getShader().setUniformMat4("ml_matrix", matrix);
 					glDrawElements(GL_TRIANGLES, renderable->getIndexBuffer()->getCount(), GL_UNSIGNED_SHORT, nullptr);
@@ -33,9 +33,9 @@ namespace DeltaEngine {
 			}
 		}
 
-		void SimpleRenderer2D::sort()
+		void SimpleRenderer2D::sort(schar8 index)
 		{
-			uint32 index = 0, i = 0;
+			uint32 i = 0;
 			std::deque<const Renderable2D*> temp;
 
 			while (!renderQueue.empty())

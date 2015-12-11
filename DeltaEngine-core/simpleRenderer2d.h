@@ -3,6 +3,9 @@
 #include "DeltaEngine.h"
 #include "renderable2d.h"
 #include "renderer2d.h"
+#include "types.h"
+
+using namespace DeltaEngine::Types;
 
 namespace DeltaEngine {
 	namespace Graphics {
@@ -15,7 +18,7 @@ namespace DeltaEngine {
 			DELTAENGINE_API void flush() override;
 
 			//sorts by Z order
-			DELTAENGINE_API void sort();
+			DELTAENGINE_API void sort(schar8 index = 0);
 
 			DELTAENGINE_API inline const std::deque<const Renderable2D*> getActualQueue() { return renderQueue; };
 		};

@@ -9,7 +9,7 @@ namespace DeltaEngine {
 	namespace Graphics {
 
 		Renderable2D::Renderable2D(const Maths::Vector2D& position, int zorder, const Maths::Vector2D& size, const Types::Color& color, Shader& shader)
-			: zorder(zorder), size(size), color(color), shader(shader), multiplePositions(false)
+			: zorder(zorder), size(size), color(color), shader(shader)
 		{
 			positions.push_back(position);
 
@@ -49,10 +49,9 @@ namespace DeltaEngine {
 		}
 
 		Renderable2D::Renderable2D(const std::vector<Maths::Vector2D>& positions, int zorder, const Maths::Vector2D& size, const Types::Color& color, Shader& shader)
-			: zorder(zorder), size(size), color(color), shader(shader), multiplePositions(true)
+			: zorder(zorder), size(size), color(color), shader(shader)
 		{
 			this->positions = positions;
-			this->zorder = zorder;
 
 			vertexArray = new VertexArray();
 			GLfloat vertices[] =
