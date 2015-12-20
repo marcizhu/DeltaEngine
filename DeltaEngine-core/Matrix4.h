@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef __DELTAENGINE_MATRIX4__
-#define __DELTAENGINE_MATRIX4__
-
 #include "DeltaEngine.h"
 
 #include "vector3d.h"
@@ -47,5 +44,3 @@ namespace DeltaEngine {
 
 	}
 }
-
-#endif

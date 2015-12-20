@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef __DELTAENGINE_UTILS__
-#define __DELTAENGINE_UTILS__
-
 #include <Windows.h>
 #include <stdio.h>
 #include <string>
@@ -36,5 +33,3 @@ namespace DeltaEngine {
 		DELTAENGINE_API void setConsoleColor(int color);
 	}
 }
-
-#endif

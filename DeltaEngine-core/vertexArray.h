@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef __DELTAENGINE_VERTEX_ARRAY__
-#define __DELTAENGINE_VERTEX_ARRAY__
-
 #include <vector>
 #include <GLEW\glew.h>
 
@@ -30,5 +27,3 @@ namespace DeltaEngine {
 			
 	}
 }
-
-#endif

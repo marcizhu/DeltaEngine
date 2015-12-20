@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef __DELTAENGINE_CAMERA__
-#define __DELTAENGINE_CAMERA__
-
 #include "DeltaEngine.h"
 #include "Matrix4.h"
 #include "vector2d.h"
@@ -42,5 +39,3 @@ namespace DeltaEngine {
 
 	}
 }
-
-#endif

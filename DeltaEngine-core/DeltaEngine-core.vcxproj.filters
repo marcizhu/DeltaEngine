@@ -185,9 +185,6 @@
     <ClCompile Include="Debug.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Renderable2D.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
     </ClCompile>

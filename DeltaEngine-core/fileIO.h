@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef __DELTAENGINE_FILEIO__
-#define __DELTAENGINE_FILEIO__
-
 #include <string>
 
 #include "DeltaEngine.h"
@@ -37,5 +34,3 @@ namespace DeltaEngine {
 
 	}
 }
-
-#endif

@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef __DELTAENGINE_BUFFER__
-#define __DELTAENGINE_BUFFER__
-
 #include <GLEW\glew.h>
 
 #include "DeltaEngine.h"
@@ -28,5 +25,3 @@ namespace DeltaEngine {
 			
 	}
 }
-
-#endif

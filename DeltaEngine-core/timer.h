@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef __DELTAENGINE_TIMER__
-#define __DELTAENGINE_TIMER__
-
 #include <time.h>
 
 #include "DeltaEngine.h"
@@ -28,5 +25,3 @@ namespace DeltaEngine {
 
 	}
 }
-
-#endif

@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef __DELTAENGINE_SOUND_MANAGER__
-#define __DELTAENGINE_SOUND_MANAGER__
-
 #include <gorilla\ga.h>
 #include <gorilla\gau.h>
 
@@ -37,5 +34,3 @@ namespace DeltaEngine {
 
 	}
 }
-
-#endif

@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef __DELTAENGINE_SIMPLE_RENDERER__
-#define __DELTAENGINE_SIMPLE_RENDERER__
-
 #include "DeltaEngine.h"
 #include "renderable2d.h"
 #include "renderer2d.h"
@@ -24,13 +21,8 @@ namespace DeltaEngine {
 			DELTAENGINE_API inline void submit(std::deque<const SimpleRenderable2D*> queue) { renderQueue = queue; };
 			DELTAENGINE_API void flush() override;
 
-			//sorts by Z order
-			//DELTAENGINE_API void sort(schar8 index = 0);
-
-			DELTAENGINE_API inline const std::deque<const SimpleRenderable2D*> getActualQueue() { return renderQueue; };
+			DELTAENGINE_API inline const std::deque<const SimpleRenderable2D*> getCurrentQueue() { return renderQueue; };
 		};
 
 	}
 }
-
-#endif

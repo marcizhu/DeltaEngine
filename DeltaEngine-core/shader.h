@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef __DELTAENGINE_SHADER__
-#define __DELTAENGINE_SHADER__
-
 #include <string>
 #include <GLEW\glew.h>
 
@@ -53,5 +50,3 @@ namespace DeltaEngine {
 
 	}
 }
-
-#endif

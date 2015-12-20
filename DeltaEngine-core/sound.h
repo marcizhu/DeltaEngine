@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef __DELTAENGINE_SOUND__
-#define __DELTAENGINE_SOUND__
-
 #include <string>
 #include <vector>
 
@@ -61,5 +58,3 @@ namespace DeltaEngine {
 
 	}
 }
-
-#endif

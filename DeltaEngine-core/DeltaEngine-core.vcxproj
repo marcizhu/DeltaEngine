@@ -205,7 +205,6 @@
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Maths.cpp" />
     <ClCompile Include="Matrix4.cpp" />
-    <ClCompile Include="Renderable2D.cpp" />
     <ClCompile Include="SimpleRenderer2D.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Sound.cpp" />

@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef __DELTAENGINE_MATHS__
-#define __DELTAENGINE_MATHS__
-
 #include <vector>
 
 #include "DeltaEngine.h"
@@ -39,5 +36,3 @@ namespace DeltaEngine {
 		//inline T& min(T& first, T& second) { return first < second ? first : second; }
 	}
 }
-
-#endif

@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef __DELTAENGINE_WINDOW__
-#define __DELTAENGINE_WINDOW__
-
 #include <GLFW\glfw3.h>
 #include <string>
 #include <queue>
@@ -98,5 +95,3 @@ namespace DeltaEngine {
 
 	}
 }
-
-#endif

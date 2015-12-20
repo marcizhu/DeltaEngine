@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef __DELTAENGINE_VECTOR_2D__
-#define __DELTAENGINE_VECTOR_2D__
-
 #include <iostream>
 
 #include "DeltaEngine.h"
@@ -36,5 +33,3 @@ namespace DeltaEngine {
 
 	}
 }
-
-#endif

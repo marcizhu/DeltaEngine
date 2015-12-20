@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef __DELTAENGINE_TYPES__
-#define __DELTAENGINE_TYPES__
-
 #include "vector2d.h"
 #include "vector4d.h"
 
@@ -50,7 +47,7 @@ namespace DeltaEngine {
 			word Milliseconds;
 		} time;
 
-#pragma pack(1)
+#pragma pack(push, S_COLOR, 1)
 		typedef struct Color {
 			Color(byte r, byte g, byte b, byte alpha) : R(r), G(g), B(b), A(alpha) {};
 			Color(uint32 rgba) { R = (rgba >> 24) & 0xFF; G = (rgba >> 16) & 0xFF; B = (rgba >> 8) & 0xFF; A = rgba & 0xFF; };
@@ -73,6 +70,7 @@ namespace DeltaEngine {
 			byte B;
 			byte A;
 		} Color;
+#pragma pack(pop, S_COLOR)
 
 		struct VertexData
 		{
@@ -82,5 +80,3 @@ namespace DeltaEngine {
 
 	}
 }
-
-#endif

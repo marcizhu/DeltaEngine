@@ -83,17 +83,16 @@ int main(int argc, char *argv[])
 		renderer.end();
 		// renderer.submit(&sprite2);
 		// renderer.submit(&sprite3);
-		// renderer.sort(); //This function drops down the FPS counter from ~950 to ~750 on my computer, so you know...
 		renderer.flush();
 
 		if (win.isKeyPressed(65) && i == 1) Debug::dump(&camera, sizeof(camera));
 
 		if (win.isKeyPressed(256)) break;
 
-		//if (win.isKeyPressed(262)) sprite2.move( 0.1f,  0.0f); // Right arrow
-		//if (win.isKeyPressed(263)) sprite2.move(-0.1f,  0.0f); // Left arrow
-		//if (win.isKeyPressed(264)) sprite2.move( 0.0f, -0.1f); // Down arrow
-		//if (win.isKeyPressed(265)) sprite2.move( 0.0f,  0.1f); // Up arrow
+		if (win.isKeyPressed(262)) sprite.move( 0.1f,  0.0f); // Right arrow
+		if (win.isKeyPressed(263)) sprite.move(-0.1f,  0.0f); // Left arrow
+		if (win.isKeyPressed(264)) sprite.move( 0.0f, -0.1f); // Down arrow
+		if (win.isKeyPressed(265)) sprite.move( 0.0f,  0.1f); // Up arrow
 		
 		if (myTimer.getElapsedTime() >= 1)
 		{

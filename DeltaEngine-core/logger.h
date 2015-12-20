@@ -1,11 +1,8 @@
 #pragma once
 
-#ifndef __DELTAENGINE_LOGGER__
-#define __DELTAENGINE_LOGGERR__
+#include <string>
 
 #include "DeltaEngine.h"
-
-#include <string>
 
 using namespace std;
 
@@ -36,5 +33,3 @@ namespace DeltaEngine {
 
 	}
 }
-
-#endif
