@@ -3,7 +3,6 @@
 #ifndef __DELTAENGINE_MATHS__
 #define __DELTAENGINE_MATHS__
 
-#include <iostream>
 #include <vector>
 
 #include "DeltaEngine.h"
@@ -33,11 +32,11 @@ namespace DeltaEngine {
 		template<typename T>
 		inline bool isBetween(T x, T min, T max) { return x <= max ? x = > min ? true : false : false; }
 
-		template<typename T>
-		inline T& max(T& first, T& second) { return first > second ? first : second; }
+		//template<typename T>
+		//inline T& max(T& first, T& second) { return first > second ? first : second; }
 
-		template<typename T>
-		inline T& min(T& first, T& second) { return first < second ? first : second; }
+		//template<typename T>
+		//inline T& min(T& first, T& second) { return first < second ? first : second; }
 	}
 }
 

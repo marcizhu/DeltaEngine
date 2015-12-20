@@ -8,8 +8,6 @@
 #include "DeltaEngine.h"
 #include "types.h"
 
-#define TIMER_TEST
-
 using namespace DeltaEngine::Types;
 
 namespace DeltaEngine {

@@ -39,7 +39,7 @@ namespace DeltaEngine {
 		}
 
 		//TODO: Optimize this!
-		void Camera::track(const Renderable2D& object, float left, float top)
+		/*void Camera::track(const Renderable2D& object, float left, float top)
 		{
 			float x, y;
 
@@ -63,7 +63,7 @@ namespace DeltaEngine {
 			}
 
 			setPosition(x, y, true);
-		}
+		}*/
 
 	}
 }

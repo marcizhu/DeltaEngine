@@ -3,6 +3,7 @@
 #ifndef __DELTAENGINE_RENDERABLE_2D__
 #define __DELTAENGINE_RENDERABLE_2D__
 
+#ifdef OLD_RENDERABLE2D
 #include <vector>
 
 #include "buffer.h"
@@ -11,10 +12,18 @@
 #include "vector2d.h"
 #include "shader.h"
 #include "types.h"
+#else
+#include "buffer.h"
+#include "indexBuffer.h"
+#include "vertexArray.h"
+#include "maths.h"
+#include "shader.h"
+#endif
 
 namespace DeltaEngine {
 	namespace Graphics {
 
+#ifdef OLD_RENDERABLE_2D
 		class Renderable2D
 		{
 		protected:
@@ -49,7 +58,26 @@ namespace DeltaEngine {
 
 			DELTAENGINE_API inline const int getZorder() const { return zorder; };
 		};
+#else
+		class Renderable2D
+		{
+		protected:
+			Maths::Vector2D position;
+			Maths::Vector2D size;
+			Types::Color color;
 
+		public:
+			Renderable2D(Maths::Vector2D& position, Maths::Vector2D& size, Types::Color color) : position(position), size(size), color(color) {}
+
+			virtual ~Renderable2D() {}
+
+			inline const Maths::Vector2D& getPosition() const { return position; }
+			inline const Maths::Vector2D& getSize() const { return size; }
+			inline const Types::Color& getColor() const { return color; }
+		};
+#endif
+
+		
 	}
 }
 

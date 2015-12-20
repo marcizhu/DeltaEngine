@@ -12,11 +12,11 @@ namespace DeltaEngine {
 		{
 			while (!renderQueue.empty())
 			{
-				const Renderable2D* renderable = renderQueue.front();
+				const SimpleRenderable2D* renderable = renderQueue.front();
 				renderable->getVertexArray()->bind();
 				renderable->getIndexBuffer()->bind();
 
-				for (Maths::Vector2D t_pos : renderable->getPositions())
+				/*for (Maths::Vector2D t_pos : renderable->getPosition())
 				{
 					Maths::Matrix4 matrix = Maths::Matrix4(1.0f);
 					matrix.translate(t_pos.x, t_pos.y, 0);
@@ -24,7 +24,13 @@ namespace DeltaEngine {
 
 					renderable->getShader().setUniformMat4("ml_matrix", matrix);
 					glDrawElements(GL_TRIANGLES, renderable->getIndexBuffer()->getCount(), GL_UNSIGNED_SHORT, nullptr);
-				}
+				}*/
+
+				Maths::Matrix4 matrix = Maths::Matrix4(1.0f);
+				matrix.translate(renderable->getPosition().x, renderable->getPosition().y, 0);
+
+				renderable->getShader().setUniformMat4("ml_matrix", matrix);
+				glDrawElements(GL_TRIANGLES, renderable->getIndexBuffer()->getCount(), GL_UNSIGNED_SHORT, nullptr);
 				
 				renderable->getIndexBuffer()->unbind();
 				renderable->getVertexArray()->unbind();
@@ -33,7 +39,7 @@ namespace DeltaEngine {
 			}
 		}
 
-		void SimpleRenderer2D::sort(schar8 index)
+		/*void SimpleRenderer2D::sort(schar8 index)
 		{
 			uint32 i = 0;
 			std::deque<const Renderable2D*> temp;
@@ -55,7 +61,7 @@ namespace DeltaEngine {
 			}
 
 			renderQueue = temp;
-		}
+		}*/
 
 	}
 }

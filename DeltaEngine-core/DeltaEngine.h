@@ -58,8 +58,8 @@ namespace DeltaEngine {
 		std::cout << "Version : " << glGetString(GL_VERSION) << std::endl;
 		std::cout << "Vendor  : " << glGetString(GL_VENDOR) << std::endl;
 		std::cout << "Renderer: " << glGetString(GL_RENDERER) << std::endl << std::endl;
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x07);
 #endif
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x07);
 
 		return DELTAENGINE_VERSION;
 	}

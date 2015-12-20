@@ -166,6 +166,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="batchRenderable2d.h" />
+    <ClInclude Include="batchRenderer2d.h" />
     <ClInclude Include="buffer.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="debug.h" />
@@ -179,6 +181,7 @@
     <ClInclude Include="renderable2d.h" />
     <ClInclude Include="renderer2d.h" />
     <ClInclude Include="shader.h" />
+    <ClInclude Include="simpleRenderable2d.h" />
     <ClInclude Include="simpleRenderer2d.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="soundManager.h" />
@@ -192,6 +195,8 @@
     <ClInclude Include="window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="SimpleRenderable2D.cpp" />
+    <ClCompile Include="BatchRenderer.cpp" />
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Debug.cpp" />

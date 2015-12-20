@@ -30,7 +30,7 @@ namespace DeltaEngine {
 
 			DELTAENGINE_API void setPosition(float x, float y, bool absolute = false);
 
-			DELTAENGINE_API void track(const Renderable2D& object, float left, float bottom);
+			//DELTAENGINE_API void track(const Renderable2D& object, float left, float bottom);
 
 			DELTAENGINE_API inline const Maths::Matrix4& getMatrix4() const { return matrix; };
 
