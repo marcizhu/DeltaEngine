@@ -14,7 +14,7 @@ namespace DeltaEngine {
 			GLuint componentCount;
 
 		public:
-			DELTAENGINE_API Buffer::Buffer(void* data, GLsizei size, GLuint componentCount);
+			DELTAENGINE_API Buffer::Buffer(GLfloat* data, GLsizei count, GLuint componentCount);
 			DELTAENGINE_API Buffer::~Buffer() { glDeleteBuffers(1, &bufferID); }
 
 			DELTAENGINE_API inline void bind() const { glBindBuffer(GL_ARRAY_BUFFER, bufferID); };

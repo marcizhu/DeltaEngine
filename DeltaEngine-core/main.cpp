@@ -1,5 +1,6 @@
 //main.cpp: For testing purposes only
 //
+#define BATCH_RENDERER
 
 #include <Windows.h>
 #include <stdio.h>
@@ -16,9 +17,16 @@
 #include "shader.h"
 #include "debug.h"
 #include "timer.h"
-#include "batchRenderable2d.h"
-#include "batchRenderer2d.h"
-#include "camera.h"
+
+#ifdef BATCH_RENDERER
+	#include "batchRenderable2d.h"
+	#include "batchRenderer2d.h"
+#else
+	#include "simpleRenderable2d.h"
+	#include "simpleRenderer2d.h"
+#endif
+
+#include "layer.h"
 
 using namespace DeltaEngine;
 using namespace std;
@@ -41,21 +49,22 @@ int main(int argc, char *argv[])
 	win.installMouse();
 	win.installKeyboard();
 
-	Graphics::Camera camera(0.0f, 16.0f, 9.0f, 0.0f, -1.0f, 1.0f);
+	Maths::Matrix4 pr_matrix = Maths::Matrix4::orthographic(0.0f, 16.0f, 9.0f, 0.0f, -1.0f, 1.0f);
 
-	Graphics::Shader shader(Utils::getCurrentPath() + "\\basic.vert", Utils::getCurrentPath() + "\\basic.frag");
-	shader.enable();
-	
-	//vector<Maths::Vector2D> positions;
-	//positions.push_back(Maths::Vector2D(0, 0));
-	//positions.push_back(Maths::Vector2D(5, 0));
+	Graphics::Shader* shader = new Graphics::Shader(Utils::getCurrentPath() + "\\basic.vert", Utils::getCurrentPath() + "\\basic.frag");
+	shader->enable();
 
-	// Graphics::Renderable2D sprite(positions, 0, Maths::Vector2D(1, 1), Types::Color(255, 0, 0, 255), shader);
-	// Graphics::Renderable2D sprite2(Maths::Vector2D(2.0, 0.0), 2, Maths::Vector2D(1, 1), Types::Color(0, 255, 0, 255), shader);
-	// Graphics::Renderable2D sprite3(Maths::Vector2D(1.0, 1.0), 2, Maths::Vector2D(1, 1), Types::Color(0, 0, 255, 255), shader);
-
-	Graphics::BatchRenderable2D sprite(0.0f, 0.0f, 1, 1, Types::Color(255, 0, 255, 255));
-	Graphics::BatchRenderer2D renderer;
+#ifdef BATCH_RENDERER
+	Graphics::Layer mainLayer(new Graphics::BatchRenderer2D(), shader, pr_matrix);
+	mainLayer.add(new Graphics::BatchRenderable2D(0.0f, 0.0f, 1, 1, Types::Color(255, 0, 0, 255)));
+	mainLayer.add(new Graphics::BatchRenderable2D(2.0f, 0.0f, 1, 1, Types::Color(0, 255, 0, 255)));
+	mainLayer.add(new Graphics::BatchRenderable2D(1.0f, 1.0f, 1, 1, Types::Color(0, 0, 255, 255)));
+#else
+	Graphics::Layer mainLayer(new Graphics::SimpleRenderer2D(), shader, pr_matrix);
+	mainLayer.add(new Graphics::SimpleRenderable2D(0.0f, 0.0f, 1, 1, Types::Color(255, 0, 0, 255), shader));
+	mainLayer.add(new Graphics::SimpleRenderable2D(2.0f, 0.0f, 1, 1, Types::Color(0, 255, 0, 255), shader));
+	mainLayer.add(new Graphics::SimpleRenderable2D(1.0f, 1.0f, 1, 1, Types::Color(0, 0, 255, 255), shader));
+#endif
 
 	Maths::Matrix4 view = Maths::Matrix4::identity();
 	//view.translate(-1.0f, 0.0f, 0.0f);
@@ -73,26 +82,18 @@ int main(int argc, char *argv[])
 		i++;
 
 		win.getMousePosition(x, y);
-		shader.setUniform2f("light_pos", (float)(x * 16.0f / win.getWidth()) - view.elements[12], (float)(9.0 - y * 9.0f / win.getHeight()) - view.elements[13]);
+		shader->setUniform2f("light_pos", (float)(x * 16.0f / win.getWidth()) - view.elements[12], (float)(9.0 - y * 9.0f / win.getHeight()) - view.elements[13]);
 
-		shader.setUniformMat4("pr_matrix", camera.getMatrix4());
-		shader.setUniformMat4("vw_matrix", view);
+		shader->setUniformMat4("vw_matrix", view);
 
-		renderer.begin();
-		renderer.submit(&sprite);
-		renderer.end();
-		// renderer.submit(&sprite2);
-		// renderer.submit(&sprite3);
-		renderer.flush();
-
-		if (win.isKeyPressed(65) && i == 1) Debug::dump(&camera, sizeof(camera));
+		mainLayer.render();
 
 		if (win.isKeyPressed(256)) break;
 
-		if (win.isKeyPressed(262)) sprite.move( 0.1f,  0.0f); // Right arrow
-		if (win.isKeyPressed(263)) sprite.move(-0.1f,  0.0f); // Left arrow
-		if (win.isKeyPressed(264)) sprite.move( 0.0f, -0.1f); // Down arrow
-		if (win.isKeyPressed(265)) sprite.move( 0.0f,  0.1f); // Up arrow
+		if (win.isKeyPressed(262)) mainLayer[0]->move( 0.1f,  0.0f); // Right arrow
+		if (win.isKeyPressed(263)) mainLayer[0]->move(-0.1f,  0.0f); // Left arrow
+		if (win.isKeyPressed(264)) mainLayer[0]->move( 0.0f, -0.1f); // Down arrow
+		if (win.isKeyPressed(265)) mainLayer[0]->move( 0.0f,  0.1f); // Up arrow
 		
 		if (myTimer.getElapsedTime() >= 1)
 		{
@@ -102,7 +103,6 @@ int main(int argc, char *argv[])
 			i = 0;
 		}
 
-		//camera.track(sprite2, 7.5f, 4.0f);
 		win.update();
 		Debug::checkErrors();
 	}

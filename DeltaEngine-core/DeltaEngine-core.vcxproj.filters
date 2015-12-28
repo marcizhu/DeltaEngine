@@ -120,9 +120,6 @@
     <ClInclude Include="timer.h">
       <Filter>Archivos de encabezado\DeltaEngine\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="camera.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="matrix4.h">
       <Filter>Archivos de encabezado\DeltaEngine\Maths</Filter>
     </ClInclude>
@@ -136,6 +133,15 @@
       <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="simpleRenderable2d.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="stack.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="string.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="layer.h">
       <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
@@ -185,9 +191,6 @@
     <ClCompile Include="Debug.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="SimpleRenderer2D.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
     </ClCompile>
@@ -198,6 +201,12 @@
       <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="SimpleRenderable2D.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="String.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
     </ClCompile>
   </ItemGroup>

@@ -22,14 +22,28 @@ namespace DeltaEngine {
 		//TODO: Add "Internal:" parameter to load from an array instead of a file
 		GLuint Shader::load(string& vertPath, string& fragPath)
 		{
+#ifdef DELTAENGINE_DEBUG
+			if (vertPath.find("Internal:") != string::npos)
+			{
+				cout << "[Shader] Shaders cannot be loaded from memory yet!" << endl;
+				return 0;
+			}
+
+			if (fragPath.find("Internal:") != string::npos)
+			{
+				cout << "[Shader] Shaders cannot be loaded from memory yet!" << endl;
+				return 0;
+			}
+#endif
+
 			FileIO::File vShader = FileIO::File(vertPath);
 			FileIO::File fShader = FileIO::File(fragPath);
 
 			if (vShader.exists() == false || fShader.exists() == false)
 			{
 #ifdef DELTAENGINE_DEBUG
-				if (vShader.exists() == false) cout << "Vertex shader file doesn't exists!" << endl;
-				if (fShader.exists() == false) cout << "Fragment shader file doesn't exists!" << endl;
+				if (vShader.exists() == false) cout << "[Shader] Vertex shader file doesn't exists!" << endl;
+				if (fShader.exists() == false) cout << "[Shader] Fragment shader file doesn't exists!" << endl;
 #endif
 				return 0;
 			}
@@ -56,7 +70,7 @@ namespace DeltaEngine {
 				glGetShaderiv(vertex, GL_INFO_LOG_LENGTH, &length);
 				vector<char> error(length);
 				glGetShaderInfoLog(vertex, length, &length, &error[0]);
-				cout << "Failed to compile vertex shader!" << endl << &error[0] << endl;
+				cout << "[Shader] Failed to compile vertex shader!" << endl << &error[0] << endl;
 #endif
 				glDeleteShader(vertex);
 				return 0;
@@ -73,7 +87,7 @@ namespace DeltaEngine {
 				glGetShaderiv(fragment, GL_INFO_LOG_LENGTH, &length);
 				std::vector<char> error(length);
 				glGetShaderInfoLog(fragment, length, &length, &error[0]);
-				cout << "Failed to compile fragment shader!" << endl << &error[0] << endl;
+				cout << "[Shader] Failed to compile fragment shader!" << endl << &error[0] << endl;
 #endif
 				glDeleteShader(fragment);
 				return 0;

@@ -39,29 +39,5 @@ namespace DeltaEngine {
 			}
 		}
 
-		/*void SimpleRenderer2D::sort(schar8 index)
-		{
-			uint32 i = 0;
-			std::deque<const Renderable2D*> temp;
-
-			while (!renderQueue.empty())
-			{
-				if (renderQueue[i]->getZorder() == index)
-				{
-					temp.push_back(renderQueue[i]);
-					renderQueue.erase(renderQueue.begin() + i);
-				} 
-				else i++;
-
-				if (i >= renderQueue.size())
-				{
-					i = 0;
-					index++;
-				}
-			}
-
-			renderQueue = temp;
-		}*/
-
 	}
 }

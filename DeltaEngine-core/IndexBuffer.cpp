@@ -11,9 +11,7 @@ namespace DeltaEngine {
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		}
 
-		// TODO: Change this to void*
-		IndexBuffer::IndexBuffer(GLuint* data, GLsizei count)
-			 : count(count)
+		IndexBuffer::IndexBuffer(GLuint* data, GLsizei count) : count(count)
 		{
 			glGenBuffers(1, &bufferID);
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bufferID);

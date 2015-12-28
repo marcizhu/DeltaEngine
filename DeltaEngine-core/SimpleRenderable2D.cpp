@@ -9,6 +9,7 @@ namespace DeltaEngine {
 			: Renderable2D(Maths::Vector2D(x, y), Maths::Vector2D(width, height), color), shader(shader)
 		{
 			vertexArray = new VertexArray();
+
 			GLfloat vertices[] =
 			{
 					0,		0, 0,
@@ -30,8 +31,8 @@ namespace DeltaEngine {
 				fr, fg, fb, fa
 			};
 
-			vertexArray->addBuffer(new Buffer(vertices, 4 * 3 * sizeof(GLfloat), 3), 0);
-			vertexArray->addBuffer(new Buffer(colors, 4 * 4 * sizeof(GLfloat), 4), 1);
+			vertexArray->addBuffer(new Buffer(vertices, 4 * 3, 3), 0);
+			vertexArray->addBuffer(new Buffer(colors, 4 * 4, 4), 1);
 
 			GLushort indices[] = { 0, 1, 2, 2, 3, 0 };
 			indexBuffer = new IndexBuffer(indices, 6);
