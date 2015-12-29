@@ -17,6 +17,7 @@ namespace DeltaEngine {
 			std::deque<const SimpleRenderable2D*> renderQueue;
 
 		public:
+			SimpleRenderer2D() : Renderer2D() {};
 			DELTAENGINE_API inline void submit(const Renderable2D* renderable) override { renderQueue.push_back((SimpleRenderable2D*)renderable); };
 			DELTAENGINE_API inline void submit(std::deque<const SimpleRenderable2D*> queue) { renderQueue = queue; };
 			DELTAENGINE_API void flush() override;

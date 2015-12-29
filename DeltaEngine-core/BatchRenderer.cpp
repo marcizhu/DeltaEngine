@@ -6,7 +6,7 @@ namespace DeltaEngine {
 
 		// FIXME: Optimize this using vertexArrays, Buffers and IndexBuffers
 
-		BatchRenderer2D::BatchRenderer2D()
+		BatchRenderer2D::BatchRenderer2D() : Renderer2D()
 		{
 			glGenVertexArrays(1, &vertexArray);
 			glGenBuffers(1, &vertexBuffer);
@@ -62,19 +62,19 @@ namespace DeltaEngine {
 			// FIXME: this works? Test SimpleRenderer
 			color.A = 255 - color.A;
 
-			buffer->vertex = position;
+			buffer->vertex = *transformationStackTop * position;
 			buffer->color = color;
 			buffer++;
 			
-			buffer->vertex = Maths::Vector2D(position.x, position.y + size.y);
+			buffer->vertex = *transformationStackTop * Maths::Vector2D(position.x, position.y + size.y);
 			buffer->color = color;
 			buffer++;
 			
-			buffer->vertex = Maths::Vector2D(position.x + size.x, position.y + size.y);
+			buffer->vertex = *transformationStackTop * Maths::Vector2D(position.x + size.x, position.y + size.y);
 			buffer->color = color;
 			buffer++;
 			
-			buffer->vertex = Maths::Vector2D(position.x + size.x, position.y);
+			buffer->vertex = *transformationStackTop * Maths::Vector2D(position.x + size.x, position.y);
 			buffer->color = color;
 			buffer++;
 

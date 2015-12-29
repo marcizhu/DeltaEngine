@@ -1,5 +1,7 @@
 #include "matrix4.h"
+#include "vector2d.h"
 #include "vector3d.h"
+#include "vector4d.h"
 #include "maths.h"
 
 namespace DeltaEngine {
@@ -48,7 +50,46 @@ namespace DeltaEngine {
 			return *this;
 		}
 
+		Vector2D Matrix4::multiply(const Vector2D& other) const
+		{
+			return Vector2D(
+				columns[0].x * other.x + columns[1].x * other.y + columns[2].x + columns[3].x,
+				columns[0].y * other.x + columns[1].y * other.y + columns[2].y + columns[3].y);
+		}
+
+		Vector3D Matrix4::multiply(const Vector3D& other) const
+		{
+			return Vector3D(
+				columns[0].x * other.x + columns[1].x * other.y + columns[2].x * other.z + columns[3].x,
+				columns[0].y * other.x + columns[1].y * other.y + columns[2].y * other.z + columns[3].y,
+				columns[0].z * other.x + columns[1].z * other.y + columns[2].z * other.z + columns[3].z);
+		}
+		
+		Vector4D Matrix4::multiply(const Vector4D& other) const
+		{
+			return Vector4D(
+				columns[0].x * other.x + columns[1].x * other.y + columns[2].x * other.z + columns[3].x * other.w,
+				columns[0].y * other.x + columns[1].y * other.y + columns[2].y * other.z + columns[3].y * other.w,
+				columns[0].z * other.x + columns[1].z * other.y + columns[2].z * other.z + columns[3].z * other.w,
+				columns[0].w * other.x + columns[1].w * other.y + columns[2].w * other.z + columns[3].w * other.w);
+		}
+
 		Matrix4 operator*(Matrix4 left, const Matrix4& right)
+		{
+			return left.multiply(right);
+		}
+
+		Vector2D operator*(const Matrix4& left, const Vector2D& right)
+		{
+			return left.multiply(right);
+		}
+
+		Vector3D operator*(const Matrix4& left, const Vector3D& right)
+		{
+			return left.multiply(right);
+		}
+		
+		Vector4D operator*(const Matrix4& left, const Vector4D& right)
 		{
 			return left.multiply(right);
 		}

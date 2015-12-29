@@ -26,7 +26,7 @@
 	#include "simpleRenderer2d.h"
 #endif
 
-#include "layer.h"
+#include "layer2d.h"
 
 using namespace DeltaEngine;
 using namespace std;
@@ -55,23 +55,21 @@ int main(int argc, char *argv[])
 	shader->enable();
 
 #ifdef BATCH_RENDERER
-	Graphics::Layer mainLayer(new Graphics::BatchRenderer2D(), shader, pr_matrix);
+	Graphics::Layer2D mainLayer(new Graphics::BatchRenderer2D(), shader, pr_matrix);
 	mainLayer.add(new Graphics::BatchRenderable2D(0.0f, 0.0f, 1, 1, Types::Color(255, 0, 0, 255)));
 	mainLayer.add(new Graphics::BatchRenderable2D(2.0f, 0.0f, 1, 1, Types::Color(0, 255, 0, 255)));
 	mainLayer.add(new Graphics::BatchRenderable2D(1.0f, 1.0f, 1, 1, Types::Color(0, 0, 255, 255)));
 #else
-	Graphics::Layer mainLayer(new Graphics::SimpleRenderer2D(), shader, pr_matrix);
-	mainLayer.add(new Graphics::SimpleRenderable2D(0.0f, 0.0f, 1, 1, Types::Color(255, 0, 0, 255), shader));
-	mainLayer.add(new Graphics::SimpleRenderable2D(2.0f, 0.0f, 1, 1, Types::Color(0, 255, 0, 255), shader));
-	mainLayer.add(new Graphics::SimpleRenderable2D(1.0f, 1.0f, 1, 1, Types::Color(0, 0, 255, 255), shader));
+	Graphics::Layer2D mainLayer(new Graphics::SimpleRenderer2D(), shader, pr_matrix);
+	mainLayer.add(new Graphics::SimpleRenderable2D(0.0f, 0.0f, 1, 1, Types::Color(255, 0, 0, 255), *shader));
+	mainLayer.add(new Graphics::SimpleRenderable2D(2.0f, 0.0f, 1, 1, Types::Color(0, 255, 0, 255), *shader));
+	mainLayer.add(new Graphics::SimpleRenderable2D(1.0f, 1.0f, 1, 1, Types::Color(0, 0, 255, 255), *shader));
 #endif
-
-	Maths::Matrix4 view = Maths::Matrix4::identity();
-	//view.translate(-1.0f, 0.0f, 0.0f);
 
 	win.setVSync(true);
 
 	Types::ushort16 i = 0, last = 0;
+	float c = 0;
 	float x, y;
 
 	Timer::Timer myTimer;
@@ -80,12 +78,14 @@ int main(int argc, char *argv[])
 	{
 		win.clear();
 		i++;
+		c++;
 
 		win.getMousePosition(x, y);
-		shader->setUniform2f("light_pos", (float)(x * 16.0f / win.getWidth()) - view.elements[12], (float)(9.0 - y * 9.0f / win.getHeight()) - view.elements[13]);
+		shader->setUniform2f("light_pos", (float)(x * 16.0f / win.getWidth()) - mainLayer.getCameraPositionX(), (float)(9.0 - y * 9.0f / win.getHeight()) - mainLayer.getCameraPositionY());
 
-		shader->setUniformMat4("vw_matrix", view);
+		float t = c / 60;
 
+		mainLayer.setCameraPosition(-t, 0);
 		mainLayer.render();
 
 		if (win.isKeyPressed(256)) break;

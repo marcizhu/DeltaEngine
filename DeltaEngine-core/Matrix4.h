@@ -2,6 +2,7 @@
 
 #include "DeltaEngine.h"
 
+#include "vector2d.h"
 #include "vector3d.h"
 #include "vector4d.h"
 
@@ -12,7 +13,10 @@ namespace DeltaEngine {
 		{
 		private:
 			Matrix4& multiply(const Matrix4& other);
-
+			Vector2D multiply(const Vector2D& other) const;
+			Vector3D multiply(const Vector3D& other) const;
+			Vector4D multiply(const Vector4D& other) const;
+			
 		public:
 			union
 			{
@@ -28,6 +32,10 @@ namespace DeltaEngine {
 			DELTAENGINE_API static Matrix4 identity();
 
 			DELTAENGINE_API friend Matrix4 operator*(Matrix4 left, const Matrix4& right);
+			DELTAENGINE_API friend Vector2D operator*(const Matrix4& left, const Vector2D& right);
+			DELTAENGINE_API friend Vector3D operator*(const Matrix4& left, const Vector3D& right);
+			DELTAENGINE_API friend Vector4D operator*(const Matrix4& left, const Vector4D& right);
+
 			DELTAENGINE_API Matrix4& operator*=(const Matrix4& other);
 
 			DELTAENGINE_API static Matrix4 orthographic(float left, float right, float top, float bottom, float near, float far);
