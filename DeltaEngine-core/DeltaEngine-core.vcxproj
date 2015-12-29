@@ -174,7 +174,7 @@
     <ClInclude Include="errors.h" />
     <ClInclude Include="fileIO.h" />
     <ClInclude Include="indexBuffer.h" />
-    <ClInclude Include="layer.h" />
+    <ClInclude Include="layer2d.h" />
     <ClInclude Include="logger.h" />
     <ClInclude Include="maths.h" />
     <ClInclude Include="matrix4.h" />
@@ -197,7 +197,7 @@
     <ClInclude Include="window.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Layer.cpp" />
+    <ClCompile Include="Layer2D.cpp" />
     <ClCompile Include="SimpleRenderable2D.cpp" />
     <ClCompile Include="BatchRenderer.cpp" />
     <ClCompile Include="Buffer.cpp" />
