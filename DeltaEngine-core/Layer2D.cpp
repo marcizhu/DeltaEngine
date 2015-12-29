@@ -8,7 +8,7 @@ namespace DeltaEngine {
 			: renderer(renderer), shader(shader), projectionMatrix(projectionMatrix)
 		{
 			viewMatrix = Maths::Matrix4::identity();
-			
+
 			shader->enable();
 			shader->setUniformMat4("pr_matrix", projectionMatrix);
 			shader->setUniformMat4("vw_matrix", viewMatrix);
@@ -20,7 +20,7 @@ namespace DeltaEngine {
 			delete shader;
 			delete renderer;
 
-			for (int i = 0; i < renderables.size(); i++)
+			for (uint32 i = 0; i < renderables.size(); i++)
 				delete renderables[i];
 		}
 
@@ -36,6 +36,14 @@ namespace DeltaEngine {
 			renderer->flush();
 		}
 
+		void Layer2D::setViewMatrix()
+		{
+			shader->enable();
+			shader->setUniformMat4("vw_matrix", viewMatrix);
+			shader->disable();
+		}
+
+		//TODO: let the user change the uniform name
 		void Layer2D::setCameraPosition(float x, float y)
 		{
 			xCamera = x;
@@ -43,10 +51,22 @@ namespace DeltaEngine {
 
 			viewMatrix.translate(x, y, 0.0f);
 
-			shader->enable();
-			shader->setUniformMat4("vw_matrix", viewMatrix);
-			shader->disable();
+			setViewMatrix();
 		}
+
+		void Layer2D::rotate(float angle, Maths::Vector3D axis)
+		{ 
+			viewMatrix.rotate(angle, axis); 
+		
+			setViewMatrix();
+		}
+
+		void Layer2D::rotate(float angle, float xAxis, float yAxis, float zAxis) 
+		{ 
+			viewMatrix.rotate(angle, xAxis, yAxis, zAxis);
+
+			setViewMatrix();
+		};
 
 	}
 }

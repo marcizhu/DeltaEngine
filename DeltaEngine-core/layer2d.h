@@ -18,9 +18,11 @@ namespace DeltaEngine {
 			Shader* shader;
 			Maths::Matrix4 projectionMatrix;
 			Maths::Matrix4 viewMatrix;
-
+			
 			float xCamera;
 			float yCamera;
+
+			void setViewMatrix();
 
 		public:
 			DELTAENGINE_API Layer2D(Renderer2D* renderer, Shader* shader, const Maths::Matrix4& projectionMatrix);
@@ -34,6 +36,9 @@ namespace DeltaEngine {
 			DELTAENGINE_API inline const Maths::Vector2D getCameraPosition() const { return Maths::Vector2D(xCamera, yCamera); }
 			DELTAENGINE_API inline const float getCameraPositionX() const { return xCamera; }
 			DELTAENGINE_API inline const float getCameraPositionY() const { return yCamera; }
+
+			DELTAENGINE_API void rotate(float angle, Maths::Vector3D axis);
+			DELTAENGINE_API void rotate(float angle, float xAxis, float yAxis, float zAxis);
 
 			inline Renderable2D* operator[](Types::uint32 id) const { return renderables[id]; };
 		};

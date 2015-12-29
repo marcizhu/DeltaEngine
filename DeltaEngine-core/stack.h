@@ -16,7 +16,7 @@ namespace DeltaEngine {
 
 		public:
 			void push(const T& val) { data.push_front(val); };
-			void pop() { if (!data.empty()); data.pop_front(); };
+			void pop() { if (!data.empty()) data.pop_front(); };
 
 			const T& front() const { return data.front(); };
 			const T& back() const { return data.back(); };

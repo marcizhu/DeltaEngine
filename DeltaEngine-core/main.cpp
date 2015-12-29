@@ -51,8 +51,7 @@ int main(int argc, char *argv[])
 
 	Maths::Matrix4 pr_matrix = Maths::Matrix4::orthographic(0.0f, 16.0f, 9.0f, 0.0f, -1.0f, 1.0f);
 
-	Graphics::Shader* shader = new Graphics::Shader(Utils::getCurrentPath() + "\\basic.vert", Utils::getCurrentPath() + "\\basic.frag");
-	shader->enable();
+	Graphics::Shader* shader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\basic.vert", Utils::getCurrentPath() + "\\basic.frag");
 
 #ifdef BATCH_RENDERER
 	Graphics::Layer2D mainLayer(new Graphics::BatchRenderer2D(), shader, pr_matrix);
@@ -83,9 +82,7 @@ int main(int argc, char *argv[])
 		win.getMousePosition(x, y);
 		shader->setUniform2f("light_pos", (float)(x * 16.0f / win.getWidth()) - mainLayer.getCameraPositionX(), (float)(9.0 - y * 9.0f / win.getHeight()) - mainLayer.getCameraPositionY());
 
-		float t = c / 60;
-
-		mainLayer.setCameraPosition(-t, 0);
+		mainLayer.setCameraPosition(-(c / 60), 0);
 		mainLayer.render();
 
 		if (win.isKeyPressed(256)) break;
