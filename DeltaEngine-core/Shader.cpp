@@ -17,9 +17,15 @@ namespace DeltaEngine {
 		//TODO: Allow the user to load vertex + fragment shaders at once (both in the same file)
 		Shader::Shader(const string& vertex, const string& fragment, ShaderDataType dType)
 		{
-			if (dType == ShaderDataType::SOURCE) shaderID = load(vertex, fragment);
-			else if (dType == ShaderDataType::FILE)
+			switch (dType)
 			{
+			default:
+				cout << "[Shader] Invalid shader type!" << endl; break;
+
+			case ShaderDataType::SOURCE:
+				shaderID = load(vertex, fragment); break;
+
+			case ShaderDataType::FILE:
 				FileIO::File vShader = FileIO::File(vertex);
 				FileIO::File fShader = FileIO::File(fragment);
 
@@ -34,10 +40,7 @@ namespace DeltaEngine {
 				}
 
 				shaderID = load(vShader.read(), fShader.read());
-			}
-			else
-			{
-				cout << "[Shader] Invalid shader type!" << endl;
+				break;
 			}
 		}
 

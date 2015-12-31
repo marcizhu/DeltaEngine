@@ -8,7 +8,7 @@
 using namespace DeltaEngine::Types;
 
 namespace DeltaEngine {
-	namespace Timer {
+	namespace Utils {
 
 		class Timer {
 		private:

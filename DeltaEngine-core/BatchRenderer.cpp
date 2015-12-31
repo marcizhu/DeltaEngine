@@ -14,10 +14,15 @@ namespace DeltaEngine {
 			glBindVertexArray(vertexArray);
 			glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 			glBufferData(GL_ARRAY_BUFFER, RENDERER_BUFFER_SIZE, NULL, GL_DYNAMIC_DRAW);
+
 			glEnableVertexAttribArray(SHADER_VERTEX_INDEX);
+			glEnableVertexAttribArray(SHADER_UV_INDEX);
 			glEnableVertexAttribArray(SHADER_COLOR_INDEX);
+
 			glVertexAttribPointer(SHADER_VERTEX_INDEX, 3, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)0);
+			glVertexAttribPointer(SHADER_UV_INDEX, 2, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::uv)));
 			glVertexAttribPointer(SHADER_COLOR_INDEX, 4, GL_UNSIGNED_BYTE, GL_TRUE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::color)));
+			
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 			GLuint* indices = new GLuint[RENDERER_INDICES_SIZE];
@@ -58,23 +63,28 @@ namespace DeltaEngine {
 			const Maths::Vector2D& position = renderable->getPosition();
 			const Maths::Vector2D& size = renderable->getSize();
 			Types::Color color = renderable->getColor();
-			
+			const std::vector<Maths::Vector2D>& uv = renderable->getUV();
+
 			// FIXME: this works? Test SimpleRenderer
 			color.A = 255 - color.A;
 
 			buffer->vertex = *transformationStackTop * position;
+			buffer->uv = uv[0];
 			buffer->color = color;
 			buffer++;
 			
 			buffer->vertex = *transformationStackTop * Maths::Vector2D(position.x, position.y + size.y);
+			buffer->uv = uv[1];
 			buffer->color = color;
 			buffer++;
 			
 			buffer->vertex = *transformationStackTop * Maths::Vector2D(position.x + size.x, position.y + size.y);
+			buffer->uv = uv[2];
 			buffer->color = color;
 			buffer++;
 			
 			buffer->vertex = *transformationStackTop * Maths::Vector2D(position.x + size.x, position.y);
+			buffer->uv = uv[3];
 			buffer->color = color;
 			buffer++;
 

@@ -1,22 +1,24 @@
 //main.cpp: For testing purposes only
 //
+#if 1
 #define BATCH_RENDERER
 
-#include <Windows.h>
 #include <stdio.h>
 #include <string>
-#include <iostream>
-#include <vector>
 
 #include <GLEW\glew.h>
 
-#include "window.h"
-#include "utils.h"
+#include "layer2d.h"
 #include "matrix4.h"
-#include "vector2d.h"
+#include "window.h"
 #include "shader.h"
-#include "debug.h"
+#include "utils.h"
 #include "timer.h"
+#include "texture.h"
+
+#ifdef _DEBUG
+	#include "debug.h"
+#endif
 
 #ifdef BATCH_RENDERER
 	#include "batchRenderable2d.h"
@@ -26,10 +28,10 @@
 	#include "simpleRenderer2d.h"
 #endif
 
-#include "layer2d.h"
 
 using namespace DeltaEngine;
 using namespace std;
+
 
 void handler(Graphics::Window* window, int err)
 {
@@ -44,7 +46,7 @@ int main(int argc, char *argv[])
 
 	Graphics::Window win(string("DeltaEngine Sandbox"), 960, 540, &handler);
 
-	if(init(argc, argv) == DELTAENGINE_NOT_INITIALIZED) return -1;
+	if (init(argc, argv) == DELTAENGINE_NOT_INITIALIZED) return -1;
 
 	win.installMouse();
 	win.installKeyboard();
@@ -58,6 +60,13 @@ int main(int argc, char *argv[])
 	mainLayer.add(new Graphics::BatchRenderable2D(0.0f, 0.0f, 1, 1, Types::Color(255, 0, 0, 255)));
 	mainLayer.add(new Graphics::BatchRenderable2D(2.0f, 0.0f, 1, 1, Types::Color(0, 255, 0, 255)));
 	mainLayer.add(new Graphics::BatchRenderable2D(1.0f, 1.0f, 1, 1, Types::Color(0, 0, 255, 255)));
+
+	glActiveTexture(GL_TEXTURE0);
+	Graphics::Texture texture("test.png", GL_NEAREST);
+	texture.bind();
+
+	shader->enable();
+	shader->setUniform1i("tex", 0);
 #else
 	Graphics::Layer2D mainLayer(new Graphics::SimpleRenderer2D(), shader, pr_matrix);
 	mainLayer.add(new Graphics::SimpleRenderable2D(0.0f, 0.0f, 1, 1, Types::Color(255, 0, 0, 255), *shader));
@@ -71,38 +80,41 @@ int main(int argc, char *argv[])
 	float c = 0;
 	float x, y;
 
-	Timer::Timer myTimer;
+	Utils::Timer myTimer;
 
 	while (!win.closed())
 	{
 		win.clear();
 		i++;
-		c++;
+		//c++;
 
 		win.getMousePosition(x, y);
 		shader->setUniform2f("light_pos", (float)(x * 16.0f / win.getWidth()) - mainLayer.getCameraPositionX(), (float)(9.0 - y * 9.0f / win.getHeight()) - mainLayer.getCameraPositionY());
 
-		mainLayer.setCameraPosition(-(c / 60), 0);
+		//mainLayer.setCameraPosition(-(c / 60), 0);
 		mainLayer.render();
 
 		if (win.isKeyPressed(256)) break;
 
-		if (win.isKeyPressed(262)) mainLayer[0]->move( 0.1f,  0.0f); // Right arrow
-		if (win.isKeyPressed(263)) mainLayer[0]->move(-0.1f,  0.0f); // Left arrow
-		if (win.isKeyPressed(264)) mainLayer[0]->move( 0.0f, -0.1f); // Down arrow
-		if (win.isKeyPressed(265)) mainLayer[0]->move( 0.0f,  0.1f); // Up arrow
-		
+		if (win.isKeyPressed(262)) mainLayer[0]->move(0.1f, 0.0f); // Right arrow
+		if (win.isKeyPressed(263)) mainLayer[0]->move(-0.1f, 0.0f); // Left arrow
+		if (win.isKeyPressed(264)) mainLayer[0]->move(0.0f, -0.1f); // Down arrow
+		if (win.isKeyPressed(265)) mainLayer[0]->move(0.0f, 0.1f); // Up arrow
+
 		if (myTimer.getElapsedTime() >= 1)
 		{
-			if(i != last) printf("FPS: %i\n", i);
+			if (i != last) printf("FPS: %i\n", i);
 			myTimer.restart();
 			last = i;
 			i = 0;
 		}
 
 		win.update();
+#ifdef _DEBUG
 		Debug::checkErrors();
+#endif
 	}
 
 	return 0;
 }
+#endif 

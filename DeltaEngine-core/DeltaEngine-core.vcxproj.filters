@@ -52,7 +52,7 @@
     <Filter Include="Archivos de encabezado\DeltaEngine\Sound">
       <UniqueIdentifier>{01d868b9-13ef-4790-9dac-003e0238de95}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de código fuente\DeltaEngine\Audio">
+    <Filter Include="Archivos de código fuente\DeltaEngine\Sound">
       <UniqueIdentifier>{edb0270e-d0a8-48ef-befc-c9fda6350398}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -144,6 +144,9 @@
     <ClInclude Include="layer2d.h">
       <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="texture.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Logger.cpp">
@@ -174,10 +177,10 @@
       <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Sound.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Audio</Filter>
+      <Filter>Archivos de código fuente\DeltaEngine\Sound</Filter>
     </ClCompile>
     <ClCompile Include="SoundManager.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Audio</Filter>
+      <Filter>Archivos de código fuente\DeltaEngine\Sound</Filter>
     </ClCompile>
     <ClCompile Include="Buffer.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
@@ -207,6 +210,9 @@
       <Filter>Archivos de código fuente\DeltaEngine\Utils</Filter>
     </ClCompile>
     <ClCompile Include="Layer2D.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
     </ClCompile>
   </ItemGroup>

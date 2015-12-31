@@ -72,11 +72,14 @@ namespace DeltaEngine {
 		} Color;
 #pragma pack(pop, S_COLOR)
 
+#pragma pack(push, S_VERTEX_DATA, 1)
 		struct VertexData
 		{
 			Maths::Vector2D vertex;
+			Maths::Vector2D uv;
 			Color color; //ABGR
 		};
+#pragma pack(pop, S_VERTEX_DATA)
 
 	}
 }
