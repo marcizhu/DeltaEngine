@@ -72,7 +72,6 @@ namespace DeltaEngine {
 			float ts = 0.0f;
 			if (tid > 0)
 			{
-
 				bool found = false;
 				for (int i = 0; i < textureSlots.size(); i++)
 				{
@@ -101,25 +100,25 @@ namespace DeltaEngine {
 				color = renderable->getColor().getABGRColor();
 			}
 
-			buffer->vertex = *transformationStackTop * position;
+			buffer->vertex = position;
 			buffer->uv = uv[0];
 			buffer->tid = ts;
 			buffer->color = color;
 			buffer++;
 			
-			buffer->vertex = *transformationStackTop * Maths::Vector2D(position.x, position.y + size.y);
+			buffer->vertex = Maths::Vector2D(position.x, position.y + size.y);
 			buffer->uv = uv[1];
 			buffer->tid = ts;
 			buffer->color = color;
 			buffer++;
 			
-			buffer->vertex = *transformationStackTop * Maths::Vector2D(position.x + size.x, position.y + size.y);
+			buffer->vertex = Maths::Vector2D(position.x + size.x, position.y + size.y);
 			buffer->uv = uv[2];
 			buffer->tid = ts;
 			buffer->color = color;
 			buffer++;
 			
-			buffer->vertex = *transformationStackTop * Maths::Vector2D(position.x + size.x, position.y);
+			buffer->vertex = Maths::Vector2D(position.x + size.x, position.y);
 			buffer->uv = uv[3];
 			buffer->tid = ts;
 			buffer->color = color;
