@@ -7,6 +7,7 @@
 #include "vertexArray.h"
 #include "maths.h"
 #include "shader.h"
+#include "texture.h"
 
 namespace DeltaEngine {
 	namespace Graphics {
@@ -27,6 +28,7 @@ namespace DeltaEngine {
 			Maths::Vector2D size;
 			Types::Color color;
 			std::vector<Maths::Vector2D> UV;
+			Texture* texture;
 
 			Renderable2D() { setUVDefaults(); }
 
@@ -39,6 +41,7 @@ namespace DeltaEngine {
 			inline const Maths::Vector2D& getSize() const { return size; }
 			inline const Types::Color& getColor() const { return color; }
 			inline const std::vector<Maths::Vector2D>& getUV() const { return UV; }
+			inline const GLuint getTextureID() const { return texture == nullptr ? 0 : texture->getID(); }
 
 			inline void moveTo(float x, float y) { position.x = x; position.y = y; }
 			inline void move(float dx, float dy) { position.x += dx; position.y += dy; }

@@ -47,6 +47,8 @@ namespace DeltaEngine {
 			
 			DELTAENGINE_API void setUniformMat4(const GLchar* name, const Maths::Matrix4& matrix) {	glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, matrix.elements);	};
 			
+			DELTAENGINE_API void setUniform1iv(const GLchar* name, int* value, int count) { glUniform1iv(getUniformLocation(name), count, value); }
+
 			DELTAENGINE_API void enable() const { glUseProgram(this->shaderID); };
 			DELTAENGINE_API void disable() const { glUseProgram(0); };
 

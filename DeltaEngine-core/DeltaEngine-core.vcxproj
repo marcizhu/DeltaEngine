@@ -95,7 +95,7 @@
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\Intermediates\$(ProjectName)\</IntDir>
     <IncludePath>$(SolutionDir)\dependencies\include\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\dependencies\lib\GLFW\;$(SolutionDir)\dependencies\lib\GLEW\;$(SolutionDir)\dependencies\lib\gorilla\$(Configuration)\;$(SolutionDir)\dependencies\lib\OpenAL\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\dependencies\lib\GLFW\;$(SolutionDir)\dependencies\lib\GLEW\;$(SolutionDir)\dependencies\lib\gorilla\$(Configuration)\;$(SolutionDir)\dependencies\lib\OpenAL\;$(SolutionDir)\dependencies\lib\FreeImage\;$(LibraryPath)</LibraryPath>
     <CodeAnalysisRuleSet>C:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Static Analysis Tools\Rule Sets\NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
@@ -140,7 +140,7 @@
       <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>glfw3.lib;glew32s.lib;OpenGL32.lib;gorilla.lib;OpenAL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glew32s.lib;OpenGL32.lib;gorilla.lib;OpenAL32.lib;FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -188,6 +188,7 @@
     <ClInclude Include="stack.h" />
     <ClInclude Include="string.h" />
     <ClInclude Include="texture.h" />
+    <ClInclude Include="textureManager.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="types.h" />
     <ClInclude Include="utils.h" />
@@ -214,6 +215,7 @@
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="String.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Vector2D.cpp" />
     <ClCompile Include="Vector3D.cpp" />

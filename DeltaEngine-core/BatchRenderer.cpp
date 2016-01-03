@@ -17,12 +17,14 @@ namespace DeltaEngine {
 
 			glEnableVertexAttribArray(SHADER_VERTEX_INDEX);
 			glEnableVertexAttribArray(SHADER_UV_INDEX);
+			glEnableVertexAttribArray(SHADER_TID_INDEX);
 			glEnableVertexAttribArray(SHADER_COLOR_INDEX);
 
 			glVertexAttribPointer(SHADER_VERTEX_INDEX, 3, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)0);
 			glVertexAttribPointer(SHADER_UV_INDEX, 2, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::uv)));
+			glVertexAttribPointer(SHADER_TID_INDEX, 1, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::tid)));
 			glVertexAttribPointer(SHADER_COLOR_INDEX, 4, GL_UNSIGNED_BYTE, GL_TRUE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::color)));
-			
+		
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 			GLuint* indices = new GLuint[RENDERER_INDICES_SIZE];
@@ -50,6 +52,7 @@ namespace DeltaEngine {
 		{
 			delete indexBuffer;
 			glDeleteBuffers(1, &vertexBuffer);
+			glDeleteVertexArrays(1, &vertexArray);
 		}
 
 		void BatchRenderer2D::begin()
@@ -62,29 +65,63 @@ namespace DeltaEngine {
 		{
 			const Maths::Vector2D& position = renderable->getPosition();
 			const Maths::Vector2D& size = renderable->getSize();
-			Types::Color color = renderable->getColor();
+			Types::uint32 color = 0;
 			const std::vector<Maths::Vector2D>& uv = renderable->getUV();
+			const GLuint tid = renderable->getTextureID();
 
-			// FIXME: this works? Test SimpleRenderer
-			color.A = 255 - color.A;
+			float ts = 0.0f;
+			if (tid > 0)
+			{
+
+				bool found = false;
+				for (int i = 0; i < textureSlots.size(); i++)
+				{
+					if (textureSlots[i] == tid)
+					{
+						ts = (float)(i + 1);
+						found = true;
+						break;
+					}
+				}
+
+				if (!found)
+				{
+					if (textureSlots.size() >= 32)
+					{
+						end();
+						flush();
+						begin();
+					}
+					textureSlots.push_back(tid);
+					ts = (float)(textureSlots.size());
+				}
+			}
+			else
+			{
+				color = renderable->getColor().getABGRColor();
+			}
 
 			buffer->vertex = *transformationStackTop * position;
 			buffer->uv = uv[0];
+			buffer->tid = ts;
 			buffer->color = color;
 			buffer++;
 			
 			buffer->vertex = *transformationStackTop * Maths::Vector2D(position.x, position.y + size.y);
 			buffer->uv = uv[1];
+			buffer->tid = ts;
 			buffer->color = color;
 			buffer++;
 			
 			buffer->vertex = *transformationStackTop * Maths::Vector2D(position.x + size.x, position.y + size.y);
 			buffer->uv = uv[2];
+			buffer->tid = ts;
 			buffer->color = color;
 			buffer++;
 			
 			buffer->vertex = *transformationStackTop * Maths::Vector2D(position.x + size.x, position.y);
 			buffer->uv = uv[3];
+			buffer->tid = ts;
 			buffer->color = color;
 			buffer++;
 
@@ -99,6 +136,12 @@ namespace DeltaEngine {
 
 		void BatchRenderer2D::flush()
 		{
+			for (int i = 0; i < textureSlots.size(); i++)
+			{
+				glActiveTexture(GL_TEXTURE0 + i);
+				glBindTexture(GL_TEXTURE_2D, textureSlots[i]);
+			}
+
 			glBindVertexArray(vertexArray);
 			indexBuffer->bind();
 

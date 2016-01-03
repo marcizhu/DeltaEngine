@@ -77,7 +77,8 @@ namespace DeltaEngine {
 		{
 			Maths::Vector2D vertex;
 			Maths::Vector2D uv;
-			Color color; //ABGR
+			float tid;
+			unsigned int color; //ABGR format
 		};
 #pragma pack(pop, S_VERTEX_DATA)
 

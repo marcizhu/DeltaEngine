@@ -15,6 +15,7 @@
 #include "utils.h"
 #include "timer.h"
 #include "texture.h"
+#include "textureManager.h"
 
 #ifdef _DEBUG
 	#include "debug.h"
@@ -50,23 +51,26 @@ int main(int argc, char *argv[])
 
 	win.installMouse();
 	win.installKeyboard();
+	win.clearToColor(0.2, 0.3, 0.8, 1.0);
 
 	Maths::Matrix4 pr_matrix = Maths::Matrix4::orthographic(0.0f, 16.0f, 9.0f, 0.0f, -1.0f, 1.0f);
 
 	Graphics::Shader* shader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\basic.vert", Utils::getCurrentPath() + "\\basic.frag");
 
 #ifdef BATCH_RENDERER
-	Graphics::Layer2D mainLayer(new Graphics::BatchRenderer2D(), shader, pr_matrix);
-	mainLayer.add(new Graphics::BatchRenderable2D(0.0f, 0.0f, 1, 1, Types::Color(255, 0, 0, 255)));
-	mainLayer.add(new Graphics::BatchRenderable2D(2.0f, 0.0f, 1, 1, Types::Color(0, 255, 0, 255)));
-	mainLayer.add(new Graphics::BatchRenderable2D(1.0f, 1.0f, 1, 1, Types::Color(0, 0, 255, 255)));
+	Graphics::TextureManager texManager;
+	texManager.add(new Graphics::Texture("Mario", "mario.png", GL_NEAREST));
+	texManager.add(new Graphics::Texture("Pipe", "test.png", GL_NEAREST));
 
-	glActiveTexture(GL_TEXTURE0);
-	Graphics::Texture texture("test.png", GL_NEAREST);
-	texture.bind();
+	Graphics::Layer2D mainLayer(new Graphics::BatchRenderer2D(), shader, pr_matrix);
+	mainLayer.add(new Graphics::BatchRenderable2D(0.0f, 0.0f, 1, 1, texManager.get("Mario")));
+	mainLayer.add(new Graphics::BatchRenderable2D(2.0f, 0.0f, 1, 1, texManager.get("Pipe")));
+	mainLayer.add(new Graphics::BatchRenderable2D(5.0f, 0.0f, 1, 1, texManager.get("Pipe")));
+
+	GLint texIDs[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
 	shader->enable();
-	shader->setUniform1i("tex", 0);
+	shader->setUniform1iv("textures", texIDs, 10);
 #else
 	Graphics::Layer2D mainLayer(new Graphics::SimpleRenderer2D(), shader, pr_matrix);
 	mainLayer.add(new Graphics::SimpleRenderable2D(0.0f, 0.0f, 1, 1, Types::Color(255, 0, 0, 255), *shader));
@@ -86,7 +90,7 @@ int main(int argc, char *argv[])
 	{
 		win.clear();
 		i++;
-		//c++;
+		c++;
 
 		win.getMousePosition(x, y);
 		shader->setUniform2f("light_pos", (float)(x * 16.0f / win.getWidth()) - mainLayer.getCameraPositionX(), (float)(9.0 - y * 9.0f / win.getHeight()) - mainLayer.getCameraPositionY());
@@ -96,10 +100,10 @@ int main(int argc, char *argv[])
 
 		if (win.isKeyPressed(256)) break;
 
-		if (win.isKeyPressed(262)) mainLayer[0]->move(0.1f, 0.0f); // Right arrow
-		if (win.isKeyPressed(263)) mainLayer[0]->move(-0.1f, 0.0f); // Left arrow
-		if (win.isKeyPressed(264)) mainLayer[0]->move(0.0f, -0.1f); // Down arrow
-		if (win.isKeyPressed(265)) mainLayer[0]->move(0.0f, 0.1f); // Up arrow
+		if (win.isKeyPressed(262)) mainLayer[0]->move( 0.1f,  0.0f); // Right arrow
+		if (win.isKeyPressed(263)) mainLayer[0]->move(-0.1f,  0.0f); // Left arrow
+		if (win.isKeyPressed(264)) mainLayer[0]->move( 0.0f, -0.1f); // Down arrow
+		if (win.isKeyPressed(265)) mainLayer[0]->move( 0.0f,  0.1f); // Up arrow
 
 		if (myTimer.getElapsedTime() >= 1)
 		{

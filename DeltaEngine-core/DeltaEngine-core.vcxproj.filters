@@ -147,6 +147,9 @@
     <ClInclude Include="texture.h">
       <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="textureManager.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Logger.cpp">
@@ -213,6 +216,9 @@
       <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
