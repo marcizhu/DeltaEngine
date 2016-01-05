@@ -1,6 +1,5 @@
 //main.cpp: For testing purposes only
 //
-#if 1
 #define BATCH_RENDERER
 
 #include <stdio.h>
@@ -21,14 +20,9 @@
 	#include "debug.h"
 #endif
 
-#ifdef BATCH_RENDERER
-	#include "batchRenderable2d.h"
-	#include "batchRenderer2d.h"
-#else
-	#include "simpleRenderable2d.h"
-	#include "simpleRenderer2d.h"
-#endif
-
+#include "batchRenderable2d.h"
+#include "batchRenderer2d.h"
+#include "sprite.h"
 
 using namespace DeltaEngine;
 using namespace std;
@@ -49,7 +43,6 @@ int main(int argc, char *argv[])
 
 	if (init(argc, argv) == DELTAENGINE_NOT_INITIALIZED) return -1;
 
-	//win.installMouse();
 	win.installKeyboard();
 
 	Maths::Matrix4 pr_matrix = Maths::Matrix4::orthographic(0.0f, 16.0f, 9.0f, 0.0f, -1.0f, 1.0f);
@@ -57,13 +50,18 @@ int main(int argc, char *argv[])
 	Graphics::Shader* shader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\basic.vert", Utils::getCurrentPath() + "\\basic.frag");
 	Graphics::Shader* bgshader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\basic.vert", Utils::getCurrentPath() + "\\basic.frag");
 
-#ifdef BATCH_RENDERER
 	Graphics::TextureManager texManager;
 	texManager.add(new Graphics::Texture("Background", "map.png", GL_NEAREST));
-	texManager.add(new Graphics::Texture("Mario", "mario.png", GL_NEAREST));
+	//texManager.add(new Graphics::Texture("Mario", "mario.png", GL_NEAREST));
+
+	Graphics::Sprite marioSprite;
+	marioSprite.add(new Graphics::Texture("Mario1", "mario0.png", GL_NEAREST));
+	marioSprite.add(new Graphics::Texture("Mario1", "mario1.png", GL_NEAREST));
+	marioSprite.add(new Graphics::Texture("Mario2", "mario2.png", GL_NEAREST));
+	marioSprite.add(new Graphics::Texture("Mario1", "mario3.png", GL_NEAREST));
 
 	Graphics::Layer2D mainLayer(new Graphics::BatchRenderer2D(), shader, pr_matrix);
-	mainLayer.add(new Graphics::BatchRenderable2D(1.0f, 1.2f, 1, 1, texManager.get("Mario")));
+	mainLayer.add(new Graphics::BatchRenderable2D(1.0f, 1.2f, 1, 1, marioSprite));
 
 	Graphics::Layer2D background(new Graphics::BatchRenderer2D(), bgshader, Maths::Matrix4::orthographic(0.0f, 320.0f, 240.0f, 0.0f, -1.0f, 1.0f));
 	background.add(new Graphics::BatchRenderable2D(0.0f, 0.0f, 3583.0f, 240.0f, texManager.get("Background")));
@@ -81,12 +79,6 @@ int main(int argc, char *argv[])
 
 	bgshader->enable();
 	bgshader->setUniform1iv("textures", texIDs, 32);
-#else
-	Graphics::Layer2D mainLayer(new Graphics::SimpleRenderer2D(), shader, pr_matrix);
-	mainLayer.add(new Graphics::SimpleRenderable2D(0.0f, 0.0f, 1, 1, Types::Color(255, 0, 0, 255), *shader));
-	mainLayer.add(new Graphics::SimpleRenderable2D(2.0f, 0.0f, 1, 1, Types::Color(0, 255, 0, 255), *shader));
-	mainLayer.add(new Graphics::SimpleRenderable2D(1.0f, 1.0f, 1, 1, Types::Color(0, 0, 255, 255), *shader));
-#endif
 
 	win.setVSync(true);
 
@@ -98,10 +90,6 @@ int main(int argc, char *argv[])
 	while (!win.closed())
 	{
 		win.clear();
-		i++;
-
-		//win.getMousePosition(x, y);
-		//shader->setUniform2f("light_pos", (float)(x * 16.0f / win.getWidth()) - mainLayer.getCameraPositionX(), (float)(9.0 - y * 9.0f / win.getHeight()) - mainLayer.getCameraPositionY());
 
 		if (mainLayer[0]->getPosition().x > 7.5f)
 		{
@@ -116,7 +104,12 @@ int main(int argc, char *argv[])
 
 		if (win.isKeyPressed(256)) break;
 
-		if (win.isKeyPressed(262)) mainLayer[0]->move( 0.1f,  0.0f); // Right arrow
+		if (win.isKeyPressed(262)) // Right arrow
+		{
+			mainLayer[0]->move(0.1f, 0.0f);
+			if(i % 3 == 0) mainLayer[0]->getSprite().next();
+		}
+		else mainLayer[0]->getSprite().setCurrentTexture(0);
 		if (win.isKeyPressed(263)) mainLayer[0]->move(-0.1f,  0.0f); // Left arrow
 		if (win.isKeyPressed(264) && mainLayer[0]->getPosition().y >= 1.3f) mainLayer[0]->move( 0.0f, -0.1f); // Down arrow
 		if (win.isKeyPressed(265)) mainLayer[0]->move( 0.0f,  0.1f); // Up arrow
@@ -130,6 +123,7 @@ int main(int argc, char *argv[])
 		}
 
 		win.update();
+		i++;
 #ifdef _DEBUG
 		Debug::checkErrors();
 #endif
@@ -137,4 +131,3 @@ int main(int argc, char *argv[])
 
 	return 0;
 }
-#endif 

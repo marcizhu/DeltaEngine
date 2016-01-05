@@ -27,8 +27,6 @@ namespace DeltaEngine {
 			DELTAENGINE_API Matrix4();
 			DELTAENGINE_API Matrix4(float diagonal);
 
-			DELTAENGINE_API Vector4D getColumn(int index) const;
-
 			DELTAENGINE_API static Matrix4 identity();
 
 			DELTAENGINE_API friend Matrix4 operator*(Matrix4 left, const Matrix4& right);

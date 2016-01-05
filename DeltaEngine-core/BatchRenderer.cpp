@@ -63,7 +63,7 @@ namespace DeltaEngine {
 
 		void BatchRenderer2D::submit(const Renderable2D* renderable)
 		{
-			const Maths::Vector2D& position = renderable->getPosition();
+			Maths::Vector2D position = renderable->getPosition();
 			const Maths::Vector2D& size = renderable->getSize();
 			Types::uint32 color = 0;
 			const std::vector<Maths::Vector2D>& uv = renderable->getUV();
@@ -106,19 +106,25 @@ namespace DeltaEngine {
 			buffer->color = color;
 			buffer++;
 			
-			buffer->vertex = Maths::Vector2D(position.x, position.y + size.y);
+			position.y += size.y;
+
+			buffer->vertex = position;
 			buffer->uv = uv[1];
 			buffer->tid = ts;
 			buffer->color = color;
 			buffer++;
+
+			position.x += size.x;
 			
-			buffer->vertex = Maths::Vector2D(position.x + size.x, position.y + size.y);
+			buffer->vertex = position;
 			buffer->uv = uv[2];
 			buffer->tid = ts;
 			buffer->color = color;
 			buffer++;
 			
-			buffer->vertex = Maths::Vector2D(position.x + size.x, position.y);
+			position.y -= size.y;
+
+			buffer->vertex = position;
 			buffer->uv = uv[3];
 			buffer->tid = ts;
 			buffer->color = color;

@@ -150,6 +150,9 @@
     <ClInclude Include="textureManager.h">
       <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="sprite.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Logger.cpp">

@@ -185,6 +185,7 @@
     <ClInclude Include="simpleRenderer2d.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="soundManager.h" />
+    <ClInclude Include="sprite.h" />
     <ClInclude Include="stack.h" />
     <ClInclude Include="string.h" />
     <ClInclude Include="texture.h" />

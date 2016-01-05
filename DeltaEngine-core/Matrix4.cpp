@@ -204,10 +204,5 @@ namespace DeltaEngine {
 			this->elements[2 + 2 * 4] = z;
 		}
 
-		Vector4D Matrix4::getColumn(int index) const
-		{
-			index *= 4;
-			return Vector4D(elements[index], elements[index + 1], elements[index + 2], elements[index + 3]);
-		}
 	}
 }
