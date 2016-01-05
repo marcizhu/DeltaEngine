@@ -6,7 +6,7 @@ namespace DeltaEngine {
 
 		// FIXME: Optimize this using vertexArrays, Buffers and IndexBuffers
 
-		BatchRenderer2D::BatchRenderer2D() : Renderer2D()
+		BatchRenderer2D::BatchRenderer2D() : Renderer2D(), indexCount(0)
 		{
 			glGenVertexArrays(1, &vertexArray);
 			glGenBuffers(1, &vertexBuffer);
@@ -73,7 +73,7 @@ namespace DeltaEngine {
 			if (tid > 0)
 			{
 				bool found = false;
-				for (int i = 0; i < textureSlots.size(); i++)
+				for (uint32 i = 0; i < textureSlots.size(); i++)
 				{
 					if (textureSlots[i] == tid)
 					{
@@ -127,6 +127,41 @@ namespace DeltaEngine {
 			indexCount += 6;
 		}
 
+		void BatchRenderer2D::drawLine(const Maths::Vector2D& start, const Maths::Vector2D& end, unsigned int color)
+		{
+			float angle = atan2(start.y - end.y, start.x - end.x) + (PI / 2.0f);
+			float x = cos(angle);
+			float y = sin(angle);
+
+			const float lineThinkness = 16.0f / 960.0f;
+
+			buffer->vertex = start;
+			buffer->uv = Maths::Vector2D(0, 1);
+			buffer->tid = 0;
+			buffer->color = color;
+			buffer++;
+			
+			buffer->vertex = end;
+			buffer->uv = Maths::Vector2D(0, 0);
+			buffer->tid = 0;
+			buffer->color = color;
+			buffer++;
+			
+			buffer->vertex = end + Maths::Vector2D(x * lineThinkness, y * lineThinkness);
+			buffer->uv = Maths::Vector2D(1, 0);
+			buffer->tid = 0;
+			buffer->color = color;
+			buffer++;
+			
+			buffer->vertex = start + Maths::Vector2D(x * lineThinkness, y * lineThinkness);
+			buffer->uv = Maths::Vector2D(1, 1);
+			buffer->tid = 0;
+			buffer->color = color;
+			buffer++;
+
+			indexCount += 6;
+		}
+
 		void BatchRenderer2D::end()
 		{
 			glUnmapBuffer(GL_ARRAY_BUFFER);
@@ -135,7 +170,7 @@ namespace DeltaEngine {
 
 		void BatchRenderer2D::flush()
 		{
-			for (int i = 0; i < textureSlots.size(); i++)
+			for (uint32 i = 0; i < textureSlots.size(); i++)
 			{
 				glActiveTexture(GL_TEXTURE0 + i);
 				glBindTexture(GL_TEXTURE_2D, textureSlots[i]);

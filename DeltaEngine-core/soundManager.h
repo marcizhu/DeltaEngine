@@ -23,6 +23,7 @@ namespace DeltaEngine {
 			static vector<Sound*> sounds;
 
 		public:
+			DELTAENGINE_API ~SoundManager() { clean(); };
 			DELTAENGINE_API static void init();
 			DELTAENGINE_API static void add(Sound* sound) { sounds.push_back(sound); };
 			DELTAENGINE_API static Sound* get(const string& name);

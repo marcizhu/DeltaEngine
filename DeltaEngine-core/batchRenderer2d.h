@@ -40,6 +40,8 @@ namespace DeltaEngine {
 			DELTAENGINE_API void submit(const Renderable2D* renderable) override;
 			DELTAENGINE_API void end() override;
 			DELTAENGINE_API void flush() override;
+
+			DELTAENGINE_API void BatchRenderer2D::drawLine(const Maths::Vector2D& start, const Maths::Vector2D& end, unsigned int color) override;
 		};
 	}
 }

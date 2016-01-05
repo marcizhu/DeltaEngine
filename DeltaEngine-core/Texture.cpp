@@ -8,6 +8,13 @@ namespace DeltaEngine {
 		{
 			BYTE* pixels = loadImage(filename.c_str(), &width, &height, &bpp);
 
+#ifdef DELTAENGINE_DEBUG
+			if (pixels == nullptr)
+			{
+				std::cout << "Unable to read the texture file '" << filename << "'" << std::endl;
+				return;
+			}
+#endif
 			glGenTextures(1, &textureID);
 			glBindTexture(GL_TEXTURE_2D, textureID);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, texParam);
@@ -23,7 +30,9 @@ namespace DeltaEngine {
 				glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); break;
 
 			default:
+#ifdef DELTAENGINE_DEBUG
 				std::cout << "Invalid bpp value: " << bpp << std::endl; break;
+#endif
 			}
 
 			glBindTexture(GL_TEXTURE_2D, 0);

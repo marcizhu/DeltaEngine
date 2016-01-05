@@ -15,7 +15,7 @@ namespace DeltaEngine {
 
 		void TextureManager::clean()
 		{
-			for (int i = 0; i < textures.size(); i++)
+			for (uint32 i = 0; i < textures.size(); i++)
 				delete textures[i];
 		}
 

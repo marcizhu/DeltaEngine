@@ -30,10 +30,10 @@ namespace DeltaEngine {
 			std::vector<Maths::Vector2D> UV;
 			Texture* texture;
 
-			Renderable2D() { setUVDefaults(); }
+			Renderable2D() : texture(nullptr) { setUVDefaults(); }
 
 		public:
-			Renderable2D(Maths::Vector2D& position, Maths::Vector2D& size, Types::Color color) : position(position), size(size), color(color) { setUVDefaults(); }
+			Renderable2D(Maths::Vector2D& position, Maths::Vector2D& size, Types::Color color) : position(position), size(size), color(color), texture(nullptr) { setUVDefaults(); }
 
 			virtual ~Renderable2D() {}
 
@@ -41,7 +41,7 @@ namespace DeltaEngine {
 			inline const Maths::Vector2D& getSize() const { return size; }
 			inline const Types::Color& getColor() const { return color; }
 			inline const std::vector<Maths::Vector2D>& getUV() const { return UV; }
-			inline const GLuint getTextureID() const { return texture == nullptr ? 0 : texture->getID(); }
+			inline const GLuint getTextureID() const { return texture ? texture->getID() : 0; }
 
 			inline void moveTo(float x, float y) { position.x = x; position.y = y; }
 			inline void move(float dx, float dy) { position.x += dx; position.y += dy; }
