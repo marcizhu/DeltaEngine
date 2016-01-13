@@ -9,7 +9,7 @@
 #include "sound.h"
 
 namespace DeltaEngine {
-	namespace Audio {
+	namespace Sound {
 
 		class SoundManager
 		{

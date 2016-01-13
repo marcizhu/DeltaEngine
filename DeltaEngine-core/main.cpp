@@ -27,7 +27,6 @@
 using namespace DeltaEngine;
 using namespace std;
 
-
 void handler(Graphics::Window* window, int err)
 {
 	printf("Error %i: %s\n", err, window->getErrorString(err).c_str());
@@ -52,18 +51,18 @@ int main(int argc, char *argv[])
 
 	Graphics::TextureManager texManager;
 	texManager.add(new Graphics::Texture("Background", "map.png", GL_NEAREST));
-	//texManager.add(new Graphics::Texture("Mario", "mario.png", GL_NEAREST));
+	texManager.add(new Graphics::Texture("Mario", "mario.png", GL_NEAREST));
 
 	Graphics::Sprite marioSprite;
 	marioSprite.add(new Graphics::Texture("Mario1", "mario0.png", GL_NEAREST));
-	marioSprite.add(new Graphics::Texture("Mario1", "mario1.png", GL_NEAREST));
-	marioSprite.add(new Graphics::Texture("Mario2", "mario2.png", GL_NEAREST));
-	marioSprite.add(new Graphics::Texture("Mario1", "mario3.png", GL_NEAREST));
+	marioSprite.add(new Graphics::Texture("Mario2", "mario1.png", GL_NEAREST));
+	marioSprite.add(new Graphics::Texture("Mario3", "mario2.png", GL_NEAREST));
+	marioSprite.add(new Graphics::Texture("Mario4", "mario3.png", GL_NEAREST));
 
 	Graphics::Layer2D mainLayer(new Graphics::BatchRenderer2D(), shader, pr_matrix);
-	mainLayer.add(new Graphics::BatchRenderable2D(1.0f, 1.2f, 1, 1, marioSprite));
+	mainLayer.add(new Graphics::BatchRenderable2D(1.0f, 1.4f, 1, 1, marioSprite));
 
-	Graphics::Layer2D background(new Graphics::BatchRenderer2D(), bgshader, Maths::Matrix4::orthographic(0.0f, 320.0f, 240.0f, 0.0f, -1.0f, 1.0f));
+	Graphics::Layer2D background(new Graphics::BatchRenderer2D(), bgshader, Maths::Matrix4::orthographic(0.0f, 320.0f, 200.0f, 0.0f, -1.0f, 1.0f));
 	background.add(new Graphics::BatchRenderable2D(0.0f, 0.0f, 3583.0f, 240.0f, texManager.get("Background")));
 
 	GLint texIDs[] = 
@@ -83,7 +82,7 @@ int main(int argc, char *argv[])
 	win.setVSync(true);
 
 	Types::ushort16 i = 0, last = 0;
-	float x, y;
+	float x = 1;
 
 	Utils::Timer myTimer;
 
@@ -107,11 +106,16 @@ int main(int argc, char *argv[])
 		if (win.isKeyPressed(262)) // Right arrow
 		{
 			mainLayer[0]->move(0.1f, 0.0f);
-			if(i % 3 == 0) mainLayer[0]->getSprite().next();
+			if (i % 3 == 0)
+			{
+				mainLayer[0]->getSprite().setCurrentTexture(x);
+				x++;
+				if (x >= 4) x = 1;
+			}
 		}
 		else mainLayer[0]->getSprite().setCurrentTexture(0);
 		if (win.isKeyPressed(263)) mainLayer[0]->move(-0.1f,  0.0f); // Left arrow
-		if (win.isKeyPressed(264) && mainLayer[0]->getPosition().y >= 1.3f) mainLayer[0]->move( 0.0f, -0.1f); // Down arrow
+		if (win.isKeyPressed(264) && mainLayer[0]->getPosition().y >= 1.4f) mainLayer[0]->move( 0.0f, -0.1f); // Down arrow
 		if (win.isKeyPressed(265)) mainLayer[0]->move( 0.0f,  0.1f); // Up arrow
 
 		if (myTimer.getElapsedTime() >= 1)

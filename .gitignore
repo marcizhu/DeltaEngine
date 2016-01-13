@@ -1,0 +1,13 @@
+/bin/Intermediates
+/bin/Release
+/bin/Static
+*.exp
+*.sdf
+*.ilk
+*.pdb
+*.iobj
+*.ipdb
+*.vsp
+*.psess
+*.opendb
+*.bat

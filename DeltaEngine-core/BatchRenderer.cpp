@@ -63,9 +63,9 @@ namespace DeltaEngine {
 
 		void BatchRenderer2D::submit(const Renderable2D* renderable)
 		{
+			Types::uint32 color = 0;
 			Maths::Vector2D position = renderable->getPosition();
 			const Maths::Vector2D& size = renderable->getSize();
-			Types::uint32 color = 0;
 			const std::vector<Maths::Vector2D>& uv = renderable->getUV();
 			const GLuint tid = renderable->getTextureID();
 
@@ -135,7 +135,7 @@ namespace DeltaEngine {
 
 		void BatchRenderer2D::drawLine(const Maths::Vector2D& start, const Maths::Vector2D& end, unsigned int color)
 		{
-			float angle = atan2(start.y - end.y, start.x - end.x) + (PI / 2.0f);
+			double angle = atan2(start.y - end.y, start.x - end.x) + (PI / 2.0f);
 			float x = cos(angle);
 			float y = sin(angle);
 

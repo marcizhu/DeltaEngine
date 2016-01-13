@@ -12,7 +12,7 @@
 using namespace std;
 
 namespace DeltaEngine {
-	namespace Audio {
+	namespace Sound {
 
 		void Sound::loadSound(Sound* obj, vector<string> split)
 		{

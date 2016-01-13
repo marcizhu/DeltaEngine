@@ -12,7 +12,7 @@
 using namespace std;
 
 namespace DeltaEngine {
-	namespace Audio {
+	namespace Sound {
 
 		class Sound {
 		private:
@@ -20,7 +20,6 @@ namespace DeltaEngine {
 			string filename;
 
 			bool playing = false;
-			//bool looping = true;
 			bool ready = false;
 
 			ga_Sound* sound;

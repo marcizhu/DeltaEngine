@@ -9,7 +9,7 @@
 using namespace DeltaEngine::Types;
 
 namespace DeltaEngine {
-	namespace Audio {
+	namespace Sound {
 
 		gau_Manager* SoundManager::manager = nullptr;
 		ga_Mixer* SoundManager::mixer = nullptr;
