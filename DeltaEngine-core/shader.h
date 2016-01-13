@@ -29,7 +29,7 @@ namespace DeltaEngine {
 
 		public:
 			DELTAENGINE_API Shader(const string& vertex, const string& fragment, ShaderDataType dType);
-			DELTAENGINE_API ~Shader() { glDeleteShader(shaderID); glDeleteProgram(shaderID); };
+			DELTAENGINE_API ~Shader() { glDeleteProgram(shaderID); };
 			
 			DELTAENGINE_API void setUniform1f(const GLchar* name, float x) { glUniform1f(getUniformLocation(name), x); };
 			DELTAENGINE_API void setUniform2f(const GLchar* name, float x, float y) { glUniform2f(getUniformLocation(name), x, y); };

@@ -22,10 +22,10 @@ namespace DeltaEngine {
 			default:
 				cout << "[Shader] Invalid shader type!" << endl; break;
 
-			case ShaderDataType::SOURCE:
+			case SOURCE:
 				shaderID = load(vertex, fragment); break;
 
-			case ShaderDataType::FILE:
+			case FILE:
 				FileIO::File vShader = FileIO::File(vertex);
 				FileIO::File fShader = FileIO::File(fragment);
 
@@ -58,12 +58,12 @@ namespace DeltaEngine {
 				return nullptr;
 			}
 
-			return new Shader(vShader.read(), fShader.read(), ShaderDataType::SOURCE);
+			return new Shader(vShader.read(), fShader.read(), SOURCE);
 		}
 
 		Shader* Shader::loadFromSource(const string& vertSource, const string& fragSource)
 		{
-			return new Shader(vertSource, fragSource, ShaderDataType::SOURCE);
+			return new Shader(vertSource, fragSource, SOURCE);
 		}
 
 		bool Shader::compileAndCheckStatus(GLuint shader, const char* source, string shaderType)
@@ -107,6 +107,8 @@ namespace DeltaEngine {
 			glLinkProgram(program);
 			glValidateProgram(program);
 
+			glDetachShader(program, vertex);
+			glDetachShader(program, fragment);
 			glDeleteShader(vertex);
 			glDeleteShader(fragment);
 
