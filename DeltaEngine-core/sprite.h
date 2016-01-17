@@ -14,7 +14,7 @@ namespace DeltaEngine {
 		class Sprite {
 		private:
 			std::vector<Texture*> textures;
-			uchar8 currentTexture;
+			uint32 currentTexture;
 
 		public:
 			Sprite() : currentTexture(0) { };
@@ -26,7 +26,7 @@ namespace DeltaEngine {
 			void setCurrentTexture(uchar8 n) { currentTexture = n; };
 
 			const Texture* getCurrentTexture() const { return textures[currentTexture]; };
-			const uchar8 getTextureCount() const { return textures.size(); };
+			const uint32 getTextureCount() const { return textures.size(); };
 		};
 
 	}

@@ -136,8 +136,8 @@ namespace DeltaEngine {
 		void BatchRenderer2D::drawLine(const Maths::Vector2D& start, const Maths::Vector2D& end, unsigned int color)
 		{
 			double angle = atan2(start.y - end.y, start.x - end.x) + (PI / 2.0f);
-			float x = cos(angle);
-			float y = sin(angle);
+			float x = (float)cos(angle);
+			float y = (float)sin(angle);
 
 			const float lineThinkness = 16.0f / 960.0f;
 

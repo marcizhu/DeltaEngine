@@ -1,6 +1,7 @@
 /bin/Intermediates
 /bin/Release
 /bin/Static
+*/Intermediates/*
 *.exp
 *.sdf
 *.ilk

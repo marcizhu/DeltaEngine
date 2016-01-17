@@ -90,10 +90,10 @@ int main(int argc, char *argv[])
 	{
 		win.clear();
 
-		if (mainLayer[0]->getPosition().x > 7.5f)
+		float xpos = mainLayer[0]->getPosition().x;
+		
+		if (xpos > 7.5f)
 		{
-			float xpos = mainLayer[0]->getPosition().x;
-
 			mainLayer.setCameraPosition(-(xpos - 7.5f), 0);
 			background.setCameraPosition(-((xpos - 7.5f) * 320 / 16), 0); // * 320 / 16 = scale factor
 		}
@@ -115,7 +115,7 @@ int main(int argc, char *argv[])
 		}
 		else mainLayer[0]->getSprite().setCurrentTexture(0);
 		if (win.isKeyPressed(263)) mainLayer[0]->move(-0.1f,  0.0f); // Left arrow
-		if (win.isKeyPressed(264) && mainLayer[0]->getPosition().y >= 1.4f) mainLayer[0]->move( 0.0f, -0.1f); // Down arrow
+		if (win.isKeyPressed(264) && mainLayer[0]->getPosition().y >= 1.49f) mainLayer[0]->move( 0.0f, -0.1f); // Down arrow
 		if (win.isKeyPressed(265)) mainLayer[0]->move( 0.0f,  0.1f); // Up arrow
 
 		if (myTimer.getElapsedTime() >= 1)
