@@ -72,14 +72,14 @@
     <TargetName>freetype-gl</TargetName>
     <IntDir>$(SolutionDir)dependencies\lib\FreeType-GL\Intermediates\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)dependencies\lib\FreeType-GL\$(Configuration)\</OutDir>
-    <IncludePath>$(SolutionDir)dependencies\include\;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Marc\Documents\Visual Studio 2015\Projects\DeltaEngine\dependencies\lib\FreeType\Debug\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)dependencies\include\;$(SolutionDir)dependencies\include\FreeType\;$(SolutionDir)dependencies\freetype-gl\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\dependencies\lib\FreeType\Debug\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)dependencies\lib\FreeType-GL\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)dependencies\lib\FreeType-GL\Intermediates\$(Configuration)\</IntDir>
     <TargetName>freetype-gl</TargetName>
-    <IncludePath>$(SolutionDir)dependencies\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)dependencies\include\;$(SolutionDir)dependencies\include\FreeType\;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\Marc\Documents\Visual Studio 2015\Projects\DeltaEngine\dependencies\lib\FreeType\Debug\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -140,24 +140,24 @@
     <ClCompile Include="src\vertex-buffer.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\distance-field.h" />
-    <ClInclude Include="src\edtaa3func.h" />
-    <ClInclude Include="src\font-manager.h" />
-    <ClInclude Include="src\freetype-gl.h" />
-    <ClInclude Include="src\ft2build.h" />
-    <ClInclude Include="src\markup.h" />
-    <ClInclude Include="src\mat4.h" />
-    <ClInclude Include="src\opengl.h" />
-    <ClInclude Include="src\platform.h" />
-    <ClInclude Include="src\shader.h" />
-    <ClInclude Include="src\text-buffer.h" />
-    <ClInclude Include="src\texture-atlas.h" />
-    <ClInclude Include="src\texture-font.h" />
-    <ClInclude Include="src\utf8-utils.h" />
-    <ClInclude Include="src\vec234.h" />
-    <ClInclude Include="src\vector.h" />
-    <ClInclude Include="src\vertex-attribute.h" />
-    <ClInclude Include="src\vertex-buffer.h" />
+    <ClInclude Include="include\distance-field.h" />
+    <ClInclude Include="include\edtaa3func.h" />
+    <ClInclude Include="include\font-manager.h" />
+    <ClInclude Include="include\freetype-gl.h" />
+    <ClInclude Include="include\ft2build.h" />
+    <ClInclude Include="include\markup.h" />
+    <ClInclude Include="include\mat4.h" />
+    <ClInclude Include="include\opengl.h" />
+    <ClInclude Include="include\platform.h" />
+    <ClInclude Include="include\shader.h" />
+    <ClInclude Include="include\text-buffer.h" />
+    <ClInclude Include="include\texture-atlas.h" />
+    <ClInclude Include="include\texture-font.h" />
+    <ClInclude Include="include\utf8-utils.h" />
+    <ClInclude Include="include\vec234.h" />
+    <ClInclude Include="include\vector.h" />
+    <ClInclude Include="include\vertex-attribute.h" />
+    <ClInclude Include="include\vertex-buffer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

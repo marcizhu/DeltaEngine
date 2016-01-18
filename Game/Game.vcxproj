@@ -26,6 +26,9 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3AE61E5A-B9BA-4EC9-A5E7-F24DBCFDE0A0}</ProjectGuid>
     <RootNamespace>Game</RootNamespace>
@@ -91,7 +94,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\Intermediates\$(ProjectName)\</IntDir>
-    <IncludePath>$(SolutionDir)\dependencies\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\dependencies\include\;$(SolutionDir)\DeltaEngine-core\Include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)dependencies\lib\GLEW\;$(SolutionDir)dependencies\lib\FreeImage\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Static|Win32'">
@@ -163,9 +166,6 @@
       <PreprocessorDefinitions>DELTAENGINE_STATIC;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\DeltaEngine-core\main.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

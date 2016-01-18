@@ -59,58 +59,58 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\distance-field.h">
+    <ClInclude Include="include\distance-field.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="src\edtaa3func.h">
+    <ClInclude Include="include\edtaa3func.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="src\font-manager.h">
+    <ClInclude Include="include\font-manager.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="src\freetype-gl.h">
+    <ClInclude Include="include\freetype-gl.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="src\markup.h">
+    <ClInclude Include="include\ft2build.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="src\mat4.h">
+    <ClInclude Include="include\markup.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="src\opengl.h">
+    <ClInclude Include="include\mat4.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="src\platform.h">
+    <ClInclude Include="include\opengl.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="src\shader.h">
+    <ClInclude Include="include\platform.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="src\text-buffer.h">
+    <ClInclude Include="include\shader.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="src\texture-atlas.h">
+    <ClInclude Include="include\text-buffer.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="src\texture-font.h">
+    <ClInclude Include="include\texture-atlas.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="src\utf8-utils.h">
+    <ClInclude Include="include\texture-font.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="src\vec234.h">
+    <ClInclude Include="include\utf8-utils.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="src\vector.h">
+    <ClInclude Include="include\vec234.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="src\vertex-attribute.h">
+    <ClInclude Include="include\vector.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="src\vertex-buffer.h">
+    <ClInclude Include="include\vertex-attribute.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="src\ft2build.h">
+    <ClInclude Include="include\vertex-buffer.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
