@@ -73,7 +73,7 @@
     <IntDir>$(SolutionDir)dependencies\lib\FreeType-GL\Intermediates\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)dependencies\lib\FreeType-GL\$(Configuration)\</OutDir>
     <IncludePath>$(SolutionDir)dependencies\include\;$(SolutionDir)dependencies\include\FreeType\;$(SolutionDir)dependencies\freetype-gl\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\dependencies\lib\FreeType\Debug\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)dependencies\lib\FreeType-GL\$(Configuration)\</OutDir>
@@ -124,40 +124,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\distance-field.c" />
-    <ClCompile Include="src\edtaa3func.c" />
-    <ClCompile Include="src\font-manager.c" />
-    <ClCompile Include="src\makefont.c" />
-    <ClCompile Include="src\mat4.c" />
     <ClCompile Include="src\platform.c" />
-    <ClCompile Include="src\shader.c" />
-    <ClCompile Include="src\text-buffer.c" />
     <ClCompile Include="src\texture-atlas.c" />
     <ClCompile Include="src\texture-font.c" />
-    <ClCompile Include="src\utf8-utils.c" />
     <ClCompile Include="src\vector.c" />
-    <ClCompile Include="src\vertex-attribute.c" />
-    <ClCompile Include="src\vertex-buffer.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\distance-field.h" />
-    <ClInclude Include="include\edtaa3func.h" />
-    <ClInclude Include="include\font-manager.h" />
     <ClInclude Include="include\freetype-gl.h" />
-    <ClInclude Include="include\ft2build.h" />
-    <ClInclude Include="include\markup.h" />
-    <ClInclude Include="include\mat4.h" />
     <ClInclude Include="include\opengl.h" />
     <ClInclude Include="include\platform.h" />
-    <ClInclude Include="include\shader.h" />
-    <ClInclude Include="include\text-buffer.h" />
     <ClInclude Include="include\texture-atlas.h" />
     <ClInclude Include="include\texture-font.h" />
-    <ClInclude Include="include\utf8-utils.h" />
     <ClInclude Include="include\vec234.h" />
     <ClInclude Include="include\vector.h" />
-    <ClInclude Include="include\vertex-attribute.h" />
-    <ClInclude Include="include\vertex-buffer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

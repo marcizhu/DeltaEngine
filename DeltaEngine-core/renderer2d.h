@@ -14,6 +14,8 @@ namespace DeltaEngine {
 			DELTAENGINE_API virtual void end() { };
 			DELTAENGINE_API virtual void flush() = 0;
 
+			DELTAENGINE_API virtual void drawString(const std::string& text, const Maths::Vector2D& position, const Types::Color& color) {}
+
 			//TODO: REMOVE THIS!
 			DELTAENGINE_API virtual void drawLine(const Maths::Vector2D& start, const Maths::Vector2D& end, unsigned int color) { };
 		};

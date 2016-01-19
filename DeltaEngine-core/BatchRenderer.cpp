@@ -46,6 +46,9 @@ namespace DeltaEngine {
 			indexBuffer = new IndexBuffer(indices, RENDERER_INDICES_SIZE);
 
 			glBindVertexArray(0);
+
+			FTAtlas = ftgl::texture_atlas_new(512, 512, 2);
+			FTFont = ftgl::texture_font_new_from_file(FTAtlas, 32, "SourceSansPro-Light.ttf");
 		}
 
 		BatchRenderer2D::~BatchRenderer2D()
@@ -166,6 +169,102 @@ namespace DeltaEngine {
 			buffer++;
 
 			indexCount += 6;
+		}
+
+		void BatchRenderer2D::drawString(const std::string& text, const Maths::Vector2D& position, const Types::Color& color)
+		{
+			//using namespace ftgl;
+			
+			/*int r = color.x * 255.0f;
+			int g = color.y * 255.0f;
+			int b = color.z * 255.0f;
+			int a = color.w * 255.0f;*/
+			
+			unsigned int col = color.getABGRColor();
+			
+			float ts = 0.0f;
+			bool found = false;
+			for (int i = 0; i < textureSlots.size(); i++)
+			{
+				if (textureSlots[i] == FTAtlas->id)
+				{
+					ts = (float)(i + 1);
+					found = true;
+					break;
+				}
+			}
+			
+			if (!found)
+			{
+				if (textureSlots.size() >= 32)
+				{
+					end();
+					flush();
+					begin();
+				}
+
+				textureSlots.push_back(FTAtlas->id);
+				ts = (float)(textureSlots.size());
+			}
+			
+			float scaleX = 960.0f / 32.0f;
+			float scaleY = 540.0f / 18.0f;
+			
+			float x = position.x;
+			
+			for (int i = 0; i < text.length(); i++)
+			{
+				char c = text[i];
+				texture_glyph_t* glyph = texture_font_get_glyph(FTFont, &c);
+				if (glyph != NULL)
+				{
+					
+					if (i > 0)
+					{
+						float kerning = texture_glyph_get_kerning(glyph, &text[i - 1]);
+						x += kerning / scaleX;
+					}
+					
+					float x0 = x + glyph->offset_x / scaleX;
+					float y0 = position.y + glyph->offset_y / scaleY;
+					float x1 = x0 + glyph->width / scaleX;
+					float y1 = y0 - glyph->height / scaleY;
+					
+					float u0 = glyph->s0;
+					float v0 = glyph->t0;
+					float u1 = glyph->s1;
+					float v1 = glyph->t1;
+					
+					buffer->vertex = Maths::Vector2D(x0, y0);
+					buffer->uv = Maths::Vector2D(u0, v0);
+					buffer->tid = ts;
+					buffer->color = col;
+					buffer++;
+					
+					buffer->vertex = Maths::Vector2D(x0, y1);
+					buffer->uv = Maths::Vector2D(u0, v1);
+					buffer->tid = ts;
+					buffer->color = col;
+					buffer++;
+					
+					buffer->vertex = Maths::Vector2D(x1, y1);
+					buffer->uv = Maths::Vector2D(u1, v1);
+					buffer->tid = ts;
+					buffer->color = col;
+					buffer++;
+					
+					buffer->vertex = Maths::Vector2D(x1, y0);
+					buffer->uv = Maths::Vector2D(u1, v0);
+					buffer->tid = ts;
+					buffer->color = col;
+					buffer++;
+					
+					indexCount += 6;
+					
+					x += glyph->advance_x / scaleX;
+				}
+				
+			}
 		}
 
 		void BatchRenderer2D::end()

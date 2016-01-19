@@ -153,6 +153,9 @@
     <ClInclude Include="sprite.h">
       <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Label.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Logger.cpp">
@@ -223,6 +226,9 @@
     </ClCompile>
     <ClCompile Include="String.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Label.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

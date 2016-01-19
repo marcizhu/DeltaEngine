@@ -87,7 +87,7 @@
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\Intermediates\$(ProjectName)\</IntDir>
     <IncludePath>$(SolutionDir)dependencies\include\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)dependencies\lib\GLFW\;$(SolutionDir)dependencies\lib\GLEW\;$(SolutionDir)dependencies\lib\gorilla\$(Configuration)\;$(SolutionDir)dependencies\lib\OpenAL\;$(SolutionDir)dependencies\lib\FreeImage\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)dependencies\lib\GLFW\;$(SolutionDir)dependencies\lib\GLEW\;$(SolutionDir)dependencies\lib\gorilla\$(Configuration)\;$(SolutionDir)dependencies\lib\OpenAL\;$(SolutionDir)dependencies\lib\FreeImage\;$(SolutionDir)dependencies\lib\FreeType-GL\$(Configuration)\;$(SolutionDir)dependencies\lib\FreeType\$(Configuration)\;$(LibraryPath)</LibraryPath>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
@@ -114,7 +114,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;glew32s.lib;OpenGL32.lib;gorillaD.lib;OpenAL32.lib;FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glew32s.lib;OpenGL32.lib;gorillaD.lib;OpenAL32.lib;FreeImage.lib;freetype-gl.lib;freetype262MTd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -176,6 +176,7 @@
     <ClInclude Include="errors.h" />
     <ClInclude Include="fileIO.h" />
     <ClInclude Include="indexBuffer.h" />
+    <ClInclude Include="Label.h" />
     <ClInclude Include="layer2d.h" />
     <ClInclude Include="logger.h" />
     <ClInclude Include="maths.h" />
@@ -202,6 +203,7 @@
     <ClInclude Include="window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Label.cpp" />
     <ClCompile Include="Layer2D.cpp" />
     <ClCompile Include="SimpleRenderable2D.cpp" />
     <ClCompile Include="BatchRenderer.cpp" />

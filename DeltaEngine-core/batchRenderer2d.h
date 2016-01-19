@@ -3,6 +3,8 @@
 #ifndef __DELTAENGINE_BATCH_RENDERER__
 #define __DELTAENGINE_BATCH_RENDERER__
 
+#include <FreeType-GL\freetype-gl.h>
+
 #include "DeltaEngine.h"
 #include "renderer2d.h"
 #include "indexBuffer.h"
@@ -31,6 +33,8 @@ namespace DeltaEngine {
 			GLsizei indexCount;
 			Types::VertexData* buffer;
 			std::vector<GLuint> textureSlots;
+			ftgl::texture_atlas_t* FTAtlas;
+			ftgl::texture_font_t* FTFont;
 
 		public:
 			DELTAENGINE_API BatchRenderer2D();
@@ -40,6 +44,8 @@ namespace DeltaEngine {
 			DELTAENGINE_API void submit(const Renderable2D* renderable) override;
 			DELTAENGINE_API void end() override;
 			DELTAENGINE_API void flush() override;
+
+			DELTAENGINE_API void drawString(const std::string& text, const Maths::Vector2D& position, const Types::Color& color) override;
 
 			DELTAENGINE_API void BatchRenderer2D::drawLine(const Maths::Vector2D& start, const Maths::Vector2D& end, unsigned int color) override;
 		};
