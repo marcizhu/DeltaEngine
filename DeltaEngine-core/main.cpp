@@ -23,6 +23,7 @@
 #include "batchRenderable2d.h"
 #include "batchRenderer2d.h"
 #include "sprite.h"
+#include "Label.h"
 
 using namespace DeltaEngine;
 using namespace std;
@@ -61,6 +62,7 @@ int main(int argc, char *argv[])
 
 	Graphics::Layer2D mainLayer(new Graphics::BatchRenderer2D(), shader, pr_matrix);
 	mainLayer.add(new Graphics::BatchRenderable2D(1.0f, 1.4f, 1, 1, marioSprite));
+	mainLayer.add(new Graphics::Label("Test text", 0.2f, 0.2f, Types::Color(255, 255, 255, 255)));
 
 	Graphics::Layer2D background(new Graphics::BatchRenderer2D(), bgshader, Maths::Matrix4::orthographic(0.0f, 320.0f, 200.0f, 0.0f, -1.0f, 1.0f));
 	background.add(new Graphics::BatchRenderable2D(0.0f, 0.0f, 3583.0f, 240.0f, texManager.get("Background")));

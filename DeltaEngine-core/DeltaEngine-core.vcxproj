@@ -95,7 +95,7 @@
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\Intermediates\$(ProjectName)\</IntDir>
     <IncludePath>$(SolutionDir)\dependencies\include\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\dependencies\lib\GLFW\;$(SolutionDir)\dependencies\lib\GLEW\;$(SolutionDir)\dependencies\lib\gorilla\$(Configuration)\;$(SolutionDir)\dependencies\lib\OpenAL\;$(SolutionDir)\dependencies\lib\FreeImage\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)dependencies\lib\GLFW\;$(SolutionDir)dependencies\lib\GLEW\;$(SolutionDir)dependencies\lib\gorilla\$(Configuration)\;$(SolutionDir)dependencies\lib\OpenAL\;$(SolutionDir)dependencies\lib\FreeImage\;$(SolutionDir)dependencies\lib\FreeType-GL\$(Configuration)\;$(SolutionDir)dependencies\lib\FreeType\$(Configuration)\;$(LibraryPath)</LibraryPath>
     <CodeAnalysisRuleSet>C:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Static Analysis Tools\Rule Sets\NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
@@ -140,7 +140,7 @@
       <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>glfw3.lib;glew32s.lib;OpenGL32.lib;gorilla.lib;OpenAL32.lib;FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glew32s.lib;OpenGL32.lib;gorilla.lib;OpenAL32.lib;FreeImage.lib;freetype-gl.lib;freetype262MT.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <Profile>true</Profile>
     </Link>
   </ItemDefinitionGroup>

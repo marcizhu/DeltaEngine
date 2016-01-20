@@ -79,8 +79,8 @@
     <OutDir>$(SolutionDir)dependencies\lib\FreeType-GL\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)dependencies\lib\FreeType-GL\Intermediates\$(Configuration)\</IntDir>
     <TargetName>freetype-gl</TargetName>
-    <IncludePath>$(SolutionDir)dependencies\include\;$(SolutionDir)dependencies\include\FreeType\;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Marc\Documents\Visual Studio 2015\Projects\DeltaEngine\dependencies\lib\FreeType\Debug\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)dependencies\include\;$(SolutionDir)dependencies\include\FreeType\;$(SolutionDir)dependencies\freetype-gl\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -102,7 +102,8 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -127,6 +128,7 @@
     <ClCompile Include="src\platform.c" />
     <ClCompile Include="src\texture-atlas.c" />
     <ClCompile Include="src\texture-font.c" />
+    <ClCompile Include="src\utf8-utils.c" />
     <ClCompile Include="src\vector.c" />
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +137,7 @@
     <ClInclude Include="include\platform.h" />
     <ClInclude Include="include\texture-atlas.h" />
     <ClInclude Include="include\texture-font.h" />
+    <ClInclude Include="include\utf8-utils.h" />
     <ClInclude Include="include\vec234.h" />
     <ClInclude Include="include\vector.h" />
   </ItemGroup>

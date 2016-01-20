@@ -184,7 +184,7 @@ namespace DeltaEngine {
 			
 			float ts = 0.0f;
 			bool found = false;
-			for (int i = 0; i < textureSlots.size(); i++)
+			for (uint32 i = 0; i < textureSlots.size(); i++)
 			{
 				if (textureSlots[i] == FTAtlas->id)
 				{
@@ -212,7 +212,7 @@ namespace DeltaEngine {
 			
 			float x = position.x;
 			
-			for (int i = 0; i < text.length(); i++)
+			for (uint32 i = 0; i < text.length(); i++)
 			{
 				char c = text[i];
 				texture_glyph_t* glyph = texture_font_get_glyph(FTFont, &c);
