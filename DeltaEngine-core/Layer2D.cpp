@@ -30,7 +30,7 @@ namespace DeltaEngine {
 			renderer->begin();
 
 			for (const Renderable2D* renderable : renderables)
-				renderer->submit(renderable);
+				renderable->submit(renderer);
 			
 			//it works!
 			//renderer->drawLine(Maths::Vector2D(0.0f, 0.0f), Maths::Vector2D(16.0f, 9.0f), 0xFF007FFF);

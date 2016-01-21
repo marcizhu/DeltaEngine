@@ -21,7 +21,7 @@ namespace DeltaEngine {
 
 		public:
 			DELTAENGINE_API Label(std::string text, float x, float y, Types::Color color);
-			DELTAENGINE_API void submit(Renderer2D* renderer) const { renderer->drawString(text, position, color); };
+			DELTAENGINE_API void submit(Renderer2D* renderer) const override { renderer->drawString(text, position, color); };
 		};
 
 	}

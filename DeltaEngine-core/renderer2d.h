@@ -1,10 +1,15 @@
 #pragma once
 
+#include <string>
+
 #include "DeltaEngine.h"
-#include "renderable2d.h"
+#include "vector2d.h"
+#include "types.h"
 
 namespace DeltaEngine {
 	namespace Graphics {
+
+		class Renderable2D;
 
 		class Renderer2D
 		{

@@ -6,6 +6,7 @@
 #include <FreeType-GL\freetype-gl.h>
 
 #include "DeltaEngine.h"
+#include "renderable2d.h"
 #include "renderer2d.h"
 #include "indexBuffer.h"
 #include "types.h"

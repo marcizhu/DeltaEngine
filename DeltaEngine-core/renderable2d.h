@@ -7,11 +7,14 @@
 #include "vertexArray.h"
 #include "maths.h"
 #include "shader.h"
+#include "renderer2d.h"
 #include "texture.h"
 #include "sprite.h"
 
 namespace DeltaEngine {
 	namespace Graphics {
+
+		class Renderer2D;
 
 		class Renderable2D
 		{
@@ -38,6 +41,11 @@ namespace DeltaEngine {
 			Renderable2D(Maths::Vector2D& position, Maths::Vector2D& size, Types::Color color) : position(position), size(size), color(color), texture(nullptr) { setUVDefaults(); }
 
 			virtual ~Renderable2D() {}
+
+			virtual void submit(Renderer2D* renderer) const
+			{
+				renderer->submit(this);
+			}
 
 			inline const Maths::Vector2D& getPosition() const { return position; }
 			inline const Maths::Vector2D& getSize() const { return size; }
