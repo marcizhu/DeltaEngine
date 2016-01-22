@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef __DELTAENGINE_SOUND__
-#define __DELTAENGINE_SOUND__
-
 #include <string>
 #include <vector>
 
@@ -15,7 +12,7 @@
 using namespace std;
 
 namespace DeltaEngine {
-	namespace Audio {
+	namespace Sound {
 
 		class Sound {
 		private:
@@ -23,7 +20,6 @@ namespace DeltaEngine {
 			string filename;
 
 			bool playing = false;
-			//bool looping = true;
 			bool ready = false;
 
 			ga_Sound* sound;
@@ -61,5 +57,3 @@ namespace DeltaEngine {
 
 	}
 }
-
-#endif

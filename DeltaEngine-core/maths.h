@@ -1,74 +1,40 @@
 #pragma once
 
-#ifndef __DELTAENGINE_MATHS__
-#define __DELTAENGINE_MATHS__
+#include <vector>
 
-//#include <math.h>
-
-#include <iostream>
+#include "DeltaEngine.h"
+#include "types.h"
 
 const double PI = 3.14159265358979323846;
 const double PHI = (sqrt(5) + 1) / 2; //Golden ratio
 
+using namespace DeltaEngine::Types;
+
 namespace DeltaEngine {
 	namespace Maths {
 
-		inline float toRadians(float degrees)
-		{
-			return degrees * (PI / 180.0f);
-		}
+		// Math utilities
 
-		bool isPrime(unsigned int n)
-		{
-			//prime numbers can only be divided by 1 & themselves
-			if (n <= 1) return false;
-			for (unsigned int i = 1; i < n; i++)
-			{
-				if ((n % i == 0) && (i != 1)) return false;
-			}
-			return true;
-		}
+		DELTAENGINE_API bool isPrime(uint32 n);
 
-		unsigned int findPrime(unsigned int start)
-		{
-			while (start)
-			{
-				if (isPrime(start)) return start;
-				start++;
-			}
+		DELTAENGINE_API uint32 findPrime(uint32 start);
 
-			return start;
-		}
+		DELTAENGINE_API std::vector<uint32> factorialDecomposition(uint32 number);
 
-		void factorialDecomposition(unsigned int number)
-		{
-			std::cout << "Decomposition of " << number << ": ";
-			unsigned int prime = 1;
-			while (number != 1)
-			{
-				prime = findPrime(prime);
-				if (number % prime == 0)
-				{
-					std::cout << prime;
-					number /= prime;
-					if (number > 1) std::cout << " * ";
-				} else
-				{
-					while (number % prime != 0)
-					{
-						prime = findPrime(prime + 1);
-					}
+		inline float toRadians(float degrees) { return degrees * (float)(PI / 180.0f); }
+		
+		inline signed int sign(float value) { return (value > 0) - (value < 0); }
+		
+		template<typename T>
+		inline T constrain(T val, T min, T max) { return val > max ? max : val < min ? min : val; };
 
-					std::cout << prime;
-					number /= prime;
-					if (number > 1) std::cout << " * ";
-				}
-			}
+		template<typename T>
+		inline bool isBetween(T x, T min, T max) { return x <= max ? x = > min ? true : false : false; }
 
-			std::cout << std::endl << std::endl;
-		}
+		//template<typename T>
+		//inline T& max(T& first, T& second) { return first > second ? first : second; }
 
+		//template<typename T>
+		//inline T& min(T& first, T& second) { return first < second ? first : second; }
 	}
 }
-
-#endif

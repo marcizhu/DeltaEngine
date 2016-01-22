@@ -44,7 +44,6 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -88,7 +87,7 @@
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\Intermediates\$(ProjectName)\</IntDir>
     <IncludePath>$(SolutionDir)dependencies\include\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)dependencies\lib\GLFW\;$(SolutionDir)dependencies\lib\GLEW\;$(SolutionDir)dependencies\lib\gorilla\$(Configuration)\;$(SolutionDir)dependencies\lib\OpenAL\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)dependencies\lib\GLFW\;$(SolutionDir)dependencies\lib\GLEW\;$(SolutionDir)dependencies\lib\gorilla\$(Configuration)\;$(SolutionDir)dependencies\lib\OpenAL\;$(SolutionDir)dependencies\lib\FreeImage\;$(SolutionDir)dependencies\lib\FreeType-GL\$(Configuration)\;$(SolutionDir)dependencies\lib\FreeType\$(Configuration)\;$(LibraryPath)</LibraryPath>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
@@ -96,7 +95,7 @@
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\Intermediates\$(ProjectName)\</IntDir>
     <IncludePath>$(SolutionDir)\dependencies\include\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\dependencies\lib\GLFW\;$(SolutionDir)\dependencies\lib\GLEW\;$(SolutionDir)\dependencies\lib\gorilla\$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)dependencies\lib\GLFW\;$(SolutionDir)dependencies\lib\GLEW\;$(SolutionDir)dependencies\lib\gorilla\$(Configuration)\;$(SolutionDir)dependencies\lib\OpenAL\;$(SolutionDir)dependencies\lib\FreeImage\;$(SolutionDir)dependencies\lib\FreeType-GL\$(Configuration)\;$(SolutionDir)dependencies\lib\FreeType\$(Configuration)\;$(LibraryPath)</LibraryPath>
     <CodeAnalysisRuleSet>C:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Static Analysis Tools\Rule Sets\NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
@@ -108,15 +107,14 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level1</WarningLevel>
-      <Optimization>Disabled</Optimization>
+      <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>DELTAENGINE_BUILD;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;glew32s.lib;OpenGL32.lib;gorillaD.lib;OpenAL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glew32s.lib;OpenGL32.lib;gorillaD.lib;OpenAL32.lib;FreeImage.lib;freetype-gl.lib;freetype262MTd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -132,24 +130,18 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <PreprocessorDefinitions>DELTAENGINE_BUILD;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
-      <FloatingPointModel>Fast</FloatingPointModel>
       <DebugInformationFormat>None</DebugInformationFormat>
       <EnablePREfast>false</EnablePREfast>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Link>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>glfw3.lib;glew32s.lib;OpenGL32.lib;gorilla.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glew32s.lib;OpenGL32.lib;gorilla.lib;OpenAL32.lib;FreeImage.lib;freetype-gl.lib;freetype262MT.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <Profile>true</Profile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -164,6 +156,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <Profile>true</Profile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Static|Win32'">
@@ -175,18 +168,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="batchRenderable2d.h" />
+    <ClInclude Include="batchRenderer2d.h" />
     <ClInclude Include="buffer.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="DeltaEngine.h" />
     <ClInclude Include="errors.h" />
     <ClInclude Include="fileIO.h" />
+    <ClInclude Include="font.h" />
+    <ClInclude Include="fontManager.h" />
     <ClInclude Include="indexBuffer.h" />
+    <ClInclude Include="Label.h" />
+    <ClInclude Include="layer2d.h" />
     <ClInclude Include="logger.h" />
     <ClInclude Include="maths.h" />
-    <ClInclude Include="Matrix4.h" />
+    <ClInclude Include="matrix4.h" />
+    <ClInclude Include="renderable2d.h" />
+    <ClInclude Include="renderer2d.h" />
     <ClInclude Include="shader.h" />
+    <ClInclude Include="simpleRenderable2d.h" />
+    <ClInclude Include="simpleRenderer2d.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="soundManager.h" />
+    <ClInclude Include="sprite.h" />
+    <ClInclude Include="stack.h" />
+    <ClInclude Include="string.h" />
+    <ClInclude Include="texture.h" />
+    <ClInclude Include="textureManager.h" />
+    <ClInclude Include="timer.h" />
     <ClInclude Include="types.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="vector2d.h" />
@@ -196,15 +205,26 @@
     <ClInclude Include="window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Font.cpp" />
+    <ClCompile Include="FontManager.cpp" />
+    <ClCompile Include="Label.cpp" />
+    <ClCompile Include="Layer2D.cpp" />
+    <ClCompile Include="SimpleRenderable2D.cpp" />
+    <ClCompile Include="BatchRenderer.cpp" />
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="Maths.cpp" />
     <ClCompile Include="Matrix4.cpp" />
+    <ClCompile Include="SimpleRenderer2D.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SoundManager.cpp" />
+    <ClCompile Include="String.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Vector2D.cpp" />
     <ClCompile Include="Vector3D.cpp" />

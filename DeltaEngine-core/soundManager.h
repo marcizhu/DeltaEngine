@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef __DELTAENGINE_SOUND_MANAGER__
-#define __DELTAENGINE_SOUND_MANAGER__
-
 #include <gorilla\ga.h>
 #include <gorilla\gau.h>
 
@@ -12,7 +9,7 @@
 #include "sound.h"
 
 namespace DeltaEngine {
-	namespace Audio {
+	namespace Sound {
 
 		class SoundManager
 		{
@@ -26,6 +23,7 @@ namespace DeltaEngine {
 			static vector<Sound*> sounds;
 
 		public:
+			DELTAENGINE_API ~SoundManager() { clean(); };
 			DELTAENGINE_API static void init();
 			DELTAENGINE_API static void add(Sound* sound) { sounds.push_back(sound); };
 			DELTAENGINE_API static Sound* get(const string& name);
@@ -37,5 +35,3 @@ namespace DeltaEngine {
 
 	}
 }
-
-#endif

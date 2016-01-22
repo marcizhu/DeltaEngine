@@ -1,9 +1,6 @@
 #pragma once
 
-#ifndef __DELTAENGINE_UTILS__
-#define __DELTAENGINE_UTILS__
-
-//#include <Windows.h>
+#include <Windows.h>
 #include <stdio.h>
 #include <string>
 
@@ -31,9 +28,8 @@ namespace DeltaEngine {
 
 		DELTAENGINE_API string getCurrentPath();
 		
-		template<typename T>
-		inline T constrain(T val, T min, T max) { return val > max ? max : val < min ? min : val; };
+		// Console utilities
+		DELTAENGINE_API void gotoxy(int x, int y);
+		DELTAENGINE_API void setConsoleColor(int color);
 	}
 }
-
-#endif

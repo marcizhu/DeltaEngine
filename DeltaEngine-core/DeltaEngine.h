@@ -30,6 +30,10 @@
 // we will use this naming convention for versions
 //#define DELTAENGINE_VERSION_1_0_0	100
 
+#ifdef _DEBUG
+#define DELTAENGINE_DEBUG
+#endif
+
 #ifndef DELTAENGINE_BUILD
 
 #include <Windows.h>
@@ -44,6 +48,8 @@ namespace DeltaEngine {
 		
 		if (glewInit() != GLEW_OK) return DELTAENGINE_NOT_INITIALIZED;
 
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x0F);
+
 		std::cout << "DeltaEngine Version " << DELTAENGINE_VERSION_S " " << DELTAENGINE_PHASE_S << std::endl << std::endl;
 
 #ifdef DELTAENGINE_DEBUG
@@ -52,8 +58,8 @@ namespace DeltaEngine {
 		std::cout << "Version : " << glGetString(GL_VERSION) << std::endl;
 		std::cout << "Vendor  : " << glGetString(GL_VENDOR) << std::endl;
 		std::cout << "Renderer: " << glGetString(GL_RENDERER) << std::endl << std::endl;
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x07);
 #endif
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x07);
 
 		return DELTAENGINE_VERSION;
 	}

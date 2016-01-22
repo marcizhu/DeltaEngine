@@ -1,9 +1,7 @@
 #pragma once
 
-#ifndef __DELTAENGINE_TYPES__
-#define __DELTAENGINE_TYPES__
-
-//#include <Windows.h>
+#include "vector2d.h"
+#include "vector4d.h"
 
 namespace DeltaEngine {
 	namespace Types {
@@ -49,21 +47,40 @@ namespace DeltaEngine {
 			word Milliseconds;
 		} time;
 
+#pragma pack(push, S_COLOR, 1)
 		typedef struct Color {
 			Color(byte r, byte g, byte b, byte alpha) : R(r), G(g), B(b), A(alpha) {};
-			Color(unsigned int rgba) { R = (rgba >> 24) & 0xFF; G = (rgba >> 16) & 0xFF; B = (rgba >> 8) & 0xFF; A = rgba & 0xFF; };
+			Color(uint32 rgba) { R = (rgba >> 24) & 0xFF; G = (rgba >> 16) & 0xFF; B = (rgba >> 8) & 0xFF; A = rgba & 0xFF; };
 			Color() : R(0), G(0), B(0), A(0) {};
 
-			unsigned int getColor() { return R << 24 | G << 16 | B << 8 | A; };
-			void setColor(unsigned int& rgba) { R = (rgba >> 24) & 0xFF; G = (rgba >> 16) & 0xFF; B = (rgba >> 8) & 0xFF; A = rgba & 0xFF; };
+			uint32 getABGRColor() const { return A << 24 | B << 16 | G << 8 | R; };
+			uint32 getARGBColor() const { return A << 24 | R << 16 | G << 8 | B; };
+			uint32 getBGRAColor() const { return B << 24 | G << 16 | R << 8 | A; };
+			uint32 getRGBAColor() const { return R << 24 | G << 16 | B << 8 | A; };
+			
+			uint32 getBGRColor() const { return B << 16 | G << 8 | R; };
+			uint32 getRGBColor() const { return R << 16 | G << 8 | B; };
+			
+			void setColor(uint32& rgba) { R = (rgba >> 24) & 0xFF; G = (rgba >> 16) & 0xFF; B = (rgba >> 8) & 0xFF; A = rgba & 0xFF; };
 			void setColor(byte r, byte g, byte b, byte alpha) { R = r; G = g; B = b, A = alpha; };
-
+			
+			// HACK: This way we have an ABGR color (little-endian)
 			byte R;
 			byte G;
 			byte B;
 			byte A;
 		} Color;
+#pragma pack(pop, S_COLOR)
+
+#pragma pack(push, S_VERTEX_DATA, 1)
+		struct VertexData
+		{
+			Maths::Vector2D vertex;
+			Maths::Vector2D uv;
+			float tid;
+			unsigned int color; //ABGR format
+		};
+#pragma pack(pop, S_VERTEX_DATA)
+
 	}
 }
-
-#endif

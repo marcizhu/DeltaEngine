@@ -1,6 +1,8 @@
-#include "maths.h"
 #include "matrix4.h"
+#include "vector2d.h"
 #include "vector3d.h"
+#include "vector4d.h"
+#include "maths.h"
 
 namespace DeltaEngine {
 	namespace Maths {
@@ -29,23 +31,65 @@ namespace DeltaEngine {
 
 		Matrix4& Matrix4::multiply(const Matrix4& other)
 		{
+			float data[16];
+
 			for (int y = 0; y < 4; y++)
 			{
 				for (int x = 0; x < 4; x++)
 				{
 					float sum = 0.0f;
-					for (int e = 0; e < 4; e++)
-					{
+					
+					for (int e = 0; e < 4; e++) 
 						sum += elements[x + e * 4] * other.elements[e + y * 4];
-					}
-					elements[x + y * 4] = sum;
+
+					data[x + y * 4] = sum;
 				}
 			}
-
+			
+			memcpy(elements, data, 4 * 4 * sizeof(float));
 			return *this;
 		}
 
+		Vector2D Matrix4::multiply(const Vector2D& other) const
+		{
+			return Vector2D(
+				columns[0].x * other.x + columns[1].x * other.y + columns[2].x + columns[3].x,
+				columns[0].y * other.x + columns[1].y * other.y + columns[2].y + columns[3].y);
+		}
+
+		Vector3D Matrix4::multiply(const Vector3D& other) const
+		{
+			return Vector3D(
+				columns[0].x * other.x + columns[1].x * other.y + columns[2].x * other.z + columns[3].x,
+				columns[0].y * other.x + columns[1].y * other.y + columns[2].y * other.z + columns[3].y,
+				columns[0].z * other.x + columns[1].z * other.y + columns[2].z * other.z + columns[3].z);
+		}
+		
+		Vector4D Matrix4::multiply(const Vector4D& other) const
+		{
+			return Vector4D(
+				columns[0].x * other.x + columns[1].x * other.y + columns[2].x * other.z + columns[3].x * other.w,
+				columns[0].y * other.x + columns[1].y * other.y + columns[2].y * other.z + columns[3].y * other.w,
+				columns[0].z * other.x + columns[1].z * other.y + columns[2].z * other.z + columns[3].z * other.w,
+				columns[0].w * other.x + columns[1].w * other.y + columns[2].w * other.z + columns[3].w * other.w);
+		}
+
 		Matrix4 operator*(Matrix4 left, const Matrix4& right)
+		{
+			return left.multiply(right);
+		}
+
+		Vector2D operator*(const Matrix4& left, const Vector2D& right)
+		{
+			return left.multiply(right);
+		}
+
+		Vector3D operator*(const Matrix4& left, const Vector3D& right)
+		{
+			return left.multiply(right);
+		}
+		
+		Vector4D operator*(const Matrix4& left, const Vector4D& right)
 		{
 			return left.multiply(right);
 		}
@@ -55,7 +99,7 @@ namespace DeltaEngine {
 			return multiply(other);
 		}
 
-		Matrix4 Matrix4::orthographic(float left, float right, float bottom, float top, float near, float far)
+		Matrix4 Matrix4::orthographic(float left, float right, float top, float bottom, float near, float far)
 		{
 			Matrix4 result(1.0f);
 
@@ -89,60 +133,76 @@ namespace DeltaEngine {
 			return result;
 		}
 
-		Matrix4 Matrix4::translate(const Vector3D& translation)
+		void Matrix4::translate(const Vector3D& translation)
 		{
-			Matrix4 result(1.0f);
-
-			result.elements[0 + 3 * 4] = translation.x;
-			result.elements[1 + 3 * 4] = translation.y;
-			result.elements[2 + 3 * 4] = translation.z;
-
-			return result;
+			this->elements[0 + 3 * 4] = translation.x;
+			this->elements[1 + 3 * 4] = translation.y;
+			this->elements[2 + 3 * 4] = translation.z;
 		}
 
-		Matrix4 Matrix4::rotate(float angle, const Vector3D& axis)
+		void Matrix4::translate(float x, float y, float z)
 		{
-			Matrix4 result(1.0f);
+			this->elements[0 + 3 * 4] = x;
+			this->elements[1 + 3 * 4] = y;
+			this->elements[2 + 3 * 4] = z;
+		}
 
-			float r = toRadians(angle);
-			float c = cos(r);
-			float s = sin(r);
+		void Matrix4::rotate(float angle, const Vector3D& axis)
+		{
+			float c = cos(toRadians(angle));
+			float s = sin(toRadians(angle));
 			float omc = 1.0f - c;
 
 			float x = axis.x;
 			float y = axis.y;
 			float z = axis.z;
 
-			result.elements[0 + 0 * 4] = x * omc + c;
-			result.elements[1 + 0 * 4] = y * x * omc + z * s;
-			result.elements[2 + 0 * 4] = x * z * omc - y * s;
-
-			result.elements[0 + 1 * 4] = x * y * omc - z * s;
-			result.elements[1 + 1 * 4] = y * omc + c;
-			result.elements[2 + 1 * 4] = y * z * omc + x * s;
-
-			result.elements[0 + 2 * 4] = x * z * omc + y * s;
-			result.elements[1 + 2 * 4] = y * z * omc - x * s;
-			result.elements[2 + 2 * 4] = z * omc + c;
-
-			return result;
+			this->elements[0 + 0 * 4] = x * omc + c;
+			this->elements[1 + 0 * 4] = y * x * omc + z * s;
+			this->elements[2 + 0 * 4] = x * z * omc - y * s;
+			
+			this->elements[0 + 1 * 4] = x * y * omc - z * s;
+			this->elements[1 + 1 * 4] = y * omc + c;
+			this->elements[2 + 1 * 4] = y * z * omc + x * s;
+			
+			this->elements[0 + 2 * 4] = x * z * omc + y * s;
+			this->elements[1 + 2 * 4] = y * z * omc - x * s;
+			this->elements[2 + 2 * 4] = z * omc + c;
 		}
 
-		Matrix4 Matrix4::scale(const Vector3D& scale)
+		void Matrix4::rotate(float angle, float xAxis, float yAxis, float zAxis)
 		{
-			Matrix4 result(1.0f);
+			float c = cos(toRadians(angle));
+			float s = sin(toRadians(angle));
+			float omc = 1.0f - c;
 
-			result.elements[0 + 0 * 4] = scale.x;
-			result.elements[1 + 1 * 4] = scale.y;
-			result.elements[2 + 2 * 4] = scale.z;
 
-			return result;
+			this->elements[0 + 0 * 4] = xAxis * omc + c;
+			this->elements[1 + 0 * 4] = yAxis * xAxis * omc + zAxis * s;
+			this->elements[2 + 0 * 4] = xAxis * zAxis * omc - yAxis * s;
+
+			this->elements[0 + 1 * 4] = xAxis * yAxis * omc - zAxis * s;
+			this->elements[1 + 1 * 4] = yAxis * omc + c;
+			this->elements[2 + 1 * 4] = yAxis * zAxis * omc + xAxis * s;
+
+			this->elements[0 + 2 * 4] = xAxis * zAxis * omc + yAxis * s;
+			this->elements[1 + 2 * 4] = yAxis * zAxis * omc - xAxis * s;
+			this->elements[2 + 2 * 4] = zAxis * omc + c;
 		}
 
-		Vector4D Matrix4::getColumn(int index) const
+		void Matrix4::scale(const Vector3D& scale)
 		{
-			index *= 4;
-			return Vector4D(elements[index], elements[index + 1], elements[index + 2], elements[index + 3]);
+			this->elements[0 + 0 * 4] = scale.x;
+			this->elements[1 + 1 * 4] = scale.y;
+			this->elements[2 + 2 * 4] = scale.z;
 		}
+
+		void Matrix4::scale(float x, float y, float z)
+		{
+			this->elements[0 + 0 * 4] = x;
+			this->elements[1 + 1 * 4] = y;
+			this->elements[2 + 2 * 4] = z;
+		}
+
 	}
 }

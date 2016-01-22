@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef __DELTAENGINE_BUFFER__
-#define __DELTAENGINE_BUFFER__
-
 #include <GLEW\glew.h>
 
 #include "DeltaEngine.h"
@@ -17,7 +14,8 @@ namespace DeltaEngine {
 			GLuint componentCount;
 
 		public:
-			DELTAENGINE_API Buffer(GLfloat* data, GLsizei count, GLuint componentCount);
+			DELTAENGINE_API Buffer::Buffer(GLfloat* data, GLsizei count, GLuint componentCount);
+			DELTAENGINE_API Buffer::~Buffer() { glDeleteBuffers(1, &bufferID); }
 
 			DELTAENGINE_API inline void bind() const { glBindBuffer(GL_ARRAY_BUFFER, bufferID); };
 			DELTAENGINE_API inline void unbind() const { glBindBuffer(GL_ARRAY_BUFFER, 0); };
@@ -27,5 +25,3 @@ namespace DeltaEngine {
 			
 	}
 }
-
-#endif

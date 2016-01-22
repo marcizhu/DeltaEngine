@@ -1,21 +1,20 @@
 #pragma once
 
-#ifndef __DELTAENGINE_FILEIO__
-#define __DELTAENGINE_FILEIO__
-
 #include <string>
 
 #include "DeltaEngine.h"
 #include "errors.h"
+#include "types.h"
 
 using namespace std;
+using namespace DeltaEngine::Types;
 
 namespace DeltaEngine {
 	namespace FileIO {
 
 		class File {
 		private:
-			unsigned long fSize;
+			uint32 fSize;
 			string path;
 
 		public:
@@ -30,10 +29,8 @@ namespace DeltaEngine {
 
 			DELTAENGINE_API void changeFilePath(string path);
 
-			DELTAENGINE_API unsigned long getFileSize();
+			DELTAENGINE_API uint32 getFileSize();
 		};
 
 	}
 }
-
-#endif
