@@ -46,9 +46,6 @@ namespace DeltaEngine {
 			indexBuffer = new IndexBuffer(indices, RENDERER_INDICES_SIZE);
 
 			glBindVertexArray(0);
-
-			FTAtlas = ftgl::texture_atlas_new(512, 512, 2);
-			FTFont = ftgl::texture_font_new_from_file(FTAtlas, 32, "SourceSansPro-Regular.ttf");
 		}
 
 		BatchRenderer2D::~BatchRenderer2D()
@@ -165,15 +162,13 @@ namespace DeltaEngine {
 			indexCount += 6;
 		}
 
-		void BatchRenderer2D::drawString(const std::string& text, const Maths::Vector2D& position, const Types::uint32 color)
-		{	
-			//unsigned int col = color.getABGRColor();
-			
+		void BatchRenderer2D::drawString(const std::string& text, const Maths::Vector2D& position, const Font& font, const Types::uint32 color)
+		{
 			float ts = 0.0f;
 			bool found = false;
 			for (uint32 i = 0; i < textureSlots.size(); i++)
 			{
-				if (textureSlots[i] == FTAtlas->id)
+				if (textureSlots[i] == font.getID())
 				{
 					ts = (float)(i + 1);
 					found = true;
@@ -190,22 +185,23 @@ namespace DeltaEngine {
 					begin();
 				}
 
-				textureSlots.push_back(FTAtlas->id);
+				textureSlots.push_back(font.getID());
 				ts = (float)(textureSlots.size());
 			}
 			
-			float scaleX = 960.0f / 32.0f;
-			float scaleY = 540.0f / 18.0f;
+			//TODO: Move this to Font()!
+			float scaleX = 960.0f / 16.0f;
+			float scaleY = 540.0f / 9.0f;
 			
 			float x = position.x;
 			
 			for (uint32 i = 0; i < text.length(); i++)
 			{
 				char c = text[i];
-				texture_glyph_t* glyph = texture_font_get_glyph(FTFont, &c);
+				texture_glyph_t* glyph = texture_font_get_glyph(font.getFTFont(), &c);
+
 				if (glyph != NULL)
 				{
-					
 					if (i > 0)
 					{
 						float kerning = texture_glyph_get_kerning(glyph, &text[i - 1]);

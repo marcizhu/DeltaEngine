@@ -175,6 +175,8 @@
     <ClInclude Include="DeltaEngine.h" />
     <ClInclude Include="errors.h" />
     <ClInclude Include="fileIO.h" />
+    <ClInclude Include="font.h" />
+    <ClInclude Include="fontManager.h" />
     <ClInclude Include="indexBuffer.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="layer2d.h" />
@@ -203,6 +205,8 @@
     <ClInclude Include="window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Font.cpp" />
+    <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="Layer2D.cpp" />
     <ClCompile Include="SimpleRenderable2D.cpp" />
