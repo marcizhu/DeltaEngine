@@ -48,7 +48,7 @@ namespace DeltaEngine {
 			glBindVertexArray(0);
 
 			FTAtlas = ftgl::texture_atlas_new(512, 512, 2);
-			FTFont = ftgl::texture_font_new_from_file(FTAtlas, 32, "SourceSansPro-Light.ttf");
+			FTFont = ftgl::texture_font_new_from_file(FTAtlas, 32, "SourceSansPro-Regular.ttf");
 		}
 
 		BatchRenderer2D::~BatchRenderer2D()

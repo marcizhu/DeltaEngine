@@ -16,7 +16,6 @@ namespace DeltaEngine {
 		{
 		public:
 			std::string text;
-			Maths::Vector2D& position;
 			float x, y;
 
 		public:
