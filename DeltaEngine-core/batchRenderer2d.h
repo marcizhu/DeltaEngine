@@ -46,7 +46,7 @@ namespace DeltaEngine {
 			DELTAENGINE_API void end() override;
 			DELTAENGINE_API void flush() override;
 
-			DELTAENGINE_API void drawString(const std::string& text, const Maths::Vector2D& position, const Types::Color& color) override;
+			DELTAENGINE_API void drawString(const std::string& text, const Maths::Vector2D& position, const Types::uint32 color) override;
 
 			DELTAENGINE_API void BatchRenderer2D::drawLine(const Maths::Vector2D& start, const Maths::Vector2D& end, unsigned int color) override;
 		};

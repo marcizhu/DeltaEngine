@@ -5,7 +5,7 @@
 namespace DeltaEngine {
 	namespace Graphics {
 
-		SimpleRenderable2D::SimpleRenderable2D(float x, float y, float width, float height, const Types::Color& color, Shader& shader)
+		SimpleRenderable2D::SimpleRenderable2D(float x, float y, float width, float height, Types::Color& color, Shader& shader)
 			: Renderable2D(Maths::Vector2D(x, y), Maths::Vector2D(width, height), color), shader(shader)
 		{
 			vertexArray = new VertexArray();

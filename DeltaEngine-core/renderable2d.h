@@ -30,7 +30,7 @@ namespace DeltaEngine {
 		protected:
 			Maths::Vector2D position;
 			Maths::Vector2D size;
-			Types::Color color;
+			Types::uint32 color;
 			std::vector<Maths::Vector2D> UV;
 			Texture* texture;
 			Sprite sprites;
@@ -38,14 +38,15 @@ namespace DeltaEngine {
 			Renderable2D() : texture(nullptr) { setUVDefaults(); }
 
 		public:
-			Renderable2D(Maths::Vector2D& position, Maths::Vector2D& size, Types::Color color) : position(position), size(size), color(color), texture(nullptr) { setUVDefaults(); }
+			Renderable2D(Maths::Vector2D& position, Maths::Vector2D& size, Types::Color& color) : position(position), size(size), texture(nullptr) { setUVDefaults(); setColor(color); }
+			Renderable2D(Maths::Vector2D& position, Maths::Vector2D& size, Types::uint32 color) : position(position), size(size), color(color), texture(nullptr) { setUVDefaults(); }
 
 			virtual ~Renderable2D() {}
 
-			virtual void submit(Renderer2D* renderer) const
-			{
-				renderer->submit(this);
-			}
+			virtual void submit(Renderer2D* renderer) const { renderer->submit(this); }
+
+			void setColor(unsigned int color) { this->color = color; }
+			void setColor(const Types::Color& color) { this->color = color.getABGRColor(); }
 
 			inline const Maths::Vector2D& getPosition() const { return position; }
 			inline const Maths::Vector2D& getSize() const { return size; }

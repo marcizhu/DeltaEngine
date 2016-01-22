@@ -15,7 +15,7 @@ namespace DeltaEngine {
 			Shader& shader;
 
 		public:
-			DELTAENGINE_API SimpleRenderable2D(float x, float y, float width, float height, const Types::Color& color, Shader& shader);
+			DELTAENGINE_API SimpleRenderable2D(float x, float y, float width, float height, Types::Color& color, Shader& shader);
 			DELTAENGINE_API ~SimpleRenderable2D();
 
 			DELTAENGINE_API inline const VertexArray* getVertexArray() const { return vertexArray; }

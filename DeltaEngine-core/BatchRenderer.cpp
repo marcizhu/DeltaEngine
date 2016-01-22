@@ -66,8 +66,8 @@ namespace DeltaEngine {
 
 		void BatchRenderer2D::submit(const Renderable2D* renderable)
 		{
-			Types::uint32 color = 0;
-			Maths::Vector2D position = renderable->getPosition();
+			const Types::uint32& color = renderable->getColor().getABGRColor();
+			const Maths::Vector2D& position = renderable->getPosition();
 			const Maths::Vector2D& size = renderable->getSize();
 			const std::vector<Maths::Vector2D>& uv = renderable->getUV();
 			const GLuint tid = renderable->getTextureID();
@@ -100,7 +100,7 @@ namespace DeltaEngine {
 			}
 			else
 			{
-				color = renderable->getColor().getABGRColor();
+				//color = renderable->getColor().getABGRColor();
 			}
 
 			buffer->vertex = position;
@@ -109,25 +109,19 @@ namespace DeltaEngine {
 			buffer->color = color;
 			buffer++;
 			
-			position.y += size.y;
-
-			buffer->vertex = position;
+			buffer->vertex = Maths::Vector2D(position.x, position.y + size.y);
 			buffer->uv = uv[1];
 			buffer->tid = ts;
 			buffer->color = color;
 			buffer++;
 
-			position.x += size.x;
-			
-			buffer->vertex = position;
+			buffer->vertex = Maths::Vector2D(position.x + size.x, position.y + size.y);
 			buffer->uv = uv[2];
 			buffer->tid = ts;
 			buffer->color = color;
 			buffer++;
 			
-			position.y -= size.y;
-
-			buffer->vertex = position;
+			buffer->vertex = Maths::Vector2D(position.x + size.x, position.y);
 			buffer->uv = uv[3];
 			buffer->tid = ts;
 			buffer->color = color;
@@ -171,16 +165,9 @@ namespace DeltaEngine {
 			indexCount += 6;
 		}
 
-		void BatchRenderer2D::drawString(const std::string& text, const Maths::Vector2D& position, const Types::Color& color)
-		{
-			//using namespace ftgl;
-			
-			/*int r = color.x * 255.0f;
-			int g = color.y * 255.0f;
-			int b = color.z * 255.0f;
-			int a = color.w * 255.0f;*/
-			
-			unsigned int col = color.getABGRColor();
+		void BatchRenderer2D::drawString(const std::string& text, const Maths::Vector2D& position, const Types::uint32 color)
+		{	
+			//unsigned int col = color.getABGRColor();
 			
 			float ts = 0.0f;
 			bool found = false;
@@ -238,25 +225,25 @@ namespace DeltaEngine {
 					buffer->vertex = Maths::Vector2D(x0, y0);
 					buffer->uv = Maths::Vector2D(u0, v0);
 					buffer->tid = ts;
-					buffer->color = col;
+					buffer->color = color;
 					buffer++;
 					
 					buffer->vertex = Maths::Vector2D(x0, y1);
 					buffer->uv = Maths::Vector2D(u0, v1);
 					buffer->tid = ts;
-					buffer->color = col;
+					buffer->color = color;
 					buffer++;
 					
 					buffer->vertex = Maths::Vector2D(x1, y1);
 					buffer->uv = Maths::Vector2D(u1, v1);
 					buffer->tid = ts;
-					buffer->color = col;
+					buffer->color = color;
 					buffer++;
 					
 					buffer->vertex = Maths::Vector2D(x1, y0);
 					buffer->uv = Maths::Vector2D(u1, v0);
 					buffer->tid = ts;
-					buffer->color = col;
+					buffer->color = color;
 					buffer++;
 					
 					indexCount += 6;
