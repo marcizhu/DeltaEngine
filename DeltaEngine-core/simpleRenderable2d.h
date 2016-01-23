@@ -2,6 +2,9 @@
 
 #include "DeltaEngine.h"
 #include "renderable2d.h"
+#include "vertexArray.h"
+#include "indexBuffer.h"
+#include "shader.h"
 #include "types.h"
 
 namespace DeltaEngine {

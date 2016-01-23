@@ -1,12 +1,8 @@
-#include <string>
 #include <GLEW\glew.h>
+#include <string>
 #include <vector>
 
 #include "shader.h"
-#include "vector2d.h"
-#include "vector3d.h"
-#include "vector4d.h"
-#include "Matrix4.h"
 #include "fileIO.h"
 
 using namespace std;

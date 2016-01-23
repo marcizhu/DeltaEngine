@@ -2,6 +2,8 @@
 
 #include "renderable2d.h"
 #include "types.h"
+#include "vector2d.h"
+#include "texture.h"
 #include "sprite.h"
 
 namespace DeltaEngine {

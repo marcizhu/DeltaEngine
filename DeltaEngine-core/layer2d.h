@@ -6,6 +6,7 @@
 #include "renderable2d.h"
 #include "matrix4.h"
 #include "vector2d.h"
+#include "shader.h"
 
 namespace DeltaEngine {
 	namespace Graphics {

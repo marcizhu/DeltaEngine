@@ -61,10 +61,13 @@ int main(int argc, char *argv[])
 	marioSprite.add(new Graphics::Texture("Mario4", "mario3.png", GL_NEAREST));
 
 	Graphics::Layer2D mainLayer(new Graphics::BatchRenderer2D(), shader, pr_matrix);
-	mainLayer.add(new Graphics::BatchRenderable2D(1.0f, 1.4f, 1, 1, marioSprite));
+	Graphics::Font* font= new Graphics::Font("SourceSans", "OpenSans-Light.ttf", 24);
+	font->setScale(win.getHeight() / 9.0f, win.getWidth() / 16.0f);
 
-	Graphics::FontManager::add(new Graphics::Font("SourceSans", "SourceSansPro-Regular.ttf", 32));
-	mainLayer.add(new Graphics::Label("Test text", 0.2f, 0.2f, "SourceSans", 0xff00ffff));
+	Graphics::FontManager::add(font);
+	Graphics::Label* fpsLabel = new Graphics::Label("FPS: 0", 14.5f, 8.5f, "SourceSans", Types::Color(255, 255, 255, 255));
+	mainLayer.add(new Graphics::BatchRenderable2D(1.0f, 1.4f, 1, 1, marioSprite));
+	mainLayer.add(fpsLabel);
 
 	Graphics::Layer2D background(new Graphics::BatchRenderer2D(), bgshader, Maths::Matrix4::orthographic(0.0f, 320.0f, 200.0f, 0.0f, -1.0f, 1.0f));
 	background.add(new Graphics::BatchRenderable2D(0.0f, 0.0f, 3583.0f, 240.0f, texManager.get("Background")));
@@ -124,7 +127,7 @@ int main(int argc, char *argv[])
 
 		if (myTimer.getElapsedTime() >= 1)
 		{
-			if (i != last) printf("FPS: %i\n", i);
+			if (i != last) fpsLabel->setText(std::string("FPS: " + std::to_string(i)));
 			myTimer.restart();
 			last = i;
 			i = 0;

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <GLEW/glew.h>
+#include <GLEW\glew.h>
 #include <FreeImage\FreeImage.h>
 #include <string>
 

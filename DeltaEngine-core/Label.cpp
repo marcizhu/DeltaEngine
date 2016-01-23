@@ -46,5 +46,10 @@ namespace DeltaEngine {
 			this->color = color;
 		}
 
+		void Label::setText(std::string& text)
+		{
+			this->text = text;
+		}
+
 	}
 }

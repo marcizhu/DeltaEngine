@@ -1,5 +1,6 @@
 #include "batchRenderer2d.h"
 #include "types.h"
+#include "maths.h"
 
 namespace DeltaEngine {
 	namespace Graphics {
@@ -85,7 +86,7 @@ namespace DeltaEngine {
 
 				if (!found)
 				{
-					if (textureSlots.size() >= 32)
+					if (textureSlots.size() >= RENDERER_MAX_TEXTURES)
 					{
 						end();
 						flush();
@@ -178,7 +179,7 @@ namespace DeltaEngine {
 			
 			if (!found)
 			{
-				if (textureSlots.size() >= 32)
+				if (textureSlots.size() >= RENDERER_MAX_TEXTURES)
 				{
 					end();
 					flush();
@@ -189,9 +190,7 @@ namespace DeltaEngine {
 				ts = (float)(textureSlots.size());
 			}
 			
-			//TODO: Move this to Font()!
-			float scaleX = 960.0f / 16.0f;
-			float scaleY = 540.0f / 9.0f;
+			const Maths::Vector2D& scale = font.getScale();
 			
 			float x = position.x;
 			
@@ -205,13 +204,13 @@ namespace DeltaEngine {
 					if (i > 0)
 					{
 						float kerning = texture_glyph_get_kerning(glyph, &text[i - 1]);
-						x += kerning / scaleX;
+						x += kerning / scale.x;
 					}
 					
-					float x0 = x + glyph->offset_x / scaleX;
-					float y0 = position.y + glyph->offset_y / scaleY;
-					float x1 = x0 + glyph->width / scaleX;
-					float y1 = y0 - glyph->height / scaleY;
+					float x0 = x + glyph->offset_x / scale.x;
+					float y0 = position.y + glyph->offset_y / scale.y;
+					float x1 = x0 + glyph->width / scale.x;
+					float y1 = y0 - glyph->height / scale.y;
 					
 					float u0 = glyph->s0;
 					float v0 = glyph->t0;
@@ -244,7 +243,7 @@ namespace DeltaEngine {
 					
 					indexCount += 6;
 					
-					x += glyph->advance_x / scaleX;
+					x += glyph->advance_x / scale.x;
 				}
 				
 			}
@@ -273,6 +272,7 @@ namespace DeltaEngine {
 			glBindVertexArray(0);
 
 			indexCount = 0;
+			textureSlots.clear();
 		}
 
 	}

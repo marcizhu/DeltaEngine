@@ -3,10 +3,7 @@
 #include <vector>
 
 #include "buffer.h"
-#include "indexBuffer.h"
-#include "vertexArray.h"
-#include "maths.h"
-#include "shader.h"
+#include "vector2d.h"
 #include "renderer2d.h"
 #include "texture.h"
 #include "sprite.h"
