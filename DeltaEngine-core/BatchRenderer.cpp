@@ -64,6 +64,10 @@ namespace DeltaEngine {
 
 		float BatchRenderer2D::submitTexture(uint32 textureID)
 		{
+#ifdef DELTAENGINE_DEBUG
+			if (!textureID)	std::cout << "Invalid texture ID!" << std::endl;
+#endif
+
 			float result = 0.0f;
 			bool found = false;
 			for (uint32 i = 0; i < textureSlots.size(); i++)
@@ -173,27 +177,40 @@ namespace DeltaEngine {
 
 		void BatchRenderer2D::drawString(const std::string& text, const Maths::Vector2D& position, const Font& font, const Types::uint32 color)
 		{
-			float ts = submitTexture(font.getID());
-			
+			float ts = 0.0f;
+			uint32 tid = font.getID();
+			if (tid > 0.0f) ts = submitTexture(font.getID());
+
 			const Maths::Vector2D& scale = font.getScale();
 			
 			float x = position.x;
+			float y = position.y;
 			
 			for (uint32 i = 0; i < text.length(); i++)
 			{
 				char c = text[i];
 				texture_glyph_t* glyph = texture_font_get_glyph(font.getFTFont(), &c);
 
-				if (glyph != NULL)
+				if (glyph)
 				{
 					if (i > 0)
 					{
 						float kerning = texture_glyph_get_kerning(glyph, &text[i - 1]);
 						x += kerning / scale.x;
 					}
+
+					if (c == '\n')
+					{
+						y -=  (glyph->advance_y > 0.0f ? glyph->advance_y : (glyph->height + (font.getSize() + 6) / 3)) / scale.y;
+						//My equation for vertical spacing: y = (x + 6) / 3:
+						// x = 24 -> y = (24 + 6) / 3 = 10
+						// x = 18 -> y = (18 + 6) / 3 = 8
+						x = position.x;
+						continue;
+					}
 					
 					float x0 = x + glyph->offset_x / scale.x;
-					float y0 = position.y + glyph->offset_y / scale.y;
+					float y0 = y + glyph->offset_y / scale.y;
 					float x1 = x0 + glyph->width / scale.x;
 					float y1 = y0 - glyph->height / scale.y;
 					
@@ -230,7 +247,6 @@ namespace DeltaEngine {
 					
 					x += glyph->advance_x / scale.x;
 				}
-				
 			}
 		}
 

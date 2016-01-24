@@ -65,10 +65,19 @@ int main(int argc, char *argv[])
 	mainLayer.add(new Graphics::BatchRenderable2D(1.0f, 1.4f, 1, 1, marioSprite));
 
 	Graphics::FontManager::add(new Graphics::Font("OpenSans", "OpenSans-Light.ttf", 24));
+	Graphics::FontManager::add(new Graphics::Font("Consolas", "consola.ttf", 18));
 	Graphics::FontManager::get("OpenSans")->setScale(win.getHeight() / 9.0f, win.getWidth() / 16.0f);
+	Graphics::FontManager::get("Consolas")->setScale(win.getHeight() / 9.0f, win.getWidth() / 16.0f);
 	Graphics::Label* fpsLabel = new Graphics::Label("FPS: 0", 14.5f, 8.5f, "OpenSans", 0xffffffff);
-	
+	Graphics::Label* debugLabel = new Graphics::Label("", 0.2f, 8.6f, "Consolas", 0xff00ffff);
+
+	string version = string((char*)glGetString(GL_VERSION));
+	string vendor = string((char*)glGetString(GL_VENDOR));
+	string renderer = string((char*)glGetString(GL_RENDERER));
+	debugLabel->setText(std::string("Version : " + version + "\nVendor  : " + vendor + "\nRenderer: " + renderer));
+
 	Graphics::Layer2D ui(new Graphics::BatchRenderer2D(), uiShader, pr_matrix);
+	ui.add(debugLabel);
 	ui.add(fpsLabel);
 
 	Graphics::Layer2D background(new Graphics::BatchRenderer2D(), bgshader, Maths::Matrix4::orthographic(0.0f, 320.0f, 200.0f, 0.0f, -1.0f, 1.0f));

@@ -338,7 +338,7 @@ texture_font_new_from_file(texture_atlas_t *atlas, const float pt_size,
     self->size  = pt_size;
 
     self->location = TEXTURE_FONT_FILE;
-    self->filename = strdup(filename);
+    self->filename = _strdup(filename);
 
     if (texture_font_init(self)) {
         texture_font_delete(self);

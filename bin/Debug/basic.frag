@@ -3,7 +3,7 @@
 layout (location = 0) out vec4 color;
 
 uniform vec4 colour;
-uniform vec2 light_pos;
+//uniform vec2 light_pos;
 
 in DATA
 {
@@ -22,7 +22,7 @@ void main()
 	
 	if (fs_in.tid > 0.0)
 	{
-		int tid = int(fs_in.tid - 0.5);
+		int tid = int(fs_in.tid - 1.0f);
 		texColor = fs_in.color * texture(textures[tid], fs_in.uv);
 	}
 	color = texColor /* intensity*/;
