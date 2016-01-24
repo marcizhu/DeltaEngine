@@ -1,6 +1,7 @@
 #include <vector>
 
 #include "fontManager.h"
+#include "types.h"
 
 namespace DeltaEngine { 
 	namespace Graphics {
@@ -30,7 +31,7 @@ namespace DeltaEngine {
 
 		void FontManager::clean()
 		{
-			for (int i = 0; i < fonts.size(); i++)
+			for (Types::uint32 i = 0; i < fonts.size(); i++)
 				delete fonts[i];
 		}
 

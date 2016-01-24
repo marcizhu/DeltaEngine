@@ -49,6 +49,7 @@ int main(int argc, char *argv[])
 
 	Graphics::Shader* shader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\basic.vert", Utils::getCurrentPath() + "\\basic.frag");
 	Graphics::Shader* bgshader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\basic.vert", Utils::getCurrentPath() + "\\basic.frag");
+	Graphics::Shader* uiShader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\basic.vert", Utils::getCurrentPath() + "\\basic.frag");
 
 	Graphics::TextureManager texManager;
 	texManager.add(new Graphics::Texture("Background", "map.png", GL_NEAREST));
@@ -61,13 +62,14 @@ int main(int argc, char *argv[])
 	marioSprite.add(new Graphics::Texture("Mario4", "mario3.png", GL_NEAREST));
 
 	Graphics::Layer2D mainLayer(new Graphics::BatchRenderer2D(), shader, pr_matrix);
-	Graphics::Font* font= new Graphics::Font("SourceSans", "OpenSans-Light.ttf", 24);
-	font->setScale(win.getHeight() / 9.0f, win.getWidth() / 16.0f);
-
-	Graphics::FontManager::add(font);
-	Graphics::Label* fpsLabel = new Graphics::Label("FPS: 0", 14.5f, 8.5f, "SourceSans", Types::Color(255, 255, 255, 255));
 	mainLayer.add(new Graphics::BatchRenderable2D(1.0f, 1.4f, 1, 1, marioSprite));
-	mainLayer.add(fpsLabel);
+
+	Graphics::FontManager::add(new Graphics::Font("OpenSans", "OpenSans-Light.ttf", 24));
+	Graphics::FontManager::get("OpenSans")->setScale(win.getHeight() / 9.0f, win.getWidth() / 16.0f);
+	Graphics::Label* fpsLabel = new Graphics::Label("FPS: 0", 14.5f, 8.5f, "OpenSans", 0xffffffff);
+	
+	Graphics::Layer2D ui(new Graphics::BatchRenderer2D(), uiShader, pr_matrix);
+	ui.add(fpsLabel);
 
 	Graphics::Layer2D background(new Graphics::BatchRenderer2D(), bgshader, Maths::Matrix4::orthographic(0.0f, 320.0f, 200.0f, 0.0f, -1.0f, 1.0f));
 	background.add(new Graphics::BatchRenderable2D(0.0f, 0.0f, 3583.0f, 240.0f, texManager.get("Background")));
@@ -107,6 +109,7 @@ int main(int argc, char *argv[])
 
 		background.render();
 		mainLayer.render();
+		ui.render();
 
 		if (win.isKeyPressed(256)) break;
 

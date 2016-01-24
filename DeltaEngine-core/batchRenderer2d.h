@@ -36,6 +36,9 @@ namespace DeltaEngine {
 			Types::VertexData* buffer;
 			std::vector<GLuint> textureSlots;
 
+			float BatchRenderer2D::submitTexture(uint32 textureID);
+			float BatchRenderer2D::submitTexture(const Texture* texture);
+
 		public:
 			DELTAENGINE_API BatchRenderer2D();
 			DELTAENGINE_API ~BatchRenderer2D();

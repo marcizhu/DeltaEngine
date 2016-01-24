@@ -21,11 +21,11 @@ namespace DeltaEngine {
 			{ this->texture = nullptr; };
 			
 			BatchRenderable2D(float x, float y, float width, float height, Texture* texture)
-				: Renderable2D(Maths::Vector2D(x, y), Maths::Vector2D(width, height), Types::Color(255, 0, 255, 255))
+				: Renderable2D(Maths::Vector2D(x, y), Maths::Vector2D(width, height), 0xffffffff)
 			{ this->texture = texture; }
 
 			BatchRenderable2D(float x, float y, float width, float height, Sprite sprite)
-				: Renderable2D(Maths::Vector2D(x, y), Maths::Vector2D(width, height), Types::Color(255, 0, 255, 255))
+				: Renderable2D(Maths::Vector2D(x, y), Maths::Vector2D(width, height), Types::Color(255, 255, 255, 255))
 			{ this->texture = nullptr; this->sprites = sprite; }
 		};
 	}

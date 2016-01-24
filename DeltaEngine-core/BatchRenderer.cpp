@@ -62,44 +62,51 @@ namespace DeltaEngine {
 			buffer = (Types::VertexData*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 		}
 
+		float BatchRenderer2D::submitTexture(uint32 textureID)
+		{
+			float result = 0.0f;
+			bool found = false;
+			for (uint32 i = 0; i < textureSlots.size(); i++)
+			{
+				if (textureSlots[i] == textureID)
+				{
+					result = (float)(i + 1);
+					found = true;
+					break;
+				}
+			}
+		
+			if (!found)
+			{
+				if (textureSlots.size() >= RENDERER_MAX_TEXTURES)
+				{
+					end();
+					flush();
+					begin();
+				}
+				
+				textureSlots.push_back(textureID);
+				result = (float)(textureSlots.size());
+			}
+
+			return result;
+		}
+		
+		float BatchRenderer2D::submitTexture(const Texture* texture)
+		{
+			return submitTexture(texture->getID());
+		}
+
 		void BatchRenderer2D::submit(const Renderable2D* renderable)
 		{
-			const Types::uint32& color = renderable->getColor().getABGRColor();
+			const Types::uint32& color = renderable->getColor();
 			const Maths::Vector2D& position = renderable->getPosition();
 			const Maths::Vector2D& size = renderable->getSize();
 			const std::vector<Maths::Vector2D>& uv = renderable->getUV();
 			const GLuint tid = renderable->getTextureID();
 
 			float ts = 0.0f;
-			if (tid > 0)
-			{
-				bool found = false;
-				for (uint32 i = 0; i < textureSlots.size(); i++)
-				{
-					if (textureSlots[i] == tid)
-					{
-						ts = (float)(i + 1);
-						found = true;
-						break;
-					}
-				}
-
-				if (!found)
-				{
-					if (textureSlots.size() >= RENDERER_MAX_TEXTURES)
-					{
-						end();
-						flush();
-						begin();
-					}
-					textureSlots.push_back(tid);
-					ts = (float)(textureSlots.size());
-				}
-			}
-			else
-			{
-				//color = renderable->getColor().getABGRColor();
-			}
+			if (tid > 0) ts = submitTexture(renderable->getTexture());
 
 			buffer->vertex = position;
 			buffer->uv = uv[0];
@@ -134,6 +141,7 @@ namespace DeltaEngine {
 			float x = (float)cos(angle);
 			float y = (float)sin(angle);
 
+			//TODO: This should be a parameter!
 			const float lineThinkness = 16.0f / 960.0f;
 
 			buffer->vertex = start;
@@ -165,30 +173,7 @@ namespace DeltaEngine {
 
 		void BatchRenderer2D::drawString(const std::string& text, const Maths::Vector2D& position, const Font& font, const Types::uint32 color)
 		{
-			float ts = 0.0f;
-			bool found = false;
-			for (uint32 i = 0; i < textureSlots.size(); i++)
-			{
-				if (textureSlots[i] == font.getID())
-				{
-					ts = (float)(i + 1);
-					found = true;
-					break;
-				}
-			}
-			
-			if (!found)
-			{
-				if (textureSlots.size() >= RENDERER_MAX_TEXTURES)
-				{
-					end();
-					flush();
-					begin();
-				}
-
-				textureSlots.push_back(font.getID());
-				ts = (float)(textureSlots.size());
-			}
+			float ts = submitTexture(font.getID());
 			
 			const Maths::Vector2D& scale = font.getScale();
 			

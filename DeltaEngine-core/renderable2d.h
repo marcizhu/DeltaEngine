@@ -47,10 +47,11 @@ namespace DeltaEngine {
 
 			inline const Maths::Vector2D& getPosition() const { return position; }
 			inline const Maths::Vector2D& getSize() const { return size; }
-			inline const Types::Color& getColor() const { return color; }
+			inline const Types::uint32 getColor() const { return color; }
 			inline const std::vector<Maths::Vector2D>& getUV() const { return UV; }
 			inline const GLuint getTextureID() const { return sprites.getTextureCount() ? sprites.getCurrentTexture()->getID() : texture ? texture->getID() : 0; }
 			inline Sprite& getSprite() { return sprites; }
+			inline const Texture* getTexture() const { return sprites.getTextureCount() ? sprites.getCurrentTexture() : texture ? texture : nullptr; }
 
 			inline void moveTo(float x, float y) { position.x = x; position.y = y; }
 			inline void move(float dx, float dy) { position.x += dx; position.y += dy; }

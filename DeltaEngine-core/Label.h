@@ -17,7 +17,7 @@ namespace DeltaEngine {
 			std::string text;
 			Font* font;
 			//TODO: Remove this! Use Renderable2D::position instead
-			float x, y;
+			//float x, y;
 
 		public:
 			DELTAENGINE_API Label(std::string text, float x, float y, Font* font, Types::Color color);
