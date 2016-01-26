@@ -6,7 +6,7 @@
 #include "types.h"
 #include "utils.h"
 
-using namespace std;
+//using namespace std;
 
 namespace DeltaEngine {
 	namespace Debug {
@@ -14,13 +14,13 @@ namespace DeltaEngine {
 		void checkErrors()
 		{
 			GLenum error = glGetError();
-			if (error != GL_NO_ERROR) cout << "OpenGL Error: " << error << endl;
+			if (error != GL_NO_ERROR) std::cout << "OpenGL Error: " << error << std::endl;
 		}
 
 		void dump(const void* object, Types::uint32 size, int color)
 		{
 			Types::byte* x = (Types::byte*)object;
-			vector<Types::byte> data;
+			std::vector<Types::byte> data;
 
 			for (Types::uint32 i = 1; i <= size; i++)
 			{

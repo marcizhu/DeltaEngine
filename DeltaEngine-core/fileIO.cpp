@@ -4,35 +4,35 @@
 #include "fileIO.h"
 #include "types.h"
 
-using namespace DeltaEngine::Types;
+//using namespace DeltaEngine::Types;
 
 namespace DeltaEngine {
 	namespace FileIO {
 
-		File::File(string path)
+		File::File(std::string path)
 		{
 			this->path = path;
 			this->fSize = getFileSize();
 		}
 
-		string File::read()
+		std::string File::read()
 		{
 			FILE* file;
 			fopen_s(&file, this->path.c_str(), "r");
-			if (file == nullptr) return string("");
+			if (file == nullptr) return std::string("");
 
 			char* data = new char[getFileSize() + 1];
 			memset(data, 0, getFileSize() + 1);
 			fread(data, 1, getFileSize(), file);
 			fclose(file);
 
-			string result(data);
+			std::string result(data);
 
 			delete[] data;
 			return result;
 		}
 
-		int File::write(string data)
+		int File::write(std::string data)
 		{
 			FILE* file;
 			fopen_s(&file, this->path.c_str(), "w");
@@ -45,7 +45,7 @@ namespace DeltaEngine {
 			return 0;
 		}
 
-		int File::append(string data)
+		int File::append(std::string data)
 		{
 			FILE* file;
 			fopen_s(&file, this->path.c_str(), "a");
@@ -64,20 +64,20 @@ namespace DeltaEngine {
 			return (stat(this->path.c_str(), &buffer) == 0);
 		}
 
-		void File::changeFilePath(string path)
+		void File::changeFilePath(std::string path)
 		{
 			this->path = path;
 			this->fSize = getFileSize();
 		}
 
-		uint32 File::getFileSize()
+		Types::uint32 File::getFileSize()
 		{
 			FILE* file;
 			fopen_s(&file, this->path.c_str(), "r");
 			if (file == nullptr) return 0;
 
 			fseek(file, 0, SEEK_END);
-			uint32 len = ftell(file);
+			Types::uint32 len = ftell(file);
 
 			fclose(file);
 

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "vector2d.h"
-#include "vector4d.h"
 
 namespace DeltaEngine {
 	namespace Types {

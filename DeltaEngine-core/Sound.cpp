@@ -9,32 +9,32 @@
 #include "sound.h"
 #include "soundManager.h"
 
-using namespace std;
+//using namespace std;
 
 namespace DeltaEngine {
 	namespace Sound {
 
-		void Sound::loadSound(Sound* obj, vector<string> split)
+		void Sound::loadSound(Sound* obj, std::vector<std::string> split)
 		{
 			obj->sound = gau_load_sound_file(obj->filename.c_str(), split.back().c_str());
 
 			if (obj->sound == nullptr)
 			{
 #ifdef DELTAENGINE_DEBUG
-				cout << "[Sound] Could not load file '" << obj->filename << "'!" << endl;
+				std::cout << "[Sound] Could not load file '" << obj->filename << "'!" << std::endl;
 #endif
 			}
 
 			obj->ready = true;
 		}
 
-		Sound::Sound(const string& name, const string& filename)
+		Sound::Sound(const std::string& name, const std::string& filename)
 			: name(name), filename(filename), playing(false), ready(false)
 		{
 
-			vector<string> split;
-			stringstream ss(filename);
-			string item;
+			std::vector<std::string> split;
+			std::stringstream ss(filename);
+			std::string item;
 			while (getline(ss, item, '.')) split.push_back(item);
 
 			if (split.size() < 2)
@@ -45,7 +45,7 @@ namespace DeltaEngine {
 				return;
 			}
 
-			thread audioThread(loadSound, this, split);
+			std::thread audioThread(loadSound, this, split);
 			audioThread.detach();
 		}
 		
@@ -61,13 +61,13 @@ namespace DeltaEngine {
 
 		void Sound::play()
 		{
-			thread audioThread(playSound, this, false);
+			std::thread audioThread(playSound, this, false);
 			audioThread.detach();
 		}
 		
 		void Sound::loop()
 		{
-			thread audioThread(playSound, this, true);
+			std::thread audioThread(playSound, this, true);
 			audioThread.detach();
 		}
 		

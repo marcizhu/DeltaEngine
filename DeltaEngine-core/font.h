@@ -5,8 +5,6 @@
 
 #include "DeltaEngine.h"
 #include "vector2d.h"
-//---------------------
-#include "texture.h"
 
 namespace DeltaEngine {
 	namespace Graphics {

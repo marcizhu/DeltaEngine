@@ -51,5 +51,45 @@ namespace DeltaEngine {
 			this->text = text;
 		}
 
+#define MAX(a, b) a > b ? a : b
+
+		const Maths::Vector2D Label::getSize(const Font& font)
+		{
+			const Maths::Vector2D& scale = font.getScale();
+
+			float x = 0.0f;
+			float maxX = 0.0f;
+			float y = 0.0f;
+
+			for (Types::uint32 i = 0; i < text.length(); i++)
+			{
+				char c = text[i];
+				texture_glyph_t* glyph = texture_font_get_glyph(font.getFTFont(), &c);
+
+				if (glyph)
+				{
+					if (i > 0)
+					{
+						float kerning = texture_glyph_get_kerning(glyph, &text[i - 1]);
+						x += kerning / scale.x;
+					}
+
+					if (c == '\n')
+					{
+						y += (glyph->advance_y > 0.0f ? glyph->advance_y : (glyph->height + (font.getSize() + 6) / 3)) / scale.y;
+						maxX = MAX(maxX, x);
+						x = 0.0f;
+						continue;
+					}
+
+					x += glyph->advance_x / scale.x;
+				}
+			}
+
+			this->size = Maths::Vector2D(maxX, y);
+			
+			return this->size;
+		}
+
 	}
 }

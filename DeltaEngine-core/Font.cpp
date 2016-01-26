@@ -1,3 +1,5 @@
+#include <string>
+
 #include "font.h"
 #include <FreeType-GL\texture-font.h>
 

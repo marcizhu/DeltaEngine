@@ -3,7 +3,7 @@
 namespace DeltaEngine {
 	namespace Graphics {
 
-		Texture::Texture(const std::string& name, const std::string& filename, uint32 texParam)
+		Texture::Texture(const std::string& name, const std::string& filename, Types::uint32 texParam)
 			: textureName(name)
 		{
 			BYTE* pixels = loadImage(filename.c_str(), &width, &height, &bpp);
@@ -40,7 +40,7 @@ namespace DeltaEngine {
 			delete[] pixels;
 		}
 
-		BYTE* Texture::loadImage(const char* filename, uint32* width, uint32* height, uchar8* bpp)
+		BYTE* Texture::loadImage(const char* filename, Types::uint32* width, Types::uint32* height, Types::uchar8* bpp)
 		{
 			FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
 			FIBITMAP *dib = nullptr;
@@ -63,7 +63,7 @@ namespace DeltaEngine {
 			*height = FreeImage_GetHeight(dib);
 			*bpp = FreeImage_GetBPP(dib);
 
-			uint32 size = *width * *height * (*bpp / 8);
+			Types::uint32 size = *width * *height * (*bpp / 8);
 
 			BYTE* result = new BYTE[size];
 			memcpy(result, pixels, size);

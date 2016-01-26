@@ -6,30 +6,30 @@
 #include "errors.h"
 #include "types.h"
 
-using namespace std;
-using namespace DeltaEngine::Types;
+//using namespace std;
+//using namespace DeltaEngine::Types;
 
 namespace DeltaEngine {
 	namespace FileIO {
 
 		class File {
 		private:
-			uint32 fSize;
-			string path;
+			Types::uint32 fSize;
+			std::string path;
 
 		public:
-			DELTAENGINE_API File(string path);
+			DELTAENGINE_API File(std::string path);
 
-			DELTAENGINE_API string read();
-			DELTAENGINE_API int write(string data);
-			DELTAENGINE_API int append(string data);
+			DELTAENGINE_API std::string read();
+			DELTAENGINE_API int write(std::string data);
+			DELTAENGINE_API int append(std::string data);
 
 			DELTAENGINE_API bool exists();
 			//DELTAENGINE_API bool rename(string newName);
 
-			DELTAENGINE_API void changeFilePath(string path);
+			DELTAENGINE_API void changeFilePath(std::string path);
 
-			DELTAENGINE_API uint32 getFileSize();
+			DELTAENGINE_API Types::uint32 getFileSize();
 		};
 
 	}

@@ -8,18 +8,18 @@
 const double PI = 3.14159265358979323846;
 const double PHI = (sqrt(5) + 1) / 2; //Golden ratio
 
-using namespace DeltaEngine::Types;
+//using namespace DeltaEngine::Types;
 
 namespace DeltaEngine {
 	namespace Maths {
 
 		// Math utilities
 
-		DELTAENGINE_API bool isPrime(uint32 n);
+		DELTAENGINE_API bool isPrime(Types::uint32 n);
 
-		DELTAENGINE_API uint32 findPrime(uint32 start);
+		DELTAENGINE_API Types::uint32 findPrime(Types::uint32 start);
 
-		DELTAENGINE_API std::vector<uint32> factorialDecomposition(uint32 number);
+		DELTAENGINE_API std::vector<Types::uint32> factorialDecomposition(Types::uint32 number);
 
 		inline float toRadians(float degrees) { return degrees * (float)(PI / 180.0f); }
 		

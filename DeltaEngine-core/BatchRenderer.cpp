@@ -22,9 +22,9 @@ namespace DeltaEngine {
 			glEnableVertexAttribArray(SHADER_COLOR_INDEX);
 
 			glVertexAttribPointer(SHADER_VERTEX_INDEX, 3, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)0);
-			glVertexAttribPointer(SHADER_UV_INDEX, 2, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::uv)));
-			glVertexAttribPointer(SHADER_TID_INDEX, 1, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::tid)));
-			glVertexAttribPointer(SHADER_COLOR_INDEX, 4, GL_UNSIGNED_BYTE, GL_TRUE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::color)));
+			glVertexAttribPointer(SHADER_UV_INDEX, 2, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(Types::VertexData, VertexData::uv)));
+			glVertexAttribPointer(SHADER_TID_INDEX, 1, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(Types::VertexData, VertexData::tid)));
+			glVertexAttribPointer(SHADER_COLOR_INDEX, 4, GL_UNSIGNED_BYTE, GL_TRUE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(Types::VertexData, VertexData::color)));
 		
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
 
@@ -62,7 +62,7 @@ namespace DeltaEngine {
 			buffer = (Types::VertexData*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 		}
 
-		float BatchRenderer2D::submitTexture(uint32 textureID)
+		float BatchRenderer2D::submitTexture(Types::uint32 textureID)
 		{
 #ifdef DELTAENGINE_DEBUG
 			if (!textureID)	std::cout << "Invalid texture ID!" << std::endl;
@@ -70,7 +70,7 @@ namespace DeltaEngine {
 
 			float result = 0.0f;
 			bool found = false;
-			for (uint32 i = 0; i < textureSlots.size(); i++)
+			for (Types::uint32 i = 0; i < textureSlots.size(); i++)
 			{
 				if (textureSlots[i] == textureID)
 				{
@@ -178,7 +178,7 @@ namespace DeltaEngine {
 		void BatchRenderer2D::drawString(const std::string& text, const Maths::Vector2D& position, const Font& font, const Types::uint32 color)
 		{
 			float ts = 0.0f;
-			uint32 tid = font.getID();
+			Types::uint32 tid = font.getID();
 			if (tid > 0.0f) ts = submitTexture(font.getID());
 
 			const Maths::Vector2D& scale = font.getScale();
@@ -186,7 +186,7 @@ namespace DeltaEngine {
 			float x = position.x;
 			float y = position.y;
 			
-			for (uint32 i = 0; i < text.length(); i++)
+			for (Types::uint32 i = 0; i < text.length(); i++)
 			{
 				char c = text[i];
 				texture_glyph_t* glyph = texture_font_get_glyph(font.getFTFont(), &c);
@@ -258,7 +258,7 @@ namespace DeltaEngine {
 
 		void BatchRenderer2D::flush()
 		{
-			for (uint32 i = 0; i < textureSlots.size(); i++)
+			for (Types::uint32 i = 0; i < textureSlots.size(); i++)
 			{
 				glActiveTexture(GL_TEXTURE0 + i);
 				glBindTexture(GL_TEXTURE_2D, textureSlots[i]);

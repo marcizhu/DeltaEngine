@@ -15,7 +15,7 @@
 	#define GetCurrentDir getcwd
 #endif
 
-using namespace std;
+//using namespace std;
 
 namespace DeltaEngine {
 	namespace Utils {
@@ -26,7 +26,7 @@ namespace DeltaEngine {
 		DELTAENGINE_API Types::time timestampToTime(const Types::timestamp& t);
 		DELTAENGINE_API Types::date timestampToDate(const Types::timestamp& t);
 
-		DELTAENGINE_API string getCurrentPath();
+		DELTAENGINE_API std::string getCurrentPath();
 		
 		// Console utilities
 		DELTAENGINE_API void gotoxy(int x, int y);

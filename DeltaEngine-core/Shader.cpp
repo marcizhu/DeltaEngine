@@ -5,18 +5,18 @@
 #include "shader.h"
 #include "fileIO.h"
 
-using namespace std;
+//using namespace std;
 
 namespace DeltaEngine {
 	namespace Graphics {
 
 		//TODO: Allow the user to load vertex + fragment shaders at once (both in the same file)
-		Shader::Shader(const string& vertex, const string& fragment, ShaderDataType dType)
+		Shader::Shader(const std::string& vertex, const std::string& fragment, ShaderDataType dType)
 		{
 			switch (dType)
 			{
 			default:
-				cout << "[Shader] Invalid shader type!" << endl; break;
+				std::cout << "[Shader] Invalid shader type!" << std::endl; break;
 
 			case SOURCE:
 				shaderID = load(vertex, fragment); break;
@@ -28,8 +28,8 @@ namespace DeltaEngine {
 				if (vShader.exists() == false || fShader.exists() == false)
 				{
 #ifdef DELTAENGINE_DEBUG
-					if (vShader.exists() == false) cout << "[Shader] Vertex shader file doesn't exists!" << endl;
-					if (fShader.exists() == false) cout << "[Shader] Fragment shader file doesn't exists!" << endl;
+					if (vShader.exists() == false) std::cout << "[Shader] Vertex shader file doesn't exists!" << std::endl;
+					if (fShader.exists() == false) std::cout << "[Shader] Fragment shader file doesn't exists!" << std::endl;
 #endif
 					shaderID = 0;
 					return;
@@ -40,7 +40,7 @@ namespace DeltaEngine {
 			}
 		}
 
-		Shader* Shader::loadFromFile(const string& vertPath, const string& fragPath)
+		Shader* Shader::loadFromFile(const std::string& vertPath, const std::string& fragPath)
 		{
 			FileIO::File vShader = FileIO::File(vertPath);
 			FileIO::File fShader = FileIO::File(fragPath);
@@ -48,8 +48,8 @@ namespace DeltaEngine {
 			if (vShader.exists() == false || fShader.exists() == false)
 			{
 #ifdef DELTAENGINE_DEBUG
-				if (vShader.exists() == false) cout << "[Shader] Vertex shader file doesn't exists!" << endl;
-				if (fShader.exists() == false) cout << "[Shader] Fragment shader file doesn't exists!" << endl;
+				if (vShader.exists() == false) std::cout << "[Shader] Vertex shader file doesn't exists!" << std::endl;
+				if (fShader.exists() == false) std::cout << "[Shader] Fragment shader file doesn't exists!" << std::endl;
 #endif
 				return nullptr;
 			}
@@ -57,12 +57,12 @@ namespace DeltaEngine {
 			return new Shader(vShader.read(), fShader.read(), SOURCE);
 		}
 
-		Shader* Shader::loadFromSource(const string& vertSource, const string& fragSource)
+		Shader* Shader::loadFromSource(const std::string& vertSource, const std::string& fragSource)
 		{
 			return new Shader(vertSource, fragSource, SOURCE);
 		}
 
-		bool Shader::compileAndCheckStatus(GLuint shader, const char* source, string shaderType)
+		bool Shader::compileAndCheckStatus(GLuint shader, const char* source, std::string shaderType)
 		{
 			glShaderSource(shader, 1, &source, NULL);
 			glCompileShader(shader);
@@ -74,9 +74,9 @@ namespace DeltaEngine {
 #ifdef DELTAENGINE_DEBUG
 				GLint length;
 				glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &length);
-				vector<char> error(length);
+				std::vector<char> error(length);
 				glGetShaderInfoLog(shader, length, &length, &error[0]);
-				cout << "[Shader] Failed to compile " << shaderType << " shader!" << endl << &error[0] << endl;
+				std::cout << "[Shader] Failed to compile " << shaderType << " shader!" << std::endl << &error[0] << std::endl;
 #endif
 				glDeleteShader(shader);
 				return false;
@@ -85,7 +85,7 @@ namespace DeltaEngine {
 			return true;
 		}
 
-		GLuint Shader::load(const string& vertData, const string& fragData)
+		GLuint Shader::load(const std::string& vertData, const std::string& fragData)
 		{
 			GLuint program = glCreateProgram();
 			GLuint vertex = glCreateShader(GL_VERTEX_SHADER);

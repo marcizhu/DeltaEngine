@@ -1,6 +1,5 @@
 //main.cpp: For testing purposes only
 //
-#define BATCH_RENDERER
 
 #include <stdio.h>
 #include <string>
@@ -25,10 +24,9 @@
 	#include "debug.h"
 #endif
 
-using namespace DeltaEngine;
 using namespace std;
 
-void handler(Graphics::Window* window, int err)
+void handler(DeltaEngine::Graphics::Window* window, int err)
 {
 	printf("Error %i: %s\n", err, window->getErrorString(err).c_str());
 }
@@ -39,49 +37,49 @@ int main(int argc, char *argv[])
 	FreeConsole();
 #endif
 
-	Graphics::Window win(string("DeltaEngine Sandbox"), 960, 540, &handler);
+	DeltaEngine::Graphics::Window win(std::string("DeltaEngine Sandbox"), 960, 540, &handler);
 
-	if (init(argc, argv) == DELTAENGINE_NOT_INITIALIZED) return -1;
+	if (DeltaEngine::init(argc, argv) == DELTAENGINE_NOT_INITIALIZED) return -1;
 
 	win.installKeyboard();
 
-	Maths::Matrix4 pr_matrix = Maths::Matrix4::orthographic(0.0f, 16.0f, 9.0f, 0.0f, -1.0f, 1.0f);
+	DeltaEngine::Maths::Matrix4 pr_matrix = DeltaEngine::Maths::Matrix4::orthographic(0.0f, 16.0f, 9.0f, 0.0f, -1.0f, 1.0f);
 
-	Graphics::Shader* shader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\basic.vert", Utils::getCurrentPath() + "\\basic.frag");
-	Graphics::Shader* bgshader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\basic.vert", Utils::getCurrentPath() + "\\basic.frag");
-	Graphics::Shader* uiShader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\basic.vert", Utils::getCurrentPath() + "\\basic.frag");
+	DeltaEngine::Graphics::Shader* shader = DeltaEngine::Graphics::Shader::loadFromFile(DeltaEngine::Utils::getCurrentPath() + "\\basic.vert", DeltaEngine::Utils::getCurrentPath() + "\\basic.frag");
+	DeltaEngine::Graphics::Shader* bgshader = DeltaEngine::Graphics::Shader::loadFromFile(DeltaEngine::Utils::getCurrentPath() + "\\basic.vert", DeltaEngine::Utils::getCurrentPath() + "\\basic.frag");
+	DeltaEngine::Graphics::Shader* uiShader = DeltaEngine::Graphics::Shader::loadFromFile(DeltaEngine::Utils::getCurrentPath() + "\\basic.vert", DeltaEngine::Utils::getCurrentPath() + "\\basic.frag");
 
-	Graphics::TextureManager texManager;
-	texManager.add(new Graphics::Texture("Background", "map.png", GL_NEAREST));
-	texManager.add(new Graphics::Texture("Mario", "mario.png", GL_NEAREST));
+	DeltaEngine::Graphics::TextureManager texManager;
+	texManager.add(new DeltaEngine::Graphics::Texture("Background", "map.png", GL_NEAREST));
+	texManager.add(new DeltaEngine::Graphics::Texture("Mario", "mario.png", GL_NEAREST));
 
-	Graphics::Sprite marioSprite;
-	marioSprite.add(new Graphics::Texture("Mario1", "mario0.png", GL_NEAREST));
-	marioSprite.add(new Graphics::Texture("Mario2", "mario1.png", GL_NEAREST));
-	marioSprite.add(new Graphics::Texture("Mario3", "mario2.png", GL_NEAREST));
-	marioSprite.add(new Graphics::Texture("Mario4", "mario3.png", GL_NEAREST));
+	DeltaEngine::Graphics::Sprite marioSprite;
+	marioSprite.add(new DeltaEngine::Graphics::Texture("Mario1", "mario0.png", GL_NEAREST));
+	marioSprite.add(new DeltaEngine::Graphics::Texture("Mario2", "mario1.png", GL_NEAREST));
+	marioSprite.add(new DeltaEngine::Graphics::Texture("Mario3", "mario2.png", GL_NEAREST));
+	marioSprite.add(new DeltaEngine::Graphics::Texture("Mario4", "mario3.png", GL_NEAREST));
 
-	Graphics::Layer2D mainLayer(new Graphics::BatchRenderer2D(), shader, pr_matrix);
-	mainLayer.add(new Graphics::BatchRenderable2D(1.0f, 1.4f, 1, 1, marioSprite));
+	DeltaEngine::Graphics::Layer2D mainLayer(new DeltaEngine::Graphics::BatchRenderer2D(), shader, pr_matrix);
+	mainLayer.add(new DeltaEngine::Graphics::BatchRenderable2D(1.0f, 1.4f, 1, 1, marioSprite));
 
-	Graphics::FontManager::add(new Graphics::Font("OpenSans", "OpenSans-Light.ttf", 24));
-	Graphics::FontManager::add(new Graphics::Font("Consolas", "consola.ttf", 18));
-	Graphics::FontManager::get("OpenSans")->setScale(win.getHeight() / 9.0f, win.getWidth() / 16.0f);
-	Graphics::FontManager::get("Consolas")->setScale(win.getHeight() / 9.0f, win.getWidth() / 16.0f);
-	Graphics::Label* fpsLabel = new Graphics::Label("FPS: 0", 14.5f, 8.5f, "OpenSans", 0xffffffff);
-	Graphics::Label* debugLabel = new Graphics::Label("", 0.2f, 8.6f, "Consolas", 0xff00ffff);
+	DeltaEngine::Graphics::FontManager::add(new DeltaEngine::Graphics::Font("OpenSans", "OpenSans-Light.ttf", 24));
+	DeltaEngine::Graphics::FontManager::add(new DeltaEngine::Graphics::Font("Consolas", "consola.ttf", 18));
+	DeltaEngine::Graphics::FontManager::get("OpenSans")->setScale(win.getHeight() / 9.0f, win.getWidth() / 16.0f);
+	DeltaEngine::Graphics::FontManager::get("Consolas")->setScale(win.getHeight() / 9.0f, win.getWidth() / 16.0f);
+	DeltaEngine::Graphics::Label* fpsLabel = new DeltaEngine::Graphics::Label("FPS: 0", 14.5f, 8.5f, "OpenSans", 0xffffffff);
+	DeltaEngine::Graphics::Label* debugLabel = new DeltaEngine::Graphics::Label("", 0.2f, 8.6f, "Consolas", 0xff00ffff);
 
-	string version = string((char*)glGetString(GL_VERSION));
-	string vendor = string((char*)glGetString(GL_VENDOR));
-	string renderer = string((char*)glGetString(GL_RENDERER));
+	std::string version = std::string((char*)glGetString(GL_VERSION));
+	std::string vendor = std::string((char*)glGetString(GL_VENDOR));
+	std::string renderer = std::string((char*)glGetString(GL_RENDERER));
 	debugLabel->setText(std::string("Version : " + version + "\nVendor  : " + vendor + "\nRenderer: " + renderer));
 
-	Graphics::Layer2D ui(new Graphics::BatchRenderer2D(), uiShader, pr_matrix);
+	DeltaEngine::Graphics::Layer2D ui(new DeltaEngine::Graphics::BatchRenderer2D(), uiShader, pr_matrix);
 	ui.add(debugLabel);
 	ui.add(fpsLabel);
 
-	Graphics::Layer2D background(new Graphics::BatchRenderer2D(), bgshader, Maths::Matrix4::orthographic(0.0f, 320.0f, 200.0f, 0.0f, -1.0f, 1.0f));
-	background.add(new Graphics::BatchRenderable2D(0.0f, 0.0f, 3583.0f, 240.0f, texManager.get("Background")));
+	DeltaEngine::Graphics::Layer2D background(new DeltaEngine::Graphics::BatchRenderer2D(), bgshader, DeltaEngine::Maths::Matrix4::orthographic(0.0f, 320.0f, 200.0f, 0.0f, -1.0f, 1.0f));
+	background.add(new DeltaEngine::Graphics::BatchRenderable2D(0.0f, 0.0f, 3583.0f, 240.0f, texManager.get("Background")));
 
 	GLint texIDs[] = 
 	{ 
@@ -99,10 +97,10 @@ int main(int argc, char *argv[])
 
 	win.setVSync(true);
 
-	Types::ushort16 i = 0, last = 0;
+	DeltaEngine::Types::ushort16 i = 0, last = 0;
 	float x = 1;
 
-	Utils::Timer myTimer;
+	DeltaEngine::Utils::Timer myTimer;
 
 	while (!win.closed())
 	{
@@ -148,7 +146,7 @@ int main(int argc, char *argv[])
 		win.update();
 		i++;
 #ifdef _DEBUG
-		Debug::checkErrors();
+		DeltaEngine::Debug::checkErrors();
 #endif
 	}
 

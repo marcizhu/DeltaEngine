@@ -1,14 +1,14 @@
 #include "vertexarray.h"
 #include "types.h"
 
-using namespace DeltaEngine::Types;
+//using namespace DeltaEngine::Types;
 
 namespace DeltaEngine {
 	namespace Graphics {		
 		
 		VertexArray::~VertexArray()
 		{
-			for (uint32 i = 0; i < buffers.size(); i++)
+			for (Types::uint32 i = 0; i < buffers.size(); i++)
 				delete buffers[i];
 
 			glDeleteVertexArrays(1, &arrayID);

@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include <string>
 #include <GLEW\glew.h>
 #include <GLFW\glfw3.h>
@@ -9,7 +11,7 @@ namespace DeltaEngine {
 	namespace Graphics {
 
 		//Creates a window without an error handler
-		Window::Window(string& title, int width, int height, bool fullscreen)
+		Window::Window(std::string& title, int width, int height, bool fullscreen)
 		{
 			this->errorIndex = 0;
 			this->errorHandler = nullptr;
@@ -22,7 +24,7 @@ namespace DeltaEngine {
 		}
 
 		//Creates a window with an error handler
-		Window::Window(string& title, int width, int height, void(*handler)(Window*, int), bool fullscreen)
+		Window::Window(std::string& title, int width, int height, void(*handler)(Window*, int), bool fullscreen)
 		{
 			this->errorIndex = 0;
 			this->errorHandler = handler;
@@ -54,22 +56,22 @@ namespace DeltaEngine {
 			if (errorHandler != nullptr) errorHandler(this, error);
 		}
 
-		string Window::getErrorString(int error) const
+		std::string Window::getErrorString(int error) const
 		{
 			unsigned int err = abs(error);
 			switch (err)
 			{
 			case ERR_GLFW_INIT:
-				return string("ERR_GLFW_INIT"); break;
+				return std::string("ERR_GLFW_INIT"); break;
 
 			case ERR_GLEW_INIT:
-				return string("ERR_GLEW_INIT"); break;
+				return std::string("ERR_GLEW_INIT"); break;
 
 			case ERR_GLFW_CREATE_WINDOW:
-				return string("ERR_GLFW_CREATE_WINDOW"); break;
+				return std::string("ERR_GLFW_CREATE_WINDOW"); break;
 			}
 
-			return string("ERR_UNKNOWN_ERROR");
+			return std::string("ERR_UNKNOWN_ERROR");
 		}
 
 		//initializes everything

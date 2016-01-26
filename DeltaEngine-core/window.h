@@ -7,7 +7,7 @@
 #include "DeltaEngine.h"
 #include "vector2d.h"
 
-using namespace std;
+//using namespace std;
 
 namespace DeltaEngine {
 	namespace Graphics {
@@ -15,13 +15,13 @@ namespace DeltaEngine {
 		class Window {
 
 		private:
-			string title;
+			std::string title;
 			GLFWwindow* window;
 
 			int width, height;
 			int errorIndex;
 
-			queue<unsigned int> textInput;
+			std::queue<unsigned int> textInput;
 
 			bool vsync = false;
 			bool mouseGrabbed = false;
@@ -53,8 +53,8 @@ namespace DeltaEngine {
 			static void mouseScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
 			
 		public:
-			DELTAENGINE_API Window(string& title, int height, int width, void(*handler)(class Window*, int), bool fullscreen = false);
-			DELTAENGINE_API Window(string& title, int height, int width, bool fullscreen = false);
+			DELTAENGINE_API Window(std::string& title, int height, int width, void(*handler)(class Window*, int), bool fullscreen = false);
+			DELTAENGINE_API Window(std::string& title, int height, int width, bool fullscreen = false);
 			DELTAENGINE_API ~Window();
 
 			DELTAENGINE_API inline int getHeight() { return height; }
@@ -69,7 +69,7 @@ namespace DeltaEngine {
 
 			//error-related functions
 			DELTAENGINE_API int getError() const { return -this->errorIndex; };
-			DELTAENGINE_API string getErrorString(int error) const;
+			DELTAENGINE_API std::string getErrorString(int error) const;
 			DELTAENGINE_API inline void setWindowErrorHandler(void(*handler)(class Window*, int)) { this->errorHandler = handler; };
 
 			DELTAENGINE_API void clear() const { glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); };

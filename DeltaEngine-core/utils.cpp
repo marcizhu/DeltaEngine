@@ -4,7 +4,7 @@
 #include "utils.h"
 #include "types.h"
 
-using namespace std;
+//using namespace std;
 
 namespace DeltaEngine {
 	namespace Utils {
@@ -43,11 +43,11 @@ namespace DeltaEngine {
 			return ret;
 		}
 
-		string getCurrentPath()
+		std::string getCurrentPath()
 		{
 			char path[1024];
 			memset(path, 0, 1024);
-			if (!GetCurrentDir(path, sizeof(path))) return string("NULL");
+			if (!GetCurrentDir(path, sizeof(path))) return std::string("NULL");
 			
 			return path;
 		}

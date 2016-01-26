@@ -20,7 +20,7 @@ namespace DeltaEngine {
 			delete shader;
 			delete renderer;
 
-			for (uint32 i = 0; i < renderables.size(); i++)
+			for (Types::uint32 i = 0; i < renderables.size(); i++)
 				delete renderables[i];
 		}
 

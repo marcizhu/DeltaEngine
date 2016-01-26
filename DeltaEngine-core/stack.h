@@ -4,7 +4,7 @@
 
 #include "types.h"
 
-using namespace DeltaEngine::Types;
+//using namespace DeltaEngine::Types;
 
 namespace DeltaEngine {
 	namespace Utils {

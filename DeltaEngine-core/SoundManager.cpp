@@ -6,7 +6,7 @@
 #include "soundManager.h"
 #include "types.h"
 
-using namespace DeltaEngine::Types;
+//using namespace DeltaEngine::Types;
 
 namespace DeltaEngine {
 	namespace Sound {
@@ -33,7 +33,7 @@ namespace DeltaEngine {
 
 		void SoundManager::clean()
 		{
-			for (uint32 i = 0; i < sounds.size(); i++)
+			for (Types::uint32 i = 0; i < sounds.size(); i++)
 				delete sounds[i];
 
 			gau_manager_destroy(manager);
@@ -42,7 +42,7 @@ namespace DeltaEngine {
 
 		bool SoundManager::areAllSoundsLoaded()
 		{
-			for (uint32 i = 0; i < sounds.size(); i++)
+			for (Types::uint32 i = 0; i < sounds.size(); i++)
 				if (sounds[i]->isReady() == false) return false;
 
 			return true;

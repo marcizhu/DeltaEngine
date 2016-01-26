@@ -16,8 +16,6 @@ namespace DeltaEngine {
 		public:
 			std::string text;
 			Font* font;
-			//TODO: Remove this! Use Renderable2D::position instead
-			//float x, y;
 
 		public:
 			DELTAENGINE_API Label(std::string text, float x, float y, Font* font, Types::Color color);
@@ -28,8 +26,11 @@ namespace DeltaEngine {
 			DELTAENGINE_API Label(std::string text, float x, float y, const std::string& font, Types::uint32 size, Types::uint32 color);
 			
 			DELTAENGINE_API void submit(Renderer2D* renderer) const override { renderer->drawString(text, position, *font, color); };
-			DELTAENGINE_API void setText(std::string& text);
-			DELTAENGINE_API const std::string& getText() const { return text; };
+			
+			DELTAENGINE_API inline void setText(std::string& text);
+			
+			DELTAENGINE_API inline const std::string& getText() const { return text; };
+			DELTAENGINE_API const Maths::Vector2D getSize(const Font& font);
 		};
 
 	}

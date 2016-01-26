@@ -7,26 +7,26 @@
 #include "fileIO.h"
 #include "errors.h"
 
-using namespace std;
+//using namespace std;
 using namespace DeltaEngine;
 
 namespace DeltaEngine {
 	namespace Logger {
 
-		int Logger::Log(const string& tag, unsigned char align, const string& message) const
+		int Logger::Log(const std::string& tag, unsigned char align, const std::string& message) const
 		{
-			string result = "";
+			std::string result = "";
 
 			if (this->_showDate)
 			{
 				Types::date t = Utils::timestampToDate(Utils::getSystemTime());
-				result += "[" + to_string(t.Day) + "/" + to_string(t.Month) + "/" + to_string(t.Year) + "] ";
+				result += "[" + std::to_string(t.Day) + "/" + std::to_string(t.Month) + "/" + std::to_string(t.Year) + "] ";
 			}
 
 			if (this->_showTime)
 			{
 				Types::time t = Utils::timestampToTime(Utils::getSystemTime());
-				result += "[" + to_string(t.Hour) + ":" + to_string(t.Minute) + ":" + to_string(t.Second) + "] ";
+				result += "[" + std::to_string(t.Hour) + ":" + std::to_string(t.Minute) + ":" + std::to_string(t.Second) + "] ";
 			}
 
 			result += "[";
@@ -65,22 +65,22 @@ namespace DeltaEngine {
 			return FileIO::File(this->file).append(result);
 		}
 
-		int Logger::Log(const string& message) const
+		int Logger::Log(const std::string& message) const
 		{
 			if (this->_showTags) return -ERR_EXPECTED_ARGUMENT;
 
-			string result = "";
+			std::string result = "";
 
 			if (this->_showDate)
 			{
 				Types::date t = Utils::timestampToDate(Utils::getSystemTime());
-				result += "[" + to_string(t.Day) + "/" + to_string(t.Month) + "/" + to_string(t.Year) + "] ";
+				result += "[" + std::to_string(t.Day) + "/" + std::to_string(t.Month) + "/" + std::to_string(t.Year) + "] ";
 			}
 
 			if (this->_showTime)
 			{
 				Types::time t = Utils::timestampToTime(Utils::getSystemTime());
-				result += "[" + to_string(t.Hour) + ":" + to_string(t.Minute) + ":" + to_string(t.Second) + "] ";
+				result += "[" + std::to_string(t.Hour) + ":" + std::to_string(t.Minute) + ":" + std::to_string(t.Second) + "] ";
 			}
 
 			if (this->_showGameName && this->gameName != "")
