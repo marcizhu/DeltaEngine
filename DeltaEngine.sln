@@ -3,20 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DeltaEngine", "DeltaEngine-core\DeltaEngine-core.vcxproj", "{CA9F3CAB-0F44-4F68-A4E4-2C01AF909BDD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DeltaEngine", "DeltaEngine\DeltaEngine.vcxproj", "{CA9F3CAB-0F44-4F68-A4E4-2C01AF909BDD}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1906AB22-C410-4E6B-8938-DEBA147D72C7} = {1906AB22-C410-4E6B-8938-DEBA147D72C7}
 		{78B079BD-9FC7-4B9E-B4A6-96DA0F00248B} = {78B079BD-9FC7-4B9E-B4A6-96DA0F00248B}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "Game\Game.vcxproj", "{3AE61E5A-B9BA-4EC9-A5E7-F24DBCFDE0A0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sandbox", "Sandbox\Sandbox.vcxproj", "{3AE61E5A-B9BA-4EC9-A5E7-F24DBCFDE0A0}"
 	ProjectSection(ProjectDependencies) = postProject
 		{CA9F3CAB-0F44-4F68-A4E4-2C01AF909BDD} = {CA9F3CAB-0F44-4F68-A4E4-2C01AF909BDD}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "freetype", "dependencies\FreeType\builds\windows\vc2010\freetype.vcxproj", "{78B079BD-9FC7-4B9E-B4A6-96DA0F00248B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "freetype", "ext\FreeType\builds\windows\vc2010\freetype.vcxproj", "{78B079BD-9FC7-4B9E-B4A6-96DA0F00248B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "freetype-gl", "dependencies\freetype-gl\freetype-gl.vcxproj", "{1906AB22-C410-4E6B-8938-DEBA147D72C7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "freetype-gl", "ext\freetype-gl\freetype-gl.vcxproj", "{1906AB22-C410-4E6B-8938-DEBA147D72C7}"
 	ProjectSection(ProjectDependencies) = postProject
 		{78B079BD-9FC7-4B9E-B4A6-96DA0F00248B} = {78B079BD-9FC7-4B9E-B4A6-96DA0F00248B}
 	EndProjectSection
