@@ -158,74 +158,74 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="graphics\BatchRenderer.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\Buffer.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\Font.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\FontManager.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\IndexBuffer.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\Label.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\Layer2D.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\Shader.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\Sound.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\SoundManager.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\Texture.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\TextureManager.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\VertexArray.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\Window.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="maths\Maths.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Maths</Filter>
-    </ClCompile>
-    <ClCompile Include="maths\Matrix4.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Maths</Filter>
-    </ClCompile>
-    <ClCompile Include="maths\Vector2D.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Maths</Filter>
-    </ClCompile>
-    <ClCompile Include="maths\Vector3D.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Maths</Filter>
-    </ClCompile>
-    <ClCompile Include="maths\Vector4D.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Maths</Filter>
-    </ClCompile>
-    <ClCompile Include="utils\Debug.cpp">
+    <ClCompile Include="src\utils\Debug.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="utils\FileIO.cpp">
+    <ClCompile Include="src\utils\FileIO.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\FileIO</Filter>
     </ClCompile>
-    <ClCompile Include="utils\Logger.cpp">
+    <ClCompile Include="src\utils\Logger.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Logger</Filter>
     </ClCompile>
-    <ClCompile Include="utils\Utils.cpp">
+    <ClCompile Include="src\utils\Utils.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\maths\Maths.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="src\maths\Matrix4.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="src\maths\Vector2D.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="src\maths\Vector3D.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="src\maths\Vector4D.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\BatchRenderer.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\Buffer.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\Font.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\FontManager.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\IndexBuffer.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\Label.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\Layer2D.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\Shader.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\Sound.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\SoundManager.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\Texture.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\TextureManager.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\VertexArray.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\Window.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
