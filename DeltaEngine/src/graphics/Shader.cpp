@@ -4,6 +4,7 @@
 
 #include "shader.h"
 #include "fileIO.h"
+#include "log.h"
 
 using namespace std;
 
@@ -105,10 +106,31 @@ namespace DeltaEngine {
 
 			glDetachShader(program, vertex);
 			glDetachShader(program, fragment);
+
 			glDeleteShader(vertex);
 			glDeleteShader(fragment);
 
 			return program;
+		}
+
+		GLint Shader::getUniformLocation(const GLchar* name)
+		{
+			auto it = uniformLocations.find(std::string(name));
+			GLint location;
+
+			if (it != uniformLocations.end())
+			{
+				location = it->second;
+			}
+			else
+			{
+				location = glGetUniformLocation(shaderID, name);
+				if (location == -1) DELTAENGINE_ERROR("Could not find uniform \'", name, "\' in shader!");
+			
+				uniformLocations[name] = location;
+			}
+
+			return location;
 		}
 
 	}

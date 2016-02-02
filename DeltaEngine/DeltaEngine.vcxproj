@@ -181,9 +181,11 @@
     <ClInclude Include="include\indexBuffer.h" />
     <ClInclude Include="include\Label.h" />
     <ClInclude Include="include\layer2d.h" />
+    <ClInclude Include="include\log.h" />
     <ClInclude Include="include\logger.h" />
     <ClInclude Include="include\maths.h" />
     <ClInclude Include="include\matrix4.h" />
+    <ClInclude Include="include\PlatformLog.h" />
     <ClInclude Include="include\renderable2d.h" />
     <ClInclude Include="include\renderer2d.h" />
     <ClInclude Include="include\shader.h" />

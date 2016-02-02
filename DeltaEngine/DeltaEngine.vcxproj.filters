@@ -55,6 +55,9 @@
     <Filter Include="Archivos de código fuente\DeltaEngine\Sound">
       <UniqueIdentifier>{edb0270e-d0a8-48ef-befc-c9fda6350398}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\DeltaEngine\Platform">
+      <UniqueIdentifier>{5e4f9423-91f0-4489-9d28-507c341083ad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\batchRenderable2d.h">
@@ -155,6 +158,12 @@
     </ClInclude>
     <ClInclude Include="include\DeltaEngine.h">
       <Filter>Archivos de encabezado\DeltaEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\log.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PlatformLog.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Platform</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

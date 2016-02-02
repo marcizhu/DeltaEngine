@@ -12,3 +12,7 @@
 *.psess
 *.opendb
 *.bat
+*.tlog
+*.log
+*.obj
+*.idb
