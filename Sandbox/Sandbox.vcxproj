@@ -85,7 +85,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\Intermediates\$(ProjectName)\</IntDir>
-    <IncludePath>$(SolutionDir)\dependencies\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\dependencies\include\;$(SolutionDir)\DeltaEngine\include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)dependencies\lib\GLEW\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

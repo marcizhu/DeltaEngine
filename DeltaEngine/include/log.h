@@ -3,13 +3,14 @@
 #include "internal.h"
 #include "vector2d.h"
 #include "vector3d.h"
+#include "PlatformLog.h"
 
 #define DELTAENGINE_LOG_LEVEL_FATAL 0
 #define DELTAENGINE_LOG_LEVEL_ERROR 1
 #define DELTAENGINE_LOG_LEVEL_WARN  2
 #define DELTAENGINE_LOG_LEVEL_INFO  3
 
-namespace std {
+/*namespace std {
 
 	template <typename T>
 	std::string to_string(const T& t)
@@ -17,7 +18,7 @@ namespace std {
 		return std::string("[Unsupported type (") + typeid(T).name() + string(")!] (to_string)"); 
 	}
 
-}
+}*/
 
 namespace DeltaEngine {
 	namespace Internal {
@@ -47,9 +48,9 @@ namespace DeltaEngine {
 		static const char* to_string<Maths::Vector2D>(const Maths::Vector2D& t)
 		{
 			// TODO: sprintf
-			std::string string = std::string("vec2: (") + std::to_string(t.x) + ", " + std::to_string(t.y) + ")";
+			std::string string = std::string("Vector2D: (") + std::to_string(t.x) + ", " + std::to_string(t.y) + ")";
 			char* result = new char[string.length()];
-			strcpy(result, &string[0]);
+			strcpy_s(result, string.length(), &string[0]);
 			return result;
 		}
 
@@ -59,14 +60,14 @@ namespace DeltaEngine {
 			// TODO: sprintf
 			std::string string = std::string("Vector3D: (") + std::to_string(t.x) + ", " + std::to_string(t.y) + ", " + std::to_string(t.z) + ")";
 			char* result = new char[string.length()];
-			strcpy(result, &string[0]);
+			strcpy_s(result, string.length(), &string[0]);
 			return result;
 		}
 
 		template <typename T>
-		static String format_iterators(T& begin, T& end)
+		static std::string format_iterators(T& begin, T& end)
 		{
-			String result;
+			std::string result;
 			bool first = true;
 			while (begin != end)
 			{
@@ -76,6 +77,15 @@ namespace DeltaEngine {
 				begin++;
 			}
 			return result;
+		}
+
+		template <typename First>
+		static void print_log_internal(char* buffer, int& position, First&& first)
+		{
+			const char* formatted = DeltaEngine::Internal::to_string<First>(first);
+			int length = strlen(formatted);
+			memcpy(&buffer[position], formatted, length);
+			position += length;
 		}
 
 		template <typename First, typename... Args>

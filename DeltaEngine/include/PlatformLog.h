@@ -1,20 +1,22 @@
 #pragma once
 
-#include <Windows.h>
 #include <stdio.h>
 
 #include "internal.h"
 #include "log.h"
-#include "types.h"
 
-using namespace DeltaEngine::Types;
+#define DELTAENGINE_LOG_LEVEL_FATAL 0
+#define DELTAENGINE_LOG_LEVEL_ERROR 1
+#define DELTAENGINE_LOG_LEVEL_WARN  2
+#define DELTAENGINE_LOG_LEVEL_INFO  3
 
 namespace DeltaEngine {
 	namespace Internal {
 
 #ifdef _WIN32
+#include <Windows.h>
 
-		void PlatformLogMessage(uint32 level, const char* message)
+		void PlatformLogMessage(unsigned int level, const char* message)
 		{
 			switch (level)
 			{
@@ -26,7 +28,6 @@ namespace DeltaEngine {
 
 			case DELTAENGINE_LOG_LEVEL_WARN:
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x0E); break;
-
 			}
 
 			printf("%s", message);

@@ -94,7 +94,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\Intermediates\$(ProjectName)\</IntDir>
-    <IncludePath>$(SolutionDir)\dependencies\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)dependencies\include\;$(ProjectDir)include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)dependencies\lib\GLFW\;$(SolutionDir)dependencies\lib\GLEW\;$(SolutionDir)dependencies\lib\gorilla\$(Configuration)\;$(SolutionDir)dependencies\lib\OpenAL\;$(SolutionDir)dependencies\lib\FreeImage\;$(SolutionDir)dependencies\lib\FreeType-GL\$(Configuration)\;$(SolutionDir)dependencies\lib\FreeType\$(Configuration)\;$(LibraryPath)</LibraryPath>
     <CodeAnalysisRuleSet>C:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Static Analysis Tools\Rule Sets\NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>

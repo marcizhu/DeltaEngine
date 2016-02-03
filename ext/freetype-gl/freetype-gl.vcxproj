@@ -79,7 +79,7 @@
     <OutDir>$(SolutionDir)dependencies\lib\FreeType-GL\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)dependencies\lib\FreeType-GL\Intermediates\$(Configuration)\</IntDir>
     <TargetName>freetype-gl</TargetName>
-    <IncludePath>$(SolutionDir)dependencies\include\;$(SolutionDir)dependencies\include\FreeType\;$(SolutionDir)dependencies\freetype-gl\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)dependencies\include\;$(SolutionDir)dependencies\include\FreeType\;$(SolutionDir)dependencies\freetype-gl\include;$(ProjectDir)include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
