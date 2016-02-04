@@ -1,6 +1,7 @@
 #include "batchRenderer2d.h"
 #include "types.h"
 #include "maths.h"
+#include "log.h"
 
 namespace DeltaEngine {
 	namespace Graphics {
@@ -64,9 +65,7 @@ namespace DeltaEngine {
 
 		float BatchRenderer2D::submitTexture(Types::uint32 textureID)
 		{
-#ifdef DELTAENGINE_DEBUG
-			if (!textureID)	std::cout << "Invalid texture ID!" << std::endl;
-#endif
+			if (!textureID)	DELTAENGINE_WARN("[BatRend] Invalid texture ID!");
 
 			float result = 0.0f;
 			bool found = false;
@@ -178,18 +177,19 @@ namespace DeltaEngine {
 		void BatchRenderer2D::drawString(const std::string& text, const Maths::Vector2D& position, const Font& font, const Types::uint32 color)
 		{
 			float ts = 0.0f;
-			Types::uint32 tid = font.getID();
-			if (tid > 0.0f) ts = submitTexture(font.getID());
+			ts = submitTexture(font.getID());
 
 			const Maths::Vector2D& scale = font.getScale();
 			
 			float x = position.x;
 			float y = position.y;
+
+			texture_font_t* ftFont = font.getFTFont();
 			
 			for (Types::uint32 i = 0; i < text.length(); i++)
 			{
 				char c = text[i];
-				texture_glyph_t* glyph = texture_font_get_glyph(font.getFTFont(), &c);
+				texture_glyph_t* glyph = texture_font_get_glyph(ftFont, &c);
 
 				if (glyph)
 				{

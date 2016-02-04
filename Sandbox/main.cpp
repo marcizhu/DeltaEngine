@@ -35,9 +35,8 @@ int main(int argc, char *argv[])
 	Graphics::Shader* bgshader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\basic.vert", Utils::getCurrentPath() + "\\basic.frag");
 	Graphics::Shader* uiShader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\basic.vert", Utils::getCurrentPath() + "\\basic.frag");
 
-	Graphics::TextureManager texManager;
-	texManager.add(new Graphics::Texture("Background", "map.png", GL_NEAREST));
-	texManager.add(new Graphics::Texture("Mario", "mario.png", GL_NEAREST));
+	Graphics::TextureManager::add(new Graphics::Texture("Background", "map.png", GL_NEAREST));
+	Graphics::TextureManager::add(new Graphics::Texture("Mario", "mario.png", GL_NEAREST));
 
 	Graphics::Sprite marioSprite;
 	marioSprite.add(new Graphics::Texture("Mario1", "mario0.png", GL_NEAREST));
@@ -65,7 +64,7 @@ int main(int argc, char *argv[])
 	ui.add(fpsLabel);
 
 	Graphics::Layer2D background(new Graphics::BatchRenderer2D(), bgshader, Maths::Matrix4::orthographic(0.0f, 320.0f, 200.0f, 0.0f, -1.0f, 1.0f));
-	background.add(new Graphics::BatchRenderable2D(0.0f, 0.0f, 3583.0f, 240.0f, texManager.get("Background")));
+	background.add(new Graphics::BatchRenderable2D(0.0f, 0.0f, 3583.0f, 240.0f, Graphics::TextureManager::get("Background")));
 
 	GLint texIDs[] = 
 	{ 
@@ -80,6 +79,9 @@ int main(int argc, char *argv[])
 
 	bgshader->enable();
 	bgshader->setUniform1iv("textures", texIDs, 32);
+
+	uiShader->enable();
+	uiShader->setUniform1iv("textures", texIDs, 32);
 
 	win.setVSync(true);
 

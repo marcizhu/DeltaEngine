@@ -28,10 +28,9 @@ namespace DeltaEngine {
 
 				if (vShader.exists() == false || fShader.exists() == false)
 				{
-#ifdef DELTAENGINE_DEBUG
-					if (vShader.exists() == false) cout << "[Shader] Vertex shader file doesn't exists!" << endl;
-					if (fShader.exists() == false) cout << "[Shader] Fragment shader file doesn't exists!" << endl;
-#endif
+					if (vShader.exists() == false) DELTAENGINE_ERROR("[Shader] Vertex shader file doesn't exists!");
+					if (fShader.exists() == false) DELTAENGINE_ERROR("[Shader] Fragment shader file doesn't exists!");
+
 					shaderID = 0;
 					return;
 				}
@@ -48,10 +47,9 @@ namespace DeltaEngine {
 
 			if (vShader.exists() == false || fShader.exists() == false)
 			{
-#ifdef DELTAENGINE_DEBUG
-				if (vShader.exists() == false) cout << "[Shader] Vertex shader file doesn't exists!" << endl;
-				if (fShader.exists() == false) cout << "[Shader] Fragment shader file doesn't exists!" << endl;
-#endif
+				if (vShader.exists() == false) DELTAENGINE_ERROR("[Shader] Vertex shader file doesn't exists!");
+				if (fShader.exists() == false) DELTAENGINE_ERROR("[Shader] Fragment shader file doesn't exists!");
+				
 				return nullptr;
 			}
 

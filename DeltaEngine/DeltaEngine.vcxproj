@@ -203,6 +203,8 @@
     <ClInclude Include="include\vector4d.h" />
     <ClInclude Include="include\vertexArray.h" />
     <ClInclude Include="include\window.h" />
+    <ClInclude Include="include\LogLevels.h" />
+    <ClInclude Include="include\PlatformConsole.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\graphics\Font.cpp" />
