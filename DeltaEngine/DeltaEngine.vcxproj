@@ -205,6 +205,7 @@
     <ClInclude Include="include\window.h" />
     <ClInclude Include="include\LogLevels.h" />
     <ClInclude Include="include\PlatformConsole.h" />
+    <ClInclude Include="include\PlatformTime.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\graphics\Font.cpp" />

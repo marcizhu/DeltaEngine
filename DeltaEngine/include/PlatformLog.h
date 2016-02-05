@@ -12,7 +12,7 @@ namespace DeltaEngine {
 
 #ifdef _WIN32
 
-		void PlatformLogMessage(unsigned int level, const char* message)
+		static inline void PlatformLogMessage(unsigned int level, const char* message)
 		{
 			switch (level)
 			{
@@ -24,6 +24,9 @@ namespace DeltaEngine {
 
 			case DELTAENGINE_LOG_LEVEL_WARN:
 				PlatformSetConsoleColor(0x0E); break;
+
+			case DELTAENGINE_LOG_LEVEL_INFO:
+				PlatformSetConsoleColor(0x0B); break;
 			}
 
 			printf("%s", message);

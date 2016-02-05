@@ -46,7 +46,10 @@
 #include "types.h"
 #include "utils.h"
 
-
+// Platform files
+#include "PlatformConsole.h"
+#include "PlatformTime.h"
+#include "PlatformLog.h"
 
 namespace DeltaEngine {
 
@@ -56,18 +59,12 @@ namespace DeltaEngine {
 
 		if (glewInit() != GLEW_OK) return DELTAENGINE_NOT_INITIALIZED;
 
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x0F);
+		_DELTAENGINE_INFO("DeltaEngine Version ", DELTAENGINE_VERSION_S, " ", DELTAENGINE_PHASE_S, "\n\n");
 
-		std::cout << "DeltaEngine Version " << DELTAENGINE_VERSION_S " " << DELTAENGINE_PHASE_S << std::endl << std::endl;
-
-#ifdef DELTAENGINE_DEBUG
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x0E);
-		std::cout << "OpenGL:" << std::endl << std::endl;
-		std::cout << "Version : " << glGetString(GL_VERSION) << std::endl;
-		std::cout << "Vendor  : " << glGetString(GL_VENDOR) << std::endl;
-		std::cout << "Renderer: " << glGetString(GL_RENDERER) << std::endl << std::endl;
-#endif
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x07);
+		_DELTAENGINE_INFO("OpenGL:", "\n\n");
+		_DELTAENGINE_INFO("Version : ", glGetString(GL_VERSION), '\n');
+		_DELTAENGINE_INFO("Vendor  : ", glGetString(GL_VENDOR), '\n');
+		_DELTAENGINE_INFO("Renderer: ", glGetString(GL_RENDERER), "\n\n");
 
 		return DELTAENGINE_VERSION;
 	}

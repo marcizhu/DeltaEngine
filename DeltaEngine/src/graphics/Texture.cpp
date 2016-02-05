@@ -1,4 +1,5 @@
 #include "texture.h"
+#include "log.h"
 
 namespace DeltaEngine {
 	namespace Graphics {
@@ -8,13 +9,12 @@ namespace DeltaEngine {
 		{
 			BYTE* pixels = loadImage(filename.c_str(), &width, &height, &bpp);
 
-#ifdef DELTAENGINE_DEBUG
 			if (pixels == nullptr)
 			{
-				std::cout << "Unable to read the texture file '" << filename << "'" << std::endl;
+				DELTAENGINE_ERROR("[Texture] Unable to read the texture file '", filename, "'!");
 				return;
 			}
-#endif
+
 			glGenTextures(1, &textureID);
 			glBindTexture(GL_TEXTURE_2D, textureID);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, texParam);
@@ -29,10 +29,8 @@ namespace DeltaEngine {
 				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_BGRA, GL_UNSIGNED_BYTE, pixels);
 				glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); break;
 
-#ifdef DELTAENGINE_DEBUG
 			default:
-				std::cout << "Invalid bpp value: " << bpp << std::endl; break;
-#endif
+				DELTAENGINE_WARN("[Texture] Invalid bpp value: ", bpp); break;
 			}
 
 			glBindTexture(GL_TEXTURE_2D, 0);

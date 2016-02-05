@@ -171,6 +171,9 @@
     <ClInclude Include="include\PlatformConsole.h">
       <Filter>Archivos de encabezado\DeltaEngine\Platform</Filter>
     </ClInclude>
+    <ClInclude Include="include\PlatformTime.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Platform</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\utils\Debug.cpp">

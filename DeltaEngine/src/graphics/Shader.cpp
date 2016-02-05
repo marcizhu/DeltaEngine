@@ -17,7 +17,7 @@ namespace DeltaEngine {
 			switch (dType)
 			{
 			default:
-				cout << "[Shader] Invalid shader type!" << endl; break;
+				DELTAENGINE_ERROR("[Shader] Invalid shader type!"); break;
 
 			case SOURCE:
 				shaderID = load(vertex, fragment); break;
@@ -70,13 +70,11 @@ namespace DeltaEngine {
 			glGetShaderiv(shader, GL_COMPILE_STATUS, &result);
 			if (result == GL_FALSE)
 			{
-#ifdef DELTAENGINE_DEBUG
 				GLint length;
 				glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &length);
 				std::vector<char> error(length);
 				glGetShaderInfoLog(shader, length, &length, &error[0]);
-				std::cout << "[Shader] Failed to compile " << shaderType << " shader!" << std::endl << &error[0] << std::endl;
-#endif
+				DELTAENGINE_ERROR("[Shader] Failed to compile ", shaderType, " shader!\n", &error[0]);
 				glDeleteShader(shader);
 				return false;
 			}

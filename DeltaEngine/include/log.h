@@ -1,5 +1,9 @@
 #pragma once
 
+#ifndef _DEBUG
+#	pragma warning(disable:4390)
+#endif
+
 #include "internal.h"
 #include "vector2d.h"
 #include "vector3d.h"
@@ -10,7 +14,7 @@ namespace DeltaEngine {
 	namespace Internal {
 
 		template <typename T>
-		static const char* to_string(const T& t) { return std::string("[Unsupported type (") + typeid(T).name() + string(")!] (to_string)").c_str(); }
+		static const char* to_string(const T& t) { return std::string("Unsupported type!").c_str();/* (" + typeid(T).name() + std::string(")!] (to_string)"))).c_str();*/ }
 
 		template <>
 		static const char* to_string<char>(char const& t) { return &t; }
@@ -109,7 +113,7 @@ namespace DeltaEngine {
 #endif
 
 #if DELTAENGINE_LOG_LEVEL >= DELTAENGINE_LOG_LEVEL_FATAL && defined(DELTAENGINE_DEBUG)
-	#define DELTAENGINE_FATAL(...) DeltaEngine::Internal::log_message(DELTAENGINE_LOG_LEVEL_FATAL, true, "DELTAENGINE: ", __VA_ARGS__)
+	#define DELTAENGINE_FATAL(...) DeltaEngine::Internal::log_message(DELTAENGINE_LOG_LEVEL_FATAL, true, "DeltaEngine: ", __VA_ARGS__)
 	#define _DELTAENGINE_FATAL(...) DeltaEngine::Internal::log_message(DELTAENGINE_LOG_LEVEL_FATAL, false, __VA_ARGS__)
 #else
 	#define DELTAENGINE_FATAL(...)
@@ -117,7 +121,7 @@ namespace DeltaEngine {
 #endif
 
 #if DELTAENGINE_LOG_LEVEL >= DELTAENGINE_LOG_LEVEL_ERROR && defined(DELTAENGINE_DEBUG)
-	#define DELTAENGINE_ERROR(...) DeltaEngine::Internal::log_message(DELTAENGINE_LOG_LEVEL_ERROR, true, "DELTAENGINE: ", __VA_ARGS__)
+	#define DELTAENGINE_ERROR(...) DeltaEngine::Internal::log_message(DELTAENGINE_LOG_LEVEL_ERROR, true, "DeltaEngine: ", __VA_ARGS__)
 	#define _DELTAENGINE_ERROR(...) DeltaEngine::Internal::log_message(DELTAENGINE_LOG_LEVEL_ERROR, false, __VA_ARGS__)
 #else
 	#define DELTAENGINE_ERROR(...)
@@ -125,7 +129,7 @@ namespace DeltaEngine {
 #endif
 
 #if DELTAENGINE_LOG_LEVEL >= DELTAENGINE_LOG_LEVEL_WARN && defined(DELTAENGINE_DEBUG)
-	#define DELTAENGINE_WARN(...) DeltaEngine::Internal::log_message(DELTAENGINE_LOG_LEVEL_WARN, true, "DELTAENGINE: ", __VA_ARGS__)
+	#define DELTAENGINE_WARN(...) DeltaEngine::Internal::log_message(DELTAENGINE_LOG_LEVEL_WARN, true, "DeltaEngine: ", __VA_ARGS__)
 	#define _DELTAENGINE_WARN(...) DeltaEngine::Internal::log_message(DELTAENGINE_LOG_LEVEL_WARN, false, __VA_ARGS__)
 #else
 	#define DELTAENGINE_WARN(...)
@@ -133,7 +137,7 @@ namespace DeltaEngine {
 #endif
 
 #if DELTAENGINE_LOG_LEVEL >= DELTAENGINE_LOG_LEVEL_INFO && defined(DELTAENGINE_DEBUG)
-	#define DELTAENGINE_INFO(...) DeltaEngine::Internal::log_message(DELTAENGINE_LOG_LEVEL_INFO, true, "DELTAENGINE: ", __VA_ARGS__)
+	#define DELTAENGINE_INFO(...) DeltaEngine::Internal::log_message(DELTAENGINE_LOG_LEVEL_INFO, true, "DeltaEngine: ", __VA_ARGS__)
 	#define _DELTAENGINE_INFO(...) DeltaEngine::Internal::log_message(DELTAENGINE_LOG_LEVEL_INFO, false, __VA_ARGS__)
 #else
 	#define DELTAENGINE_INFO(...)

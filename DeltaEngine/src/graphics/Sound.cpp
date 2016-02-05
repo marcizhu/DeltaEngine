@@ -8,6 +8,7 @@
 
 #include "sound.h"
 #include "soundManager.h"
+#include "log.h"
 
 using namespace std;
 
@@ -18,12 +19,7 @@ namespace DeltaEngine {
 		{
 			obj->sound = gau_load_sound_file(obj->filename.c_str(), split.back().c_str());
 
-			if (obj->sound == nullptr)
-			{
-#ifdef DELTAENGINE_DEBUG
-				cout << "[Sound] Could not load file '" << obj->filename << "'!" << endl;
-#endif
-			}
+			if (obj->sound == nullptr) DELTAENGINE_ERROR("[Sound] Could not load file '", obj->filename, "'!");
 
 			obj->ready = true;
 		}
@@ -39,9 +35,7 @@ namespace DeltaEngine {
 
 			if (split.size() < 2)
 			{
-#ifdef DELTAENGINE_DEBUG
-				cout << "[Sound] Invalid file name '" << filename << "'!" << endl;
-#endif
+				DELTAENGINE_ERROR("[Sound] Invalid file name '", filename, "'!");
 				return;
 			}
 

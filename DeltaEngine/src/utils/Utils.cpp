@@ -3,6 +3,7 @@
 #include "utils.h"
 #include "types.h"
 #include "PlatformConsole.h"
+#include "PlatformTime.h"
 
 using namespace std;
 
@@ -11,22 +12,12 @@ namespace DeltaEngine {
 
 		Types::timestamp getSystemTime()
 		{
-			SYSTEMTIME st;
-			GetLocalTime(&st);
-
-			Types::timestamp ret;
-			memcpy_s(&ret, sizeof(ret), &st, sizeof(ret));
-			return ret;
+			return Internal::getSystemTime();
 		}
 
 		Types::timestamp getUTCTime()
 		{
-			SYSTEMTIME st;
-			GetSystemTime(&st);
-
-			Types::timestamp ret;
-			memcpy_s(&ret, sizeof(ret), &st, sizeof(ret));
-			return ret;
+			return Internal::getUTCTime();
 		}
 
 		Types::time timestampToTime(const Types::timestamp& t)
@@ -60,6 +51,7 @@ namespace DeltaEngine {
 		void setConsoleColor(int color)
 		{ 
 			Internal::PlatformSetConsoleColor(color);
+			
 		}
 
 	}

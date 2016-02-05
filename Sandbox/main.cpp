@@ -20,7 +20,7 @@ void handler(Graphics::Window* window, int err)
 int main(int argc, char *argv[])
 {
 #ifndef _DEBUG
-	FreeConsole();
+	//FreeConsole();
 #endif
 
 	Graphics::Window win(string("DeltaEngine Sandbox"), 960, 540, &handler);
@@ -68,10 +68,10 @@ int main(int argc, char *argv[])
 
 	GLint texIDs[] = 
 	{ 
-		 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 
-		10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 
-		20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
-		30, 31 
+		 0,  1,  2,  3,  4,  5,  6,  7,  
+		 8,  9, 10, 11, 12, 13, 14, 15, 
+		16, 17, 18, 19, 20, 21, 22, 23,
+		24, 25, 26, 27, 28, 29, 30, 31 
 	};
 
 	shader->enable();
@@ -102,10 +102,6 @@ int main(int argc, char *argv[])
 			background.setCameraPosition(-((xpos - 7.5f) * 320 / 16), 0); // * 320 / 16 = scale factor
 		}
 
-		background.render();
-		mainLayer.render();
-		ui.render();
-
 		if (win.isKeyPressed(256)) break;
 
 		if (win.isKeyPressed(262)) // Right arrow
@@ -130,6 +126,10 @@ int main(int argc, char *argv[])
 			last = i;
 			i = 0;
 		}
+
+		background.render();
+		mainLayer.render();
+		ui.render();
 
 		win.update();
 		i++;

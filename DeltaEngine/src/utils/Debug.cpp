@@ -1,10 +1,10 @@
 #include <GLEW\glew.h>
-#include <iostream>
 #include <vector>
 
 #include "debug.h"
 #include "types.h"
 #include "utils.h"
+#include "log.h"
 
 using namespace std;
 
@@ -14,7 +14,7 @@ namespace DeltaEngine {
 		void checkErrors()
 		{
 			GLenum error = glGetError();
-			if (error != GL_NO_ERROR) cout << "OpenGL Error: " << error << endl;
+			if (error != GL_NO_ERROR) _DELTAENGINE_ERROR("OpenGL Error: ", error, '\n');
 		}
 
 		void dump(const void* object, Types::uint32 size, int color)
