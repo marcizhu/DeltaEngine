@@ -45,6 +45,7 @@
 #include "timer.h"
 #include "types.h"
 #include "utils.h"
+#include "log.h"
 
 // Platform files
 #include "PlatformConsole.h"
@@ -61,10 +62,10 @@ namespace DeltaEngine {
 
 		_DELTAENGINE_INFO("DeltaEngine Version ", DELTAENGINE_VERSION_S, " ", DELTAENGINE_PHASE_S, "\n\n");
 
-		_DELTAENGINE_INFO("OpenGL:", "\n\n");
-		_DELTAENGINE_INFO("Version : ", glGetString(GL_VERSION), '\n');
-		_DELTAENGINE_INFO("Vendor  : ", glGetString(GL_VENDOR), '\n');
-		_DELTAENGINE_INFO("Renderer: ", glGetString(GL_RENDERER), "\n\n");
+		_DELTAENGINE_WARN("OpenGL:", "\n\n");
+		_DELTAENGINE_WARN("Version : ", glGetString(GL_VERSION), '\n');
+		_DELTAENGINE_WARN("Vendor  : ", glGetString(GL_VENDOR), '\n');
+		_DELTAENGINE_WARN("Renderer: ", glGetString(GL_RENDERER), "\n\n");
 
 		return DELTAENGINE_VERSION;
 	}

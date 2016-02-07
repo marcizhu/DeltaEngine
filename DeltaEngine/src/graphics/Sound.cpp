@@ -1,6 +1,4 @@
 #include <string>
-#include <sstream>
-#include <vector>
 #include <thread>
 
 #include <gorilla\ga.h>
@@ -8,6 +6,7 @@
 
 #include "sound.h"
 #include "soundManager.h"
+#include "utils.h"
 #include "log.h"
 
 using namespace std;
@@ -27,11 +26,7 @@ namespace DeltaEngine {
 		Sound::Sound(const string& name, const string& filename)
 			: name(name), filename(filename), playing(false), ready(false)
 		{
-
-			vector<string> split;
-			stringstream ss(filename);
-			string item;
-			while (getline(ss, item, '.')) split.push_back(item);
+			vector<string> split = Utils::splitString(filename, '.');
 
 			if (split.size() < 2)
 			{

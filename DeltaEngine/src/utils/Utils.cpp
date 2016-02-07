@@ -1,4 +1,6 @@
 #include <string>
+#include <sstream>
+#include <vector>
 
 #include "utils.h"
 #include "types.h"
@@ -41,6 +43,17 @@ namespace DeltaEngine {
 			if (!GetCurrentDir(path, sizeof(path))) return string("NULL");
 			
 			return path;
+		}
+
+		vector<string> splitString(const std::string& str, char delimiter)
+		{
+			vector<string> split;
+			stringstream ss(str);
+			string item;
+
+			while (getline(ss, item, delimiter)) split.push_back(item);
+			
+			return split;
 		}
 
 		void gotoxy(int x, int y)

@@ -7,12 +7,12 @@ namespace DeltaEngine {
 #undef _WINDOWS_
 #include <Windows.h>
 
-		static inline void PlatformSetConsoleColor(int color) 
+		static __forceinline void PlatformSetConsoleColor(int color)
 		{
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 		}
 
-		static inline void PlatformGotoxy(int x, int y)
+		static __forceinline void PlatformGotoxy(int x, int y)
 		{
 			CONSOLE_SCREEN_BUFFER_INFO SBInfo;
 			GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &SBInfo);

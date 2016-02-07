@@ -15,7 +15,8 @@ using namespace std;
 namespace DeltaEngine {
 	namespace Graphics {
 
-		enum ShaderDataType { FILE, SOURCE };
+		enum ShaderSource { FILE, SOURCE };
+		enum UniformType { NONE, FLOAT32, INT32, VEC2, VEC3, VEC4, MAT3, MAT4, SAMPLER2D };
 
 		class Shader
 		{
@@ -24,12 +25,16 @@ namespace DeltaEngine {
 			std::unordered_map<std::string, GLint> uniformLocations;
 
 			GLuint load(const string& vertPath, const string& fragPath);
-			GLint getUniformLocation(const GLchar* name);// { return glGetUniformLocation(shaderID, name); };
+			GLint getUniformLocation(const GLchar* name);
 
-			bool compileAndCheckStatus(GLuint shader, const char* source, string shaderType);
+			bool compileAndCheckStatus(GLuint shader, const char* source, const string& shaderType);
+			vector<string> preProcess(const std::string& input, std::string& vertexOut, std::string& fragmentOut);
+			void parseUniforms(const std::vector<string>& source);
+			UniformType getUniformType(const string& token);
 
 		public:
-			DELTAENGINE_API Shader(const string& vertex, const string& fragment, ShaderDataType dType);
+			DELTAENGINE_API Shader(const string& vertex, const string& fragment, ShaderSource dType);
+			DELTAENGINE_API Shader(const string& file, ShaderSource dType);
 			DELTAENGINE_API ~Shader() { glDeleteProgram(shaderID); };
 			
 			DELTAENGINE_API void setUniform1f(const GLchar* name, float x) { glUniform1f(getUniformLocation(name), x); };
@@ -56,7 +61,9 @@ namespace DeltaEngine {
 			DELTAENGINE_API GLuint getShaderID() const { return this->shaderID; };
 
 			DELTAENGINE_API static Shader* loadFromFile(const string& vertPath, const string& fragPath);
+			DELTAENGINE_API static Shader* loadFromFile(const string& file);
 			DELTAENGINE_API static Shader* loadFromSource(const string& vertSource, const string& fragSource);
+			DELTAENGINE_API static Shader* loadFromSource(const string& source);
 		};
 
 	}

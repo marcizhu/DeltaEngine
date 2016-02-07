@@ -8,7 +8,7 @@ namespace DeltaEngine {
 #ifdef _WIN32
 #include <Windows.h>
 
-		static inline Types::timestamp getSystemTime()
+		static __forceinline Types::timestamp getSystemTime()
 		{
 			SYSTEMTIME st;
 			GetLocalTime(&st);
@@ -18,7 +18,7 @@ namespace DeltaEngine {
 			return ret;
 		}
 
-		static inline Types::timestamp getUTCTime()
+		static __forceinline Types::timestamp getUTCTime()
 		{
 			SYSTEMTIME st;
 			GetSystemTime(&st);

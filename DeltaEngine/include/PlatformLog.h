@@ -26,7 +26,7 @@ namespace DeltaEngine {
 				PlatformSetConsoleColor(0x0E); break;
 
 			case DELTAENGINE_LOG_LEVEL_INFO:
-				PlatformSetConsoleColor(0x0B); break;
+				PlatformSetConsoleColor(0x0F); break;
 			}
 
 			printf("%s", message);

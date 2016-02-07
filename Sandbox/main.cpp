@@ -1,9 +1,9 @@
 //main.cpp: For testing purposes only
 //
 
+#include <Windows.h>
 #include <stdio.h>
 #include <string>
-#include <Windows.h>
 #include <iostream>
 #include <GLEW\glew.h>
 
@@ -19,10 +19,6 @@ void handler(Graphics::Window* window, int err)
 
 int main(int argc, char *argv[])
 {
-#ifndef _DEBUG
-	//FreeConsole();
-#endif
-
 	Graphics::Window win(string("DeltaEngine Sandbox"), 960, 540, &handler);
 
 	if (init(argc, argv) == DELTAENGINE_NOT_INITIALIZED) return -1;
@@ -31,9 +27,9 @@ int main(int argc, char *argv[])
 
 	Maths::Matrix4 pr_matrix = Maths::Matrix4::orthographic(0.0f, 16.0f, 9.0f, 0.0f, -1.0f, 1.0f);
 
-	Graphics::Shader* shader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\basic.vert", Utils::getCurrentPath() + "\\basic.frag");
-	Graphics::Shader* bgshader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\basic.vert", Utils::getCurrentPath() + "\\basic.frag");
-	Graphics::Shader* uiShader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\basic.vert", Utils::getCurrentPath() + "\\basic.frag");
+	Graphics::Shader* shader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\basic.shader");
+	Graphics::Shader* bgshader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\basic.shader");
+	Graphics::Shader* uiShader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\basic.shader");
 
 	Graphics::TextureManager::add(new Graphics::Texture("Background", "map.png", GL_NEAREST));
 	Graphics::TextureManager::add(new Graphics::Texture("Mario", "mario.png", GL_NEAREST));
@@ -121,7 +117,7 @@ int main(int argc, char *argv[])
 
 		if (myTimer.getElapsedTime() >= 1)
 		{
-			if (i != last) fpsLabel->setText(string("FPS: " + to_string(i)));
+			if (i != last) fpsLabel->setText(string("FPS: " + std::to_string(i)));
 			myTimer.restart();
 			last = i;
 			i = 0;

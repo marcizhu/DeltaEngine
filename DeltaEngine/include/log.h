@@ -4,17 +4,44 @@
 #	pragma warning(disable:4390)
 #endif
 
+#pragma warning(disable:4996)
+
+#include <sstream>
+
 #include "internal.h"
 #include "vector2d.h"
 #include "vector3d.h"
 #include "PlatformLog.h"
 #include "LogLevels.h"
 
+//namespace std {
+
+	template <typename T>
+	std::string to_string(const T& t)
+	{
+		return std::string("[Unsupported type (") + typeid(T).name() + std::string(")!] (to_string)");
+	}
+
+//}
+
+using namespace std;
+
 namespace DeltaEngine {
 	namespace Internal {
 
+		static char to_string_buffer[10240];
+		static char sprintf_buffer[10240];
+
+		template <class T>
+		struct has_iterator
+		{
+			template<class U> static char(&test(typename U::iterator const*))[1];
+			template<class U> static char(&test(...))[2];
+			static const bool value = (sizeof(test<T>(0)) == 1);
+		};
+
 		template <typename T>
-		static const char* to_string(const T& t) { return std::string("Unsupported type!").c_str();/* (" + typeid(T).name() + std::string(")!] (to_string)"))).c_str();*/ }
+		static const char* to_string(const T& t) { return to_string_internal<T>(t, std::integral_constant<bool, has_iterator<T>::value>()); }
 
 		template <>
 		static const char* to_string<char>(char const& t) { return &t; }
@@ -29,6 +56,15 @@ namespace DeltaEngine {
 		static const char* to_string<char const*>(char const* const& t) { return t; }
 
 		template <>
+		static const char* to_string<unsigned short>(const unsigned short& t)
+		{
+			std::stringstream ss;
+			ss << t;
+
+			return ss.str().c_str();
+		}
+
+		template <>
 		static const char* to_string<std::string>(const std::string& t) { return t.c_str(); }
 
 		template <>
@@ -38,17 +74,16 @@ namespace DeltaEngine {
 		static const char* to_string<Maths::Vector2D>(const Maths::Vector2D& t)
 		{
 			// TODO: sprintf
-			std::string string = std::string("Vector2D: (") + std::to_string(t.x) + ", " + std::to_string(t.y) + ")";
+			std::string string = std::string("Vector2D: (") + /*std::*/to_string(t.x) + ", " + /*std::*/to_string(t.y) + ")";
 			char* result = new char[string.length()];
-			strcpy_s(result, string.length(), &string[0]);
-			return result;
+			return strcpy(result, &string[0]);
 		}
 
 		template <> 
 		static const char* to_string<Maths::Vector3D>(const Maths::Vector3D& t)
 		{
 			// TODO: sprintf
-			std::string string = std::string("Vector3D: (") + std::to_string(t.x) + ", " + std::to_string(t.y) + ", " + std::to_string(t.z) + ")";
+			std::string string = std::string("Vector3D: (") + /*std::*/to_string(t.x) + ", " + /*std::*/to_string(t.y) + ", " + /*std::*/to_string(t.z) + ")";
 			char* result = new char[string.length()];
 			strcpy_s(result, string.length(), &string[0]);
 			return result;
@@ -67,6 +102,20 @@ namespace DeltaEngine {
 				begin++;
 			}
 			return result;
+		}
+
+		template <typename T>
+		static const char* to_string_internal(const T& v, const std::true_type& ignored)
+		{
+			sprintf(to_string_buffer, "Container of size: %d, contents: %s", v.size(), format_iterators(v.begin(), v.end()).c_str());
+			return to_string_buffer;
+		}
+
+		template <typename T>
+		static const char* to_string_internal(const T& t, const std::false_type& ignored)
+		{
+			auto x = std::to_string(t);
+			return strcpy(to_string_buffer, x.c_str());
 		}
 
 		template <typename First>
@@ -158,3 +207,5 @@ namespace DeltaEngine {
 #else
 	#define DELTAENGINE_ASSERT(x, ...)
 #endif
+
+#pragma warning(default:4996)

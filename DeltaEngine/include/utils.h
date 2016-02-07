@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 #include "internal.h"
 #include "types.h"
@@ -25,6 +26,8 @@ namespace DeltaEngine {
 		DELTAENGINE_API Types::date timestampToDate(const Types::timestamp& t);
 
 		DELTAENGINE_API string getCurrentPath();
+
+		DELTAENGINE_API vector<string> splitString(const string& str, char delimiter);
 		
 		// Console utilities
 		DELTAENGINE_API void gotoxy(int x, int y);

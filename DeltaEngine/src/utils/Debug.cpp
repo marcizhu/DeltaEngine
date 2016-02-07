@@ -14,7 +14,7 @@ namespace DeltaEngine {
 		void checkErrors()
 		{
 			GLenum error = glGetError();
-			if (error != GL_NO_ERROR) _DELTAENGINE_ERROR("OpenGL Error: ", error, '\n');
+			if (error != GL_NO_ERROR) _DELTAENGINE_ERROR("[OpenGL] OpenGL Error: ", error, '\n');
 		}
 
 		void dump(const void* object, Types::uint32 size, int color)
