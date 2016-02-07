@@ -70,4 +70,80 @@ namespace DeltaEngine {
 		return DELTAENGINE_VERSION;
 	}
 
+	class Game
+	{
+	protected:
+		Game() : fps(0), ups(0) { }
+		
+		Graphics::Window* window;
+		Utils::Timer* timer;
+		Types::uint32 fps, ups;
+
+		// Runs once upon initialization
+		virtual void init() = 0;
+		// Runs once per second
+		virtual void tick() {}
+		// Runs 60 times per second
+		virtual void update() {}
+		// Runs as fast as possible (unless vsync is enabled)
+		virtual void render() = 0;
+
+		void run()
+		{
+			timer = new Utils::Timer();
+			float _timer = 0.0f;
+			float updateTimer = 0.0f;
+			float updateTick = 1.0f / 60.0f;
+			unsigned int frames = 0;
+			unsigned int updates = 0;
+
+			while (!window->closed())
+			{
+				window->clear();
+				if (timer->getElapsedTime() - updateTimer >= updateTick)
+				{
+					//TODO: Window->updateInput();
+					//window->updateInput();
+					update();
+					updates++;
+					updateTimer += updateTick;
+				}
+				render();
+				frames++;
+				window->update();
+				if (timer->getElapsedTime() - _timer >= 1.0f)
+				{
+					_timer += 1.0f;
+					fps = frames;
+					ups = updates;
+					frames = 0;
+					updates = 0;
+					tick();
+				}
+			}
+		}
+
+		virtual ~Game()
+		{
+			delete timer;
+			delete window;
+		}
+
+		Graphics::Window* createWindow(std::string name, int width, int height)
+		{
+			this->window = new Graphics::Window(name, width, height);
+			return window;
+		}
+
+		const unsigned int getFPS() const { return fps; }
+		const unsigned int getUPS() const { return ups; }
+
+	public:
+		void start()
+		{
+			init();
+			run();
+		}
+	};
+
 }

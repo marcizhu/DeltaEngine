@@ -62,6 +62,7 @@ namespace DeltaEngine {
 
 			DELTAENGINE_API void update() const;
 			DELTAENGINE_API inline bool closed() const { return (glfwWindowShouldClose(this->window) != 0); };
+			DELTAENGINE_API inline void close() const { glfwSetWindowShouldClose(this->window, true); };
 
 			//vsync functions
 			DELTAENGINE_API inline void setVSync(bool enable) { enable ? glfwSwapInterval(1) : glfwSwapInterval(0); vsync = enable; }

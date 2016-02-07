@@ -12,15 +12,15 @@ namespace DeltaEngine {
 
 		class Timer {
 		private:
-			uint64 begin;
+			clock_t begin;
 
 		public:
 			Timer() { restart(); };
 
 			inline void restart() { begin = (uint64)clock(); };
 
-			inline uint64 getElapsedTime() const { return ((uint64)clock() - begin) / CLOCKS_PER_SEC; };
-			inline bool isOver(uint64 seconds) const { return seconds >= getElapsedTime(); };
+			inline float getElapsedTime() const { return ((float)clock() - begin) / CLOCKS_PER_SEC; };
+			inline bool isOver(float secs) { if (secs >= getElapsedTime()) { restart(); return true; } return false; };
 		};
 
 	}
