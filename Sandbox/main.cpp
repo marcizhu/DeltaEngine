@@ -16,7 +16,8 @@ public:
 	Sandbox(int argc, char* argv[]) : Game() 
 	{ 
 		this->createWindow("DeltaEngine Sandbox", 960, 540);
-		DELTAENGINE_ASSERT(DeltaEngine::init(argc, argv) != DELTAENGINE_NOT_INITIALIZED, "DELTAENGINE NOT INITIALIZED!");
+		DeltaEngine::init(argc, argv);
+		//DELTAENGINE_ASSERT(DeltaEngine::init(argc, argv) != DELTAENGINE_NOT_INITIALIZED, "DELTAENGINE NOT INITIALIZED!");
 	}
 
 	~Sandbox()

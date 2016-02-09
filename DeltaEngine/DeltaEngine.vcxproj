@@ -185,7 +185,6 @@
     <ClInclude Include="include\logger.h" />
     <ClInclude Include="include\maths.h" />
     <ClInclude Include="include\matrix4.h" />
-    <ClInclude Include="include\PlatformLog.h" />
     <ClInclude Include="include\renderable2d.h" />
     <ClInclude Include="include\renderer2d.h" />
     <ClInclude Include="include\shader.h" />
@@ -204,8 +203,7 @@
     <ClInclude Include="include\vertexArray.h" />
     <ClInclude Include="include\window.h" />
     <ClInclude Include="include\LogLevels.h" />
-    <ClInclude Include="include\PlatformConsole.h" />
-    <ClInclude Include="include\PlatformTime.h" />
+    <ClInclude Include="include\PlatformUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\graphics\Font.cpp" />

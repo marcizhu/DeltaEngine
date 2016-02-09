@@ -4,8 +4,7 @@
 
 #include "utils.h"
 #include "types.h"
-#include "PlatformConsole.h"
-#include "PlatformTime.h"
+#include "PlatformUtils.h"
 
 using namespace std;
 
@@ -64,7 +63,6 @@ namespace DeltaEngine {
 		void setConsoleColor(int color)
 		{ 
 			Internal::PlatformSetConsoleColor(color);
-			
 		}
 
 	}

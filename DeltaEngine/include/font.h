@@ -5,6 +5,7 @@
 
 #include "internal.h"
 #include "vector2d.h"
+#include "types.h"
 
 namespace DeltaEngine {
 	namespace Graphics {
@@ -20,6 +21,7 @@ namespace DeltaEngine {
 
 		public:
 			DELTAENGINE_API Font(std::string name, std::string filename, float size);
+			DELTAENGINE_API Font(std::string name, Types::byte* data, Types::uint32 dataSize, float size);
 			DELTAENGINE_API ~Font();
 
 			DELTAENGINE_API inline ftgl::texture_font_t* getFTFont() const { return font; }

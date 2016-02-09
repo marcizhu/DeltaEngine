@@ -48,15 +48,13 @@
 #include "log.h"
 
 // Platform files
-#include "PlatformConsole.h"
-#include "PlatformTime.h"
-#include "PlatformLog.h"
+#include "PlatformUtils.h"
 
 namespace DeltaEngine {
 
 	inline int init(int argc, char *argv[])
 	{
-		//TODO: Check for parameters!
+		// TODO: Check for parameters!
 
 		if (glewInit() != GLEW_OK) return DELTAENGINE_NOT_INITIALIZED;
 
