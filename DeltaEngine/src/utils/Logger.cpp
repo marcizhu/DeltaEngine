@@ -10,7 +10,7 @@
 using namespace std;
 
 namespace DeltaEngine {
-	namespace Logger {
+	namespace Utils {
 
 		int Logger::Log(const string& tag, unsigned char align, const string& message) const
 		{

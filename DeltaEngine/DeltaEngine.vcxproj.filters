@@ -31,12 +31,6 @@
     <Filter Include="Archivos de código fuente\DeltaEngine\FileIO">
       <UniqueIdentifier>{d29edda7-4632-40a4-a85a-096885a3735b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\DeltaEngine\Logger">
-      <UniqueIdentifier>{a65fc4d5-6443-4880-a6bc-4a9906b47202}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de código fuente\DeltaEngine\Logger">
-      <UniqueIdentifier>{2032139a-9d79-4a70-bcd5-305bb686939e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de código fuente\DeltaEngine\Utils">
       <UniqueIdentifier>{aab05b10-f3f5-4c8c-b7d8-944acefa64d4}</UniqueIdentifier>
     </Filter>
@@ -92,9 +86,6 @@
     </ClInclude>
     <ClInclude Include="include\layer2d.h">
       <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="include\logger.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Logger</Filter>
     </ClInclude>
     <ClInclude Include="include\maths.h">
       <Filter>Archivos de encabezado\DeltaEngine\Maths</Filter>
@@ -168,6 +159,9 @@
     <ClInclude Include="include\PlatformUtils.h">
       <Filter>Archivos de encabezado\DeltaEngine\Platform</Filter>
     </ClInclude>
+    <ClInclude Include="include\logger.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\utils\Debug.cpp">
@@ -175,9 +169,6 @@
     </ClCompile>
     <ClCompile Include="src\utils\FileIO.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\FileIO</Filter>
-    </ClCompile>
-    <ClCompile Include="src\utils\Logger.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Logger</Filter>
     </ClCompile>
     <ClCompile Include="src\utils\Utils.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Utils</Filter>
@@ -238,6 +229,9 @@
     </ClCompile>
     <ClCompile Include="src\graphics\Window.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\Logger.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Utils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

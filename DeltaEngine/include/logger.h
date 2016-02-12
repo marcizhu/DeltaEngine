@@ -7,7 +7,7 @@
 using namespace std;
 
 namespace DeltaEngine {
-	namespace Logger {
+	namespace Utils {
 
 		class Logger {
 		private:
