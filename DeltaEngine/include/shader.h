@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include <unordered_map>
+#include <map>
 #include <GLEW\glew.h>
 
 #include "internal.h"
@@ -22,14 +22,14 @@ namespace DeltaEngine {
 		{
 		private:
 			GLuint shaderID;
-			std::unordered_map<std::string, GLint> uniformLocations;
+			std::map<std::string, GLint> uniformLocations;
 
 			GLuint load(const string& vertPath, const string& fragPath);
 			GLint getUniformLocation(const GLchar* name);
 
-			bool compileAndCheckStatus(GLuint shader, const char* source, const string& shaderType);
-			vector<string> preProcess(const std::string& input, std::string& vertexOut, std::string& fragmentOut);
+			bool compile(GLuint shader, const char* source, const string& shaderType);
 			void parseUniforms(const std::vector<string>& source);
+			vector<string> preProcess(const std::string& input, std::string& vertexOut, std::string& fragmentOut);
 			UniformType getUniformType(const string& token);
 
 		public:

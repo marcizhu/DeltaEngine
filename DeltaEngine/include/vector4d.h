@@ -7,7 +7,8 @@
 namespace DeltaEngine {
 	namespace Maths {
 
-		class Vector4D {
+		class Vector4D
+		{
 		public:
 			float x, y, z, w;
 

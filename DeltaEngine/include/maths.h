@@ -22,6 +22,7 @@ namespace DeltaEngine {
 		DELTAENGINE_API std::vector<uint32> factorialDecomposition(uint32 number);
 
 		inline float toRadians(float degrees) { return degrees * (float)(PI / 180.0f); }
+		inline float toDegrees(float radians) { return radians * (float)(180.0f / PI); }
 		
 		inline signed int sign(float value) { return (value > 0) - (value < 0); }
 		

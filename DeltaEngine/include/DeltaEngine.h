@@ -14,6 +14,7 @@
 #include "indexBuffer.h"
 #include "label.h"
 #include "layer2d.h"
+#include "line.h"
 #include "renderable2d.h"
 #include "renderer2d.h"
 #include "shader.h"
@@ -95,7 +96,7 @@ namespace DeltaEngine {
 			unsigned int frames = 0;
 			unsigned int updates = 0;
 
-			while (!window->closed())
+			while (!window->isClosed())
 			{
 				window->clear();
 				if (timer->getElapsedTime() - updateTimer >= updateTick)

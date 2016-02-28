@@ -10,7 +10,7 @@
 namespace DeltaEngine {
 	namespace Internal {
 
-#ifdef _WIN32
+#if defined(_WIN32)
 #	ifdef _WINDOWS_
 #		undef _WINDOWS_
 #	endif
@@ -72,9 +72,10 @@ namespace DeltaEngine {
 			printf("%s", message);
 			PlatformSetConsoleColor(0x0F);
 		}
-	}
-}
 
 #else
-#error("This platform is not supported")
+#error This platform is not supported!
 #endif
+
+	}
+}

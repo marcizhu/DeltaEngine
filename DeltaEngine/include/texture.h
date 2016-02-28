@@ -3,6 +3,7 @@
 #include <GLEW\glew.h>
 #include <FreeImage\FreeImage.h>
 #include <string>
+#include <map>
 
 #include "internal.h"
 #include "types.h"
@@ -15,6 +16,7 @@ namespace DeltaEngine {
 		class Texture
 		{
 		private:
+			static std::map<std::string, Texture*> textureCache;
 			std::string textureName;
 			GLuint textureID;
 			uint32 width, height;

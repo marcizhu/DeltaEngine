@@ -31,14 +31,12 @@ namespace DeltaEngine {
 
 			for (const Renderable2D* renderable : renderables)
 				renderable->submit(renderer);
-			
-			//it works!
-			//renderer->drawLine(Maths::Vector2D(0.0f, 0.0f), Maths::Vector2D(16.0f, 9.0f), 0xFF007FFF);
 
 			renderer->end();
 			renderer->flush();
 		}
 
+		//TODO: let the user change the uniform name
 		void Layer2D::setViewMatrix()
 		{
 			shader->enable();
@@ -46,7 +44,6 @@ namespace DeltaEngine {
 			shader->disable();
 		}
 
-		//TODO: let the user change the uniform name
 		void Layer2D::setCameraPosition(float x, float y)
 		{
 			xCamera = x;

@@ -1,12 +1,10 @@
 #pragma once
 
-#ifndef __DELTAENGINE_BATCH_RENDERER__
-#define __DELTAENGINE_BATCH_RENDERER__
-
 #include "internal.h"
 #include "renderable2d.h"
 #include "renderer2d.h"
 #include "indexBuffer.h"
+#include "vertexArray.h"
 #include "types.h"
 #include "font.h"
 
@@ -20,18 +18,18 @@ namespace DeltaEngine {
 #define RENDERER_INDICES_SIZE	RENDERER_MAX_SPRITES * 6
 #define RENDERER_MAX_TEXTURES	32
 
+// TODO: This depends on the shader! Let the user change this or autodetect
 #define SHADER_VERTEX_INDEX 0
 #define SHADER_UV_INDEX		1
 #define SHADER_TID_INDEX	2
 #define SHADER_COLOR_INDEX	3
 
-
 		class BatchRenderer2D : public Renderer2D
 		{
 		private:
-			GLuint vertexArray;
-			GLuint vertexBuffer;
 			IndexBuffer* indexBuffer;
+			VertexArray* vertexArray;
+			GLuint vertexBuffer;
 			GLsizei indexCount;
 			Types::VertexData* buffer;
 			std::vector<GLuint> textureSlots;
@@ -49,10 +47,8 @@ namespace DeltaEngine {
 			DELTAENGINE_API void flush() override;
 
 			DELTAENGINE_API void drawString(const std::string& text, const Maths::Vector2D& position, const Font& font, const Types::uint32 color) override;
-
-			DELTAENGINE_API void drawLine(const Maths::Vector2D& start, const Maths::Vector2D& end, unsigned int color) override;
+			DELTAENGINE_API void drawLine(const Maths::Vector2D& start, const Maths::Vector2D& end, float thickness, unsigned int color) override;
 		};
+
 	}
 }
-
-#endif

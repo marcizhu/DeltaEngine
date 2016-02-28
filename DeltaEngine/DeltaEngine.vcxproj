@@ -178,6 +178,8 @@
     <ClInclude Include="include\batchRenderer2d.h" />
     <ClInclude Include="include\buffer.h" />
     <ClInclude Include="include\debug.h" />
+    <ClInclude Include="include\eventHandler.h" />
+    <ClInclude Include="include\input.h" />
     <ClInclude Include="include\internal.h" />
     <ClInclude Include="include\errors.h" />
     <ClInclude Include="include\fileIO.h" />
@@ -190,6 +192,7 @@
     <ClInclude Include="include\logger.h" />
     <ClInclude Include="include\maths.h" />
     <ClInclude Include="include\matrix4.h" />
+    <ClInclude Include="include\PlatformWindow.h" />
     <ClInclude Include="include\renderable2d.h" />
     <ClInclude Include="include\renderer2d.h" />
     <ClInclude Include="include\shader.h" />
@@ -209,6 +212,7 @@
     <ClInclude Include="include\window.h" />
     <ClInclude Include="include\LogLevels.h" />
     <ClInclude Include="include\PlatformUtils.h" />
+    <ClInclude Include="include\Line.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\graphics\Font.cpp" />

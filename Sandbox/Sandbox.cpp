@@ -1,11 +1,12 @@
+#include <Windows.h>
+
 #include "Sandbox.h"
 
-Sandbox::Sandbox(int argc, char* argv[]) 
-	: Game()
+Sandbox::Sandbox(int argc, char* argv[]) : Game()
 {
 	this->createWindow("DeltaEngine Sandbox", 960, 540);
-	DeltaEngine::init(argc, argv);
-	//DELTAENGINE_ASSERT(DeltaEngine::init(argc, argv) != DELTAENGINE_NOT_INITIALIZED, "DELTAENGINE NOT INITIALIZED!");
+	int init = DeltaEngine::init(argc, argv);
+	DELTAENGINE_ASSERT(init != DELTAENGINE_NOT_INITIALIZED, "DELTAENGINE NOT INITIALIZED!");
 }
 
 Sandbox::~Sandbox()
@@ -16,6 +17,7 @@ Sandbox::~Sandbox()
 
 void Sandbox::init()
 {
+	SetConsoleTitle(TEXT("DeltaEngine Debug Output"));
 	window->installKeyboard();
 
 	Maths::Matrix4 pr_matrix = Maths::Matrix4::orthographic(0.0f, 16.0f, 9.0f, 0.0f, -1.0f, 1.0f);
@@ -24,9 +26,12 @@ void Sandbox::init()
 	uiShader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\basic.shader");
 
 	Graphics::TextureManager::add(new Graphics::Texture("Mario", "mario.png", GL_NEAREST));
+	Graphics::TextureManager::add(new Graphics::Texture("CacheTest", "mario.png", GL_NEAREST));
 
 	mainLayer = new Graphics::Layer2D(new Graphics::BatchRenderer2D(), shader, pr_matrix);
 	mainLayer->add(new Graphics::BatchRenderable2D(1.0f, 1.4f, 1, 1, Graphics::TextureManager::get("Mario")));
+	mainLayer->add(new Graphics::Line(4.0f, 1.0f, 12.0f, 1.0f, 16.0f / 960.0f * 30, 0x3FFFFFFF));
+	mainLayer->add(new Graphics::BatchRenderable2D(0.0f, 0.0f, 1, 1, Graphics::TextureManager::get("CacheTest")));
 
 	Graphics::FontManager::add(new Graphics::Font("OpenSans", "OpenSans-Light.ttf", 24));
 	Graphics::FontManager::add(new Graphics::Font("Consolas", "consola.ttf", 18));
@@ -38,6 +43,7 @@ void Sandbox::init()
 	string version = string((char*)glGetString(GL_VERSION));
 	string vendor = string((char*)glGetString(GL_VENDOR));
 	string renderer = string((char*)glGetString(GL_RENDERER));
+
 	debugLabel->setText(string("Version : " + version + "\nVendor  : " + vendor + "\nRenderer: " + renderer));
 
 	ui = new Graphics::Layer2D(new Graphics::BatchRenderer2D(), uiShader, pr_matrix);
@@ -65,14 +71,25 @@ void Sandbox::update()
 {
 	if (window->isKeyPressed(256)) window->close();
 
-	if (window->isKeyPressed(262)) mainLayer->getRenderables()[0]->move(0.1f, 0.0f); // Right arrow
-	if (window->isKeyPressed(263)) mainLayer->getRenderables()[0]->move(-0.1f, 0.0f); // Left arrow
-	if (window->isKeyPressed(264)) mainLayer->getRenderables()[0]->move(0.0f, -0.1f); // Down arrow
-	if (window->isKeyPressed(265)) mainLayer->getRenderables()[0]->move(0.0f, 0.1f); // Up arrow
+	if (window->isKeyPressed(262)) mainLayer->getRenderables()[0]->move( 0.1f,  0.0f); // Right arrow
+	if (window->isKeyPressed(263)) mainLayer->getRenderables()[0]->move(-0.1f,  0.0f); // Left arrow
+	if (window->isKeyPressed(264)) mainLayer->getRenderables()[0]->move( 0.0f, -0.1f); // Down arrow
+	if (window->isKeyPressed(265)) mainLayer->getRenderables()[0]->move( 0.0f,  0.1f); // Up arrow
 }
 
 void Sandbox::render()
 {
+	//TODO: Individual rotation (for physics)
+	/*Maths::Matrix4 m = Maths::Matrix4::identity();
+	m.rotate(-30, 0, 0, 1);
+	shader->enable();
+	shader->setUniformMat4("ml_matrix", m);
+	shader->disable();
+
+	uiShader->enable();
+	uiShader->setUniformMat4("ml_matrix", m);
+	uiShader->disable();*/
+
 	mainLayer->render();
 	ui->render();
 

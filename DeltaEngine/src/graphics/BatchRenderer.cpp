@@ -6,14 +6,15 @@
 namespace DeltaEngine {
 	namespace Graphics {
 
-		// FIXME: Optimize this using vertexArrays, Buffers and IndexBuffers
+		// FIXME: Optimize this using Buffers
+		// TODO: Rewrite Buffer.cpp
 
 		BatchRenderer2D::BatchRenderer2D() : Renderer2D(), indexCount(0)
 		{
-			glGenVertexArrays(1, &vertexArray);
+			vertexArray = new VertexArray();
 			glGenBuffers(1, &vertexBuffer);
 
-			glBindVertexArray(vertexArray);
+			vertexArray->bind();
 			glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 			glBufferData(GL_ARRAY_BUFFER, RENDERER_BUFFER_SIZE, NULL, GL_DYNAMIC_DRAW);
 
@@ -31,18 +32,17 @@ namespace DeltaEngine {
 
 			GLuint* indices = new GLuint[RENDERER_INDICES_SIZE];
 
-			int offset = 0;
 			for (int i = 0; i < RENDERER_INDICES_SIZE; i += 6)
 			{
-				indices[i] = offset + 0;
+				uint32 offset = (i / 6) * 4;
+
+				indices[i + 0] = offset + 0;
 				indices[i + 1] = offset + 1;
 				indices[i + 2] = offset + 2;
 
 				indices[i + 3] = offset + 2;
 				indices[i + 4] = offset + 3;
 				indices[i + 5] = offset + 0;
-
-				offset += 4;
 			}
 
 			indexBuffer = new IndexBuffer(indices, RENDERER_INDICES_SIZE);
@@ -54,7 +54,7 @@ namespace DeltaEngine {
 		{
 			delete indexBuffer;
 			glDeleteBuffers(1, &vertexBuffer);
-			glDeleteVertexArrays(1, &vertexArray);
+			delete vertexArray;
 		}
 
 		void BatchRenderer2D::begin()
@@ -138,14 +138,11 @@ namespace DeltaEngine {
 			indexCount += 6;
 		}
 
-		void BatchRenderer2D::drawLine(const Maths::Vector2D& start, const Maths::Vector2D& end, unsigned int color)
+		void BatchRenderer2D::drawLine(const Maths::Vector2D& start, const Maths::Vector2D& end, float thickness, unsigned int color)
 		{
 			double angle = atan2(start.y - end.y, start.x - end.x) + (PI / 2.0f);
 			float x = (float)cos(angle);
 			float y = (float)sin(angle);
-
-			//TODO: This should be a parameter!
-			const float lineThinkness = 16.0f / 960.0f;
 
 			buffer->vertex = start;
 			buffer->uv = Maths::Vector2D(0, 1);
@@ -159,13 +156,13 @@ namespace DeltaEngine {
 			buffer->color = color;
 			buffer++;
 			
-			buffer->vertex = end + Maths::Vector2D(x * lineThinkness, y * lineThinkness);
+			buffer->vertex = end + Maths::Vector2D(x * thickness, y * thickness);
 			buffer->uv = Maths::Vector2D(1, 0);
 			buffer->tid = 0;
 			buffer->color = color;
 			buffer++;
 			
-			buffer->vertex = start + Maths::Vector2D(x * lineThinkness, y * lineThinkness);
+			buffer->vertex = start + Maths::Vector2D(x * thickness, y * thickness);
 			buffer->uv = Maths::Vector2D(1, 1);
 			buffer->tid = 0;
 			buffer->color = color;
@@ -201,10 +198,8 @@ namespace DeltaEngine {
 
 					if (c == '\n')
 					{
+						// vertical space = (x + 6) / 3
 						y -=  (glyph->advance_y > 0.0f ? glyph->advance_y : (glyph->height + (font.getSize() + 6) / 3)) / scale.y;
-						//My equation for vertical spacing: y = (x + 6) / 3:
-						// x = 24 -> y = (24 + 6) / 3 = 10
-						// x = 18 -> y = (18 + 6) / 3 = 8
 						x = position.x;
 						continue;
 					}
@@ -264,13 +259,13 @@ namespace DeltaEngine {
 				glBindTexture(GL_TEXTURE_2D, textureSlots[i]);
 			}
 
-			glBindVertexArray(vertexArray);
+			vertexArray->bind();
 			indexBuffer->bind();
 
 			glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, NULL);
 
 			indexBuffer->unbind();
-			glBindVertexArray(0);
+			vertexArray->unbind();
 
 			indexCount = 0;
 			textureSlots.clear();

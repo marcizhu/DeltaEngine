@@ -15,7 +15,7 @@ namespace DeltaEngine {
 		Shader::Shader(const string& shader, ShaderSource dType)
 		{
 			string vertex, fragment;
-			std::vector<std::string> temp;
+			//std::vector<std::string> temp;
 
 			switch (dType)
 			{
@@ -23,9 +23,9 @@ namespace DeltaEngine {
 				DELTAENGINE_ERROR("[Shader] Invalid shader type!"); break;
 
 			case SOURCE:
-				temp = preProcess(shader, vertex, fragment);
+				/*temp = */preProcess(shader, vertex, fragment);
 				shaderID = load(vertex, fragment);
-				parseUniforms(temp);
+				//parseUniforms(temp);
 				break;
 
 			case FILE:
@@ -38,13 +38,11 @@ namespace DeltaEngine {
 					return;
 				}
 
-				temp = preProcess(fShader.read(), vertex, fragment);
+				/*temp = */preProcess(fShader.read(), vertex, fragment);
 				shaderID = load(vertex, fragment);
-				parseUniforms(temp);
+				//parseUniforms(temp);
 				break;
 			}
-
-			
 		}
 
 		Shader::Shader(const string& vertex, const string& fragment, ShaderSource dType)
@@ -95,13 +93,14 @@ namespace DeltaEngine {
 			return new Shader(source, SOURCE);
 		}
 
-		bool Shader::compileAndCheckStatus(GLuint shader, const char* source, const string& shaderType)
+		bool Shader::compile(GLuint shader, const char* source, const string& shaderType)
 		{
 			glShaderSource(shader, 1, &source, NULL);
 			glCompileShader(shader);
 
 			GLint result;
 			glGetShaderiv(shader, GL_COMPILE_STATUS, &result);
+
 			if (result == GL_FALSE)
 			{
 				GLint length;
@@ -125,8 +124,8 @@ namespace DeltaEngine {
 			const char* vertSource = vertData.c_str();
 			const char* fragSource = fragData.c_str();
 
-			if (compileAndCheckStatus(vertex, vertSource, "vertex") == false) return 0;
-			if (compileAndCheckStatus(fragment, fragSource, "fragment") == false) return 0;
+			if (compile(vertex, vertSource, "vertex") == false) return 0;
+			if (compile(fragment, fragSource, "fragment") == false) return 0;
 
 			glAttachShader(program, vertex);
 			glAttachShader(program, fragment);
@@ -143,7 +142,6 @@ namespace DeltaEngine {
 			return program;
 		}
 
-		// TODO: Detect unused uniforms
 		GLint Shader::getUniformLocation(const GLchar* name)
 		{
 			auto it = uniformLocations.find(std::string(name));
