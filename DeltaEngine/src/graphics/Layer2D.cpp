@@ -55,14 +55,14 @@ namespace DeltaEngine {
 		}
 
 		void Layer2D::rotate(float angle, Maths::Vector3D axis)
-		{ 
-			viewMatrix.rotate(angle, axis); 
-		
+		{
+			viewMatrix.rotate(angle, axis);
+
 			setViewMatrix();
 		}
 
-		void Layer2D::rotate(float angle, float xAxis, float yAxis, float zAxis) 
-		{ 
+		void Layer2D::rotate(float angle, float xAxis, float yAxis, float zAxis)
+		{
 			viewMatrix.rotate(angle, xAxis, yAxis, zAxis);
 
 			setViewMatrix();

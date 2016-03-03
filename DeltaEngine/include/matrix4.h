@@ -16,7 +16,7 @@ namespace DeltaEngine {
 			Vector2D multiply(const Vector2D& other) const;
 			Vector3D multiply(const Vector3D& other) const;
 			Vector4D multiply(const Vector4D& other) const;
-			
+
 		public:
 			union
 			{

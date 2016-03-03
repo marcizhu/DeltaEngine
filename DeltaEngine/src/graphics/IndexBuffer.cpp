@@ -2,7 +2,7 @@
 
 namespace DeltaEngine {
 	namespace Graphics {
-		
+
 		IndexBuffer::IndexBuffer(GLushort* data, GLsizei count) : count(count)
 		{
 			glGenBuffers(1, &bufferID);
@@ -18,6 +18,6 @@ namespace DeltaEngine {
 			glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(GLuint), data, GL_STATIC_DRAW);
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		}
-		
+
 	}
 }

@@ -4,7 +4,7 @@
 
 namespace DeltaEngine {
 	namespace Graphics {
-		
+
 		Buffer::Buffer(GLfloat* data, GLsizei count, GLuint componentCount) : componentCount(componentCount)
 		{
 			glGenBuffers(1, &bufferID);

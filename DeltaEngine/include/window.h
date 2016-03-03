@@ -9,7 +9,6 @@
 #include "input.h"
 #include "vector2d.h"
 
-
 using namespace std;
 
 namespace DeltaEngine {
@@ -29,34 +28,35 @@ namespace DeltaEngine {
 			bool vsync = false;
 			bool mouseGrabbed = false;
 			bool textMode = false;
-			
+
 			bool closed;
 
-			bool mouseButtons[MAX_BUTTONS];
-			bool keys[MAX_KEYS];
+			unsigned char mouseButtons[MAX_BUTTONS];
+			unsigned char keys[MAX_KEYS];
 
 			float mousePosX;
 			float mousePosY;
 			float scrollX;
 			float scrollY;
-			
+
 			static std::unordered_map<void*, Window*> handles;
 
 			//Callbacks:
 			/*static void windowResize(GLFWwindow* window, int width, int height);
-			
+
 			static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 			static void textInputModsCallback(GLFWwindow* window, unsigned int codepoint, int mods);
 
 			static void mouseMoveCallback(GLFWwindow* window, double xpos, double ypos);
 			static void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 			static void mouseScrollCallback(GLFWwindow* window, double xoffset, double yoffset);*/
-			
+
 			//TODO: FIX THIS! -> Event handler
 		public:
 			static void focusCallback(Window* window, bool focused);
 			static void resizeCallback(Window* window, int width, int height);
-			
+			static void keyCallback(Window* window, int flags, int key, unsigned int message);
+
 		public:
 			DELTAENGINE_API Window(string& title, int height, int width, bool fullscreen = false);
 			DELTAENGINE_API ~Window() {};
@@ -84,14 +84,14 @@ namespace DeltaEngine {
 			DELTAENGINE_API inline bool isMouseGrabbed() { return mouseGrabbed; };
 			DELTAENGINE_API inline bool isMouseButtonPressed(int button) const { return mouseButtons[button]; };
 			DELTAENGINE_API inline void installMouse() const;
-			
+
 			//keyboard functions
 			DELTAENGINE_API inline void installKeyboard() const;
-			DELTAENGINE_API inline bool isKeyPressed(int key) const { return keys[key]; };
+			DELTAENGINE_API inline bool isKeyPressed(int key) const { return keys[key] & 1; };
 			DELTAENGINE_API inline void setTextMode(bool enable) { textMode = enable; }
 			DELTAENGINE_API inline bool isTextInputAvailable() const { return (!textInput.empty()) && (textMode == true); };
 			DELTAENGINE_API unsigned int getTextInput() { unsigned int i = textInput.front(); textInput.pop(); return i; };
-			
+
 			DELTAENGINE_API static void registerWindowClass(void* handle, Window* window);
 			DELTAENGINE_API static Window* getWindowClass(void* handle);
 		};
@@ -99,5 +99,5 @@ namespace DeltaEngine {
 	}
 }
 
-// HACK: Q&D Solution 
+// HACK: Q&D Solution
 #include "PlatformWindow.h"

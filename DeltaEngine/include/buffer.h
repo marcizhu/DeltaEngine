@@ -6,7 +6,7 @@
 
 namespace DeltaEngine {
 	namespace Graphics {
-		
+
 		class Buffer
 		{
 		private:
@@ -22,6 +22,6 @@ namespace DeltaEngine {
 
 			DELTAENGINE_API inline GLuint getComponentCount() const { return componentCount; }
 		};
-			
+
 	}
 }

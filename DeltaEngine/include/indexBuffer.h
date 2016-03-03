@@ -6,7 +6,7 @@
 
 namespace DeltaEngine {
 	namespace Graphics {
-		
+
 		class IndexBuffer
 		{
 		private:

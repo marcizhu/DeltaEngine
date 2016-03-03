@@ -4,8 +4,8 @@
 using namespace DeltaEngine::Types;
 
 namespace DeltaEngine {
-	namespace Graphics {		
-		
+	namespace Graphics {
+
 		VertexArray::~VertexArray()
 		{
 			for (uint32 i = 0; i < buffers.size(); i++)
@@ -13,7 +13,7 @@ namespace DeltaEngine {
 
 			glDeleteVertexArrays(1, &arrayID);
 		}
-		
+
 		void VertexArray::addBuffer(Buffer* buffer, GLuint index, GLenum type)
 		{
 			bind();
@@ -27,6 +27,6 @@ namespace DeltaEngine {
 
 			buffers.push_back(buffer);
 		}
-			
+
 	}
 }

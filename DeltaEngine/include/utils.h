@@ -28,7 +28,7 @@ namespace DeltaEngine {
 		DELTAENGINE_API string getCurrentPath();
 
 		DELTAENGINE_API vector<string> splitString(const string& str, char delimiter);
-		
+
 		// Console utilities
 		DELTAENGINE_API void gotoxy(int x, int y);
 		DELTAENGINE_API void setConsoleColor(int color);

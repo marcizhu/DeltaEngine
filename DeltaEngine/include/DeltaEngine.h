@@ -73,7 +73,7 @@ namespace DeltaEngine {
 	{
 	protected:
 		Game() : fps(0), ups(0) { }
-		
+
 		Graphics::Window* window;
 		Utils::Timer* timer;
 		Types::uint32 fps, ups;

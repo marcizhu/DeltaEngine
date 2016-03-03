@@ -87,7 +87,7 @@ namespace DeltaEngine {
 			}
 
 			this->size = Maths::Vector2D(maxX, y);
-			
+
 			return this->size;
 		}
 

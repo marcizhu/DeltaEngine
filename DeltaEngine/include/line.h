@@ -15,7 +15,7 @@ namespace DeltaEngine {
 			Types::uint32 color;
 
 		public:
-			Line(float x0, float y0, float x1, float y1, float thickness, Types::Color color) 
+			Line(float x0, float y0, float x1, float y1, float thickness, Types::Color color)
 				: Renderable2D()
 			{
 				this->x0 = x0;
@@ -26,7 +26,7 @@ namespace DeltaEngine {
 				this->color = color.getABGRColor();
 			}
 
-			Line(float x0, float y0, float x1, float y1, float thickness, Types::uint32 color) 
+			Line(float x0, float y0, float x1, float y1, float thickness, Types::uint32 color)
 				: Renderable2D()
 			{
 				this->x0 = x0;

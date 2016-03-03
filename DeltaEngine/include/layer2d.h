@@ -19,7 +19,7 @@ namespace DeltaEngine {
 			Shader* shader;
 			Maths::Matrix4 projectionMatrix;
 			Maths::Matrix4 viewMatrix;
-			
+
 			float xCamera;
 			float yCamera;
 

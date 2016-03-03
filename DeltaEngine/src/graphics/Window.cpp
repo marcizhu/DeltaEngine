@@ -9,7 +9,7 @@ namespace DeltaEngine {
 	namespace Graphics {
 
 		std::unordered_map<void*, Window*> Window::handles;
-		
+
 		//Creates a window
 		Window::Window(std::string& title, int width, int height, bool fullscreen)
 			: title(title), height(height), width(width)
@@ -70,7 +70,7 @@ namespace DeltaEngine {
 		{
 			memset((void*)mouseButtons, 0, sizeof(mouseButtons));
 		}
-		
+
 		void Window::focusCallback(Window* window, bool focused)
 		{
 			if (!focused)
@@ -79,12 +79,48 @@ namespace DeltaEngine {
 				//window->inputManager->ClearMouseButtons();
 			}
 		}
-		
+
+		void Window::keyCallback(Window* window, int flags, int key, unsigned int message)
+ 		{
+ 			bool pressed = message == WM_KEYDOWN || message == WM_SYSKEYDOWN;
+ 			bool repeat = (flags >> 30) & 1;
+
+ 			Types::byte modifier = 0;
+ 			switch (key)
+ 			{
+ 			case KB_KEY_CONTROL:
+ 				modifier = KB_MODIFIER_LEFT_CONTROL;
+ 				break;
+
+ 			case KB_KEY_ALT:
+ 				modifier = KB_MODIFIER_LEFT_ALT;
+ 				break;
+
+ 			case KB_KEY_SHIFT:
+ 				modifier = KB_MODIFIER_LEFT_SHIFT;
+ 				break;
+ 			}
+
+			modifier &= 0xFC;
+
+			window->keys[key] = modifier | (repeat << 1) | pressed;
+ 			/*if (pressed)
+ 				inputManager->m_KeyModifiers |= modifier;
+ 			else
+ 				inputManager->m_KeyModifiers &= ~(modifier);*/
+
+ 			/*if (pressed)
+ 				inputManager->m_EventCallback(KeyPressedEvent(key, repeat, inputManager->m_KeyModifiers));
+ 			else
+ 				inputManager->m_EventCallback(KeyReleasedEvent(key));*/
+		}
+
+
 		void Window::registerWindowClass(void* handle, Window* window)
 		{
 			handles[handle] = window;
 		}
-		
+
 		Window* Window::getWindowClass(void* handle)
 		{
 			if (handle == nullptr) return handles.begin()->second;

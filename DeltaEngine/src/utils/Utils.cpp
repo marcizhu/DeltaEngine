@@ -40,7 +40,7 @@ namespace DeltaEngine {
 			char path[1024];
 			memset(path, 0, 1024);
 			if (!GetCurrentDir(path, sizeof(path))) return string("NULL");
-			
+
 			return path;
 		}
 
@@ -51,7 +51,7 @@ namespace DeltaEngine {
 			string item;
 
 			while (getline(ss, item, delimiter)) split.push_back(item);
-			
+
 			return split;
 		}
 
@@ -61,7 +61,7 @@ namespace DeltaEngine {
 		}
 
 		void setConsoleColor(int color)
-		{ 
+		{
 			Internal::PlatformSetConsoleColor(color);
 		}
 

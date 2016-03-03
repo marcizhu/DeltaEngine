@@ -38,14 +38,14 @@ namespace DeltaEngine {
 				for (int x = 0; x < 4; x++)
 				{
 					float sum = 0.0f;
-					
-					for (int e = 0; e < 4; e++) 
+
+					for (int e = 0; e < 4; e++)
 						sum += elements[x + e * 4] * other.elements[e + y * 4];
 
 					data[x + y * 4] = sum;
 				}
 			}
-			
+
 			memcpy(elements, data, 4 * 4 * sizeof(float));
 			return *this;
 		}
@@ -64,7 +64,7 @@ namespace DeltaEngine {
 				columns[0].y * other.x + columns[1].y * other.y + columns[2].y * other.z + columns[3].y,
 				columns[0].z * other.x + columns[1].z * other.y + columns[2].z * other.z + columns[3].z);
 		}
-		
+
 		Vector4D Matrix4::multiply(const Vector4D& other) const
 		{
 			return Vector4D(
@@ -88,7 +88,7 @@ namespace DeltaEngine {
 		{
 			return left.multiply(right);
 		}
-		
+
 		Vector4D operator*(const Matrix4& left, const Vector4D& right)
 		{
 			return left.multiply(right);
@@ -160,11 +160,11 @@ namespace DeltaEngine {
 			this->elements[0 + 0 * 4] = x * omc + c;
 			this->elements[1 + 0 * 4] = y * x * omc + z * s;
 			this->elements[2 + 0 * 4] = x * z * omc - y * s;
-			
+
 			this->elements[0 + 1 * 4] = x * y * omc - z * s;
 			this->elements[1 + 1 * 4] = y * omc + c;
 			this->elements[2 + 1 * 4] = y * z * omc + x * s;
-			
+
 			this->elements[0 + 2 * 4] = x * z * omc + y * s;
 			this->elements[1 + 2 * 4] = y * z * omc - x * s;
 			this->elements[2 + 2 * 4] = z * omc + c;

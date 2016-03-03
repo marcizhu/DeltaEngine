@@ -56,13 +56,13 @@ namespace DeltaEngine {
 			uint32 getARGBColor() const { return A << 24 | R << 16 | G << 8 | B; };
 			uint32 getBGRAColor() const { return B << 24 | G << 16 | R << 8 | A; };
 			uint32 getRGBAColor() const { return R << 24 | G << 16 | B << 8 | A; };
-			
+
 			uint32 getBGRColor() const { return B << 16 | G << 8 | R; };
 			uint32 getRGBColor() const { return R << 16 | G << 8 | B; };
-			
+
 			void setColor(uint32& rgba) { R = (rgba >> 24) & 0xFF; G = (rgba >> 16) & 0xFF; B = (rgba >> 8) & 0xFF; A = rgba & 0xFF; };
 			void setColor(byte r, byte g, byte b, byte alpha) { R = r; G = g; B = b, A = alpha; };
-			
+
 			// HACK: This way we have an ABGR color (little-endian)
 			byte R;
 			byte G;

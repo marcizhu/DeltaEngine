@@ -24,7 +24,7 @@ namespace DeltaEngine {
 
 		static PIXELFORMATDESCRIPTOR get_pixel_format()
 		{
-			PIXELFORMATDESCRIPTOR result = {};
+			PIXELFORMATDESCRIPTOR result = { };
 			result.nSize = sizeof(PIXELFORMATDESCRIPTOR);
 			result.nVersion = 1;
 			result.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
@@ -77,7 +77,7 @@ namespace DeltaEngine {
 			hDc = GetDC(hWnd);
 			PIXELFORMATDESCRIPTOR pfd = get_pixel_format();
 			int pixelFormat = ChoosePixelFormat(hDc, &pfd);
-			
+
 			if (pixelFormat)
 			{
 				if (!SetPixelFormat(hDc, pixelFormat, &pfd))
@@ -146,11 +146,11 @@ namespace DeltaEngine {
 			switch (message)
 			{
 			case WM_ACTIVATE:
-				if (!HIWORD(wParam)) // Is minimized 
-				{ 
-					/* active */ 
-				} else { 
-					/* inactive */ 
+				if (!HIWORD(wParam)) // Is minimized
+				{
+					/* active */
+				} else {
+					/* inactive */
 				}
 
 				return 0;

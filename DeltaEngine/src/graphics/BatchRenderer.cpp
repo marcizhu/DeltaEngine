@@ -27,7 +27,7 @@ namespace DeltaEngine {
 			glVertexAttribPointer(SHADER_UV_INDEX, 2, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(Types::VertexData, VertexData::uv)));
 			glVertexAttribPointer(SHADER_TID_INDEX, 1, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(Types::VertexData, VertexData::tid)));
 			glVertexAttribPointer(SHADER_COLOR_INDEX, 4, GL_UNSIGNED_BYTE, GL_TRUE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(Types::VertexData, VertexData::color)));
-		
+
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 			GLuint* indices = new GLuint[RENDERER_INDICES_SIZE];
@@ -78,7 +78,7 @@ namespace DeltaEngine {
 					break;
 				}
 			}
-		
+
 			if (!found)
 			{
 				if (textureSlots.size() >= RENDERER_MAX_TEXTURES)
@@ -87,14 +87,14 @@ namespace DeltaEngine {
 					flush();
 					begin();
 				}
-				
+
 				textureSlots.push_back(textureID);
 				result = (float)(textureSlots.size());
 			}
 
 			return result;
 		}
-		
+
 		float BatchRenderer2D::submitTexture(const Texture* texture)
 		{
 			return submitTexture(texture->getID());
@@ -116,7 +116,7 @@ namespace DeltaEngine {
 			buffer->tid = ts;
 			buffer->color = color;
 			buffer++;
-			
+
 			buffer->vertex = Maths::Vector2D(position.x, position.y + size.y);
 			buffer->uv = uv[1];
 			buffer->tid = ts;
@@ -128,7 +128,7 @@ namespace DeltaEngine {
 			buffer->tid = ts;
 			buffer->color = color;
 			buffer++;
-			
+
 			buffer->vertex = Maths::Vector2D(position.x + size.x, position.y);
 			buffer->uv = uv[3];
 			buffer->tid = ts;
@@ -149,19 +149,19 @@ namespace DeltaEngine {
 			buffer->tid = 0;
 			buffer->color = color;
 			buffer++;
-			
+
 			buffer->vertex = end;
 			buffer->uv = Maths::Vector2D(0, 0);
 			buffer->tid = 0;
 			buffer->color = color;
 			buffer++;
-			
+
 			buffer->vertex = end + Maths::Vector2D(x * thickness, y * thickness);
 			buffer->uv = Maths::Vector2D(1, 0);
 			buffer->tid = 0;
 			buffer->color = color;
 			buffer++;
-			
+
 			buffer->vertex = start + Maths::Vector2D(x * thickness, y * thickness);
 			buffer->uv = Maths::Vector2D(1, 1);
 			buffer->tid = 0;
@@ -177,12 +177,12 @@ namespace DeltaEngine {
 			ts = submitTexture(font.getID());
 
 			const Maths::Vector2D& scale = font.getScale();
-			
+
 			float x = position.x;
 			float y = position.y;
 
 			texture_font_t* ftFont = font.getFTFont();
-			
+
 			for (Types::uint32 i = 0; i < text.length(); i++)
 			{
 				char c = text[i];
@@ -203,43 +203,43 @@ namespace DeltaEngine {
 						x = position.x;
 						continue;
 					}
-					
+
 					float x0 = x + glyph->offset_x / scale.x;
 					float y0 = y + glyph->offset_y / scale.y;
 					float x1 = x0 + glyph->width / scale.x;
 					float y1 = y0 - glyph->height / scale.y;
-					
+
 					float u0 = glyph->s0;
 					float v0 = glyph->t0;
 					float u1 = glyph->s1;
 					float v1 = glyph->t1;
-					
+
 					buffer->vertex = Maths::Vector2D(x0, y0);
 					buffer->uv = Maths::Vector2D(u0, v0);
 					buffer->tid = ts;
 					buffer->color = color;
 					buffer++;
-					
+
 					buffer->vertex = Maths::Vector2D(x0, y1);
 					buffer->uv = Maths::Vector2D(u0, v1);
 					buffer->tid = ts;
 					buffer->color = color;
 					buffer++;
-					
+
 					buffer->vertex = Maths::Vector2D(x1, y1);
 					buffer->uv = Maths::Vector2D(u1, v1);
 					buffer->tid = ts;
 					buffer->color = color;
 					buffer++;
-					
+
 					buffer->vertex = Maths::Vector2D(x1, y0);
 					buffer->uv = Maths::Vector2D(u1, v0);
 					buffer->tid = ts;
 					buffer->color = color;
 					buffer++;
-					
+
 					indexCount += 6;
-					
+
 					x += glyph->advance_x / scale.x;
 				}
 			}

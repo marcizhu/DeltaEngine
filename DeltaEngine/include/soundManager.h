@@ -32,6 +32,5 @@ namespace DeltaEngine {
 			DELTAENGINE_API static bool areAllSoundsLoaded();
 		};
 
-
 	}
 }

@@ -79,7 +79,7 @@ namespace DeltaEngine {
 			return strcpy(result, &string[0]);
 		}
 
-		template <> 
+		template <>
 		static const char* to_string<Maths::Vector3D>(const Maths::Vector3D& t)
 		{
 			// TODO: sprintf
@@ -132,10 +132,10 @@ namespace DeltaEngine {
 		{
 			const char* formatted = DeltaEngine::Internal::to_string<First>(first);
 			int length = strlen(formatted);
-			
+
 			memcpy(&buffer[position], formatted, length);
 			position += length;
-			
+
 			if (sizeof...(Args)) print_log_internal(buffer, position, std::forward<Args>(args)...);
 		}
 

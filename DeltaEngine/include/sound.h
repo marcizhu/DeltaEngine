@@ -30,7 +30,7 @@ namespace DeltaEngine {
 
 			static void loadSound(Sound* obj, vector<string> split);
 			static void Sound::playSound(Sound* obj, bool loop);
-			
+
 		public:
 			DELTAENGINE_API Sound(const string& name, const string& filename);
 			DELTAENGINE_API ~Sound() { ga_sound_release(sound); };

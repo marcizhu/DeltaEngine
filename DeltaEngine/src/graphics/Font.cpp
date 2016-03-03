@@ -6,8 +6,8 @@
 
 namespace DeltaEngine {
 	namespace Graphics {
-		
-		Font::Font(std::string name, std::string filename, float size) 
+
+		Font::Font(std::string name, std::string filename, float size)
 			: name(name), size(size)
 		{
 			atlas = ftgl::texture_atlas_new(512, 512, 2);

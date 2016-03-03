@@ -8,7 +8,7 @@
 
 namespace DeltaEngine {
 	namespace Graphics {
-		
+
 		class VertexArray
 		{
 		private:
@@ -23,6 +23,6 @@ namespace DeltaEngine {
 			DELTAENGINE_API inline void bind() const { glBindVertexArray(arrayID); };
 			DELTAENGINE_API inline void unbind() const { glBindVertexArray(0); };
 		};
-		
+
 	}
 }

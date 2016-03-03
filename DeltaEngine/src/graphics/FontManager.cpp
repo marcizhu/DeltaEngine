@@ -3,7 +3,7 @@
 #include "fontManager.h"
 #include "types.h"
 
-namespace DeltaEngine { 
+namespace DeltaEngine {
 	namespace Graphics {
 
 		std::vector<Font*> FontManager::fonts;
@@ -17,7 +17,7 @@ namespace DeltaEngine {
 		{
 			for (Font* font : fonts)
 				if (font->getName() == name) return font;
-			
+
 			return nullptr;
 		}
 

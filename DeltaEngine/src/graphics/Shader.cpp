@@ -171,14 +171,14 @@ namespace DeltaEngine {
 				if (source[i].find("uniform") != string::npos)
 				{
 					std::vector<std::string> line = Utils::splitString(source[i], ' ');
-					
+
 					for (uchar8 j = 0; j < line.size(); j++)
 					{
 						if (getUniformType(line[j]) != UniformType::NONE)
 						{
 							string name = line[j + 1];
 							if (name[name.size() - 1] == ';') name = name.substr(0, name.size() - 1);
-						
+
 							uint32 start = name.find('[');
 							if (start != string::npos)
 							{
@@ -212,7 +212,7 @@ namespace DeltaEngine {
 		std::vector<std::string> Shader::preProcess(const std::string& input, std::string& vertexOut, std::string& fragmentOut)
 		{
 			std::vector<std::string> file = Utils::splitString(input, '\n');
-			
+
 			vertexOut = "";
 			fragmentOut = "";
 

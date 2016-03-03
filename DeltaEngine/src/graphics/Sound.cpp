@@ -37,7 +37,7 @@ namespace DeltaEngine {
 			thread audioThread(loadSound, this, split);
 			audioThread.detach();
 		}
-		
+
 		void Sound::playSound(Sound* obj, bool loop)
 		{
 			while (!obj->ready); // do nothing, just wait
@@ -53,21 +53,21 @@ namespace DeltaEngine {
 			thread audioThread(playSound, this, false);
 			audioThread.detach();
 		}
-		
+
 		void Sound::loop()
 		{
 			thread audioThread(playSound, this, true);
 			audioThread.detach();
 		}
-		
+
 		void Sound::stop()
 		{
 			if (!playing) return;
-			
+
 			ga_handle_stop(handle);
 			playing = false;
 		}
-		
+
 		void Sound::destroy_on_finish(ga_Handle* in_handle, void* in_context)
 		{
 			Sound* sound = (Sound*)in_handle->sound;

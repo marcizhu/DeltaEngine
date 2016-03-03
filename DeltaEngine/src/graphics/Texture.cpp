@@ -62,7 +62,7 @@ namespace DeltaEngine {
 		{
 			FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
 			FIBITMAP *dib = nullptr;
-			
+
 			fif = FreeImage_GetFileType(filename, 0);
 
 			if (fif == FIF_UNKNOWN)

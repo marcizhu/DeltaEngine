@@ -57,6 +57,6 @@ namespace DeltaEngine {
 			inline void move(float dx, float dy) { position.x += dx; position.y += dy; }
 
 		};
-		
+
 	}
 }

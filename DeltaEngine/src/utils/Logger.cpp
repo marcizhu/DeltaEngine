@@ -88,7 +88,7 @@ namespace DeltaEngine {
 			} else return -ERR_EXPECTED_ARGUMENT;
 
 			result += message + "\r\n";
-			
+
 			return FileIO::File(this->file).append(result);
 		}
 	}
