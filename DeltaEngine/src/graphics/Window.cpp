@@ -27,9 +27,12 @@ namespace DeltaEngine {
 				return;
 			}
 
-			glEnable(GL_DEPTH_TEST);
+			//glEnable(GL_DEPTH_TEST);
 			glEnable(GL_BLEND);
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+			memset((void*)keys, 0, sizeof(keys));
+			memset((void*)mouseButtons, 0, sizeof(mouseButtons));
 		}
 
 		//Destroys the window
@@ -59,16 +62,6 @@ namespace DeltaEngine {
 		{
 			this->mouseGrabbed = grab;
 			//glfwSetInputMode(window, GLFW_CURSOR, grab ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
-		}
-
-		void Window::installKeyboard() const
-		{
-			memset((void*)keys, 0, sizeof(keys));
-		}
-
-		void Window::installMouse() const
-		{
-			memset((void*)mouseButtons, 0, sizeof(mouseButtons));
 		}
 
 		void Window::focusCallback(Window* window, bool focused)
@@ -103,11 +96,13 @@ namespace DeltaEngine {
 
 			modifier &= 0xFC;
 
-			window->keys[key] = modifier | (repeat << 1) | pressed;
- 			/*if (pressed)
- 				inputManager->m_KeyModifiers |= modifier;
+			window->keys[key] = (repeat << 1) | pressed;
+
+			//TODO: Check this!
+ 			if (pressed)
+				window->keys[key] |= modifier;
  			else
- 				inputManager->m_KeyModifiers &= ~(modifier);*/
+				window->keys[key] &= ~(modifier);
 
  			/*if (pressed)
  				inputManager->m_EventCallback(KeyPressedEvent(key, repeat, inputManager->m_KeyModifiers));

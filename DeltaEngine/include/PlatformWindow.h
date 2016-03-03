@@ -16,7 +16,6 @@ namespace DeltaEngine {
 
 		LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 		//extern void MouseButtonCallback(InputManager* inputManager, int button, int x, int y);
-		//extern void KeyCallback(InputManager* inputManager, int flags, int key, uint message);
 
 		static HINSTANCE hInstance;
 		static HDC hDc;
@@ -129,7 +128,7 @@ namespace DeltaEngine {
 				DispatchMessage(&message);
 			}
 
-			//m_InputManager->PlatformUpdate();
+			//InputManager->PlatformUpdate();
 			SwapBuffers(hDc);
 		}
 
@@ -182,8 +181,7 @@ namespace DeltaEngine {
 			case WM_KEYUP:
 			case WM_SYSKEYDOWN:
 			case WM_SYSKEYUP:
-				//KeyCallback(inputManager, lParam, wParam, message);
-				break;
+				window->keyCallback(window, lParam, wParam, message); break;
 
 			case WM_LBUTTONDOWN:
 			case WM_LBUTTONUP:

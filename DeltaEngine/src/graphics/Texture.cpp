@@ -6,8 +6,7 @@ namespace DeltaEngine {
 
 		std::map<std::string, Texture*> Texture::textureCache;
 
-		Texture::Texture(const std::string& name, const std::string& filename, Types::uint32 texParam)
-			: textureName(name)
+		Texture::Texture(const std::string& name, const std::string& filename, Types::uint32 texParam) : textureName(name)
 		{
 			auto& result = textureCache.find(filename);
 
@@ -43,8 +42,7 @@ namespace DeltaEngine {
 					glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, pixels); break;
 
 				case 32:
-					glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_BGRA, GL_UNSIGNED_BYTE, pixels);
-					glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); break;
+					glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_BGRA, GL_UNSIGNED_BYTE, pixels); break;
 
 				default:
 					DELTAENGINE_WARN("[Texture] Invalid bpp value: ", bpp); break;

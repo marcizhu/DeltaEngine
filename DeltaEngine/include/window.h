@@ -83,11 +83,11 @@ namespace DeltaEngine {
 			DELTAENGINE_API inline void grabMouse(bool grab);
 			DELTAENGINE_API inline bool isMouseGrabbed() { return mouseGrabbed; };
 			DELTAENGINE_API inline bool isMouseButtonPressed(int button) const { return mouseButtons[button]; };
-			DELTAENGINE_API inline void installMouse() const;
 
 			//keyboard functions
-			DELTAENGINE_API inline void installKeyboard() const;
 			DELTAENGINE_API inline bool isKeyPressed(int key) const { return keys[key] & 1; };
+			//TODO: INVESTIGATE THIS!
+			DELTAENGINE_API inline bool isKeyHeld(int key) const { return (keys[key] >> 1) & 1; };
 			DELTAENGINE_API inline void setTextMode(bool enable) { textMode = enable; }
 			DELTAENGINE_API inline bool isTextInputAvailable() const { return (!textInput.empty()) && (textMode == true); };
 			DELTAENGINE_API unsigned int getTextInput() { unsigned int i = textInput.front(); textInput.pop(); return i; };

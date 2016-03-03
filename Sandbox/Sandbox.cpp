@@ -18,7 +18,6 @@ Sandbox::~Sandbox()
 void Sandbox::init()
 {
 	SetConsoleTitle(TEXT("DeltaEngine Debug Output"));
-	window->installKeyboard();
 
 	Maths::Matrix4 pr_matrix = Maths::Matrix4::orthographic(0.0f, 16.0f, 9.0f, 0.0f, -1.0f, 1.0f);
 
