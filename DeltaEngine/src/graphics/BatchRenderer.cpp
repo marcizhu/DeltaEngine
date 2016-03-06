@@ -9,7 +9,8 @@ namespace DeltaEngine {
 		// FIXME: Optimize this using Buffers
 		// TODO: Rewrite Buffer.cpp
 
-		BatchRenderer2D::BatchRenderer2D() : Renderer2D(), indexCount(0)
+		BatchRenderer2D::BatchRenderer2D(uint32 width, uint32 height) 
+			: Renderer2D(), indexCount(0), screenSize(width, height), viewportSize(width, height), target(RenderTarget::SCREEN)
 		{
 			vertexArray = new VertexArray();
 			glGenBuffers(1, &vertexBuffer);
@@ -48,6 +49,10 @@ namespace DeltaEngine {
 			indexBuffer = new IndexBuffer(indices, RENDERER_INDICES_SIZE);
 
 			glBindVertexArray(0);
+
+			// Setup Framebuffer
+			glGetIntegerv(GL_FRAMEBUFFER_BINDING, &screenBuffer);
+			framebuffer = new Framebuffer(viewportSize.x, viewportSize.y);
 		}
 
 		BatchRenderer2D::~BatchRenderer2D()
@@ -59,6 +64,23 @@ namespace DeltaEngine {
 
 		void BatchRenderer2D::begin()
 		{
+			if (target == RenderTarget::BUFFER)
+			{
+				if (viewportSize != framebuffer->getSize())
+				{
+					delete framebuffer;
+					framebuffer = new Framebuffer(viewportSize.x, viewportSize.y);
+				}
+				
+				framebuffer->bind();
+				framebuffer->clear();
+			}
+			else
+			{
+				glBindFramebuffer(GL_FRAMEBUFFER, screenBuffer);
+				//glViewport(0, 0, screenSize.x, screenSize.y);
+			}
+
 			glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 			buffer = (Types::VertexData*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 		}
@@ -269,6 +291,26 @@ namespace DeltaEngine {
 
 			indexCount = 0;
 			textureSlots.clear();
+
+			if (target == RenderTarget::BUFFER)
+			{
+				DELTAENGINE_FATAL("FRAMEBUFFER RENDERING NOT IMPLEMENTED YET!");
+
+				// Display Framebuffer - move to Framebuffer class
+				glBindFramebuffer(GL_FRAMEBUFFER, screenBuffer);
+				glViewport(0, 0, screenSize.x, screenSize.y);
+				//simpleShader->enable();
+				
+				glActiveTexture(GL_TEXTURE0);
+				framebuffer->getTexture()->bind();
+				
+				//glBindVertexArray(screenQuad);
+				indexBuffer->bind();
+				glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
+				indexBuffer->unbind();
+				glBindVertexArray(0);
+				//simpleShader->disable();
+			}
 		}
 
 	}

@@ -25,6 +25,7 @@ namespace DeltaEngine {
 			BYTE* loadImage(const char* filename, uint32* width, uint32* height, uchar8* bpp);
 
 		public:
+			DELTAENGINE_API Texture(uint32 width, uint32 height);
 			DELTAENGINE_API Texture(const std::string& name, const std::string& filename, uint32 texParam = GL_LINEAR);
 			DELTAENGINE_API ~Texture() { glDeleteTextures(1, &textureID); };
 

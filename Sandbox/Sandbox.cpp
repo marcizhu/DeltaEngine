@@ -27,7 +27,7 @@ void Sandbox::init()
 	Graphics::TextureManager::add(new Graphics::Texture("Mario", "mario.png", GL_NEAREST));
 	Graphics::TextureManager::add(new Graphics::Texture("CacheTest", "mario.png", GL_NEAREST));
 
-	mainLayer = new Graphics::Layer2D(new Graphics::BatchRenderer2D(), shader, pr_matrix);
+	mainLayer = new Graphics::Layer2D(new Graphics::BatchRenderer2D(960, 540), shader, pr_matrix);
 	mainLayer->add(new Graphics::BatchRenderable2D(1.0f, 1.4f, 1, 1, Graphics::TextureManager::get("Mario")));
 	mainLayer->add(new Graphics::Line(4.0f, 1.0f, 12.0f, 1.0f, 16.0f / 960.0f * 30, 0x3FFFFFFF));
 	mainLayer->add(new Graphics::BatchRenderable2D(0.0f, 0.0f, 1, 1, Graphics::TextureManager::get("CacheTest")));
@@ -45,7 +45,7 @@ void Sandbox::init()
 
 	debugLabel->setText(string("Version : " + version + "\nVendor  : " + vendor + "\nRenderer: " + renderer));
 
-	ui = new Graphics::Layer2D(new Graphics::BatchRenderer2D(), uiShader, pr_matrix);
+	ui = new Graphics::Layer2D(new Graphics::BatchRenderer2D(960, 540), uiShader, pr_matrix);
 	ui->add(debugLabel);
 	ui->add(fpsLabel);
 

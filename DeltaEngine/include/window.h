@@ -1,6 +1,5 @@
 #pragma once
 
-//#include <GLFW\glfw3.h>
 #include <string>
 #include <unordered_map>
 #include <queue>
@@ -18,10 +17,8 @@ namespace DeltaEngine {
 
 		private:
 			string title;
-			//GLFWwindow* window;
 
 			int width, height;
-			//int errorIndex;
 
 			queue<unsigned int> textInput;
 
@@ -69,7 +66,7 @@ namespace DeltaEngine {
 			DELTAENGINE_API inline void close() { this->closed = true; };
 
 			//vsync functions
-			DELTAENGINE_API inline void setVSync(bool enable) { /*enable ? glfwSwapInterval(1) : glfwSwapInterval(0);*/ vsync = enable; }
+			DELTAENGINE_API inline void setVSync(bool enable);
 			DELTAENGINE_API inline bool IsVSync() const { return vsync; }
 
 			DELTAENGINE_API void clear() const { glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); };

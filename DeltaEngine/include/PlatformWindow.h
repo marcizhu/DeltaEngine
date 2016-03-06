@@ -11,6 +11,7 @@ namespace DeltaEngine {
 #	endif
 #include <Windows.h>
 #include <Windowsx.h>
+#include <GLEW\wglew.h>
 
 		EXTERN_C IMAGE_DOS_HEADER __ImageBase;
 

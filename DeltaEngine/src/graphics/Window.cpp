@@ -3,7 +3,7 @@
 //#include <unordered_map>
 
 #include "window.h"
-//#include "PlatformWindow.h"
+#include "PlatformGraphics.h"
 
 namespace DeltaEngine {
 	namespace Graphics {
@@ -35,9 +35,6 @@ namespace DeltaEngine {
 			memset((void*)mouseButtons, 0, sizeof(mouseButtons));
 		}
 
-		//Destroys the window
-		//Window::~Window() { }
-
 		void Window::update() const
 		{
 			Internal::PlatformWindowUpdate(const_cast<Window*>(this));
@@ -58,6 +55,7 @@ namespace DeltaEngine {
 			glViewport(0, 0, width, height);
 		}
 
+		// TODO: Implement this!
 		void Window::grabMouse(bool grab)
 		{
 			this->mouseGrabbed = grab;
@@ -121,6 +119,12 @@ namespace DeltaEngine {
 			if (handle == nullptr) return handles.begin()->second;
 
 			return handles[handle];
+		}
+
+		void Window::setVSync(bool enable)
+		{
+			enable ? Internal::PlatformSwapInterval(1) : Internal::PlatformSwapInterval(0); 
+			vsync = enable;
 		}
 	}
 }

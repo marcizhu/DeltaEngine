@@ -21,6 +21,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "freetype-gl", "ext\freetype
 		{78B079BD-9FC7-4B9E-B4A6-96DA0F00248B} = {78B079BD-9FC7-4B9E-B4A6-96DA0F00248B}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Super Mario Bros", "examples\Super Mario Bros\Super Mario Bros.vcxproj", "{779DD1B8-E554-470A-9B45-D2A110A049F0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CA9F3CAB-0F44-4F68-A4E4-2C01AF909BDD} = {CA9F3CAB-0F44-4F68-A4E4-2C01AF909BDD}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -122,6 +127,28 @@ Global
 		{1906AB22-C410-4E6B-8938-DEBA147D72C7}.Static|x64.Build.0 = Release|x64
 		{1906AB22-C410-4E6B-8938-DEBA147D72C7}.Static|x86.ActiveCfg = Release|Win32
 		{1906AB22-C410-4E6B-8938-DEBA147D72C7}.Static|x86.Build.0 = Release|Win32
+		{779DD1B8-E554-470A-9B45-D2A110A049F0}.Debug|ARM.ActiveCfg = Debug|Win32
+		{779DD1B8-E554-470A-9B45-D2A110A049F0}.Debug|x64.ActiveCfg = Debug|x64
+		{779DD1B8-E554-470A-9B45-D2A110A049F0}.Debug|x64.Build.0 = Debug|x64
+		{779DD1B8-E554-470A-9B45-D2A110A049F0}.Debug|x86.ActiveCfg = Debug|Win32
+		{779DD1B8-E554-470A-9B45-D2A110A049F0}.Debug|x86.Build.0 = Debug|Win32
+		{779DD1B8-E554-470A-9B45-D2A110A049F0}.Release Multithreaded|ARM.ActiveCfg = Release|x64
+		{779DD1B8-E554-470A-9B45-D2A110A049F0}.Release Multithreaded|ARM.Build.0 = Release|x64
+		{779DD1B8-E554-470A-9B45-D2A110A049F0}.Release Multithreaded|x64.ActiveCfg = Release|x64
+		{779DD1B8-E554-470A-9B45-D2A110A049F0}.Release Multithreaded|x64.Build.0 = Release|x64
+		{779DD1B8-E554-470A-9B45-D2A110A049F0}.Release Multithreaded|x86.ActiveCfg = Release|Win32
+		{779DD1B8-E554-470A-9B45-D2A110A049F0}.Release Multithreaded|x86.Build.0 = Release|Win32
+		{779DD1B8-E554-470A-9B45-D2A110A049F0}.Release|ARM.ActiveCfg = Release|Win32
+		{779DD1B8-E554-470A-9B45-D2A110A049F0}.Release|x64.ActiveCfg = Release|x64
+		{779DD1B8-E554-470A-9B45-D2A110A049F0}.Release|x64.Build.0 = Release|x64
+		{779DD1B8-E554-470A-9B45-D2A110A049F0}.Release|x86.ActiveCfg = Release|Win32
+		{779DD1B8-E554-470A-9B45-D2A110A049F0}.Release|x86.Build.0 = Release|Win32
+		{779DD1B8-E554-470A-9B45-D2A110A049F0}.Static|ARM.ActiveCfg = Release|x64
+		{779DD1B8-E554-470A-9B45-D2A110A049F0}.Static|ARM.Build.0 = Release|x64
+		{779DD1B8-E554-470A-9B45-D2A110A049F0}.Static|x64.ActiveCfg = Release|x64
+		{779DD1B8-E554-470A-9B45-D2A110A049F0}.Static|x64.Build.0 = Release|x64
+		{779DD1B8-E554-470A-9B45-D2A110A049F0}.Static|x86.ActiveCfg = Release|Win32
+		{779DD1B8-E554-470A-9B45-D2A110A049F0}.Static|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

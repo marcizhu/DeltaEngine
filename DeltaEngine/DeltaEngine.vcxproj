@@ -87,7 +87,7 @@
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\Intermediates\$(ProjectName)\</IntDir>
     <IncludePath>$(SolutionDir)dependencies\include\;$(ProjectDir)include\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)dependencies\lib\GLFW\;$(SolutionDir)dependencies\lib\GLEW\;$(SolutionDir)dependencies\lib\gorilla\$(Configuration)\;$(SolutionDir)dependencies\lib\OpenAL\;$(SolutionDir)dependencies\lib\FreeImage\;$(SolutionDir)dependencies\lib\FreeType-GL\$(Configuration)\;$(SolutionDir)dependencies\lib\FreeType\$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)dependencies\lib\GLEW\;$(SolutionDir)dependencies\lib\gorilla\$(Configuration)\;$(SolutionDir)dependencies\lib\OpenAL\;$(SolutionDir)dependencies\lib\FreeImage\;$(SolutionDir)dependencies\lib\FreeType-GL\$(Configuration)\;$(SolutionDir)dependencies\lib\FreeType\$(Configuration)\;$(LibraryPath)</LibraryPath>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
@@ -119,7 +119,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;glew32s.lib;OpenGL32.lib;gorillaD.lib;OpenAL32.lib;FreeImage.lib;freetype-gl.lib;freetype262MTd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32s.lib;OpenGL32.lib;gorillaD.lib;OpenAL32.lib;FreeImage.lib;freetype-gl.lib;freetype262MTd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -173,6 +173,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\framebuffer.h" />
     <ClInclude Include="include\DeltaEngine.h" />
     <ClInclude Include="include\batchRenderable2d.h" />
     <ClInclude Include="include\batchRenderer2d.h" />
@@ -213,8 +214,10 @@
     <ClInclude Include="include\LogLevels.h" />
     <ClInclude Include="include\PlatformUtils.h" />
     <ClInclude Include="include\Line.h" />
+    <ClInclude Include="include\PlatformGraphics.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\graphics\Framebuffer.cpp" />
     <ClCompile Include="src\graphics\Font.cpp" />
     <ClCompile Include="src\graphics\FontManager.cpp" />
     <ClCompile Include="src\graphics\Label.cpp" />

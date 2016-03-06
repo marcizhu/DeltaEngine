@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 // DeltaEngine header files
 
@@ -59,7 +59,23 @@ namespace DeltaEngine {
 
 		if (glewInit() != GLEW_OK) return DELTAENGINE_NOT_INITIALIZED;
 
-		_DELTAENGINE_INFO("DeltaEngine Version ", DELTAENGINE_VERSION_S, " ", DELTAENGINE_PHASE_S, "\n\n");
+		//_DELTAENGINE_INFO("DeltaEngine Version ", DELTAENGINE_VERSION_S, " ", DELTAENGINE_PHASE_S, "\n\n");
+
+		Internal::PlatformSetConsoleColor(0x02);
+
+		std::cout << "          [+]~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[+] " << std::endl;
+		std::cout << "           " << (char)179 << "  ____       _ _        _____             _             " << (char)179 << std::endl;
+		std::cout << "           " << (char)179 << " |  _ \\  ___| | |_ __ _| ____|_ __   __ _(_)_ __   ___  " << (char)179 << std::endl;
+		std::cout << "           " << (char)179 << " | | | |/ _ \\ | __/ _` |  _| | '_ \\ / _` | | '_ \\ / _ \\ " << (char)179 << std::endl;
+		std::cout << "           " << (char)179 << " | |_| |  __/ | || (_| | |___| | | | (_| | | | | |  __/ " << (char)179 << std::endl;
+		std::cout << "           " << (char)179 << " |____/ \\___|_|\\__\\__,_|_____|_| |_|\\__, |_|_| |_|\\___| " << (char)179 << std::endl;
+		std::cout << "           " << (char)179 << "                     ___   _   ___  |___/               " << (char)179 << std::endl;
+		std::cout << "           " << (char)179 << "           __   __  / _ \\ / | / _ \\  __ _               " << (char)179 << std::endl;
+		std::cout << "           " << (char)179 << "           \\ \\ / / | | | || || | | |/ _` |              " << (char)179 << std::endl;
+		std::cout << "           " << (char)179 << "            \\ V /  | |_| || || |_| | (_| |              " << (char)179 << std::endl;
+		std::cout << "           " << (char)179 << "             \\_/    \\___(_)_(_)___/ \\__,_|              " << (char)179 << std::endl;
+		std::cout << "           " << (char)179 << "                                                        " << (char)179 << std::endl;
+		std::cout << "          [+]~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[+] " << std::endl << std::endl;
 
 		_DELTAENGINE_WARN("OpenGL:", "\n\n");
 		_DELTAENGINE_WARN("Version : ", glGetString(GL_VERSION), '\n');

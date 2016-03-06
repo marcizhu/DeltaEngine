@@ -6,6 +6,18 @@ namespace DeltaEngine {
 
 		std::map<std::string, Texture*> Texture::textureCache;
 
+		Texture::Texture(uint32 width, uint32 height) : width(width), height(height)
+		{
+			glGenTextures(1, &textureID);
+			glBindTexture(GL_TEXTURE_2D, textureID);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_BGRA, GL_UNSIGNED_BYTE, NULL);
+		}
+
 		Texture::Texture(const std::string& name, const std::string& filename, Types::uint32 texParam) : textureName(name)
 		{
 			auto& result = textureCache.find(filename);
@@ -35,6 +47,9 @@ namespace DeltaEngine {
 				glBindTexture(GL_TEXTURE_2D, textureID);
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, texParam);
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, texParam);
+
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 
 				switch (bpp)
 				{
