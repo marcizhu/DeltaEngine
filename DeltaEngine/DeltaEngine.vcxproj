@@ -116,11 +116,16 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
       <MinimalRebuild>false</MinimalRebuild>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glew32s.lib;OpenGL32.lib;gorillaD.lib;OpenAL32.lib;FreeImage.lib;freetype-gl.lib;freetype262MTd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ShowProgress>LinkVerboseREF</ShowProgress>
     </Link>
+    <Manifest>
+      <VerboseOutput>false</VerboseOutput>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -193,6 +198,7 @@
     <ClInclude Include="include\logger.h" />
     <ClInclude Include="include\maths.h" />
     <ClInclude Include="include\matrix4.h" />
+    <ClInclude Include="include\memoryInfo.h" />
     <ClInclude Include="include\PlatformWindow.h" />
     <ClInclude Include="include\renderable2d.h" />
     <ClInclude Include="include\renderer2d.h" />
@@ -215,8 +221,10 @@
     <ClInclude Include="include\PlatformUtils.h" />
     <ClInclude Include="include\Line.h" />
     <ClInclude Include="include\PlatformGraphics.h" />
+    <ClInclude Include="include\memoryManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\utils\MemoryInfo.cpp" />
     <ClCompile Include="src\graphics\Framebuffer.cpp" />
     <ClCompile Include="src\graphics\Font.cpp" />
     <ClCompile Include="src\graphics\FontManager.cpp" />

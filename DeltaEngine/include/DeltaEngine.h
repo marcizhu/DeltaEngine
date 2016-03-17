@@ -47,6 +47,8 @@
 #include "types.h"
 #include "utils.h"
 #include "log.h"
+#include "memoryManager.h"
+#include "memoryInfo.h"
 
 // Platform files
 #include "PlatformUtils.h"
@@ -58,8 +60,6 @@ namespace DeltaEngine {
 		// TODO: Check for parameters!
 
 		if (glewInit() != GLEW_OK) return DELTAENGINE_NOT_INITIALIZED;
-
-		//_DELTAENGINE_INFO("DeltaEngine Version ", DELTAENGINE_VERSION_S, " ", DELTAENGINE_PHASE_S, "\n\n");
 
 		Internal::PlatformSetConsoleColor(0x02);
 
@@ -105,7 +105,7 @@ namespace DeltaEngine {
 
 		void run()
 		{
-			timer = new Utils::Timer();
+			timer = NEW Utils::Timer();
 			float _timer = 0.0f;
 			float updateTimer = 0.0f;
 			float updateTick = 1.0f / 60.0f;
@@ -140,13 +140,13 @@ namespace DeltaEngine {
 
 		virtual ~Game()
 		{
-			delete timer;
-			delete window;
+			DELETE timer;
+			DELETE window;
 		}
 
 		Graphics::Window* createWindow(std::string name, int width, int height)
 		{
-			this->window = new Graphics::Window(name, width, height);
+			this->window = NEW Graphics::Window(name, width, height);
 			return window;
 		}
 

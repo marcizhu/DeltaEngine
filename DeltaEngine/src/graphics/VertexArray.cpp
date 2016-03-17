@@ -1,5 +1,6 @@
 #include "vertexarray.h"
 #include "types.h"
+#include "memoryManager.h"
 
 using namespace DeltaEngine::Types;
 
@@ -9,7 +10,7 @@ namespace DeltaEngine {
 		VertexArray::~VertexArray()
 		{
 			for (uint32 i = 0; i < buffers.size(); i++)
-				delete buffers[i];
+				DELETE buffers[i];
 
 			glDeleteVertexArrays(1, &arrayID);
 		}

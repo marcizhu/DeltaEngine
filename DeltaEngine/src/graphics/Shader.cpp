@@ -6,6 +6,7 @@
 #include "fileIO.h"
 #include "utils.h"
 #include "log.h"
+#include "memoryManager.h"
 
 using namespace std;
 
@@ -75,22 +76,22 @@ namespace DeltaEngine {
 
 		Shader* Shader::loadFromFile(const string& vertPath, const string& fragPath)
 		{
-			return new Shader(vertPath, fragPath, FILE);
+			return NEW Shader(vertPath, fragPath, FILE);
 		}
 
 		Shader* Shader::loadFromFile(const string& file)
 		{
-			return new Shader(file, FILE);
+			return NEW Shader(file, FILE);
 		}
 
 		Shader* Shader::loadFromSource(const string& vertSource, const string& fragSource)
 		{
-			return new Shader(vertSource, fragSource, SOURCE);
+			return NEW Shader(vertSource, fragSource, SOURCE);
 		}
 
 		Shader* Shader::loadFromSource(const string& source)
 		{
-			return new Shader(source, SOURCE);
+			return NEW Shader(source, SOURCE);
 		}
 
 		bool Shader::compile(GLuint shader, const char* source, const string& shaderType)

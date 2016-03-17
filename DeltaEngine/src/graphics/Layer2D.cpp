@@ -1,5 +1,6 @@
 #include "layer2d.h"
 #include "matrix4.h"
+#include "memoryManager.h"
 
 namespace DeltaEngine {
 	namespace Graphics {
@@ -17,11 +18,11 @@ namespace DeltaEngine {
 
 		Layer2D::~Layer2D()
 		{
-			delete shader;
-			delete renderer;
+			DELETE shader;
+			DELETE renderer;
 
 			for (Types::uint32 i = 0; i < renderables.size(); i++)
-				delete renderables[i];
+				DELETE renderables[i];
 		}
 
 		void Layer2D::render()

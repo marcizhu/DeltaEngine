@@ -11,7 +11,7 @@ Application::Application(int argc, char* argv[]) : Game()
 
 Application::~Application()
 {
-	delete mainLayer;
+	DELETE mainLayer;
 }
 
 void Application::init()
@@ -34,8 +34,24 @@ void Application::init()
 	Graphics::TextureManager::add(new Graphics::Texture("Question 1", ".\\res\\assets\\question-block-1.png", GL_NEAREST));
 	Graphics::TextureManager::add(new Graphics::Texture("Bricks", ".\\res\\assets\\bricks.png", GL_NEAREST));
 	Graphics::TextureManager::add(new Graphics::Texture("Mushroom", ".\\res\\assets\\mushroom.png", GL_NEAREST));
+	
+	mainLayer = new Graphics::Layer2D(new Graphics::BatchRenderer2D(), shader, pr_matrix);
 
-	mainLayer = new Graphics::Layer2D(new Graphics::BatchRenderer2D(960, 540), shader, pr_matrix);
+	for (int y = 0; y < 14; y++)
+	{
+		if (y == 0)
+			mainLayer->add(NEW Graphics::Line(0.0f, y, 70.0f, y, 16.0f / 960.0f, 0xFF0000FF));
+		else
+			mainLayer->add(NEW Graphics::Line(0.0f, y, 70.0f, y, 16.0f / 960.0f, 0x3FFFFFFF));
+	}
+
+	for (int x = 0; x < 70; x++)
+	{
+		if (x == 0)
+			mainLayer->add(NEW Graphics::Line(x, 0.0f, x, 14.0f, 16.0f / 960.0f, 0xFF0000FF));
+		else
+			mainLayer->add(NEW Graphics::Line(x, 0.0f, x, 14.0f, 16.0f / 960.0f, 0x3FFFFFFF));
+	}
 
 	mainLayer->add(new Graphics::BatchRenderable2D(0.0f, 2.0f, 5.0f, 3.0f, Graphics::TextureManager::get("Hill big")));
 
@@ -101,5 +117,5 @@ void Application::render()
 
 void Application::tick()
 {
-	//DELTAENGINE_INFO("FPS: ", getFPS());
+	DELTAENGINE_INFO("FPS: ", getFPS());
 }

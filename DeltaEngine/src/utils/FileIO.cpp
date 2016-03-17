@@ -3,6 +3,7 @@
 
 #include "fileIO.h"
 #include "types.h"
+#include "memoryManager.h"
 
 using namespace DeltaEngine::Types;
 
@@ -21,14 +22,14 @@ namespace DeltaEngine {
 			fopen_s(&file, this->path.c_str(), "r");
 			if (file == nullptr) return std::string("");
 
-			char* data = new char[getFileSize() + 1];
+			char* data = NEW char[getFileSize() + 1];
 			memset(data, 0, getFileSize() + 1);
 			fread(data, 1, getFileSize(), file);
 			fclose(file);
 
 			std::string result(data);
 
-			delete[] data;
+			DELETE[] data;
 			return result;
 		}
 

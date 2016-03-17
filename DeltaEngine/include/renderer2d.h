@@ -15,6 +15,8 @@ namespace DeltaEngine {
 		class Renderer2D
 		{
 		public:
+			DELTAENGINE_API virtual ~Renderer2D() { };
+
 			DELTAENGINE_API virtual void begin() { };
 			DELTAENGINE_API virtual void submit(const Renderable2D* renderable) = 0;
 			DELTAENGINE_API virtual void end() { };

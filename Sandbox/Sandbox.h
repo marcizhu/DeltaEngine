@@ -19,6 +19,7 @@ private:
 
 	Graphics::Label* fpsLabel;
 	Graphics::Label* debugLabel;
+	Graphics::Label* memoryLabel;
 
 	Graphics::Layer2D* mainLayer;
 	Graphics::Layer2D* ui;

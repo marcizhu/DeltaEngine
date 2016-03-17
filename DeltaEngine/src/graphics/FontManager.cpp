@@ -2,6 +2,7 @@
 
 #include "fontManager.h"
 #include "types.h"
+#include "memoryManager.h"
 
 namespace DeltaEngine {
 	namespace Graphics {
@@ -32,7 +33,7 @@ namespace DeltaEngine {
 		void FontManager::clean()
 		{
 			for (Types::uint32 i = 0; i < fonts.size(); i++)
-				delete fonts[i];
+				DELETE fonts[i];
 		}
 
 	}

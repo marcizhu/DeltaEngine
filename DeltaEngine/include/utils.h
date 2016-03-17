@@ -27,6 +27,8 @@ namespace DeltaEngine {
 
 		DELTAENGINE_API string getCurrentPath();
 
+		DELTAENGINE_API string precision_to_string(const float& val, char n);
+
 		DELTAENGINE_API vector<string> splitString(const string& str, char delimiter);
 
 		// Console utilities

@@ -11,8 +11,11 @@ Sandbox::Sandbox(int argc, char* argv[]) : Game()
 
 Sandbox::~Sandbox()
 {
-	delete mainLayer;
-	delete ui;
+	DELETE mainLayer;
+	DELETE ui;
+
+	Graphics::FontManager::clean();
+	Graphics::TextureManager::clean();
 }
 
 void Sandbox::init()
@@ -24,20 +27,33 @@ void Sandbox::init()
 	shader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\basic.shader");
 	uiShader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\basic.shader");
 
-	Graphics::TextureManager::add(new Graphics::Texture("Mario", "mario.png", GL_NEAREST));
-	Graphics::TextureManager::add(new Graphics::Texture("CacheTest", "mario.png", GL_NEAREST));
+	Graphics::TextureManager::add(NEW Graphics::Texture("Mario", "mario.png", GL_NEAREST));
 
-	mainLayer = new Graphics::Layer2D(new Graphics::BatchRenderer2D(960, 540), shader, pr_matrix);
-	mainLayer->add(new Graphics::BatchRenderable2D(1.0f, 1.4f, 1, 1, Graphics::TextureManager::get("Mario")));
-	mainLayer->add(new Graphics::Line(4.0f, 1.0f, 12.0f, 1.0f, 16.0f / 960.0f * 30, 0x3FFFFFFF));
-	mainLayer->add(new Graphics::BatchRenderable2D(0.0f, 0.0f, 1, 1, Graphics::TextureManager::get("CacheTest")));
+	mainLayer = NEW Graphics::Layer2D(NEW Graphics::BatchRenderer2D(), shader, pr_matrix);
+	mainLayer->add(NEW Graphics::BatchRenderable2D(1.0f, 1.0f, 1, 1, Graphics::TextureManager::get("Mario")));
+	mainLayer->add(NEW Graphics::Line(4.0f, 1.0f, 12.0f, 1.0f, 16.0f / 960.0f * 30, 0x3FFFFFFF));
 
-	Graphics::FontManager::add(new Graphics::Font("OpenSans", "OpenSans-Light.ttf", 24));
-	Graphics::FontManager::add(new Graphics::Font("Consolas", "consola.ttf", 18));
-	Graphics::FontManager::get("OpenSans")->setScale(window->getHeight() / 9.0f, window->getWidth() / 16.0f);
-	Graphics::FontManager::get("Consolas")->setScale(window->getHeight() / 9.0f, window->getWidth() / 16.0f);
-	fpsLabel = new Graphics::Label("FPS: 0", 14.2f, 8.5f, "OpenSans", 0xffffffff);
-	debugLabel = new Graphics::Label("", 0.2f, 8.6f, "Consolas", 0xff00ffff);
+	for (int y = 0; y < 20; y++)
+	{
+		if (y == 0)
+			mainLayer->add(NEW Graphics::Line(0.0f, y, 20.0f, y, 16.0f / 960.0f, 0xFF0000FF));
+		else
+			mainLayer->add(NEW Graphics::Line(0.0f, y, 20.0f, y, 16.0f / 960.0f, 0x3FFFFFFF));
+	}
+
+	for (int x = 0; x < 20; x++)
+	{
+		if (x == 0)
+			mainLayer->add(NEW Graphics::Line(x, 0.0f, x, 20.0f, 16.0f / 960.0f, 0xFF0000FF));
+		else
+			mainLayer->add(NEW Graphics::Line(x, 0.0f, x, 20.0f, 16.0f / 960.0f, 0x3FFFFFFF));
+	}
+
+	Graphics::FontManager::add(NEW Graphics::Font("OpenSans", "OpenSans-Light.ttf", 24));
+	Graphics::FontManager::add(NEW Graphics::Font("Consolas", "consola.ttf", 18));
+	memoryLabel = NEW Graphics::Label("", 11.5f, 8.6f, "Consolas", 0xffffcf37);
+	fpsLabel = NEW Graphics::Label("FPS: 0", 14.2f, 8.0f, "OpenSans", 0xffffffff);
+	debugLabel = NEW Graphics::Label("", 0.2f, 8.6f, "Consolas", 0xff00ffff);
 
 	string version = string((char*)glGetString(GL_VERSION));
 	string vendor = string((char*)glGetString(GL_VENDOR));
@@ -45,9 +61,10 @@ void Sandbox::init()
 
 	debugLabel->setText(string("Version : " + version + "\nVendor  : " + vendor + "\nRenderer: " + renderer));
 
-	ui = new Graphics::Layer2D(new Graphics::BatchRenderer2D(960, 540), uiShader, pr_matrix);
+	ui = NEW Graphics::Layer2D(NEW Graphics::BatchRenderer2D(), uiShader, pr_matrix);
 	ui->add(debugLabel);
 	ui->add(fpsLabel);
+	ui->add(memoryLabel);
 
 	GLint texIDs[] =
 	{
@@ -68,6 +85,9 @@ void Sandbox::init()
 
 void Sandbox::update()
 {
+	Graphics::FontManager::get("OpenSans")->setScale(window->getHeight() / 9.0f, window->getWidth() / 16.0f);
+	Graphics::FontManager::get("Consolas")->setScale(window->getHeight() / 9.0f, window->getWidth() / 16.0f);
+
 	if (window->isKeyPressed(KB_KEY_ESCAPE)) window->close();
 
 	if (window->isKeyPressed(KB_KEY_RIGHT)) mainLayer->getRenderables()[0]->move( 0.1f,  0.0f); // Right arrow
@@ -100,4 +120,9 @@ void Sandbox::render()
 void Sandbox::tick()
 {
 	fpsLabel->setText(string("FPS: " + std::to_string(getFPS())));
+
+	float mb = (float)Internal::MemoryInfo::getCurrentMemory() / (1024);
+	memoryLabel->setText(string("Allocated memory: " + Utils::precision_to_string(mb, 3) + " Kb"));
+
+	//DELTAENGINE_INFO("Total memory: ", Internal::MemoryInfo::getCurrentMemory());
 }

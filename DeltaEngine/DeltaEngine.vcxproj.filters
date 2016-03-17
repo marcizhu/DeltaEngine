@@ -180,6 +180,12 @@
     <ClInclude Include="include\PlatformGraphics.h">
       <Filter>Archivos de encabezado\DeltaEngine\Platform</Filter>
     </ClInclude>
+    <ClInclude Include="include\memoryManager.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\memoryInfo.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\utils\Debug.cpp">
@@ -253,6 +259,9 @@
     </ClCompile>
     <ClCompile Include="src\graphics\Framebuffer.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\MemoryInfo.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Utils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

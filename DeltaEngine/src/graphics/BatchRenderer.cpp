@@ -2,6 +2,7 @@
 #include "types.h"
 #include "maths.h"
 #include "log.h"
+#include "memoryManager.h"
 
 namespace DeltaEngine {
 	namespace Graphics {
@@ -9,10 +10,9 @@ namespace DeltaEngine {
 		// FIXME: Optimize this using Buffers
 		// TODO: Rewrite Buffer.cpp
 
-		BatchRenderer2D::BatchRenderer2D(uint32 width, uint32 height) 
-			: Renderer2D(), indexCount(0), screenSize(width, height), viewportSize(width, height), target(RenderTarget::SCREEN)
+		BatchRenderer2D::BatchRenderer2D() : Renderer2D(), indexCount(0)
 		{
-			vertexArray = new VertexArray();
+			vertexArray = NEW VertexArray();
 			glGenBuffers(1, &vertexBuffer);
 
 			vertexArray->bind();
@@ -31,7 +31,7 @@ namespace DeltaEngine {
 
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-			GLuint* indices = new GLuint[RENDERER_INDICES_SIZE];
+			GLuint* indices = NEW GLuint[RENDERER_INDICES_SIZE];
 
 			for (int i = 0; i < RENDERER_INDICES_SIZE; i += 6)
 			{
@@ -46,48 +46,29 @@ namespace DeltaEngine {
 				indices[i + 5] = offset + 0;
 			}
 
-			indexBuffer = new IndexBuffer(indices, RENDERER_INDICES_SIZE);
+			indexBuffer = NEW IndexBuffer(indices, RENDERER_INDICES_SIZE);
+
+			DELETE indices;
 
 			glBindVertexArray(0);
-
-			// Setup Framebuffer
-			glGetIntegerv(GL_FRAMEBUFFER_BINDING, &screenBuffer);
-			framebuffer = new Framebuffer(viewportSize.x, viewportSize.y);
 		}
 
 		BatchRenderer2D::~BatchRenderer2D()
 		{
-			delete indexBuffer;
+			DELETE vertexArray;
+			DELETE indexBuffer;
 			glDeleteBuffers(1, &vertexBuffer);
-			delete vertexArray;
 		}
 
 		void BatchRenderer2D::begin()
 		{
-			if (target == RenderTarget::BUFFER)
-			{
-				if (viewportSize != framebuffer->getSize())
-				{
-					delete framebuffer;
-					framebuffer = new Framebuffer(viewportSize.x, viewportSize.y);
-				}
-				
-				framebuffer->bind();
-				framebuffer->clear();
-			}
-			else
-			{
-				glBindFramebuffer(GL_FRAMEBUFFER, screenBuffer);
-				//glViewport(0, 0, screenSize.x, screenSize.y);
-			}
-
 			glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 			buffer = (Types::VertexData*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 		}
 
 		float BatchRenderer2D::submitTexture(Types::uint32 textureID)
 		{
-			if (!textureID)	DELTAENGINE_WARN("[BatRend] Invalid texture ID!");
+			if (!textureID)	DELTAENGINE_ERROR("[BatRend] Invalid texture ID!");
 
 			float result = 0.0f;
 			bool found = false;
@@ -221,7 +202,7 @@ namespace DeltaEngine {
 					if (c == '\n')
 					{
 						// vertical space = (x + 6) / 3
-						y -=  (glyph->advance_y > 0.0f ? glyph->advance_y : (glyph->height + (font.getSize() + 6) / 3)) / scale.y;
+						y -= (glyph->advance_y > 0.0f ? glyph->advance_y : (glyph->height + (font.getSize() + 6) / 3)) / scale.y;
 						x = position.x;
 						continue;
 					}
@@ -291,26 +272,6 @@ namespace DeltaEngine {
 
 			indexCount = 0;
 			textureSlots.clear();
-
-			if (target == RenderTarget::BUFFER)
-			{
-				DELTAENGINE_FATAL("FRAMEBUFFER RENDERING NOT IMPLEMENTED YET!");
-
-				// Display Framebuffer - move to Framebuffer class
-				glBindFramebuffer(GL_FRAMEBUFFER, screenBuffer);
-				glViewport(0, 0, screenSize.x, screenSize.y);
-				//simpleShader->enable();
-				
-				glActiveTexture(GL_TEXTURE0);
-				framebuffer->getTexture()->bind();
-				
-				//glBindVertexArray(screenQuad);
-				indexBuffer->bind();
-				glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
-				indexBuffer->unbind();
-				glBindVertexArray(0);
-				//simpleShader->disable();
-			}
 		}
 
 	}

@@ -1,6 +1,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <iomanip>
 
 #include "utils.h"
 #include "types.h"
@@ -63,6 +64,13 @@ namespace DeltaEngine {
 		void setConsoleColor(int color)
 		{
 			Internal::PlatformSetConsoleColor(color);
+		}
+
+		string precision_to_string(const float& val, char n)
+		{
+			std::ostringstream out;
+			out << std::setprecision(n) << val;
+			return out.str();
 		}
 
 	}

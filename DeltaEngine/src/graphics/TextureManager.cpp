@@ -1,4 +1,5 @@
 #include "textureManager.h"
+#include "memoryManager.h"
 
 namespace DeltaEngine {
 	namespace Graphics {
@@ -16,7 +17,7 @@ namespace DeltaEngine {
 		void TextureManager::clean()
 		{
 			for (Types::uint32 i = 0; i < textures.size(); i++)
-				delete textures[i];
+				DELETE textures[i];
 		}
 
 	}

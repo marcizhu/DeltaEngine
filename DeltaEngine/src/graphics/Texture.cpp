@@ -1,5 +1,6 @@
 #include "texture.h"
 #include "log.h"
+#include "memoryManager.h"
 
 namespace DeltaEngine {
 	namespace Graphics {
@@ -65,7 +66,7 @@ namespace DeltaEngine {
 
 				glBindTexture(GL_TEXTURE_2D, 0);
 
-				delete[] pixels;
+				DELETE[] pixels;
 
 				textureCache[filename] = this;
 			}
@@ -96,7 +97,7 @@ namespace DeltaEngine {
 
 			Types::uint32 size = *width * *height * (*bpp / 8);
 
-			BYTE* result = new BYTE[size];
+			BYTE* result = NEW BYTE[size];
 			memcpy(result, pixels, size);
 
 			FreeImage_Unload(dib);

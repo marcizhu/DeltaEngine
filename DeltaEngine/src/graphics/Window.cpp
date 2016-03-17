@@ -12,7 +12,7 @@ namespace DeltaEngine {
 
 		//Creates a window
 		Window::Window(std::string& title, int width, int height, bool fullscreen)
-			: title(title), height(height), width(width)
+			: title(title), height(height), width(width), closed(false)
 		{
 			if (!Internal::PlatformCreateWindow(this, width, height, title.c_str()))
 			{
