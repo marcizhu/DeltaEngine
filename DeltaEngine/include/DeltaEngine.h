@@ -140,8 +140,8 @@ namespace DeltaEngine {
 
 		virtual ~Game()
 		{
-			DELETE timer;
-			DELETE window;
+			delete timer;
+			delete window;
 		}
 
 		Graphics::Window* createWindow(std::string name, int width, int height)

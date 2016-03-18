@@ -18,11 +18,11 @@ namespace DeltaEngine {
 
 		Layer2D::~Layer2D()
 		{
-			DELETE shader;
-			DELETE renderer;
+			delete shader;
+			delete renderer;
 
 			for (Types::uint32 i = 0; i < renderables.size(); i++)
-				DELETE renderables[i];
+				delete renderables[i];
 		}
 
 		void Layer2D::render()

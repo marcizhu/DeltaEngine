@@ -29,7 +29,7 @@ namespace DeltaEngine {
 
 			std::string result(data);
 
-			DELETE[] data;
+			delete[] data;
 			return result;
 		}
 

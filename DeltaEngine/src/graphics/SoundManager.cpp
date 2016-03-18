@@ -35,7 +35,7 @@ namespace DeltaEngine {
 		void SoundManager::clean()
 		{
 			for (uint32 i = 0; i < sounds.size(); i++)
-				DELETE sounds[i];
+				delete sounds[i];
 
 			gau_manager_destroy(manager);
 			gc_shutdown();

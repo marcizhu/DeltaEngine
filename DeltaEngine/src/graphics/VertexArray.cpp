@@ -10,7 +10,7 @@ namespace DeltaEngine {
 		VertexArray::~VertexArray()
 		{
 			for (uint32 i = 0; i < buffers.size(); i++)
-				DELETE buffers[i];
+				delete buffers[i];
 
 			glDeleteVertexArrays(1, &arrayID);
 		}

@@ -11,8 +11,8 @@ Sandbox::Sandbox(int argc, char* argv[]) : Game()
 
 Sandbox::~Sandbox()
 {
-	DELETE mainLayer;
-	DELETE ui;
+	delete mainLayer;
+	delete ui;
 
 	Graphics::FontManager::clean();
 	Graphics::TextureManager::clean();

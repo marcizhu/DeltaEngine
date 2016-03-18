@@ -16,7 +16,6 @@ namespace DeltaEngine {
 		class Texture
 		{
 		private:
-			static std::map<std::string, Texture*> textureCache;
 			std::string textureName;
 			GLuint textureID;
 			uint32 width, height;

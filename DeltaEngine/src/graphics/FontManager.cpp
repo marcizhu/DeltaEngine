@@ -33,7 +33,7 @@ namespace DeltaEngine {
 		void FontManager::clean()
 		{
 			for (Types::uint32 i = 0; i < fonts.size(); i++)
-				DELETE fonts[i];
+				delete fonts[i];
 		}
 
 	}

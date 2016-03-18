@@ -48,15 +48,15 @@ namespace DeltaEngine {
 
 			indexBuffer = NEW IndexBuffer(indices, RENDERER_INDICES_SIZE);
 
-			DELETE indices;
+			delete indices;
 
 			glBindVertexArray(0);
 		}
 
 		BatchRenderer2D::~BatchRenderer2D()
 		{
-			DELETE vertexArray;
-			DELETE indexBuffer;
+			delete vertexArray;
+			delete indexBuffer;
 			glDeleteBuffers(1, &vertexBuffer);
 		}
 

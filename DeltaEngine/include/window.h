@@ -22,10 +22,9 @@ namespace DeltaEngine {
 
 			queue<unsigned int> textInput;
 
-			bool vsync = false;
-			bool mouseGrabbed = false;
-			bool textMode = false;
-
+			bool vsync;
+			bool mouseGrabbed;
+			bool textMode;
 			bool closed;
 
 			unsigned char mouseButtons[MAX_BUTTONS];
