@@ -90,12 +90,14 @@
     <LibraryPath>$(SolutionDir)dependencies\lib\GLEW\;$(SolutionDir)dependencies\lib\gorilla\$(Configuration)\;$(SolutionDir)dependencies\lib\OpenAL\;$(SolutionDir)dependencies\lib\FreeImage\;$(SolutionDir)dependencies\lib\FreeType-GL\$(Configuration)\;$(SolutionDir)dependencies\lib\FreeType\$(Configuration)\;$(LibraryPath)</LibraryPath>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CustomBuildAfterTargets>
+    </CustomBuildAfterTargets>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\Intermediates\$(ProjectName)\</IntDir>
     <IncludePath>$(SolutionDir)dependencies\include\;$(ProjectDir)include\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)dependencies\lib\GLFW\;$(SolutionDir)dependencies\lib\GLEW\;$(SolutionDir)dependencies\lib\gorilla\$(Configuration)\;$(SolutionDir)dependencies\lib\OpenAL\;$(SolutionDir)dependencies\lib\FreeImage\;$(SolutionDir)dependencies\lib\FreeType-GL\$(Configuration)\;$(SolutionDir)dependencies\lib\FreeType\$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)dependencies\lib\GLEW\;$(SolutionDir)dependencies\lib\gorilla\$(Configuration)\;$(SolutionDir)dependencies\lib\OpenAL\;$(SolutionDir)dependencies\lib\FreeImage\;$(SolutionDir)dependencies\lib\FreeType-GL\$(Configuration)\;$(SolutionDir)dependencies\lib\FreeType\$(Configuration)\;$(LibraryPath)</LibraryPath>
     <CodeAnalysisRuleSet>C:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Static Analysis Tools\Rule Sets\NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
@@ -126,6 +128,14 @@
     <Manifest>
       <VerboseOutput>false</VerboseOutput>
     </Manifest>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <CustomBuildStep>
+      <Command>
+      </Command>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -150,7 +160,7 @@
       <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>glfw3.lib;glew32s.lib;OpenGL32.lib;gorilla.lib;OpenAL32.lib;FreeImage.lib;freetype-gl.lib;freetype262MT.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32s.lib;OpenGL32.lib;gorilla.lib;OpenAL32.lib;FreeImage.lib;freetype-gl.lib;freetype262MT.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <Profile>true</Profile>
     </Link>
   </ItemDefinitionGroup>
@@ -230,7 +240,7 @@
     <ClCompile Include="src\graphics\FontManager.cpp" />
     <ClCompile Include="src\graphics\Label.cpp" />
     <ClCompile Include="src\graphics\Layer2D.cpp" />
-    <ClCompile Include="src\graphics\BatchRenderer.cpp" />
+    <ClCompile Include="src\graphics\BatchRenderer2D.cpp" />
     <ClCompile Include="src\graphics\Buffer.cpp" />
     <ClCompile Include="src\utils\Debug.cpp" />
     <ClCompile Include="src\utils\FileIO.cpp" />

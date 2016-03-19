@@ -7,7 +7,11 @@
 #include "utils.h"
 #include "types.h"
 
-#define NEW			new(__FILE__, __LINE__)
+#ifdef DELTAENGINE_DEBUG
+#	define NEW			new(__FILE__, __LINE__)
+#else
+#	define NEW			new
+#endif
 
 using namespace DeltaEngine;
 
@@ -23,7 +27,7 @@ inline void* operator new(size_t size)
 
 	DeltaEngine::Internal::MemoryInfo::allocate(size);
 
-	unsigned char* address = (unsigned char*)malloc(size + sizeof(size_t));
+	Types::byte* address = (Types::byte*)malloc(size + sizeof(size_t));
 	memcpy(address, &size, sizeof(size_t));
 	address += sizeof(size_t);
 
@@ -42,7 +46,7 @@ inline void* operator new(size_t size, const char* file, unsigned int line)
 
 	DeltaEngine::Internal::MemoryInfo::allocate(size);
 
-	unsigned char* address = (unsigned char*)malloc(size + sizeof(size_t));
+	Types::byte* address = (Types::byte*)malloc(size + sizeof(size_t));
 	memcpy(address, &size, sizeof(size_t));
 	address += sizeof(size_t);
 
@@ -61,7 +65,7 @@ inline void* operator new[](size_t size)
 
 	DeltaEngine::Internal::MemoryInfo::allocate(size);
 
-	unsigned char* address = (unsigned char*)malloc(size + sizeof(size_t));
+	Types::byte* address = (Types::byte*)malloc(size + sizeof(size_t));
 	memcpy(address, &size, sizeof(size_t));
 	address += sizeof(size_t);
 
@@ -80,7 +84,7 @@ inline void* operator new[](size_t size, const char* file, unsigned int line)
 
 	DeltaEngine::Internal::MemoryInfo::allocate(size);
 
-	unsigned char* address = (unsigned char*)malloc(size + sizeof(size_t));
+	Types::byte* address = (Types::byte*)malloc(size + sizeof(size_t));
 	memcpy(address, &size, sizeof(size_t));
 	address += sizeof(size_t);
 

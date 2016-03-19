@@ -19,8 +19,6 @@ namespace DeltaEngine {
 
 		Texture::Texture(const std::string& name, const std::string& filename, Types::uint32 texParam) : textureName(name)
 		{
-			DELTAENGINE_INFO("[Texture] Caching texture \'", filename, "\'");
-
 			BYTE* pixels = loadImage(filename.c_str(), &width, &height, &bpp);
 
 			if (pixels == nullptr)

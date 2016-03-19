@@ -212,9 +212,6 @@
     <ClCompile Include="src\maths\Vector4D.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Maths</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\BatchRenderer.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="src\graphics\Buffer.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
     </ClCompile>
@@ -262,6 +259,9 @@
     </ClCompile>
     <ClCompile Include="src\utils\MemoryInfo.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\BatchRenderer2D.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

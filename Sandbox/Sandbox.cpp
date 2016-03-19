@@ -2,6 +2,8 @@
 
 #include "Sandbox.h"
 
+// UI: https://cdn.designmaz.net/wp-content/uploads/2014/01/clean-ui-kit.jpg
+
 Sandbox::Sandbox(int argc, char* argv[]) : Game()
 {
 	this->createWindow("DeltaEngine Sandbox", 960, 540);
@@ -33,20 +35,17 @@ void Sandbox::init()
 	mainLayer->add(NEW Graphics::BatchRenderable2D(1.0f, 1.0f, 1, 1, Graphics::TextureManager::get("Mario")));
 	mainLayer->add(NEW Graphics::Line(4.0f, 1.0f, 12.0f, 1.0f, 16.0f / 960.0f * 30, 0x3FFFFFFF));
 
-	for (int y = 0; y < 20; y++)
+	mainLayer->add(NEW Graphics::Line(0.0f, 0.0f, 20.0f, 0.0f, 16.0f / 960.0f, 0xFF0000FF));
+	mainLayer->add(NEW Graphics::Line(0.0f, 0.0f, 0.0f, 20.0f, 16.0f / 960.0f, 0xFF0000FF));
+
+	for (int y = 1; y < 20; y++)
 	{
-		if (y == 0)
-			mainLayer->add(NEW Graphics::Line(0.0f, y, 20.0f, y, 16.0f / 960.0f, 0xFF0000FF));
-		else
-			mainLayer->add(NEW Graphics::Line(0.0f, y, 20.0f, y, 16.0f / 960.0f, 0x3FFFFFFF));
+		mainLayer->add(NEW Graphics::Line(0.0f, y, 20.0f, y, 16.0f / 960.0f, 0x3FFFFFFF));
 	}
 
-	for (int x = 0; x < 20; x++)
+	for (int x = 1; x < 20; x++)
 	{
-		if (x == 0)
-			mainLayer->add(NEW Graphics::Line(x, 0.0f, x, 20.0f, 16.0f / 960.0f, 0xFF0000FF));
-		else
-			mainLayer->add(NEW Graphics::Line(x, 0.0f, x, 20.0f, 16.0f / 960.0f, 0x3FFFFFFF));
+		mainLayer->add(NEW Graphics::Line(x, 0.0f, x, 20.0f, 16.0f / 960.0f, 0x3FFFFFFF));
 	}
 
 	Graphics::FontManager::add(NEW Graphics::Font("OpenSans", "OpenSans-Light.ttf", 24));
@@ -68,7 +67,7 @@ void Sandbox::init()
 
 	GLint texIDs[] =
 	{
-		0,  1,  2,  3,  4,  5,  6,  7,  8,  9,
+		 0,  1,  2,  3,  4,  5,  6,  7,  8,  9,
 		10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
 		20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
 		30, 31
@@ -121,8 +120,5 @@ void Sandbox::tick()
 {
 	fpsLabel->setText(string("FPS: " + std::to_string(getFPS())));
 
-	float mb = (float)Internal::MemoryInfo::getCurrentMemory() / (1024);
-	memoryLabel->setText(string("Allocated memory: " + Utils::precision_to_string(mb, 3) + " Kb"));
-
-	//DELTAENGINE_INFO("Total memory: ", Internal::MemoryInfo::getCurrentMemory());
+	memoryLabel->setText(Internal::MemoryInfo::getCurrentMemoryString());
 }

@@ -117,7 +117,7 @@ namespace DeltaEngine {
 				window->clear();
 				if (timer->getElapsedTime() - updateTimer >= updateTick)
 				{
-					//TODO: Window->updateInput();
+					//TODO: Window->updateInput(); (Events)
 					//window->updateInput();
 					update();
 					updates++;
