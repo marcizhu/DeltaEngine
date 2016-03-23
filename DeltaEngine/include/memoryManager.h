@@ -1,11 +1,11 @@
 #pragma once
 
-#include <malloc.h>
-
+#include "internal.h"
 #include "log.h"
-#include "memoryInfo.h"
+#include "MemoryManager.h"
 #include "utils.h"
 #include "types.h"
+#include "fileIO.h"
 
 #ifdef DELTAENGINE_DEBUG
 #	define NEW			new(__FILE__, __LINE__)
@@ -15,6 +15,45 @@
 
 using namespace DeltaEngine;
 
+namespace DeltaEngine {
+	namespace Memory {
+
+		struct FreeBlock
+		{
+			Types::uint32 size;
+			FreeBlock* nextBlock;
+		};
+
+		class MemoryManager
+		{
+		private:
+			static bool initialized;
+			static void* memStart;
+			static Types::uint32 allocatedMemory;
+			static Types::uint32 freedMemory;
+			static Types::uint32 currentMemory;
+			static FreeBlock* firstBlock;
+
+		public:
+			DELTAENGINE_API static void start();
+			DELTAENGINE_API static void refresh();
+			DELTAENGINE_API static void end();
+
+			DELTAENGINE_API static Types::uint32 getAllocatedMemory();
+			DELTAENGINE_API static Types::uint32 getFreedMemory();
+			DELTAENGINE_API static Types::uint32 getCurrentMemory();
+
+			DELTAENGINE_API static std::string getAllocatedMemoryString();
+			DELTAENGINE_API static std::string getFreedMemoryString();
+			DELTAENGINE_API static std::string getCurrentMemoryString();
+
+			DELTAENGINE_API static Types::byte* allocate(size_t amount);
+			DELTAENGINE_API static void deallocate(void* address);
+		};
+
+	}
+}
+
 inline void* operator new(size_t size)
 {
 	if (size > 1024 * 1024 * 1024) DELTAENGINE_FATAL("Invalid allocation size! (> 1 Gb!)");
@@ -22,16 +61,10 @@ inline void* operator new(size_t size)
 	if (size > 1024 * 1024)
 	{
 		float mb = (float)size / (1024 * 1024);
-		DELTAENGINE_ERROR("Large allocation (", DeltaEngine::Utils::precision_to_string(mb, 3), " Mb) from an unknown source!");
+		DELTAENGINE_ERROR("Large allocation (", Utils::precision_to_string(mb, 3), " Mb) from an unknown source!");
 	}
 
-	DeltaEngine::Internal::MemoryInfo::allocate(size);
-
-	Types::byte* address = (Types::byte*)malloc(size + sizeof(size_t));
-	memcpy(address, &size, sizeof(size_t));
-	address += sizeof(size_t);
-
-	return address;
+	return Memory::MemoryManager::allocate(size);
 }
 
 inline void* operator new(size_t size, const char* file, unsigned int line)
@@ -41,16 +74,10 @@ inline void* operator new(size_t size, const char* file, unsigned int line)
 	if (size > 1024 * 1024)
 	{
 		float mb = (float)size / (1024 * 1024);
-		DELTAENGINE_WARN("Large allocation (", DeltaEngine::Utils::precision_to_string(mb, 3), " Mb) at ", file, ":", line);
+		DELTAENGINE_WARN("Large allocation (", Utils::precision_to_string(mb, 3), " Mb) at ", file, ":", line);
 	}
 
-	DeltaEngine::Internal::MemoryInfo::allocate(size);
-
-	Types::byte* address = (Types::byte*)malloc(size + sizeof(size_t));
-	memcpy(address, &size, sizeof(size_t));
-	address += sizeof(size_t);
-
-	return address;
+	return Memory::MemoryManager::allocate(size);
 }
 
 inline void* operator new[](size_t size)
@@ -60,16 +87,10 @@ inline void* operator new[](size_t size)
 	if (size > 1024 * 1024)
 	{
 		float mb = (float)size / (1024 * 1024);
-		DELTAENGINE_ERROR("Large allocation (", DeltaEngine::Utils::precision_to_string(mb, 3), " Mb) from an unknown source!");
+		DELTAENGINE_ERROR("Large allocation (", Utils::precision_to_string(mb, 3), " Mb) from an unknown source!");
 	}
 
-	DeltaEngine::Internal::MemoryInfo::allocate(size);
-
-	Types::byte* address = (Types::byte*)malloc(size + sizeof(size_t));
-	memcpy(address, &size, sizeof(size_t));
-	address += sizeof(size_t);
-
-	return address;
+	return Memory::MemoryManager::allocate(size);
 }
 
 inline void* operator new[](size_t size, const char* file, unsigned int line)
@@ -79,50 +100,28 @@ inline void* operator new[](size_t size, const char* file, unsigned int line)
 	if (size > 1024 * 1024)
 	{
 		float mb = (float)size / (1024 * 1024);
-		DELTAENGINE_WARN("Large allocation (", DeltaEngine::Utils::precision_to_string(mb, 3), " Mb) at ", file, ":", line);
+		DELTAENGINE_WARN("Large allocation (", Utils::precision_to_string(mb, 3), " Mb) at ", file, ":", line);
 	}
 
-	DeltaEngine::Internal::MemoryInfo::allocate(size);
-
-	Types::byte* address = (Types::byte*)malloc(size + sizeof(size_t));
-	memcpy(address, &size, sizeof(size_t));
-	address += sizeof(size_t);
-
-	return address;
+	return Memory::MemoryManager::allocate(size);
 }
 
 inline void operator delete(void* block)
 {
-	Types::byte* amount = ((Types::byte*)block) - sizeof(size_t);
-
-	DeltaEngine::Internal::MemoryInfo::deallocate(*(size_t*)amount);
-
-	free(amount);
+	Memory::MemoryManager::deallocate(block);
 }
 
 inline void operator delete(void* block, const char* file, unsigned int line)
 {
-	Types::byte* amount = ((Types::byte*)block) - sizeof(size_t);
-
-	DeltaEngine::Internal::MemoryInfo::deallocate(*(size_t*)amount);
-
-	free(amount);
+	Memory::MemoryManager::deallocate(block);
 }
 
 inline void operator delete[](void* block)
 {
-	Types::byte* amount = ((Types::byte*)block) - sizeof(size_t);
-
-	DeltaEngine::Internal::MemoryInfo::deallocate(*(size_t*)amount);
-
-	free(amount);
+	Memory::MemoryManager::deallocate(block);
 }
 
 inline void operator delete[](void* block, const char* file, unsigned int line)
 {
-	Types::byte* amount = ((Types::byte*)block) - sizeof(size_t);
-
-	DeltaEngine::Internal::MemoryInfo::deallocate(*(size_t*)amount);
-
-	free(amount);
+	Memory::MemoryManager::deallocate(block);
 }

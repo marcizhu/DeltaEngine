@@ -4,10 +4,10 @@
 
 // UI: https://cdn.designmaz.net/wp-content/uploads/2014/01/clean-ui-kit.jpg
 
-Sandbox::Sandbox(int argc, char* argv[]) : Game()
+Sandbox::Sandbox() : Game()
 {
 	this->createWindow("DeltaEngine Sandbox", 960, 540);
-	int init = DeltaEngine::init(argc, argv);
+	int init = DeltaEngine::init();
 	DELTAENGINE_ASSERT(init != DELTAENGINE_NOT_INITIALIZED, "DELTAENGINE NOT INITIALIZED!");
 }
 
@@ -38,12 +38,12 @@ void Sandbox::init()
 	mainLayer->add(NEW Graphics::Line(0.0f, 0.0f, 20.0f, 0.0f, 16.0f / 960.0f, 0xFF0000FF));
 	mainLayer->add(NEW Graphics::Line(0.0f, 0.0f, 0.0f, 20.0f, 16.0f / 960.0f, 0xFF0000FF));
 
-	for (int y = 1; y < 20; y++)
+	for (float y = 1.0f; y < 20.0f; y++)
 	{
 		mainLayer->add(NEW Graphics::Line(0.0f, y, 20.0f, y, 16.0f / 960.0f, 0x3FFFFFFF));
 	}
 
-	for (int x = 1; x < 20; x++)
+	for (float x = 1.0f; x < 20.0f; x++)
 	{
 		mainLayer->add(NEW Graphics::Line(x, 0.0f, x, 20.0f, 16.0f / 960.0f, 0x3FFFFFFF));
 	}
@@ -84,8 +84,7 @@ void Sandbox::init()
 
 void Sandbox::update()
 {
-	Graphics::FontManager::get("OpenSans")->setScale(window->getHeight() / 9.0f, window->getWidth() / 16.0f);
-	Graphics::FontManager::get("Consolas")->setScale(window->getHeight() / 9.0f, window->getWidth() / 16.0f);
+	Graphics::FontManager::setScale(window->getHeight() / 9.0f, window->getWidth() / 16.0f);
 
 	if (window->isKeyPressed(KB_KEY_ESCAPE)) window->close();
 
@@ -97,17 +96,6 @@ void Sandbox::update()
 
 void Sandbox::render()
 {
-	//TODO: Individual rotation (for physics)
-	/*Maths::Matrix4 m = Maths::Matrix4::identity();
-	m.rotate(-30, 0, 0, 1);
-	shader->enable();
-	shader->setUniformMat4("ml_matrix", m);
-	shader->disable();
-
-	uiShader->enable();
-	uiShader->setUniformMat4("ml_matrix", m);
-	uiShader->disable();*/
-
 	mainLayer->render();
 	ui->render();
 
@@ -120,5 +108,8 @@ void Sandbox::tick()
 {
 	fpsLabel->setText(string("FPS: " + std::to_string(getFPS())));
 
-	memoryLabel->setText(Internal::MemoryInfo::getCurrentMemoryString());
+	memoryLabel->setText(Memory::MemoryManager::getCurrentMemoryString());
+	memoryLabel->setPosition(15.8f - memoryLabel->getSize().x, 8.6f);
+
+	Memory::MemoryManager::refresh();
 }

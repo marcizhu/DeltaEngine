@@ -19,7 +19,7 @@ namespace DeltaEngine {
 				DELTAENGINE_FATAL("Failed to create base window!");
 				return;
 			}
-			// TODO: Fullscreen!
+			// TODO: Fullscreen windows!
 
 			if (glewInit() != GLEW_OK)
 			{

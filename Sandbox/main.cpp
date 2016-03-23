@@ -4,8 +4,8 @@
 
 int main(int argc, char *argv[])
 {
-	Internal::MemoryInfo::start();
+	Memory::MemoryManager::start();
 
-	Sandbox testGame(argc, argv);
+	Sandbox testGame;
 	testGame.start();
 }

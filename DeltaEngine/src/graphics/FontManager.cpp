@@ -36,5 +36,17 @@ namespace DeltaEngine {
 				delete fonts[i];
 		}
 
+		void FontManager::setScale(float x, float y)
+		{
+			for (Font* font : fonts)
+				font->setScale(x, y);
+		}
+
+		void FontManager::setScale(Maths::Vector2D& scale)
+		{
+			for (Font* font : fonts)
+				font->setScale(scale);
+		}
+
 	}
 }

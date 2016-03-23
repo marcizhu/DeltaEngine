@@ -10,7 +10,7 @@ using namespace DeltaEngine;
 class Sandbox : public DeltaEngine::Game
 {
 public:
-	Sandbox(int argc, char* argv[]);
+	Sandbox();
 	~Sandbox();
 
 private:

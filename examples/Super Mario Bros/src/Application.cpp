@@ -11,7 +11,7 @@ Application::Application(int argc, char* argv[]) : Game()
 
 Application::~Application()
 {
-	DELETE mainLayer;
+	delete mainLayer;
 }
 
 void Application::init()

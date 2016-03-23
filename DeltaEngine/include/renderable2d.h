@@ -32,18 +32,18 @@ namespace DeltaEngine {
 			Texture* texture;
 			Sprite sprites;
 
+
 			Renderable2D() : texture(nullptr) { setUVDefaults(); }
 
 		public:
+			float rotationAngle = 0.0f;
+
 			Renderable2D(Maths::Vector2D& position, Maths::Vector2D& size, Types::Color& color) : position(position), size(size), texture(nullptr) { setUVDefaults(); setColor(color); }
 			Renderable2D(Maths::Vector2D& position, Maths::Vector2D& size, Types::uint32 color) : position(position), size(size), color(color), texture(nullptr) { setUVDefaults(); }
 
 			virtual ~Renderable2D() {}
 
 			virtual void submit(Renderer2D* renderer) const { renderer->submit(this); }
-
-			void setColor(unsigned int color) { this->color = color; }
-			void setColor(const Types::Color& color) { this->color = color.getABGRColor(); }
 
 			inline const Maths::Vector2D& getPosition() const { return position; }
 			inline const Maths::Vector2D& getSize() const { return size; }
@@ -53,9 +53,13 @@ namespace DeltaEngine {
 			inline Sprite& getSprite() { return sprites; }
 			inline const Texture* getTexture() const { return sprites.getTextureCount() ? sprites.getCurrentTexture() : texture ? texture : nullptr; }
 
-			inline void moveTo(float x, float y) { position.x = x; position.y = y; }
-			inline void move(float dx, float dy) { position.x += dx; position.y += dy; }
+			inline void setPosition(float x, float y) { position.x = x; position.y = y; }
+			inline void setSize(Maths::Vector2D& size) { this->size = size; }
+			inline void setSize(float x, float y) { size.x = x; size.y = y; }
+			inline void setColor(Types::uint32 color) { this->color = color; }
+			inline void setColor(Types::Color& color) { this->color = color.getABGRColor(); };
 
+			inline void move(float dx, float dy) { position.x += dx; position.y += dy; }
 		};
 
 	}

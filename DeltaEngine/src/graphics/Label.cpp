@@ -53,9 +53,9 @@ namespace DeltaEngine {
 
 #define MAX(a, b) a > b ? a : b
 
-		const Maths::Vector2D Label::getSize(const Font& font)
+		const Maths::Vector2D Label::getSize()
 		{
-			const Maths::Vector2D& scale = font.getScale();
+			const Maths::Vector2D& scale = font->getScale();
 
 			float x = 0.0f;
 			float maxX = 0.0f;
@@ -64,7 +64,7 @@ namespace DeltaEngine {
 			for (Types::uint32 i = 0; i < text.length(); i++)
 			{
 				char c = text[i];
-				texture_glyph_t* glyph = texture_font_get_glyph(font.getFTFont(), &c);
+				texture_glyph_t* glyph = texture_font_get_glyph(font->getFTFont(), &c);
 
 				if (glyph)
 				{
@@ -76,14 +76,15 @@ namespace DeltaEngine {
 
 					if (c == '\n')
 					{
-						y += (glyph->advance_y > 0.0f ? glyph->advance_y : (glyph->height + (font.getSize() + 6) / 3)) / scale.y;
-						maxX = MAX(maxX, x);
+						y += (glyph->advance_y > 0.0f ? glyph->advance_y : (glyph->height + (font->getSize() + 6) / 3)) / scale.y;
 						x = 0.0f;
 						continue;
 					}
 
 					x += glyph->advance_x / scale.x;
 				}
+
+				maxX = MAX(maxX, x);
 			}
 
 			this->size = Maths::Vector2D(maxX, y);

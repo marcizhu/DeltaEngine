@@ -23,11 +23,13 @@ namespace DeltaEngine {
 			glEnableVertexAttribArray(SHADER_UV_INDEX);
 			glEnableVertexAttribArray(SHADER_TID_INDEX);
 			glEnableVertexAttribArray(SHADER_COLOR_INDEX);
+			glEnableVertexAttribArray(4); // rotation angle
 
-			glVertexAttribPointer(SHADER_TID_INDEX, 1, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(Types::VertexData, VertexData::tid)));
+			glVertexAttribPointer(SHADER_VERTEX_INDEX, 2, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)0);
 			glVertexAttribPointer(SHADER_UV_INDEX, 2, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(Types::VertexData, VertexData::uv)));
-			glVertexAttribPointer(SHADER_VERTEX_INDEX, 3, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)0);
+			glVertexAttribPointer(SHADER_TID_INDEX, 1, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(Types::VertexData, VertexData::tid)));
 			glVertexAttribPointer(SHADER_COLOR_INDEX, 4, GL_UNSIGNED_BYTE, GL_TRUE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(Types::VertexData, VertexData::color)));
+			glVertexAttribPointer(4, 1, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(Types::VertexData, Types::VertexData::angle))); // rotation angle
 
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
 
@@ -111,6 +113,8 @@ namespace DeltaEngine {
 			const std::vector<Maths::Vector2D>& uv = renderable->getUV();
 			const GLuint tid = renderable->getTextureID();
 
+			const float angle = renderable->rotationAngle;
+
 			float ts = 0.0f;
 			if (tid > 0) ts = submitTexture(renderable->getTexture());
 
@@ -118,24 +122,28 @@ namespace DeltaEngine {
 			buffer->uv = uv[0];
 			buffer->tid = ts;
 			buffer->color = color;
+			buffer->angle = Maths::toRadians(angle);
 			buffer++;
 
 			buffer->vertex = Maths::Vector2D(position.x, position.y + size.y);
 			buffer->uv = uv[1];
 			buffer->tid = ts;
 			buffer->color = color;
+			buffer->angle = Maths::toRadians(angle);;
 			buffer++;
 
 			buffer->vertex = Maths::Vector2D(position.x + size.x, position.y + size.y);
 			buffer->uv = uv[2];
 			buffer->tid = ts;
 			buffer->color = color;
+			buffer->angle = Maths::toRadians(angle);;
 			buffer++;
 
 			buffer->vertex = Maths::Vector2D(position.x + size.x, position.y);
 			buffer->uv = uv[3];
 			buffer->tid = ts;
 			buffer->color = color;
+			buffer->angle = Maths::toRadians(angle);;
 			buffer++;
 
 			indexCount += 6;

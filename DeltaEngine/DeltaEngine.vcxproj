@@ -208,7 +208,6 @@
     <ClInclude Include="include\logger.h" />
     <ClInclude Include="include\maths.h" />
     <ClInclude Include="include\matrix4.h" />
-    <ClInclude Include="include\memoryInfo.h" />
     <ClInclude Include="include\PlatformWindow.h" />
     <ClInclude Include="include\renderable2d.h" />
     <ClInclude Include="include\renderer2d.h" />
@@ -234,7 +233,7 @@
     <ClInclude Include="include\memoryManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\utils\MemoryInfo.cpp" />
+    <ClCompile Include="src\utils\MemoryManager.cpp" />
     <ClCompile Include="src\graphics\Framebuffer.cpp" />
     <ClCompile Include="src\graphics\Font.cpp" />
     <ClCompile Include="src\graphics\FontManager.cpp" />

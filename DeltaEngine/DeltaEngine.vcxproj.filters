@@ -52,6 +52,12 @@
     <Filter Include="Archivos de encabezado\DeltaEngine\Platform">
       <UniqueIdentifier>{5e4f9423-91f0-4489-9d28-507c341083ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de código fuente\DeltaEngine\Memory">
+      <UniqueIdentifier>{4e5e5f25-9046-4b25-9a1a-1f7389a92482}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\DeltaEngine\Memory">
+      <UniqueIdentifier>{e0d3102d-12a0-4bac-a706-d0704be82fc0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\batchRenderable2d.h">
@@ -181,10 +187,7 @@
       <Filter>Archivos de encabezado\DeltaEngine\Platform</Filter>
     </ClInclude>
     <ClInclude Include="include\memoryManager.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="include\memoryInfo.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Utils</Filter>
+      <Filter>Archivos de encabezado\DeltaEngine\Memory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -257,11 +260,11 @@
     <ClCompile Include="src\graphics\Framebuffer.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="src\utils\MemoryInfo.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="src\graphics\BatchRenderer2D.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\MemoryManager.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Memory</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -27,10 +27,14 @@ namespace DeltaEngine {
 		inline signed int sign(float value) { return (value > 0) - (value < 0); }
 
 		template<typename T>
-		inline T constrain(T val, T min, T max) { return val > max ? max : val < min ? min : val; };
+		inline T constrain(T val, T min, T max) { return val > max ? max : val < min ? min : val; }
 
 		template<typename T>
 		inline bool isBetween(T x, T min, T max) { return x <= max ? x = > min ? true : false : false; }
+
+		inline bool isPowOf2(int n) { return (n & (n - 1)) == 0; }
+
+		inline uint32 nlen(uint32 n) { return (int)(log10(n) + 1); }
 
 		//template<typename T>
 		//inline T& max(T& first, T& second) { return first > second ? first : second; }

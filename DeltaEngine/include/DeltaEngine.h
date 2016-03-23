@@ -48,17 +48,14 @@
 #include "utils.h"
 #include "log.h"
 #include "memoryManager.h"
-#include "memoryInfo.h"
 
 // Platform files
-#include "PlatformUtils.h"
+//#include "PlatformUtils.h"
 
 namespace DeltaEngine {
 
-	inline int init(int argc, char *argv[])
+	inline int init()
 	{
-		// TODO: Check for parameters!
-
 		if (glewInit() != GLEW_OK) return DELTAENGINE_NOT_INITIALIZED;
 
 		Internal::PlatformSetConsoleColor(0x02);
@@ -115,6 +112,7 @@ namespace DeltaEngine {
 			while (!window->isClosed())
 			{
 				window->clear();
+
 				if (timer->getElapsedTime() - updateTimer >= updateTick)
 				{
 					//TODO: Window->updateInput(); (Events)
@@ -123,12 +121,18 @@ namespace DeltaEngine {
 					updates++;
 					updateTimer += updateTick;
 				}
+				else
+				{
+					DELTAENGINE_INFO("Free time!");
+				}
+
 				render();
 				frames++;
 				window->update();
+
 				if (timer->getElapsedTime() - _timer >= 1.0f)
 				{
-					_timer += 1.0f;
+					_timer += (timer->getElapsedTime() - _timer);
 					fps = frames;
 					ups = updates;
 					frames = 0;
@@ -142,6 +146,8 @@ namespace DeltaEngine {
 		{
 			delete timer;
 			delete window;
+
+			//Memory::MemoryManager::end();
 		}
 
 		Graphics::Window* createWindow(std::string name, int width, int height)

@@ -13,7 +13,7 @@ namespace DeltaEngine {
 
 		class Label : public Renderable2D
 		{
-		public:
+		private:
 			std::string text;
 			Font* font;
 
@@ -30,7 +30,7 @@ namespace DeltaEngine {
 			DELTAENGINE_API inline void setText(std::string& text);
 
 			DELTAENGINE_API inline const std::string& getText() const { return text; };
-			DELTAENGINE_API const Maths::Vector2D getSize(const Font& font);
+			DELTAENGINE_API const Maths::Vector2D getSize();
 		};
 
 	}
