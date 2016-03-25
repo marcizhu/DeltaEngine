@@ -147,7 +147,7 @@ namespace DeltaEngine {
 			delete timer;
 			delete window;
 
-			//Memory::MemoryManager::end();
+			Memory::MemoryManager::end();
 		}
 
 		Graphics::Window* createWindow(std::string name, int width, int height)

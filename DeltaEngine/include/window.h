@@ -20,11 +20,9 @@ namespace DeltaEngine {
 
 			int width, height;
 
-			queue<unsigned int> textInput;
-
 			bool vsync;
 			bool mouseGrabbed;
-			bool textMode;
+			//bool textMode;
 			bool closed;
 
 			unsigned char mouseButtons[MAX_BUTTONS];
@@ -55,7 +53,7 @@ namespace DeltaEngine {
 
 		public:
 			DELTAENGINE_API Window(string& title, int height, int width, bool fullscreen = false);
-			DELTAENGINE_API ~Window() {};
+			DELTAENGINE_API ~Window() { handles.clear(); };
 
 			DELTAENGINE_API inline int getHeight() { return height; }
 			DELTAENGINE_API inline int getWidth() { return width; }
@@ -84,9 +82,9 @@ namespace DeltaEngine {
 			DELTAENGINE_API inline bool isKeyPressed(int key) const { return keys[key] & 1; };
 			//TODO: INVESTIGATE THIS!
 			DELTAENGINE_API inline bool isKeyHeld(int key) const { return (keys[key] >> 1) & 1; };
-			DELTAENGINE_API inline void setTextMode(bool enable) { textMode = enable; }
-			DELTAENGINE_API inline bool isTextInputAvailable() const { return (!textInput.empty()) && (textMode == true); };
-			DELTAENGINE_API unsigned int getTextInput() { unsigned int i = textInput.front(); textInput.pop(); return i; };
+			//DELTAENGINE_API inline void setTextMode(bool enable) { textMode = enable; }
+			//DELTAENGINE_API inline bool isTextInputAvailable() const { return (!textInput.empty()) && (textMode == true); };
+			//DELTAENGINE_API unsigned int getTextInput() { unsigned int i = textInput.front(); textInput.pop(); return i; };
 
 			DELTAENGINE_API static void registerWindowClass(void* handle, Window* window);
 			DELTAENGINE_API static Window* getWindowClass(void* handle);

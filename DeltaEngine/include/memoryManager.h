@@ -1,4 +1,5 @@
 #pragma once
+#include <atomic>
 
 #include "internal.h"
 #include "log.h"
@@ -20,7 +21,7 @@ namespace DeltaEngine {
 
 		struct FreeBlock
 		{
-			Types::uint32 size;
+			size_t size;
 			FreeBlock* nextBlock;
 		};
 
@@ -32,7 +33,7 @@ namespace DeltaEngine {
 			static Types::uint32 allocatedMemory;
 			static Types::uint32 freedMemory;
 			static Types::uint32 currentMemory;
-			static FreeBlock* firstBlock;
+			static std::atomic<FreeBlock*> firstBlock;
 
 		public:
 			DELTAENGINE_API static void start();
