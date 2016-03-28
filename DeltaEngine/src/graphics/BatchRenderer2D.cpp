@@ -155,25 +155,25 @@ namespace DeltaEngine {
 			float x = (float)cos(angle);
 			float y = (float)sin(angle);
 
-			buffer->vertex = start;
+			buffer->vertex = start - Maths::Vector2D(x * (thickness / 2), y * (thickness / 2));
 			buffer->uv = Maths::Vector2D(0, 1);
 			buffer->tid = 0;
 			buffer->color = color;
 			buffer++;
 
-			buffer->vertex = end;
+			buffer->vertex = end - Maths::Vector2D(x * (thickness / 2), y * (thickness / 2));
 			buffer->uv = Maths::Vector2D(0, 0);
 			buffer->tid = 0;
 			buffer->color = color;
 			buffer++;
 
-			buffer->vertex = end + Maths::Vector2D(x * thickness, y * thickness);
+			buffer->vertex = end + Maths::Vector2D(x * (thickness / 2), y * (thickness / 2));
 			buffer->uv = Maths::Vector2D(1, 0);
 			buffer->tid = 0;
 			buffer->color = color;
 			buffer++;
 
-			buffer->vertex = start + Maths::Vector2D(x * thickness, y * thickness);
+			buffer->vertex = start + Maths::Vector2D(x * (thickness / 2), y * (thickness / 2));
 			buffer->uv = Maths::Vector2D(1, 1);
 			buffer->tid = 0;
 			buffer->color = color;

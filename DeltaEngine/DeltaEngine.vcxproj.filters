@@ -189,6 +189,9 @@
     <ClInclude Include="include\memoryManager.h">
       <Filter>Archivos de encabezado\DeltaEngine\Memory</Filter>
     </ClInclude>
+    <ClInclude Include="include\PlatformTimer.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Platform</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\utils\Debug.cpp">

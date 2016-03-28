@@ -21,6 +21,16 @@ namespace DeltaEngine {
 		Types::uint32 MemoryManager::freedMemory;
 		Types::uint32 MemoryManager::currentMemory;
 
+		void MemoryManager::freeMem()
+		{
+			while (currentMemory)
+			{
+				Sleep(10);
+			}
+
+			free(memStart);
+		}
+
 		void MemoryManager::end()
 		{
 			if (currentMemory)
@@ -31,7 +41,9 @@ namespace DeltaEngine {
 			}
 
 			initialized = false;
-			//free(memStart);
+
+			std::thread killThread(freeMem);
+			killThread.detach();
 		}
 
 		void MemoryManager::start()
@@ -117,7 +129,7 @@ namespace DeltaEngine {
 					newBlock->size = newSize;
 
 					// FIXME: Investigate this (possible memory leak!)
-					firstBlock = newBlock;
+					firstBlock.store(newBlock);
 
 					address = (Types::byte*)block;
 					memcpy(address, &amount, sizeof(size_t));

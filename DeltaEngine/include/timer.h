@@ -1,9 +1,11 @@
 #pragma once
 
-#include <time.h>
+//#include <time.h>
 
 #include "internal.h"
 #include "types.h"
+
+#include "PlatformTimer.h"
 
 using namespace DeltaEngine::Types;
 
@@ -12,14 +14,15 @@ namespace DeltaEngine {
 
 		class Timer {
 		private:
-			clock_t begin;
+			uint64 begin;
+			uint64 freq;
 
 		public:
-			Timer() { restart(); };
+			Timer() { freq = Internal::getTimerFrequency(); restart(); };
 
-			inline void restart() { begin = (uint64)clock(); };
+			inline void restart() { begin = Internal::getCurrentCount(); };
 
-			inline float getElapsedTime() const { return ((float)clock() - begin) / CLOCKS_PER_SEC; };
+			inline float getElapsedTime() const { return (float)(Internal::getCurrentCount() - begin) / freq; };
 			inline bool isOver(float secs) { if (secs >= getElapsedTime()) { restart(); return true; } return false; };
 		};
 

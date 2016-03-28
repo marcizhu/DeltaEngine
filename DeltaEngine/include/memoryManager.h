@@ -35,6 +35,8 @@ namespace DeltaEngine {
 			static Types::uint32 currentMemory;
 			static std::atomic<FreeBlock*> firstBlock;
 
+			static void freeMem();
+
 		public:
 			DELTAENGINE_API static void start();
 			DELTAENGINE_API static void refresh();

@@ -231,6 +231,7 @@
     <ClInclude Include="include\Line.h" />
     <ClInclude Include="include\PlatformGraphics.h" />
     <ClInclude Include="include\memoryManager.h" />
+    <ClInclude Include="include\PlatformTimer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\utils\MemoryManager.cpp" />
