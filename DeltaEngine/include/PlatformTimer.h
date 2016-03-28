@@ -47,7 +47,7 @@ namespace DeltaEngine {
 			usleep(1000000); //10^6 microseconds = 1 second
 			after = rdtsc();
 
-			return (after - before);
+			return (after - before) / 1000;
 		}
 
 		static __forceinline Types::uint64 getCurrentCount()
