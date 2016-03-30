@@ -2,6 +2,8 @@
 
 #include "types.h"
 
+using namespace DeltaEngine::Types;
+
 namespace DeltaEngine {
 	namespace Internal {
 
@@ -11,7 +13,7 @@ namespace DeltaEngine {
 #	endif
 #include <Windows.h>
 
-		static __forceinline Types::uint64 getTimerFrequency()
+		static __forceinline uint64 getTimerFrequency()
 		{
 			LARGE_INTEGER frequency;
 			QueryPerformanceFrequency(&frequency);
@@ -19,7 +21,7 @@ namespace DeltaEngine {
 			return frequency.QuadPart;
 		}
 
-		static __forceinline Types::uint64 getCurrentCount()
+		static __forceinline uint64 getCurrentCount()
 		{
 			LARGE_INTEGER count;
 			QueryPerformanceCounter(&count);
@@ -30,18 +32,18 @@ namespace DeltaEngine {
 #elif defined(__unix__) || defined(__GNUC__) || defined(__GNUG__)
 #include <unistd.h>
 
-		static __forceinline Types::uint64 rdtsc()
+		static __forceinline uint64 rdtsc()
 		{
-			Types::uint32 lo, hi;
+			uint32 lo, hi;
 
 			__asm__ __volatile__("rdtsc" : "=a" (lo), "=d" (hi));
 
-			return (Types::uint64)hi << 32 | lo;
+			return (uint64)hi << 32 | lo;
 		}
 
-		static __forceinline Types::uint64 getTimerFrequency()
+		static __forceinline uint64 getTimerFrequency()
 		{
-			Types::uint64 before, after;
+			uint64 before, after;
 
 			before = rdtsc();
 			usleep(1000000); //10^6 microseconds = 1 second
@@ -50,7 +52,7 @@ namespace DeltaEngine {
 			return (after - before) / 1000;
 		}
 
-		static __forceinline Types::uint64 getCurrentCount()
+		static __forceinline uint64 getCurrentCount()
 		{
 			return rdtsc();
 		}

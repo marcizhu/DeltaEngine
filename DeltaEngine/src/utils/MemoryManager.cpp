@@ -8,6 +8,7 @@
 #include "log.h"
 #include "types.h"
 #include "maths.h"
+#include "debug.h"
 
 std::mutex memoryMutex;
 
@@ -20,14 +21,22 @@ namespace DeltaEngine {
 		Types::uint32 MemoryManager::allocatedMemory;
 		Types::uint32 MemoryManager::freedMemory;
 		Types::uint32 MemoryManager::currentMemory;
+		Types::uint32 MemoryManager::numAllocations;
 
 		void MemoryManager::freeMem()
 		{
 			while (currentMemory)
 			{
-				Sleep(10);
+				if (numAllocations == 0) __debugbreak();
+
+				OutputDebugString("[DeltaEngine] Unfreed memory: ");
+				OutputDebugString(std::to_string(currentMemory).c_str());
+				OutputDebugString(" bytes\n");
+
+				Sleep(1);
 			}
 
+			initialized = false;
 			free(memStart);
 		}
 
@@ -35,12 +44,16 @@ namespace DeltaEngine {
 		{
 			if (currentMemory)
 			{
-				OutputDebugString("\n\n[DeltaEngine] Unfreed memory: ");
+				OutputDebugString("\n\n[DeltaEngine] Unable to deinitialize memory!\n");
+				OutputDebugString("[DeltaEngine] Unfreed memory: ");
 				OutputDebugString(std::to_string(currentMemory).c_str());
-				OutputDebugString(" bytes\n\n");
+				OutputDebugString(" bytes\n");
 			}
-
-			initialized = false;
+			else
+			{
+				initialized = false;
+				OutputDebugString("[DeltaEngine] Memory deinitialized\n");
+			}
 
 			std::thread killThread(freeMem);
 			killThread.detach();
@@ -48,6 +61,8 @@ namespace DeltaEngine {
 
 		void MemoryManager::start()
 		{
+			static_assert(MEMORY_CHUNK > sizeof(FreeBlock), "Invalid MEMORY_CHUNK value: MEMORY_CHUNK < sizeof(FreeBlock)");
+
 			if (initialized)
 			{
 				DELTAENGINE_WARN("[Memory] Reinitialization");
@@ -55,16 +70,17 @@ namespace DeltaEngine {
 			}
 
 			// TODO: Replace with a #define MEMORY_CHUNK or something
-			memStart = malloc(4 * 1024 * 1024); // 4 Mb
-			memset(memStart, 0, 4 * 1024 * 1024);
+			memStart = malloc(MEMORY_CHUNK); // 4 Mb
+			memset(memStart, 0, MEMORY_CHUNK);
 
 			firstBlock.store((FreeBlock*)memStart);
-			firstBlock.load()->size = 4 * 1024 * 1024;
+			firstBlock.load()->size = MEMORY_CHUNK;
 			firstBlock.load()->nextBlock = nullptr;
 
 			allocatedMemory = 0;
 			freedMemory = 0;
 			currentMemory = 0;
+			numAllocations = 0;
 
 			initialized = true;
 		}
@@ -90,68 +106,73 @@ namespace DeltaEngine {
 
 			memoryMutex.lock();
 
-			FreeBlock* block = firstBlock;
-			FreeBlock* lastBlock = nullptr;
-			Types::byte* address = nullptr;
+			DELTAENGINE_ASSERT(amount != 0);
 
-			while (block != nullptr)
+			FreeBlock* prev_free_block = nullptr;
+			FreeBlock* free_block = firstBlock.load();
+
+			while (free_block != nullptr)
 			{
-				if (block->size == (amount + sizeof(size_t)))
+				size_t total_size = amount + sizeof(AllocationHeader);
+
+				if (free_block->size < total_size)
 				{
-					if (block->nextBlock != nullptr)
+					prev_free_block = free_block;
+					free_block = free_block->nextBlock;
+					continue;
+				}
+
+				if (free_block->size - total_size <= sizeof(AllocationHeader))
+				{
+					total_size = free_block->size;
+
+					if (prev_free_block != nullptr)
 					{
-						firstBlock = block->nextBlock;
+						prev_free_block->nextBlock = free_block->nextBlock;
 					}
 					else
 					{
-						void* nextAddress = malloc(4 * 1024 * 1024);
-
-						FreeBlock* newBlock = (FreeBlock*)nextAddress;
-						newBlock->size = 4 * 1024 * 1024;
-						newBlock->nextBlock = nullptr;
-
-						block->nextBlock = newBlock;
+						firstBlock.store(free_block->nextBlock);
 					}
-
-					address = (Types::byte*)block;
-					memcpy(address, &amount, sizeof(size_t));
-					address += sizeof(size_t);
-
-					break;
-				}
-				else if (block->size > (amount + sizeof(size_t)))
-				{
-					Types::byte* nextAddress = (Types::byte*)block + (amount + sizeof(size_t));
-					Types::uint32 newSize = block->size - (amount + sizeof(size_t));
-
-					FreeBlock* newBlock = (FreeBlock*)nextAddress;
-					newBlock->nextBlock = block->nextBlock;
-					newBlock->size = newSize;
-
-					// FIXME: Investigate this (possible memory leak!)
-					firstBlock.store(newBlock);
-
-					address = (Types::byte*)block;
-					memcpy(address, &amount, sizeof(size_t));
-					address += sizeof(size_t);
-
-					break;
 				}
 				else
 				{
-					lastBlock = block;
-					block = block->nextBlock;
+					Types::byte* nextAddr = (Types::byte*)free_block + total_size;
+
+					FreeBlock* next_block = (FreeBlock*)nextAddr;
+					next_block->size = free_block->size - total_size;
+					next_block->nextBlock = free_block->nextBlock;
+
+					if (prev_free_block != nullptr)
+					{
+						prev_free_block->nextBlock = next_block;
+					}
+					else
+					{
+						firstBlock.store(next_block);
+					}
 				}
+
+				Types::byte* headerAddr = (Types::byte*)free_block;
+				AllocationHeader* header = (AllocationHeader*)headerAddr;
+				header->size = total_size;
+				header->magic = 0x11223344;
+
+				allocatedMemory += total_size;
+				currentMemory += total_size;
+				numAllocations++;
+
+				memoryMutex.unlock();
+
+				return (Types::byte*)free_block + sizeof(AllocationHeader);
 			}
 
-			allocatedMemory += amount;
-			currentMemory += amount;
+			//Couldn't find free block large enough!
 
-			memoryMutex.unlock();
+			// TODO: Reallocate more memory and create a new block. Then, return a free block
+			__debugbreak();
 
-			if(address == nullptr) __debugbreak();
-
-			return address;
+			return nullptr;
 		}
 
 		void MemoryManager::deallocate(void* address)
@@ -160,54 +181,64 @@ namespace DeltaEngine {
 
 			memoryMutex.lock();
 
-			Types::byte* mem = ((Types::byte*)address) - sizeof(size_t);
+			DELTAENGINE_ASSERT(address != nullptr);
+			Types::byte* addr = (Types::byte*)address - sizeof(AllocationHeader);
 
-			size_t amount = *(size_t*)mem;
+			AllocationHeader* header = (AllocationHeader*)addr;
 
-			FreeBlock* newBlock = (FreeBlock*)mem;
-			newBlock->size = amount;
+			Types::byte* block_start = (Types::byte*)address - sizeof(AllocationHeader);
+			size_t block_size = header->size;
+			Types::byte* block_end = block_start + block_size;
 
-			if (newBlock < firstBlock)
+			FreeBlock* prev_free_block = nullptr;
+			FreeBlock* free_block = firstBlock.load();
+
+			while (free_block != nullptr)
 			{
-				newBlock->nextBlock = firstBlock;
-				firstBlock = newBlock;
+				if ((Types::byte*)free_block >= block_end) break;
+
+				prev_free_block = free_block;
+				free_block = free_block->nextBlock;
+			}
+
+			if (prev_free_block == nullptr)
+			{
+				prev_free_block = (FreeBlock*)block_start;
+				prev_free_block->size = block_size;
+				prev_free_block->nextBlock = firstBlock.load();
+
+				firstBlock.store(prev_free_block);
+			}
+			else if ((Types::byte*)prev_free_block + prev_free_block->size == block_start)
+			{
+				prev_free_block->size += block_size;
 			}
 			else
 			{
-				newBlock->nextBlock = firstBlock.load()->nextBlock;
-				firstBlock.load()->nextBlock = newBlock;
+				FreeBlock* temp = (FreeBlock*)block_start;
+				temp->size = block_size;
+				temp->nextBlock = prev_free_block->nextBlock;
+				prev_free_block->nextBlock = temp;
+
+				prev_free_block = temp;
 			}
 
-			freedMemory += amount;
-			currentMemory -= amount;
+			if (free_block != nullptr && (Types::byte*)free_block == block_end)
+			{
+				prev_free_block->size += free_block->size;
+				prev_free_block->nextBlock = free_block->nextBlock;
+			}
+
+			currentMemory -= block_size ;
+			freedMemory += block_size;
+			numAllocations--;
 
 			memoryMutex.unlock();
 		}
 
 		void MemoryManager::refresh()
 		{
-			FreeBlock* block = firstBlock.load();
-			int i = 0;
 
-			// TODO: First, sort all the blocks!
-
-			while (block != nullptr)
-			{
-				if (block->nextBlock == nullptr) break;
-
-				Types::byte* nextAddr = (Types::byte*)block;
-				Types::byte* nextBlockAddr = (Types::byte*)block->nextBlock;
-				nextAddr += block->size;
-
-				if (nextAddr == nextBlockAddr)
-				{
-					block->size += block->nextBlock->size;
-					block->nextBlock = block->nextBlock->nextBlock;
-					OutputDebugString("Merging two blocks...\n");
-				}
-
-				block = block->nextBlock;
-			}
 		}
 
 		std::string MemoryManager::getAllocatedMemoryString()

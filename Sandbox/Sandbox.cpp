@@ -112,6 +112,4 @@ void Sandbox::tick()
 
 	memoryLabel->setText(Memory::MemoryManager::getCurrentMemoryString());
 	memoryLabel->setPosition(15.8f - memoryLabel->getSize().x, 8.6f);
-
-	Memory::MemoryManager::refresh();
 }

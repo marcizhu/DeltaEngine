@@ -14,6 +14,9 @@
 #	define NEW			new
 #endif
 
+// 4 mb
+#define MEMORY_CHUNK	4 * 1024 * 1024
+
 using namespace DeltaEngine;
 
 namespace DeltaEngine {
@@ -25,6 +28,12 @@ namespace DeltaEngine {
 			FreeBlock* nextBlock;
 		};
 
+		struct AllocationHeader
+		{
+			size_t size;
+			size_t magic;
+		};
+
 		class MemoryManager
 		{
 		private:
@@ -33,6 +42,7 @@ namespace DeltaEngine {
 			static Types::uint32 allocatedMemory;
 			static Types::uint32 freedMemory;
 			static Types::uint32 currentMemory;
+			static Types::uint32 numAllocations;
 			static std::atomic<FreeBlock*> firstBlock;
 
 			static void freeMem();
