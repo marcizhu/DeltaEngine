@@ -28,12 +28,6 @@ namespace DeltaEngine {
 			while (currentMemory)
 			{
 				if (numAllocations == 0) __debugbreak();
-
-				OutputDebugString("[DeltaEngine] Unfreed memory: ");
-				OutputDebugString(std::to_string(currentMemory).c_str());
-				OutputDebugString(" bytes\n");
-
-				Sleep(1);
 			}
 
 			initialized = false;
@@ -42,19 +36,6 @@ namespace DeltaEngine {
 
 		void MemoryManager::end()
 		{
-			if (currentMemory)
-			{
-				OutputDebugString("\n\n[DeltaEngine] Unable to deinitialize memory!\n");
-				OutputDebugString("[DeltaEngine] Unfreed memory: ");
-				OutputDebugString(std::to_string(currentMemory).c_str());
-				OutputDebugString(" bytes\n");
-			}
-			else
-			{
-				initialized = false;
-				OutputDebugString("[DeltaEngine] Memory deinitialized\n");
-			}
-
 			std::thread killThread(freeMem);
 			killThread.detach();
 		}
@@ -62,6 +43,7 @@ namespace DeltaEngine {
 		void MemoryManager::start()
 		{
 			static_assert(MEMORY_CHUNK > sizeof(FreeBlock), "Invalid MEMORY_CHUNK value: MEMORY_CHUNK < sizeof(FreeBlock)");
+			static_assert(sizeof(AllocationHeader) >= sizeof(FreeBlock), "sizeof(AllocationHeader) < sizeof(FreeBlock)!");
 
 			if (initialized)
 			{
@@ -69,8 +51,7 @@ namespace DeltaEngine {
 				return;
 			}
 
-			// TODO: Replace with a #define MEMORY_CHUNK or something
-			memStart = malloc(MEMORY_CHUNK); // 4 Mb
+			memStart = malloc(MEMORY_CHUNK);
 			memset(memStart, 0, MEMORY_CHUNK);
 
 			firstBlock.store((FreeBlock*)memStart);
@@ -100,13 +81,13 @@ namespace DeltaEngine {
 			return currentMemory;
 		}
 
-		Types::byte* MemoryManager::allocate(size_t amount)
+		Types::byte* MemoryManager::allocate(size_t amount, size_t flags)
 		{
 			if (!initialized) start();
 
 			memoryMutex.lock();
 
-			DELTAENGINE_ASSERT(amount != 0);
+			DELTAENGINE_ASSERT(amount != 0, "Attempted to allocate 0 bytes!");
 
 			FreeBlock* prev_free_block = nullptr;
 			FreeBlock* free_block = firstBlock.load();
@@ -124,6 +105,8 @@ namespace DeltaEngine {
 
 				if (free_block->size - total_size <= sizeof(AllocationHeader))
 				{
+					flags |= AllocationFlags::RESIZED;
+
 					total_size = free_block->size;
 
 					if (prev_free_block != nullptr)
@@ -156,7 +139,10 @@ namespace DeltaEngine {
 				Types::byte* headerAddr = (Types::byte*)free_block;
 				AllocationHeader* header = (AllocationHeader*)headerAddr;
 				header->size = total_size;
-				header->magic = 0x11223344;
+
+				flags |= AllocationFlags::MAGIC | AllocationFlags::ALLOCATED;
+
+				header->flags = flags;
 
 				allocatedMemory += total_size;
 				currentMemory += total_size;
@@ -168,11 +154,25 @@ namespace DeltaEngine {
 			}
 
 			//Couldn't find free block large enough!
+			memoryMutex.unlock();
 
-			// TODO: Reallocate more memory and create a new block. Then, return a free block
-			__debugbreak();
+			if (prev_free_block == nullptr)
+			{
+				__debugbreak();
+				return nullptr;
+			}
+			else
+			{
+				FreeBlock* newBlock = (FreeBlock*)malloc(MEMORY_CHUNK);
+				newBlock->nextBlock = prev_free_block->nextBlock;
+				newBlock->size = MEMORY_CHUNK;
 
-			return nullptr;
+				prev_free_block->nextBlock = newBlock;
+
+				return allocate(amount);
+			}
+
+			//return nullptr;
 		}
 
 		void MemoryManager::deallocate(void* address)
@@ -185,6 +185,8 @@ namespace DeltaEngine {
 			Types::byte* addr = (Types::byte*)address - sizeof(AllocationHeader);
 
 			AllocationHeader* header = (AllocationHeader*)addr;
+
+			DELTAENGINE_ASSERT(header->flags & AllocationFlags::MAGIC == AllocationFlags::MAGIC);
 
 			Types::byte* block_start = (Types::byte*)address - sizeof(AllocationHeader);
 			size_t block_size = header->size;
@@ -238,92 +240,85 @@ namespace DeltaEngine {
 
 		void MemoryManager::refresh()
 		{
+			FreeBlock* block = firstBlock;
 
+			while (block->nextBlock)
+			{
+				if (block->nextBlock < block) __debugbreak();
+
+				if ((Types::byte*)block + block->size == (Types::byte*)block->nextBlock)
+				{
+					__debugbreak();
+					block->size += block->nextBlock->size;
+					block->nextBlock = block->nextBlock->nextBlock;
+				}
+				else if ((Types::byte*)block + block->size >(Types::byte*)block->nextBlock)
+				{
+					__debugbreak();
+				}
+
+				block = block->nextBlock;
+			}
 		}
 
 		std::string MemoryManager::getAllocatedMemoryString()
 		{
-			unsigned int bytes = getAllocatedMemory();
-			std::string ret = "Allocated memory: ";
-
-			if (bytes >= 1024 * 1024 * 1024)
-			{
-				float gb = (float)bytes / (1024.0f * 1024.0f * 1024.0f);
-				ret += Utils::precision_to_string(gb, 3) + " Gb";
-			}
-			else if (bytes >= 1024 * 1024)
-			{
-				float mb = (float)bytes / (1024.0f * 1024.0f);
-				ret += Utils::precision_to_string(mb, 3) + " Mb";
-			}
-			else if (bytes >= 1024)
-			{
-				float kb = (float)bytes / 1024.0f;
-				ret += Utils::precision_to_string(kb, 3) + " Kb";
-			}
-			else
-			{
-				ret += std::to_string(bytes) + " b";
-			}
-
-			return ret;
+			return std::string("Memory allocated: ") + getMemoryString(getAllocatedMemory());
 		}
 
 		std::string MemoryManager::getFreedMemoryString()
 		{
-			unsigned int bytes = getFreedMemory();
-			std::string ret = "Freed memory: ";
+			return std::string("Memory freed: ") + getMemoryString(getFreedMemory());
+		}
 
-			if (bytes >= 1024 * 1024 * 1024)
+		std::string MemoryManager::getCurrentMemoryString()
+		{
+			if (getCurrentMemory() >= 1024 * 1024 * 1024)
 			{
-				float gb = (float)bytes / (1024.0f * 1024.0f * 1024.0f);
-				ret += Utils::precision_to_string(gb, 3) + " Gb";
+				DELTAENGINE_ERROR("USING OVER 1 Gb OF MEMORY!");
 			}
-			else if (bytes >= 1024 * 1024)
+
+			std::string ret = "Current memory: " + getMemoryString(getCurrentMemory());
+
+			return ret;
+		}
+
+		std::string MemoryManager::getMemoryString(uint32 bytes)
+		{
+			int exp = (int)Maths::nlog(1024, bytes);
+
+			float mem = (float)bytes / pow(1024.0f, exp);
+
+			std::string ret = Utils::precision_to_string(mem, 3);
+
+			switch (exp)
 			{
-				float mb = (float)bytes / (1024.0f * 1024.0f);
-				ret += Utils::precision_to_string(mb, 3) + " Mb";
-			}
-			else if (bytes >= 1024)
-			{
-				float kb = (float)bytes / 1024.0f;
-				ret += Utils::precision_to_string(kb, 3) + " Kb";
-			}
-			else
-			{
-				ret += std::to_string(bytes) + " b";
+			case 3: ret += " Gb"; break;
+			case 2: ret += " Mb"; break;
+			case 1: ret += " Kb"; break;
+			case 0: ret += " b"; break;
+			default: ret += " ??"; break;
 			}
 
 			return ret;
 		}
 
-		std::string MemoryManager::getCurrentMemoryString()
+		uint32 MemoryManager::getAllocations()
 		{
-			unsigned int bytes = getCurrentMemory();
-			std::string ret = "Current memory: ";
+			return numAllocations;
+		}
 
-			if (bytes >= 1024 * 1024 * 1024)
-			{
-				float gb = (float)bytes / (1024.0f * 1024.0f * 1024.0f);
-				ret += Utils::precision_to_string(gb, 3) + " Gb";
-				DELTAENGINE_ERROR("USING OVER 1 Gb OF MEMORY!");
-			}
-			else if (bytes >= 1024 * 1024)
-			{
-				float mb = (float)bytes / (1024.0f * 1024.0f);
-				ret += Utils::precision_to_string(mb, 3) + " Mb";
-			}
-			else if (bytes >= 1024)
-			{
-				float kb = (float)bytes / 1024.0f;
-				ret += Utils::precision_to_string(kb, 3) + " Kb";
-			}
-			else
-			{
-				ret += std::to_string(bytes) + " b";
-			}
+		size_t MemoryManager::getFlags(void* address)
+		{
+			DELTAENGINE_ASSERT(address != nullptr);
 
-			return ret;
+			Types::byte* addr = (Types::byte*)address - sizeof(AllocationHeader);
+
+			AllocationHeader* header = (AllocationHeader*)addr;
+
+			if (header->flags & AllocationFlags::MAGIC != AllocationFlags::MAGIC) return 0;
+
+			return header->flags;
 		}
 
 	}

@@ -36,6 +36,8 @@ namespace DeltaEngine {
 
 		inline uint32 nlen(uint32 n) { return (int)(log10(n) + 1); }
 
+		DELTAENGINE_API inline double nlog(uint32 base, double value);
+
 		//template<typename T>
 		//inline T& max(T& first, T& second) { return first > second ? first : second; }
 

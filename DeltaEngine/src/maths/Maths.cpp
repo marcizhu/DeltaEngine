@@ -52,5 +52,10 @@ namespace DeltaEngine {
 
 			return temp;
 		}
+
+		double nlog(uint32 base, double value)
+		{
+			return log(value) / log(base);
+		}
 	}
 }
