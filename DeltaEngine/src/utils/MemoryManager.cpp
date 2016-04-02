@@ -10,7 +10,7 @@
 #include "maths.h"
 #include "debug.h"
 
-std::mutex memoryMutex;
+std::recursive_mutex memoryMutex;
 
 namespace DeltaEngine {
 	namespace Memory {
@@ -44,6 +44,8 @@ namespace DeltaEngine {
 		{
 			static_assert(MEMORY_CHUNK > sizeof(FreeBlock), "Invalid MEMORY_CHUNK value: MEMORY_CHUNK < sizeof(FreeBlock)");
 			static_assert(sizeof(AllocationHeader) >= sizeof(FreeBlock), "sizeof(AllocationHeader) < sizeof(FreeBlock)!");
+			static_assert(MEMORY_CHUNK < 0xFFFFFFFFU, "MEMORY_CHUNK size causes overflow!");
+			static_assert(sizeof(size_t) == 4, "Invalid size_t size!");
 
 			if (initialized)
 			{
@@ -92,10 +94,10 @@ namespace DeltaEngine {
 			FreeBlock* prev_free_block = nullptr;
 			FreeBlock* free_block = firstBlock.load();
 
+			size_t total_size = amount + sizeof(AllocationHeader);
+
 			while (free_block != nullptr)
 			{
-				size_t total_size = amount + sizeof(AllocationHeader);
-
 				if (free_block->size < total_size)
 				{
 					prev_free_block = free_block;
@@ -154,7 +156,8 @@ namespace DeltaEngine {
 			}
 
 			//Couldn't find free block large enough!
-			memoryMutex.unlock();
+
+			DELTAENGINE_ASSERT(total_size < MEMORY_CHUNK, "Allocation size is too big for the memory chunk size!");
 
 			if (prev_free_block == nullptr)
 			{
@@ -164,15 +167,20 @@ namespace DeltaEngine {
 			else
 			{
 				FreeBlock* newBlock = (FreeBlock*)malloc(MEMORY_CHUNK);
-				newBlock->nextBlock = prev_free_block->nextBlock;
-				newBlock->size = MEMORY_CHUNK;
 
-				prev_free_block->nextBlock = newBlock;
+				if ((Types::byte*)prev_free_block + prev_free_block->size == (Types::byte*)newBlock)
+				{
+					prev_free_block->size += MEMORY_CHUNK;
+				}
+				else
+				{
+					newBlock->nextBlock = prev_free_block->nextBlock;
+					newBlock->size = MEMORY_CHUNK;
+					prev_free_block->nextBlock = newBlock;
+				}
 
 				return allocate(amount);
 			}
-
-			//return nullptr;
 		}
 
 		void MemoryManager::deallocate(void* address)
@@ -186,7 +194,7 @@ namespace DeltaEngine {
 
 			AllocationHeader* header = (AllocationHeader*)addr;
 
-			DELTAENGINE_ASSERT(header->flags & AllocationFlags::MAGIC == AllocationFlags::MAGIC);
+			DELTAENGINE_ASSERT((header->flags & AllocationFlags::MAGIC) == AllocationFlags::MAGIC);
 
 			Types::byte* block_start = (Types::byte*)address - sizeof(AllocationHeader);
 			size_t block_size = header->size;
@@ -231,7 +239,7 @@ namespace DeltaEngine {
 				prev_free_block->nextBlock = free_block->nextBlock;
 			}
 
-			currentMemory -= block_size ;
+			currentMemory -= block_size;
 			freedMemory += block_size;
 			numAllocations--;
 
@@ -273,9 +281,9 @@ namespace DeltaEngine {
 
 		std::string MemoryManager::getCurrentMemoryString()
 		{
-			if (getCurrentMemory() >= 1024 * 1024 * 1024)
+			if (getCurrentMemory() >= GB_IN_BYTES)
 			{
-				DELTAENGINE_ERROR("USING OVER 1 Gb OF MEMORY!");
+				DELTAENGINE_ERROR("USING OVER 1 GB OF MEMORY!");
 			}
 
 			std::string ret = "Current memory: " + getMemoryString(getCurrentMemory());
@@ -289,16 +297,18 @@ namespace DeltaEngine {
 
 			float mem = (float)bytes / pow(1024.0f, exp);
 
-			std::string ret = Utils::precision_to_string(mem, 3);
+			std::string ret = Utils::precision_to_string(mem, Maths::nlen<float>(mem) + 2);
 
 			switch (exp)
 			{
-			case 3: ret += " Gb"; break;
-			case 2: ret += " Mb"; break;
-			case 1: ret += " Kb"; break;
-			case 0: ret += " b"; break;
+			case 3: ret += " GB"; break;
+			case 2: ret += " MB"; break;
+			case 1: ret += " KB"; break;
+			case 0: ret += " B"; break;
 			default: ret += " ??"; break;
 			}
+
+			ret.replace(ret.find("."), 1, ",");
 
 			return ret;
 		}
@@ -316,7 +326,7 @@ namespace DeltaEngine {
 
 			AllocationHeader* header = (AllocationHeader*)addr;
 
-			if (header->flags & AllocationFlags::MAGIC != AllocationFlags::MAGIC) return 0;
+			if ((header->flags & AllocationFlags::MAGIC) != AllocationFlags::MAGIC) return 0;
 
 			return header->flags;
 		}

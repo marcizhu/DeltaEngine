@@ -34,7 +34,8 @@ namespace DeltaEngine {
 
 		inline bool isPowOf2(int n) { return (n & (n - 1)) == 0; }
 
-		inline uint32 nlen(uint32 n) { return (int)(log10(n) + 1); }
+		template<typename T>
+		inline uint32 nlen(T n) { return (uint32)(log10(n) + 1); }
 
 		DELTAENGINE_API inline double nlog(uint32 base, double value);
 

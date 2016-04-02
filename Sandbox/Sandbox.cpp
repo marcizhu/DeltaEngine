@@ -35,7 +35,6 @@ void Sandbox::init()
 
 	mainLayer = NEW Graphics::Layer2D(NEW Graphics::BatchRenderer2D(), shader, pr_matrix);
 	mainLayer->add(NEW Graphics::BatchRenderable2D(1.0f, 1.0f, 1, 1, Graphics::TextureManager::get("Mario")));
-	mainLayer->add(NEW Graphics::Line(4.0f, 1.0f, 12.0f, 1.0f, 16.0f / 960.0f * 30, 0x3FFFFFFF));
 
 	mainLayer->add(NEW Graphics::Line(0.0f, 0.0f, 20.0f, 0.0f, 16.0f / 960.0f, 0xFF0000FF));
 	mainLayer->add(NEW Graphics::Line(0.0f, 0.0f, 0.0f, 20.0f, 16.0f / 960.0f, 0xFF0000FF));

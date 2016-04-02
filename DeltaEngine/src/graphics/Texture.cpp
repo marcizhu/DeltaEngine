@@ -54,10 +54,8 @@ namespace DeltaEngine {
 
 		BYTE* Texture::loadImage(const char* filename, Types::uint32* width, Types::uint32* height, Types::uchar8* bpp)
 		{
-			FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
+			FREE_IMAGE_FORMAT fif = FreeImage_GetFileType(filename, 0);
 			FIBITMAP *dib = nullptr;
-
-			fif = FreeImage_GetFileType(filename, 0);
 
 			if (fif == FIF_UNKNOWN)
 			{

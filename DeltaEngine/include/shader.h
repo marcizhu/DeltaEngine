@@ -16,7 +16,6 @@ namespace DeltaEngine {
 	namespace Graphics {
 
 		enum ShaderSource { FILE, SOURCE };
-		enum UniformType { NONE, FLOAT32, INT32, VEC2, VEC3, VEC4, MAT3, MAT4, SAMPLER2D };
 
 		class Shader
 		{
@@ -28,9 +27,7 @@ namespace DeltaEngine {
 			GLint getUniformLocation(const GLchar* name);
 
 			bool compile(GLuint shader, const char* source, const string& shaderType);
-			void parseUniforms(const std::vector<string>& source);
 			vector<string> preProcess(const std::string& input, std::string& vertexOut, std::string& fragmentOut);
-			UniformType getUniformType(const string& token);
 
 		public:
 			DELTAENGINE_API Shader(const string& vertex, const string& fragment, ShaderSource dType);

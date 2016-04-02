@@ -37,17 +37,14 @@ namespace DeltaEngine {
 			{
 				prime = findPrime(prime);
 
-				if (number % prime == 0)
+				if (number % prime != 0)
 				{
-					temp.push_back(prime);
-					number /= prime;
-				} else
-				{
-					while (number % prime != 0) prime = findPrime(prime + 1);
-
-					temp.push_back(prime);
-					number /= prime;
+					while (number % prime != 0)
+						prime = findPrime(prime + 1);
 				}
+
+				temp.push_back(prime);
+				number /= prime;
 			}
 
 			return temp;

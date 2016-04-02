@@ -129,21 +129,21 @@ namespace DeltaEngine {
 			buffer->uv = uv[1];
 			buffer->tid = ts;
 			buffer->color = color;
-			buffer->angle = Maths::toRadians(angle);;
+			buffer->angle = Maths::toRadians(angle);
 			buffer++;
 
 			buffer->vertex = Maths::Vector2D(position.x + size.x, position.y + size.y);
 			buffer->uv = uv[2];
 			buffer->tid = ts;
 			buffer->color = color;
-			buffer->angle = Maths::toRadians(angle);;
+			buffer->angle = Maths::toRadians(angle);
 			buffer++;
 
 			buffer->vertex = Maths::Vector2D(position.x + size.x, position.y);
 			buffer->uv = uv[3];
 			buffer->tid = ts;
 			buffer->color = color;
-			buffer->angle = Maths::toRadians(angle);;
+			buffer->angle = Maths::toRadians(angle);
 			buffer++;
 
 			indexCount += 6;
@@ -184,8 +184,7 @@ namespace DeltaEngine {
 
 		void BatchRenderer2D::drawString(const std::string& text, const Maths::Vector2D& position, const Font& font, const Types::uint32 color)
 		{
-			float ts = 0.0f;
-			ts = submitTexture(font.getID());
+			float ts = submitTexture(font.getID());
 
 			const Maths::Vector2D& scale = font.getScale();
 

@@ -14,8 +14,11 @@
 #	define NEW			new
 #endif
 
-// 4 mb
-#define MEMORY_CHUNK	4 * 1024 * 1024
+#define KB_IN_BYTES		1024
+#define MB_IN_BYTES		1024 * 1024
+#define GB_IN_BYTES		1024 * 1024 * 1024
+
+#define MEMORY_CHUNK	4 * MB_IN_BYTES
 
 using namespace DeltaEngine;
 
