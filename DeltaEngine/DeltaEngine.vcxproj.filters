@@ -239,12 +239,6 @@
     <ClCompile Include="src\graphics\Shader.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\Sound.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\SoundManager.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Sound</Filter>
-    </ClCompile>
     <ClCompile Include="src\graphics\Texture.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
     </ClCompile>
@@ -266,8 +260,14 @@
     <ClCompile Include="src\graphics\BatchRenderer2D.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="src\utils\MemoryManager.cpp">
+    <ClCompile Include="src\memory\MemoryManager.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sound\Sound.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sound\SoundManager.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Sound</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

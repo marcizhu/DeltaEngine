@@ -89,10 +89,10 @@ void Sandbox::update()
 
 	if (window->isKeyPressed(KB_KEY_ESCAPE)) window->close();
 
-	if (window->isKeyPressed(KB_KEY_RIGHT)) mainLayer->getRenderables()[0]->move( 0.1f,  0.0f); // Right arrow
-	if (window->isKeyPressed(KB_KEY_LEFT )) mainLayer->getRenderables()[0]->move(-0.1f,  0.0f); // Left arrow
-	if (window->isKeyPressed(KB_KEY_DOWN )) mainLayer->getRenderables()[0]->move( 0.0f, -0.1f); // Down arrow
-	if (window->isKeyPressed(KB_KEY_UP   )) mainLayer->getRenderables()[0]->move( 0.0f,  0.1f); // Up arrow
+	if (window->isKeyPressed(KB_KEY_RIGHT)) (*mainLayer)[0]->move( 0.1f,  0.0f); // Right arrow
+	if (window->isKeyPressed(KB_KEY_LEFT )) (*mainLayer)[0]->move(-0.1f,  0.0f); // Left arrow
+	if (window->isKeyPressed(KB_KEY_DOWN )) (*mainLayer)[0]->move( 0.0f, -0.1f); // Down arrow
+	if (window->isKeyPressed(KB_KEY_UP   )) (*mainLayer)[0]->move( 0.0f,  0.1f); // Up arrow
 }
 
 void Sandbox::render()

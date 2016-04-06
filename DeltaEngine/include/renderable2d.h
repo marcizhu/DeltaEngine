@@ -2,7 +2,6 @@
 
 #include <vector>
 
-#include "buffer.h"
 #include "vector2d.h"
 #include "renderer2d.h"
 #include "texture.h"
