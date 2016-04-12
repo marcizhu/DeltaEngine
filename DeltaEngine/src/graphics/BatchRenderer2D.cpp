@@ -112,34 +112,35 @@ namespace DeltaEngine {
 			const std::vector<Maths::Vector2D>& uv = renderable->getUV();
 			const GLuint tid = renderable->getTextureID();
 
-			const float angle = renderable->rotationAngle;
-
 			float ts = 0.0f;
 			if (tid > 0) ts = submitTexture(renderable->getTexture());
 
 			Maths::Matrix4 mat(1.0f);
-			mat.translate(position.x, position.y, 0.0f);
-			mat.rotate(angle, 0.0f, 0.0f, 1.0f);
+			mat.translate(position.x + size.x / 2, position.y + size.y / 2, 0.0f);
+			mat.rotate(renderable->getRotation(), 0.0f, 0.0f, 1.0f);
 
-			buffer->vertex = mat * Maths::Vector2D(0.0f, 0.0f);
+			const float hSizeX = size.x / 2;
+			const float hSizeY = size.y / 2;
+
+			buffer->vertex = mat * Maths::Vector2D(-hSizeX, -hSizeY);
 			buffer->uv = uv[0];
 			buffer->tid = ts;
 			buffer->color = color;
 			buffer++;
 
-			buffer->vertex = mat * Maths::Vector2D(0.0f, size.y);
+			buffer->vertex = mat * Maths::Vector2D(-hSizeX, hSizeY);
 			buffer->uv = uv[1];
 			buffer->tid = ts;
 			buffer->color = color;
 			buffer++;
 
-			buffer->vertex = mat * Maths::Vector2D(size.x, size.y);
+			buffer->vertex = mat * Maths::Vector2D(hSizeX, hSizeY);
 			buffer->uv = uv[2];
 			buffer->tid = ts;
 			buffer->color = color;
 			buffer++;
 
-			buffer->vertex = mat * Maths::Vector2D(size.x, 0.0f);
+			buffer->vertex = mat * Maths::Vector2D(hSizeX, -hSizeY);
 			buffer->uv = uv[3];
 			buffer->tid = ts;
 			buffer->color = color;
@@ -183,7 +184,8 @@ namespace DeltaEngine {
 
 		void BatchRenderer2D::drawString(const std::string& text, const Maths::Vector2D& position, const Font& font, const Types::uint32 color)
 		{
-			float ts = submitTexture(font.getID());
+			float ts = 0.0f;
+			if (font.getID() > 0) ts = submitTexture(font.getID());
 
 			const Maths::Vector2D& scale = font.getScale();
 

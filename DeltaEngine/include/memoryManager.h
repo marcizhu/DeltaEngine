@@ -21,6 +21,8 @@
 
 #define MEMORY_CHUNK	4 * MB_IN_BYTES
 
+#define MEMORY_ALIGNMENT	sizeof(size_t)
+
 using namespace DeltaEngine;
 
 namespace DeltaEngine {

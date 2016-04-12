@@ -158,7 +158,7 @@ namespace DeltaEngine {
 
 
 #ifndef DELTAENGINE_LOG_LEVEL
-	#define DELTAENGINE_LOG_LEVEL DELTAENGINE_LOG_LEVEL_INFO
+	#define DELTAENGINE_LOG_LEVEL DELTAENGINE_LOG_LEVEL_MSG
 #endif
 
 #if DELTAENGINE_LOG_LEVEL >= DELTAENGINE_LOG_LEVEL_FATAL && defined(DELTAENGINE_DEBUG)
@@ -191,6 +191,14 @@ namespace DeltaEngine {
 #else
 	#define DELTAENGINE_INFO(...)
 	#define _DELTAENGINE_INFO(...)
+#endif
+
+#if DELTAENGINE_LOG_LEVEL >= DELTAENGINE_LOG_LEVEL_MSG && defined(DELTAENGINE_DEBUG)
+	#define DELTAENGINE_MSG(...) DeltaEngine::Internal::log_message(DELTAENGINE_LOG_LEVEL_MSG, true, __VA_ARGS__)
+	#define _DELTAENGINE_MSG(...) DeltaEngine::Internal::log_message(DELTAENGINE_LOG_LEVEL_MSG, false, __VA_ARGS__)
+#else
+	#define DELTAENGINE_MSG(...)
+	#define _DELTAENGINE_MSG(...)
 #endif
 
 #ifdef DELTAENGINE_DEBUG

@@ -31,7 +31,7 @@ namespace DeltaEngine {
 			}
 
 			initialized = false;
-			free(memStart);
+			_aligned_free(memStart);
 		}
 
 		void MemoryManager::end()
@@ -50,22 +50,23 @@ namespace DeltaEngine {
 			if (initialized)
 			{
 				DELTAENGINE_WARN("[Memory] Reinitialization");
-				return;
 			}
+			else
+			{
+				memStart = _aligned_malloc(MEMORY_CHUNK, MEMORY_ALIGNMENT);
+				memset(memStart, 0, MEMORY_CHUNK);
 
-			memStart = malloc(MEMORY_CHUNK);
-			memset(memStart, 0, MEMORY_CHUNK);
+				firstBlock.store((FreeBlock*)memStart);
+				firstBlock.load()->size = MEMORY_CHUNK;
+				firstBlock.load()->nextBlock = nullptr;
 
-			firstBlock.store((FreeBlock*)memStart);
-			firstBlock.load()->size = MEMORY_CHUNK;
-			firstBlock.load()->nextBlock = nullptr;
+				allocatedMemory = 0;
+				freedMemory = 0;
+				currentMemory = 0;
+				numAllocations = 0;
 
-			allocatedMemory = 0;
-			freedMemory = 0;
-			currentMemory = 0;
-			numAllocations = 0;
-
-			initialized = true;
+				initialized = true;
+			}
 		}
 
 		Types::uint32 MemoryManager::getAllocatedMemory()
@@ -159,9 +160,11 @@ namespace DeltaEngine {
 
 			if (total_size >= MEMORY_CHUNK)
 			{
+				DELTAENGINE_WARN("[Memory] Performing a custom allocation (object size is too big)");
+
 				flags |= AllocationFlags::MAGIC | AllocationFlags::ALLOCATED | AllocationFlags::ALLOCATION_CUSTOM;
 
-				AllocationHeader* header = (AllocationHeader*)malloc(total_size);
+				AllocationHeader* header = (AllocationHeader*)_aligned_malloc(total_size, MEMORY_ALIGNMENT);
 				header->size = total_size;
 				header->flags = flags;
 
@@ -181,7 +184,8 @@ namespace DeltaEngine {
 			}
 			else
 			{
-				FreeBlock* newBlock = (FreeBlock*)malloc(MEMORY_CHUNK);
+				DELTAENGINE_INFO("[Memory] Allocating a new block");
+				FreeBlock* newBlock = (FreeBlock*)_aligned_malloc(MEMORY_CHUNK, MEMORY_ALIGNMENT);
 
 				if ((Types::byte*)prev_free_block + prev_free_block->size == (Types::byte*)newBlock)
 				{
@@ -215,7 +219,7 @@ namespace DeltaEngine {
 
 			if ((header->flags & AllocationFlags::ALLOCATION_CUSTOM) == AllocationFlags::ALLOCATION_CUSTOM)
 			{
-				free(header);
+				_aligned_free(header);
 			}
 			else
 			{
@@ -274,16 +278,20 @@ namespace DeltaEngine {
 
 			while (block->nextBlock)
 			{
-				if (block->nextBlock < block) __debugbreak();
+				if (block->nextBlock < block)
+				{
+					DELTAENGINE_WARN("[Memory] Memory block structure is not sorted!");
+				}
 
 				if ((Types::byte*)block + block->size == (Types::byte*)block->nextBlock)
 				{
-					__debugbreak();
+					DELTAENGINE_INFO("[Memory] Merging two contiguous blocks");
 					block->size += block->nextBlock->size;
 					block->nextBlock = block->nextBlock->nextBlock;
 				}
 				else if ((Types::byte*)block + block->size >(Types::byte*)block->nextBlock)
 				{
+					DELTAENGINE_FATAL("[Memory] Memory block structure is broken!");
 					__debugbreak();
 				}
 

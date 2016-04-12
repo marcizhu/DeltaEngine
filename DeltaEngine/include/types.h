@@ -6,9 +6,10 @@ namespace DeltaEngine {
 	namespace Types {
 
 		//basic types:
-		typedef unsigned char	byte;
-		typedef unsigned short	word;
-		typedef unsigned long	dword;
+		typedef unsigned char		byte;
+		typedef unsigned short		word;
+		typedef unsigned int		dword;
+		typedef unsigned long long	qword;
 
 		//unix-like types:
 		typedef unsigned char		uchar8;
@@ -24,6 +25,7 @@ namespace DeltaEngine {
 		static_assert(sizeof(byte)  == 1, "Invalid byte size!");
 		static_assert(sizeof(word)  == 2, "Invalid word size!");
 		static_assert(sizeof(dword) == 4, "Invalid dword size!");
+		static_assert(sizeof(qword) == 8, "Invalid qword size!");
 
 		static_assert(sizeof(uchar8)   == 1, "Invalid uchar8 size!");
 		static_assert(sizeof(ushort16) == 2, "Invalid ushort size!");

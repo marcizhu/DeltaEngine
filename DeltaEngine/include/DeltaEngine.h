@@ -71,10 +71,10 @@ namespace DeltaEngine {
 		std::cout << "           " << (char)179 << "                                                        " << (char)179 << std::endl;
 		std::cout << "          [+]~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[+] " << std::endl << std::endl;
 
-		_DELTAENGINE_WARN("OpenGL:", "\n\n");
-		_DELTAENGINE_WARN("Version : ", glGetString(GL_VERSION), '\n');
-		_DELTAENGINE_WARN("Vendor  : ", glGetString(GL_VENDOR), '\n');
-		_DELTAENGINE_WARN("Renderer: ", glGetString(GL_RENDERER), "\n\n");
+		DELTAENGINE_MSG("OpenGL:", "\n\n");
+		DELTAENGINE_MSG("Version : ", glGetString(GL_VERSION));
+		DELTAENGINE_MSG("Vendor  : ", glGetString(GL_VENDOR));
+		DELTAENGINE_MSG("Renderer: ", glGetString(GL_RENDERER), '\n');
 
 		return DELTAENGINE_VERSION;
 	}
