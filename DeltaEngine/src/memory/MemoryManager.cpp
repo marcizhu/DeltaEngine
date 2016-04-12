@@ -90,6 +90,7 @@ namespace DeltaEngine {
 			memoryMutex.lock();
 
 			DELTAENGINE_ASSERT(amount != 0, "Attempted to allocate 0 bytes!");
+			DELTAENGINE_ASSERT(amount < GB_IN_BYTES, "Invalid allocation size! (> 1 Gb!)");
 
 			FreeBlock* prev_free_block = nullptr;
 			FreeBlock* free_block = firstBlock.load();
@@ -138,12 +139,11 @@ namespace DeltaEngine {
 					}
 				}
 
+				flags |= AllocationFlags::MAGIC | AllocationFlags::ALLOCATED;
+
 				Types::byte* headerAddr = (Types::byte*)free_block;
 				AllocationHeader* header = (AllocationHeader*)headerAddr;
 				header->size = total_size;
-
-				flags |= AllocationFlags::MAGIC | AllocationFlags::ALLOCATED;
-
 				header->flags = flags;
 
 				allocatedMemory += total_size;
@@ -157,7 +157,22 @@ namespace DeltaEngine {
 
 			//Couldn't find free block large enough!
 
-			DELTAENGINE_ASSERT(total_size < MEMORY_CHUNK, "Allocation size is too big for the memory chunk size!");
+			if (total_size >= MEMORY_CHUNK)
+			{
+				flags |= AllocationFlags::MAGIC | AllocationFlags::ALLOCATED | AllocationFlags::ALLOCATION_CUSTOM;
+
+				AllocationHeader* header = (AllocationHeader*)malloc(total_size);
+				header->size = total_size;
+				header->flags = flags;
+
+				allocatedMemory += total_size;
+				currentMemory += total_size;
+				numAllocations++;
+
+				memoryMutex.unlock();
+
+				return (Types::byte*)header + sizeof(AllocationHeader);
+			}
 
 			if (prev_free_block == nullptr)
 			{
@@ -190,53 +205,60 @@ namespace DeltaEngine {
 			memoryMutex.lock();
 
 			DELTAENGINE_ASSERT(address != nullptr);
-			Types::byte* addr = (Types::byte*)address - sizeof(AllocationHeader);
+			Types::byte* block_start = (Types::byte*)address - sizeof(AllocationHeader);
 
-			AllocationHeader* header = (AllocationHeader*)addr;
+			AllocationHeader* header = (AllocationHeader*)block_start;
 
 			DELTAENGINE_ASSERT((header->flags & AllocationFlags::MAGIC) == AllocationFlags::MAGIC);
 
-			Types::byte* block_start = (Types::byte*)address - sizeof(AllocationHeader);
 			size_t block_size = header->size;
-			Types::byte* block_end = block_start + block_size;
 
-			FreeBlock* prev_free_block = nullptr;
-			FreeBlock* free_block = firstBlock.load();
-
-			while (free_block != nullptr)
+			if ((header->flags & AllocationFlags::ALLOCATION_CUSTOM) == AllocationFlags::ALLOCATION_CUSTOM)
 			{
-				if ((Types::byte*)free_block >= block_end) break;
-
-				prev_free_block = free_block;
-				free_block = free_block->nextBlock;
-			}
-
-			if (prev_free_block == nullptr)
-			{
-				prev_free_block = (FreeBlock*)block_start;
-				prev_free_block->size = block_size;
-				prev_free_block->nextBlock = firstBlock.load();
-
-				firstBlock.store(prev_free_block);
-			}
-			else if ((Types::byte*)prev_free_block + prev_free_block->size == block_start)
-			{
-				prev_free_block->size += block_size;
+				free(header);
 			}
 			else
 			{
-				FreeBlock* temp = (FreeBlock*)block_start;
-				temp->size = block_size;
-				temp->nextBlock = prev_free_block->nextBlock;
-				prev_free_block->nextBlock = temp;
+				Types::byte* block_end = block_start + block_size;
 
-				prev_free_block = temp;
-			}
+				FreeBlock* prev_free_block = nullptr;
+				FreeBlock* free_block = firstBlock.load();
 
-			if (free_block != nullptr && (Types::byte*)free_block == block_end)
-			{
-				prev_free_block->size += free_block->size;
-				prev_free_block->nextBlock = free_block->nextBlock;
+				while (free_block != nullptr)
+				{
+					if ((Types::byte*)free_block >= block_end) break;
+
+					prev_free_block = free_block;
+					free_block = free_block->nextBlock;
+				}
+
+				if (prev_free_block == nullptr)
+				{
+					prev_free_block = (FreeBlock*)block_start;
+					prev_free_block->size = block_size;
+					prev_free_block->nextBlock = firstBlock.load();
+
+					firstBlock.store(prev_free_block);
+				}
+				else if ((Types::byte*)prev_free_block + prev_free_block->size == block_start)
+				{
+					prev_free_block->size += block_size;
+				}
+				else
+				{
+					FreeBlock* temp = (FreeBlock*)block_start;
+					temp->size = block_size;
+					temp->nextBlock = prev_free_block->nextBlock;
+					prev_free_block->nextBlock = temp;
+
+					prev_free_block = temp;
+				}
+
+				if (free_block != nullptr && (Types::byte*)free_block == block_end)
+				{
+					prev_free_block->size += free_block->size;
+					prev_free_block->nextBlock = free_block->nextBlock;
+				}
 			}
 
 			currentMemory -= block_size;

@@ -4,6 +4,7 @@
 #include "internal.h"
 #include "log.h"
 #include "MemoryManager.h"
+#include "maths.h"
 #include "utils.h"
 #include "types.h"
 #include "fileIO.h"
@@ -29,13 +30,16 @@ namespace DeltaEngine {
 		{
 			ALLOCATED			= 1 << 0,
 			RESIZED				= 1 << 1,
-			UNKNOWN_SOURCE		= 1 << 2,
-			KNOWN_SOURCE		= 1 << 3,
-			LARGE_ALLOCATION	= 1 << 4,
-			ALIGNED				= 1 << 5,
-			ARRAY_ALLOCATION	= 1 << 6,
-			// TODO: Add more flags
-			MAGIC				= 0x130A0000
+			ALIGNED				= 1 << 2,
+			UNKNOWN_SOURCE		= 1 << 3,
+			KNOWN_SOURCE		= 1 << 4,
+			ALLOCATION_LARGE	= 1 << 5,
+			ALLOCATION_ARRAY	= 1 << 6,
+			ALLOCATION_CUSTOM	= 1 << 7,
+			ALIGNMENT_4_BYTES	= 1 << 8,
+			ALIGNMENT_8_BYTES	= 1 << 9,
+			ALIGNMENT_CUSTOM	= 1 << 10,
+			MAGIC				= ('D' << 24) | 'E' << 16
 		};
 
 		struct FreeBlock
@@ -89,17 +93,15 @@ namespace DeltaEngine {
 	}
 }
 
-inline void* operator new(size_t size)
+inline void* operator new(size_t size) noexcept
 {
-	if (size > 1024 * 1024 * 1024) DELTAENGINE_FATAL("Invalid allocation size! (> 1 Gb!)");
-
 	size_t flags = Memory::AllocationFlags::UNKNOWN_SOURCE;
 
-	if (size > 1024 * 1024)
+	if (size > MB_IN_BYTES)
 	{
-		float mb = (float)size / (1024 * 1024);
-		DELTAENGINE_ERROR("Large allocation (", Utils::precision_to_string(mb, 3), " Mb) from an unknown source!");
-		flags |= Memory::AllocationFlags::LARGE_ALLOCATION;
+		float mb = (float)size / (MB_IN_BYTES);
+		DELTAENGINE_ERROR("Large allocation (", Utils::precision_to_string(mb, Maths::nlen<float>(mb) + 2), " Mb) from an unknown source!");
+		flags |= Memory::AllocationFlags::ALLOCATION_LARGE;
 	}
 
 	return Memory::MemoryManager::allocate(size, flags);
@@ -107,31 +109,27 @@ inline void* operator new(size_t size)
 
 inline void* operator new(size_t size, const char* file, unsigned int line)
 {
-	if (size > 1024 * 1024 * 1024) DELTAENGINE_FATAL("Invalid allocation size! (> 1 Gb!)");
-
 	size_t flags = Memory::AllocationFlags::KNOWN_SOURCE;
 
-	if (size > 1024 * 1024)
+	if (size > MB_IN_BYTES)
 	{
-		float mb = (float)size / (1024 * 1024);
-		DELTAENGINE_WARN("Large allocation (", Utils::precision_to_string(mb, 3), " Mb) at ", file, ":", line);
-		flags |= Memory::AllocationFlags::LARGE_ALLOCATION;
+		float mb = (float)size / (MB_IN_BYTES);
+		DELTAENGINE_WARN("Large allocation (", Utils::precision_to_string(mb, Maths::nlen<float>(mb) + 2), " Mb) at ", file, ":", line);
+		flags |= Memory::AllocationFlags::ALLOCATION_LARGE;
 	}
 
 	return Memory::MemoryManager::allocate(size, flags);
 }
 
-inline void* operator new[](size_t size)
+inline void* operator new[](size_t size) noexcept
 {
-	if (size > 1024 * 1024 * 1024) DELTAENGINE_FATAL("Invalid allocation size! (> 1 Gb!)");
+	size_t flags = Memory::AllocationFlags::UNKNOWN_SOURCE | Memory::AllocationFlags::ALLOCATION_ARRAY;
 
-	size_t flags = Memory::AllocationFlags::UNKNOWN_SOURCE | Memory::AllocationFlags::ARRAY_ALLOCATION;
-
-	if (size > 1024 * 1024)
+	if (size > MB_IN_BYTES)
 	{
-		float mb = (float)size / (1024 * 1024);
-		DELTAENGINE_ERROR("Large allocation (", Utils::precision_to_string(mb, 3), " Mb) from an unknown source!");
-		flags |= Memory::AllocationFlags::LARGE_ALLOCATION;
+		float mb = (float)size / (MB_IN_BYTES);
+		DELTAENGINE_ERROR("Large allocation (", Utils::precision_to_string(mb, Maths::nlen<float>(mb) + 2), " Mb) from an unknown source!");
+		flags |= Memory::AllocationFlags::ALLOCATION_LARGE;
 	}
 
 	return Memory::MemoryManager::allocate(size, flags);
@@ -139,21 +137,19 @@ inline void* operator new[](size_t size)
 
 inline void* operator new[](size_t size, const char* file, unsigned int line)
 {
-	if (size > 1024 * 1024 * 1024) DELTAENGINE_FATAL("Invalid allocation size! (> 1 Gb!)");
+	size_t flags = Memory::AllocationFlags::KNOWN_SOURCE | Memory::AllocationFlags::ALLOCATION_ARRAY;
 
-	size_t flags = Memory::AllocationFlags::KNOWN_SOURCE | Memory::AllocationFlags::ARRAY_ALLOCATION;
-
-	if (size > 1024 * 1024)
+	if (size > MB_IN_BYTES)
 	{
-		float mb = (float)size / (1024 * 1024);
-		DELTAENGINE_WARN("Large allocation (", Utils::precision_to_string(mb, 3), " Mb) at ", file, ":", line);
-		flags |= Memory::AllocationFlags::LARGE_ALLOCATION;
+		float mb = (float)size / (MB_IN_BYTES);
+		DELTAENGINE_WARN("Large allocation (", Utils::precision_to_string(mb, Maths::nlen<float>(mb) + 2), " Mb) at ", file, ":", line);
+		flags |= Memory::AllocationFlags::ALLOCATION_LARGE;
 	}
 
 	return Memory::MemoryManager::allocate(size, flags);
 }
 
-inline void operator delete(void* block)
+inline void operator delete(void* block) noexcept
 {
 	Memory::MemoryManager::deallocate(block);
 }
@@ -163,7 +159,7 @@ inline void operator delete(void* block, const char* file, unsigned int line)
 	Memory::MemoryManager::deallocate(block);
 }
 
-inline void operator delete[](void* block)
+inline void operator delete[](void* block) noexcept
 {
 	Memory::MemoryManager::deallocate(block);
 }

@@ -11,7 +11,7 @@ namespace DeltaEngine {
 			//prime numbers can only be divided by 1 & themselves
 			if (n <= 1) return false;
 
-			for (uint32 i = 1; i < n; i++)
+			for (uint32 i = 1; i < (sqrt(n) + 1); i++)
 				if ((n % i == 0) && (i != 1)) return false;
 
 			return true;

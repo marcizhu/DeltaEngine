@@ -3,6 +3,7 @@
 #include "maths.h"
 #include "log.h"
 #include "memoryManager.h"
+#include "matrix4.h"
 
 namespace DeltaEngine {
 	namespace Graphics {
@@ -23,13 +24,11 @@ namespace DeltaEngine {
 			glEnableVertexAttribArray(SHADER_UV_INDEX);
 			glEnableVertexAttribArray(SHADER_TID_INDEX);
 			glEnableVertexAttribArray(SHADER_COLOR_INDEX);
-			glEnableVertexAttribArray(4); // rotation angle
 
 			glVertexAttribPointer(SHADER_VERTEX_INDEX, 2, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)0);
 			glVertexAttribPointer(SHADER_UV_INDEX, 2, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(Types::VertexData, VertexData::uv)));
 			glVertexAttribPointer(SHADER_TID_INDEX, 1, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(Types::VertexData, VertexData::tid)));
 			glVertexAttribPointer(SHADER_COLOR_INDEX, 4, GL_UNSIGNED_BYTE, GL_TRUE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(Types::VertexData, VertexData::color)));
-			glVertexAttribPointer(4, 1, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(Types::VertexData, Types::VertexData::angle))); // rotation angle
 
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
 
@@ -118,32 +117,32 @@ namespace DeltaEngine {
 			float ts = 0.0f;
 			if (tid > 0) ts = submitTexture(renderable->getTexture());
 
-			buffer->vertex = position;
+			Maths::Matrix4 mat(1.0f);
+			mat.translate(position.x, position.y, 0.0f);
+			mat.rotate(angle, 0.0f, 0.0f, 1.0f);
+
+			buffer->vertex = mat * Maths::Vector2D(0.0f, 0.0f);
 			buffer->uv = uv[0];
 			buffer->tid = ts;
 			buffer->color = color;
-			buffer->angle = Maths::toRadians(angle);
 			buffer++;
 
-			buffer->vertex = Maths::Vector2D(position.x, position.y + size.y);
+			buffer->vertex = mat * Maths::Vector2D(0.0f, size.y);
 			buffer->uv = uv[1];
 			buffer->tid = ts;
 			buffer->color = color;
-			buffer->angle = Maths::toRadians(angle);
 			buffer++;
 
-			buffer->vertex = Maths::Vector2D(position.x + size.x, position.y + size.y);
+			buffer->vertex = mat * Maths::Vector2D(size.x, size.y);
 			buffer->uv = uv[2];
 			buffer->tid = ts;
 			buffer->color = color;
-			buffer->angle = Maths::toRadians(angle);
 			buffer++;
 
-			buffer->vertex = Maths::Vector2D(position.x + size.x, position.y);
+			buffer->vertex = mat * Maths::Vector2D(size.x, 0.0f);
 			buffer->uv = uv[3];
 			buffer->tid = ts;
 			buffer->color = color;
-			buffer->angle = Maths::toRadians(angle);
 			buffer++;
 
 			indexCount += 6;

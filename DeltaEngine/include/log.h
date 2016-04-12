@@ -150,7 +150,7 @@ namespace DeltaEngine {
 
 			buffer[position] = 0;
 
-			PlatformLogMessage(level, buffer);
+			Platform::PlatformLogMessage(level, buffer);
 		}
 
 	}

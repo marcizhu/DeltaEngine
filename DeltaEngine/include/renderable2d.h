@@ -7,6 +7,8 @@
 #include "texture.h"
 #include "sprite.h"
 
+#include "maths.h"
+
 namespace DeltaEngine {
 	namespace Graphics {
 
@@ -58,7 +60,8 @@ namespace DeltaEngine {
 			inline void setColor(Types::uint32 color) { this->color = color; }
 			inline void setColor(Types::Color& color) { this->color = color.getABGRColor(); };
 
-			inline void move(float dx, float dy) { position.x += dx; position.y += dy; }
+			inline void move(float dx, float dy) { position.x +=  dx; position.y += dy; }
+
 		};
 
 	}

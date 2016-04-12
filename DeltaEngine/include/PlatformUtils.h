@@ -8,9 +8,9 @@
 #include "LogLevels.h"
 
 namespace DeltaEngine {
-	namespace Internal {
+	namespace Platform {
 
-#if defined(_WIN32)
+#if defined(DELTAENGINE_PLATFORM_WINDOWS)
 #	ifdef _WINDOWS_
 #		undef _WINDOWS_
 #	endif

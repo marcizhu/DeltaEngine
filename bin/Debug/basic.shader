@@ -21,6 +21,7 @@ void main()
 		int tid = int(fs_in.tid - 1.0f);
 		texColor = fs_in.color * texture(textures[tid], fs_in.uv);
 	}
+
 	color = texColor;
 }
 
@@ -31,11 +32,10 @@ layout (location = 0) in vec4 position;
 layout (location = 1) in vec2 uv;
 layout (location = 2) in float tid;
 layout (location = 3) in vec4 color;
-layout (location = 4) in float angle;
 
 uniform mat4 pr_matrix;
 uniform mat4 vw_matrix = mat4(1.0);
-//uniform mat4 ml_matrix = mat4(1.0);
+uniform mat4 ml_matrix = mat4(1.0);
 
 out DATA
 {
@@ -45,12 +45,7 @@ out DATA
 } vs_out;
 
 void main()
-{
-	mat4 ml_matrix = mat4(cos(angle), -sin(angle), 0.0, 0.0,
-						  sin(angle),  cos(angle), 0.0, 0.0,
-								 0.0,         0.0, 1.0, 0.0,
-								 0.0,         0.0, 0.0, 1.0);
-											
+{										
 	gl_Position = pr_matrix * vw_matrix * ml_matrix * position;
 	vs_out.uv = uv;
 	vs_out.tid = tid;

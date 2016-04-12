@@ -18,11 +18,11 @@ namespace DeltaEngine {
 			uint64 freq;
 
 		public:
-			Timer() { freq = Internal::getTimerFrequency(); restart(); };
+			Timer() { freq = Platform::getTimerFrequency(); restart(); };
 
-			inline void restart() { begin = Internal::getCurrentCount(); };
+			inline void restart() { begin = Platform::getCurrentCount(); };
 
-			inline float getElapsedTime() const { return (float)(Internal::getCurrentCount() - begin) / freq; };
+			inline float getElapsedTime() const { return (float)(Platform::getCurrentCount() - begin) / freq; };
 			inline bool isOver(float secs) { if (secs >= getElapsedTime()) { restart(); return true; } return false; };
 		};
 

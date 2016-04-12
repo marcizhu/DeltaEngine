@@ -1,9 +1,9 @@
 #pragma once
 
 namespace DeltaEngine {
-	namespace Internal {
+	namespace Platform {
 
-#if defined(_WIN32)
+#if defined(DELTAENGINE_PLATFORM_WINDOWS)
 #include <GLEW\glew.h>
 #include <GLEW\wglew.h>
 

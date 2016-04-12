@@ -3,9 +3,9 @@
 #include "log.h"
 
 namespace DeltaEngine {
-	namespace Internal {
+	namespace Platform {
 
-#if defined(_WIN32) && defined(DELTAENGINE_BUILD)
+#if defined(DELTAENGINE_PLATFORM_WINDOWS) && defined(DELTAENGINE_BUILD)
 #	ifdef _WINDOWS_
 #		undef _WINDOWS_
 #	endif
@@ -50,7 +50,7 @@ namespace DeltaEngine {
 			winClass.hCursor = LoadCursor(NULL, IDC_ARROW);
 			winClass.hIcon = LoadIcon(NULL, IDI_APPLICATION); // TODO: Allow custom icons
 
-			if (!RegisterClassA(&winClass))
+			if (!RegisterClass(&winClass))
 			{
 				DELTAENGINE_ERROR("Could not register Win32 class!");
 				return false;

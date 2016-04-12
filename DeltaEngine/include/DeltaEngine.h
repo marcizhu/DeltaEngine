@@ -49,16 +49,13 @@
 #include "log.h"
 #include "memoryManager.h"
 
-// Platform files
-//#include "PlatformUtils.h"
-
 namespace DeltaEngine {
 
 	inline int init()
 	{
 		if (glewInit() != GLEW_OK) return DELTAENGINE_NOT_INITIALIZED;
 
-		Internal::PlatformSetConsoleColor(0x02);
+		Platform::PlatformSetConsoleColor(0x02);
 
 		std::cout << "          [+]~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[+] " << std::endl;
 		std::cout << "           " << (char)179 << "  ____       _ _        _____             _             " << (char)179 << std::endl;

@@ -12,6 +12,16 @@
 #	endif
 #endif
 
+#if defined(_WIN32)
+#	define DELTAENGINE_PLATFORM_WINDOWS
+#elif defined(__unix__) || defined(__GNUC__) || defined(__GNUG__)
+#	define DELTAENGINE_PLATFORM_LINUX
+#elif defined(__APPLE__)
+#	define DELTAENGINE_PLATFORM_MAC
+#else
+#	define DELTAENGINE_PLATFORM_UNKNOWN
+#endif
+
 #define DELTAENGINE_NOT_INITIALIZED	0
 #define DELTAENGINE_VERSION_0_0_1	1
 #define DELTAENGINE_VERSION_0_1_0	10

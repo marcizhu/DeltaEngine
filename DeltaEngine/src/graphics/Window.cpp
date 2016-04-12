@@ -14,7 +14,7 @@ namespace DeltaEngine {
 		Window::Window(std::string& title, int width, int height, bool fullscreen)
 			: title(title), height(height), width(width), closed(false), vsync(false), mouseGrabbed(false)
 		{
-			if (!Internal::PlatformCreateWindow(this, width, height, title.c_str()))
+			if (!Platform::PlatformCreateWindow(this, width, height, title.c_str()))
 			{
 				DELTAENGINE_FATAL("Failed to create base window!");
 				return;
@@ -37,7 +37,7 @@ namespace DeltaEngine {
 
 		void Window::update() const
 		{
-			Internal::PlatformWindowUpdate(const_cast<Window*>(this));
+			Platform::PlatformWindowUpdate(const_cast<Window*>(this));
 		}
 
 
@@ -123,7 +123,7 @@ namespace DeltaEngine {
 
 		void Window::setVSync(bool enable)
 		{
-			enable ? Internal::PlatformSwapInterval(1) : Internal::PlatformSwapInterval(0); 
+			enable ? Platform::PlatformSwapInterval(1) : Platform::PlatformSwapInterval(0);
 			vsync = enable;
 		}
 	}

@@ -97,6 +97,8 @@ void Sandbox::update()
 
 void Sandbox::render()
 {
+	mainLayer->getRenderables()[0]->rotationAngle += 1.0f;
+
 	mainLayer->render();
 	ui->render();
 

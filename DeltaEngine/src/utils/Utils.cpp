@@ -14,12 +14,12 @@ namespace DeltaEngine {
 
 		Types::timestamp getSystemTime()
 		{
-			return Internal::getSystemTime();
+			return Platform::getSystemTime();
 		}
 
 		Types::timestamp getUTCTime()
 		{
-			return Internal::getUTCTime();
+			return Platform::getUTCTime();
 		}
 
 		Types::time timestampToTime(const Types::timestamp& t)
@@ -58,12 +58,12 @@ namespace DeltaEngine {
 
 		void gotoxy(int x, int y)
 		{
-			Internal::PlatformGotoxy(x, y);
+			Platform::PlatformGotoxy(x, y);
 		}
 
 		void setConsoleColor(int color)
 		{
-			Internal::PlatformSetConsoleColor(color);
+			Platform::PlatformSetConsoleColor(color);
 		}
 
 		string precision_to_string(const float& val, char n)

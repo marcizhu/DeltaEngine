@@ -1,13 +1,14 @@
 #pragma once
 
+#include "internal.h"
 #include "types.h"
 
 using namespace DeltaEngine::Types;
 
 namespace DeltaEngine {
-	namespace Internal {
+	namespace Platform {
 
-#if defined(_WIN32)
+#if defined(DELTAENGINE_PLATFORM_WINDOWS)
 #	ifdef _WINDOWS_
 #		undef _WINDOWS_
 #	endif
@@ -29,7 +30,7 @@ namespace DeltaEngine {
 			return count.QuadPart;
 		}
 
-#elif defined(__unix__) || defined(__GNUC__) || defined(__GNUG__)
+#elif defined(DELTAENGINE_PLATFORM_LINUX)
 #include <unistd.h>
 
 		static __forceinline uint64 rdtsc()
