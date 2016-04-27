@@ -1,0 +1,18 @@
+version: 2.0.{build}
+configuration:
+- Debug
+- Release
+platform: x86
+build:
+  project: DeltaEngine.sln
+  parallel: true
+  verbosity: normal
+notifications:
+- provider: Email
+  to:
+  - marc.izquierdo.hu@gmail.com
+  subject: AppVeyor Build Status
+  message: The build has failed! You should review your changes... :D
+  on_build_success: false
+  on_build_failure: true
+  on_build_status_changed: false
