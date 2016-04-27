@@ -10,6 +10,10 @@
 
 using namespace std;
 
+#define VSYNC_DISABLE		0
+#define VSYNC_ENABLE		1
+#define VSYNC_NON_BLOCKING	2
+
 namespace DeltaEngine {
 	namespace Graphics {
 
@@ -22,7 +26,6 @@ namespace DeltaEngine {
 
 			bool vsync;
 			bool mouseGrabbed;
-			//bool textMode;
 			bool closed;
 
 			unsigned char mouseButtons[MAX_BUTTONS];
@@ -32,6 +35,7 @@ namespace DeltaEngine {
 			float mousePosY;
 			float scrollX;
 			float scrollY;
+			float vsyncTime;
 
 			static std::unordered_map<void*, Window*> handles;
 
@@ -63,8 +67,9 @@ namespace DeltaEngine {
 			DELTAENGINE_API inline void close() { this->closed = true; };
 
 			//vsync functions
-			DELTAENGINE_API inline void setVSync(bool enable);
-			DELTAENGINE_API inline bool IsVSync() const { return vsync; }
+			DELTAENGINE_API inline void setVSync(int mode, int fps = 60);
+			DELTAENGINE_API inline bool isVSync() const { return vsync; }
+			DELTAENGINE_API inline float getVSyncTime() const { return vsyncTime; }
 
 			DELTAENGINE_API void clear() const { glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); };
 			DELTAENGINE_API void clearToColor(float r, float g, float b, float alpha) const;
@@ -76,7 +81,7 @@ namespace DeltaEngine {
 			DELTAENGINE_API inline Maths::Vector2D getMouseScroll() const { return Maths::Vector2D(scrollX, scrollY); }
 			DELTAENGINE_API inline void grabMouse(bool grab);
 			DELTAENGINE_API inline bool isMouseGrabbed() { return mouseGrabbed; };
-			DELTAENGINE_API inline bool isMouseButtonPressed(int button) const { return mouseButtons[button]; };
+			DELTAENGINE_API inline bool isMouseButtonPressed(int button) const { return mouseButtons[button] & 1; };
 
 			//keyboard functions
 			DELTAENGINE_API inline bool isKeyPressed(int key) const { return keys[key] & 1; };

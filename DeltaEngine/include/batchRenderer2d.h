@@ -46,8 +46,8 @@ namespace DeltaEngine {
 			//Maths::Vector2D viewportSize, screenSize;
 			//RenderTarget target;
 
-			float BatchRenderer2D::submitTexture(Types::uint32 textureID);
-			float BatchRenderer2D::submitTexture(const Texture* texture);
+			float submitTexture(Types::uint32 textureID);
+			float submitTexture(const Texture* texture);
 
 		public:
 			DELTAENGINE_API BatchRenderer2D();
@@ -60,7 +60,7 @@ namespace DeltaEngine {
 
 			DELTAENGINE_API void drawString(const std::string& text, const Maths::Vector2D& position, const Font& font, const Types::uint32 color) override;
 			DELTAENGINE_API void drawLine(const Maths::Vector2D& start, const Maths::Vector2D& end, float thickness, unsigned int color) override;
-		
+
 			/*inline void setScreenSize(const Maths::Vector2D& size) { screenSize = size; }
 			inline void setViewportSize(const Maths::Vector2D& size) { viewportSize = size; }
 			inline const Maths::Vector2D& getScreenSize() const { return screenSize; }

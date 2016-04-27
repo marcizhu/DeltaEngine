@@ -113,12 +113,17 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>DELTAENGINE_BUILD;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <EnablePREfast>false</EnablePREfast>
-      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
       <FloatingPointModel>Fast</FloatingPointModel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
-      <MinimalRebuild>false</MinimalRebuild>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MinimalRebuild>true</MinimalRebuild>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <EnableFiberSafeOptimizations />
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -208,6 +213,8 @@
     <ClInclude Include="include\logger.h" />
     <ClInclude Include="include\maths.h" />
     <ClInclude Include="include\matrix4.h" />
+    <ClInclude Include="include\physicsRenderable2D.h" />
+    <ClInclude Include="include\PhysicsRenderer2D.h" />
     <ClInclude Include="include\PlatformWindow.h" />
     <ClInclude Include="include\renderable2d.h" />
     <ClInclude Include="include\renderer2d.h" />
@@ -234,7 +241,13 @@
     <ClInclude Include="include\PlatformTimer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\memory\MemoryManager.cpp" />
+    <ClCompile Include="src\graphics\PhysicsRenderer2D.cpp" />
+    <ClCompile Include="src\memory\MemoryManager.cpp">
+      <WholeProgramOptimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</WholeProgramOptimization>
+      <AssemblerOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </AssemblerOutput>
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)</AssemblerListingLocation>
+    </ClCompile>
     <ClCompile Include="src\sound\Sound.cpp" />
     <ClCompile Include="src\sound\SoundManager.cpp" />
     <ClCompile Include="src\graphics\Framebuffer.cpp" />

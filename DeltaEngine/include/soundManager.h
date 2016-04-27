@@ -14,7 +14,6 @@ namespace DeltaEngine {
 		class SoundManager
 		{
 		private:
-
 			friend class Sound;
 
 			static gau_Manager* manager;
@@ -29,7 +28,7 @@ namespace DeltaEngine {
 			DELTAENGINE_API static Sound* get(const std::string& name);
 			DELTAENGINE_API inline static void update() { gau_manager_update(manager); }
 			DELTAENGINE_API static void clean();
-			DELTAENGINE_API static bool areAllSoundsLoaded();
+			DELTAENGINE_API static bool isReady();
 		};
 
 	}

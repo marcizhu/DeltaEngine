@@ -15,6 +15,7 @@ namespace DeltaEngine {
 		{
 		protected:
 			std::vector<Renderable2D*> renderables;
+			std::vector<Renderable2D*> submitted;
 			Renderer2D* renderer;
 			Shader* shader;
 			Maths::Matrix4 projectionMatrix;
@@ -29,6 +30,8 @@ namespace DeltaEngine {
 			DELTAENGINE_API Layer2D(Renderer2D* renderer, Shader* shader, const Maths::Matrix4& projectionMatrix);
 			DELTAENGINE_API virtual ~Layer2D();
 			DELTAENGINE_API inline virtual void add(Renderable2D* renderable) { renderables.push_back(renderable); };
+			DELTAENGINE_API inline virtual void submit(Renderable2D* renderable) { submitted.push_back(renderable); };
+			DELTAENGINE_API inline virtual void remove(Renderable2D* renderable);
 			DELTAENGINE_API virtual void render();
 
 			DELTAENGINE_API void setCameraPosition(float x, float y);

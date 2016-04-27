@@ -15,6 +15,8 @@
 #include "label.h"
 #include "layer2d.h"
 #include "line.h"
+#include "physicsRenderable2D.h"
+#include "PhysicsRenderer2D.h"
 #include "renderable2d.h"
 #include "renderer2d.h"
 #include "shader.h"
@@ -100,9 +102,10 @@ namespace DeltaEngine {
 		void run()
 		{
 			timer = NEW Utils::Timer();
-			float _timer = 0.0f;
+			float seconds = 0.0f;
 			float updateTimer = 0.0f;
-			float updateTick = 1.0f / 60.0f;
+			float renderTimer = 0.0f;
+			const float updateTick = 1.0f / 60.0f;
 			unsigned int frames = 0;
 			unsigned int updates = 0;
 
@@ -118,18 +121,19 @@ namespace DeltaEngine {
 					updates++;
 					updateTimer += updateTick;
 				}
-				else
+
+				if (timer->getElapsedTime() - renderTimer >= window->getVSyncTime())
 				{
-					DELTAENGINE_INFO("Free time!");
+					render();
+					frames++;
+					window->update();
+
+					renderTimer += window->getVSyncTime();
 				}
 
-				render();
-				frames++;
-				window->update();
-
-				if (timer->getElapsedTime() - _timer >= 1.0f)
+				if (timer->getElapsedTime() - seconds >= 1.0f)
 				{
-					_timer += (timer->getElapsedTime() - _timer);
+					seconds += (timer->getElapsedTime() - seconds);
 					fps = frames;
 					ups = updates;
 					frames = 0;

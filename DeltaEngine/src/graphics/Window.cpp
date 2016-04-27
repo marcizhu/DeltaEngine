@@ -12,7 +12,7 @@ namespace DeltaEngine {
 
 		//Creates a window
 		Window::Window(std::string& title, int width, int height, bool fullscreen)
-			: title(title), height(height), width(width), closed(false), vsync(false), mouseGrabbed(false)
+			: title(title), height(height), width(width), closed(false), vsync(false), mouseGrabbed(false), vsyncTime(0.0f)
 		{
 			if (!Platform::PlatformCreateWindow(this, width, height, title.c_str()))
 			{
@@ -74,7 +74,7 @@ namespace DeltaEngine {
 		void Window::keyCallback(Window* window, int flags, int key, unsigned int message)
  		{
  			bool pressed = message == WM_KEYDOWN || message == WM_SYSKEYDOWN;
- 			bool repeat = (flags >> 30) & 1;
+			bool repeat = window->keys[key] & 1;
 
  			Types::byte modifier = 0;
  			switch (key)
@@ -100,12 +100,7 @@ namespace DeltaEngine {
  			if (pressed)
 				window->keys[key] |= modifier;
  			else
-				window->keys[key] &= ~(modifier);
-
- 			/*if (pressed)
- 				inputManager->m_EventCallback(KeyPressedEvent(key, repeat, inputManager->m_KeyModifiers));
- 			else
- 				inputManager->m_EventCallback(KeyReleasedEvent(key));*/
+				window->keys[key] = 0;
 		}
 
 
@@ -121,10 +116,29 @@ namespace DeltaEngine {
 			return handles[handle];
 		}
 
-		void Window::setVSync(bool enable)
+		void Window::setVSync(int mode, int fps)
 		{
-			enable ? Platform::PlatformSwapInterval(1) : Platform::PlatformSwapInterval(0);
-			vsync = enable;
+			switch (mode)
+			{
+			case VSYNC_ENABLE:
+				Platform::PlatformSwapInterval(1);
+				vsyncTime = 0.0f;
+				break;
+
+			case VSYNC_DISABLE:
+				Platform::PlatformSwapInterval(0);
+				vsyncTime = 0.0f;
+				break;
+
+			case VSYNC_NON_BLOCKING:
+				Platform::PlatformSwapInterval(0);
+				vsyncTime = (float)1.0 / fps;
+				break;
+
+			default:
+				__debugbreak();
+				break;
+			}
 		}
 	}
 }

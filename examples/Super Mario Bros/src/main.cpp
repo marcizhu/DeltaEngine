@@ -4,7 +4,9 @@
 
 int main(int argc, char* argv[])
 {
-	Application game(argc, argv);
+	Memory::MemoryManager::start();
+
+	Application game;
 	game.start();
 	return 0;
 }

@@ -36,6 +36,7 @@ void Sandbox::init()
 	mainLayer = NEW Graphics::Layer2D(NEW Graphics::BatchRenderer2D(), shader, pr_matrix);
 	mainLayer->add(NEW Graphics::BatchRenderable2D(1.0f, 1.0f, 1, 1, Graphics::TextureManager::get("Mario")));
 
+#ifdef DELTAENGINE_DEBUG
 	mainLayer->add(NEW Graphics::Line(0.0f, 0.0f, 20.0f, 0.0f, 16.0f / 960.0f, 0xFF0000FF));
 	mainLayer->add(NEW Graphics::Line(0.0f, 0.0f, 0.0f, 20.0f, 16.0f / 960.0f, 0xFF0000FF));
 
@@ -48,6 +49,7 @@ void Sandbox::init()
 	{
 		mainLayer->add(NEW Graphics::Line(x, 0.0f, x, 20.0f, 16.0f / 960.0f, 0x3FFFFFFF));
 	}
+#endif
 
 	Graphics::FontManager::add(NEW Graphics::Font("OpenSans", "OpenSans-Light.ttf", 24));
 	Graphics::FontManager::add(NEW Graphics::Font("Consolas", "consola.ttf", 18));
@@ -80,7 +82,7 @@ void Sandbox::init()
 	uiShader->enable();
 	uiShader->setUniform1iv("textures", texIDs, 32);
 
-	window->setVSync(true);
+	window->setVSync(VSYNC_NON_BLOCKING);
 }
 
 void Sandbox::update()
@@ -94,8 +96,8 @@ void Sandbox::update()
 	if (window->isKeyPressed(KB_KEY_DOWN )) (*mainLayer)[0]->move( 0.0f, -0.1f); // Down arrow
 	if (window->isKeyPressed(KB_KEY_UP   )) (*mainLayer)[0]->move( 0.0f,  0.1f); // Up arrow
 
-	if (window->isKeyPressed(KB_KEY_RIGHT)) (*mainLayer)[0]->rotate( 1.0f);
-	if (window->isKeyPressed(KB_KEY_LEFT )) (*mainLayer)[0]->rotate(-1.0f);
+	//if (window->isKeyPressed(KB_KEY_RIGHT)) (*mainLayer)[0]->rotate(-2.0f);
+	//if (window->isKeyPressed(KB_KEY_LEFT )) (*mainLayer)[0]->rotate( 2.0f);
 }
 
 void Sandbox::render()

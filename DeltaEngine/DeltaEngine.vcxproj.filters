@@ -192,6 +192,12 @@
     <ClInclude Include="include\PlatformTimer.h">
       <Filter>Archivos de encabezado\DeltaEngine\Platform</Filter>
     </ClInclude>
+    <ClInclude Include="include\physicsRenderable2D.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PhysicsRenderer2D.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\utils\Debug.cpp">
@@ -268,6 +274,9 @@
     </ClCompile>
     <ClCompile Include="src\sound\SoundManager.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\PhysicsRenderer2D.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

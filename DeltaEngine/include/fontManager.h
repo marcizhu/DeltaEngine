@@ -21,7 +21,7 @@ namespace DeltaEngine {
 			DELTAENGINE_API static void clean();
 
 			DELTAENGINE_API static void setScale(float x, float y);
-			DELTAENGINE_API static void setScale(Maths::Vector2D& scale);
+			DELTAENGINE_API static void setScale(const Maths::Vector2D& scale);
 		};
 
 	}

@@ -30,8 +30,6 @@ namespace DeltaEngine {
 			glVertexAttribPointer(SHADER_TID_INDEX, 1, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(Types::VertexData, VertexData::tid)));
 			glVertexAttribPointer(SHADER_COLOR_INDEX, 4, GL_UNSIGNED_BYTE, GL_TRUE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(Types::VertexData, VertexData::color)));
 
-			glBindBuffer(GL_ARRAY_BUFFER, 0);
-
 			GLuint* indices = NEW GLuint[RENDERER_INDICES_SIZE];
 
 			for (int i = 0; i < RENDERER_INDICES_SIZE; i += 6)
@@ -50,8 +48,6 @@ namespace DeltaEngine {
 			indexBuffer = NEW IndexBuffer(indices, RENDERER_INDICES_SIZE);
 
 			delete indices;
-
-			glBindVertexArray(0);
 		}
 
 		BatchRenderer2D::~BatchRenderer2D()
@@ -71,7 +67,7 @@ namespace DeltaEngine {
 		{
 			if (!textureID)	DELTAENGINE_ERROR("[BatRend] Invalid texture ID!");
 
-			float result = 0.0f;
+			float result = 0;
 			bool found = false;
 			for (Types::uint32 i = 0; i < textureSlots.size(); i++)
 			{
@@ -87,6 +83,7 @@ namespace DeltaEngine {
 			{
 				if (textureSlots.size() >= RENDERER_MAX_TEXTURES)
 				{
+					DELTAENGINE_WARN("[BatRend] All the texture slots are in use! Flushing...");
 					end();
 					flush();
 					begin();
@@ -115,32 +112,26 @@ namespace DeltaEngine {
 			float ts = 0.0f;
 			if (tid > 0) ts = submitTexture(renderable->getTexture());
 
-			Maths::Matrix4 mat(1.0f);
-			mat.translate(position.x + size.x / 2, position.y + size.y / 2, 0.0f);
-			mat.rotate(renderable->getRotation(), 0.0f, 0.0f, 1.0f);
-
-			const float hSizeX = size.x / 2;
-			const float hSizeY = size.y / 2;
-
-			buffer->vertex = mat * Maths::Vector2D(-hSizeX, -hSizeY);
+			buffer->vertex = position;
 			buffer->uv = uv[0];
 			buffer->tid = ts;
 			buffer->color = color;
 			buffer++;
 
-			buffer->vertex = mat * Maths::Vector2D(-hSizeX, hSizeY);
+			buffer->vertex = Maths::Vector2D(position.x, position.y + size.y);
 			buffer->uv = uv[1];
 			buffer->tid = ts;
 			buffer->color = color;
 			buffer++;
 
-			buffer->vertex = mat * Maths::Vector2D(hSizeX, hSizeY);
+			buffer->vertex = Maths::Vector2D(position.x + size.x, position.y + size.y);
+
 			buffer->uv = uv[2];
 			buffer->tid = ts;
 			buffer->color = color;
 			buffer++;
 
-			buffer->vertex = mat * Maths::Vector2D(hSizeX, -hSizeY);
+			buffer->vertex = Maths::Vector2D(position.x + size.x, position.y);
 			buffer->uv = uv[3];
 			buffer->tid = ts;
 			buffer->color = color;

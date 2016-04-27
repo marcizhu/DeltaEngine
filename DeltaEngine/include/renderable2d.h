@@ -26,14 +26,12 @@ namespace DeltaEngine {
 			}
 
 		protected:
-			float rotationAngle = 0.0f;
 			Maths::Vector2D position;
 			Maths::Vector2D size;
 			Types::uint32 color;
 			std::vector<Maths::Vector2D> UV;
 			Texture* texture;
 			Sprite sprites;
-
 
 			Renderable2D() : texture(nullptr) { setUVDefaults(); }
 
@@ -52,16 +50,12 @@ namespace DeltaEngine {
 			inline const GLuint getTextureID() const { return sprites.getTextureCount() ? sprites.getCurrentTexture()->getID() : texture ? texture->getID() : 0; }
 			inline Sprite& getSprite() { return sprites; }
 			inline const Texture* getTexture() const { return sprites.getTextureCount() ? sprites.getCurrentTexture() : texture ? texture : nullptr; }
-			inline float getRotation() const { return rotationAngle; }
 
 			inline void setPosition(float x, float y) { position.x = x; position.y = y; }
 			inline void setSize(Maths::Vector2D& size) { this->size = size; }
 			inline void setSize(float x, float y) { size.x = x; size.y = y; }
 			inline void setColor(Types::uint32 color) { this->color = color; }
 			inline void setColor(Types::Color& color) { this->color = color.getABGRColor(); };
-			inline void setRotation(float degrees) { rotationAngle = degrees; }
-
-			inline void rotate(float degrees) { rotationAngle += degrees; }
 
 			inline void move(float dx, float dy) { position.x +=  dx; position.y += dy; }
 		};

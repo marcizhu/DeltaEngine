@@ -33,6 +33,11 @@ namespace DeltaEngine {
 			for (const Renderable2D* renderable : renderables)
 				renderable->submit(renderer);
 
+			for (const Renderable2D* renderable : submitted)
+				renderable->submit(renderer);
+
+			submitted.clear();
+
 			renderer->end();
 			renderer->flush();
 		}
@@ -68,6 +73,18 @@ namespace DeltaEngine {
 
 			setViewMatrix();
 		};
+
+		void Layer2D::remove(Renderable2D* renderable)
+		{
+			for (uint32 i = 0; i < renderables.size(); i++)
+			{
+				if (renderables[i] == renderable)
+				{
+					renderables.erase(renderables.begin() + i);
+					break;
+				}
+			}
+		}
 
 	}
 }

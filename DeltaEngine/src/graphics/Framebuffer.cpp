@@ -38,7 +38,7 @@ namespace DeltaEngine {
 
 		void Framebuffer::clear()
 		{
-			glClearColor(clearColor.A, clearColor.B, clearColor.G, clearColor.R);
+			glClearColor(clearColor.A / 255.0f, clearColor.B / 255.0f, clearColor.G / 255.0f, clearColor.R / 255.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		}
 

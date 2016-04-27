@@ -1,4 +1,7 @@
 #pragma once
+
+#pragma warning(disable:4595)
+
 #include <atomic>
 
 #include "internal.h"
@@ -95,7 +98,7 @@ namespace DeltaEngine {
 	}
 }
 
-inline void* operator new(size_t size) noexcept
+inline void* operator new(size_t size)
 {
 	size_t flags = Memory::AllocationFlags::UNKNOWN_SOURCE;
 
@@ -123,7 +126,7 @@ inline void* operator new(size_t size, const char* file, unsigned int line)
 	return Memory::MemoryManager::allocate(size, flags);
 }
 
-inline void* operator new[](size_t size) noexcept
+inline void* operator new[](size_t size)
 {
 	size_t flags = Memory::AllocationFlags::UNKNOWN_SOURCE | Memory::AllocationFlags::ALLOCATION_ARRAY;
 
@@ -151,7 +154,7 @@ inline void* operator new[](size_t size, const char* file, unsigned int line)
 	return Memory::MemoryManager::allocate(size, flags);
 }
 
-inline void operator delete(void* block) noexcept
+inline void operator delete(void* block)
 {
 	Memory::MemoryManager::deallocate(block);
 }
@@ -161,7 +164,7 @@ inline void operator delete(void* block, const char* file, unsigned int line)
 	Memory::MemoryManager::deallocate(block);
 }
 
-inline void operator delete[](void* block) noexcept
+inline void operator delete[](void* block)
 {
 	Memory::MemoryManager::deallocate(block);
 }

@@ -42,7 +42,7 @@ namespace DeltaEngine {
 				font->setScale(x, y);
 		}
 
-		void FontManager::setScale(Maths::Vector2D& scale)
+		void FontManager::setScale(const Maths::Vector2D& scale)
 		{
 			for (Font* font : fonts)
 				font->setScale(scale);
