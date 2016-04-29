@@ -30,6 +30,7 @@
 #include "logger.h"
 
 // Math-related files
+#include "aabb.h"
 #include "maths.h"
 #include "matrix4.h"
 #include "vector2d.h"

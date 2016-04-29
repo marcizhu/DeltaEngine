@@ -1,6 +1,7 @@
 #pragma once
 
 #include "renderable2d.h"
+#include "aabb.h"
 
 namespace DeltaEngine {
 	namespace Graphics {
@@ -11,22 +12,23 @@ namespace DeltaEngine {
 			float rotationAngle; // in degrees!
 			Maths::Vector2D acceleration; // in units per second every second (u / s^2)
 			Maths::Vector2D velocity; // in units per second (u / s)
+			Maths::AABB2D aabb;
 
 		public:
 			PhysicsRenderable2D(float x, float y, float width, float height, Types::Color color)
-				: Renderable2D(Maths::Vector2D(x, y), Maths::Vector2D(width, height), color)
+				: Renderable2D(Maths::Vector2D(x, y), Maths::Vector2D(width, height), color), aabb(position, position + size)
 			{ this->texture = nullptr; rotationAngle = 0.0f; acceleration = velocity = Maths::Vector2D(0, 0); };
 
 			PhysicsRenderable2D(float x, float y, float width, float height, Types::uint32 color)
-				: Renderable2D(Maths::Vector2D(x, y), Maths::Vector2D(width, height), color)
+				: Renderable2D(Maths::Vector2D(x, y), Maths::Vector2D(width, height), color), aabb(position, position + size)
 			{ this->texture = nullptr; rotationAngle = 0.0f; acceleration = velocity = Maths::Vector2D(0, 0); };
 
 			PhysicsRenderable2D(float x, float y, float width, float height, Texture* texture)
-				: Renderable2D(Maths::Vector2D(x, y), Maths::Vector2D(width, height), 0xffffffff)
+				: Renderable2D(Maths::Vector2D(x, y), Maths::Vector2D(width, height), 0xffffffff), aabb(position, position + size)
 			{ this->texture = texture; rotationAngle = 0.0f; acceleration = velocity = Maths::Vector2D(0, 0); }
 
 			PhysicsRenderable2D(float x, float y, float width, float height, Sprite sprite)
-				: Renderable2D(Maths::Vector2D(x, y), Maths::Vector2D(width, height), Types::Color(255, 255, 255, 255))
+				: Renderable2D(Maths::Vector2D(x, y), Maths::Vector2D(width, height), 0xffffffff), aabb(position, position + size)
 			{ this->texture = nullptr; rotationAngle = 0.0f; acceleration = velocity = Maths::Vector2D(0, 0); }
 
 			void update(float dt)
@@ -34,8 +36,10 @@ namespace DeltaEngine {
 				velocity.x += acceleration.x * dt;
 				velocity.y += acceleration.y * dt;
 
-				position.x += velocity.x * dt + (acceleration.x * dt * dt / 2);
-				position.y += velocity.y * dt + (acceleration.y * dt * dt / 2);
+				position.x += velocity.x * dt + (acceleration.x * dt * dt / 2.0f);
+				position.y += velocity.y * dt + (acceleration.y * dt * dt / 2.0f);
+
+				aabb = Maths::AABB2D(position, position + size);
 			}
 
 			inline float getRotation() const { return rotationAngle; }

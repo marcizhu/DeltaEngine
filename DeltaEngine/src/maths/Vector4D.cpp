@@ -83,6 +83,43 @@ namespace DeltaEngine {
 			return left;
 		}
 
+		Vector4D operator+(Vector4D left, const float right)
+		{
+			left.x += right;
+			left.y += right;
+			left.z += right;
+			left.w += right;
+			return left;
+		}
+
+		Vector4D operator-(Vector4D left, const float right)
+		{
+			left.x -= right;
+			left.y -= right;
+			left.z -= right;
+			left.w -= right;
+			return left;
+
+		}
+
+		Vector4D operator*(Vector4D left, const float right)
+		{
+			left.x *= right;
+			left.y *= right;
+			left.z *= right;
+			left.w *= right;
+			return left;
+		}
+
+		Vector4D operator/(Vector4D left, const float right)
+		{
+			left.x /= right;
+			left.y /= right;
+			left.z /= right;
+			left.w /= right;
+			return left;
+		}
+
 		std::ostream & operator<<(std::ostream& stream, const Vector4D& vector)
 		{
 			stream << "Vector4D: (" << vector.x << ", " << vector.y << ", " << vector.z << ", " << vector.w << ")";

@@ -29,8 +29,8 @@ namespace DeltaEngine {
 		public:
 			DELTAENGINE_API Layer2D(Renderer2D* renderer, Shader* shader, const Maths::Matrix4& projectionMatrix);
 			DELTAENGINE_API virtual ~Layer2D();
-			DELTAENGINE_API inline virtual void add(Renderable2D* renderable) { renderables.push_back(renderable); };
-			DELTAENGINE_API inline virtual void submit(Renderable2D* renderable) { submitted.push_back(renderable); };
+			DELTAENGINE_API inline virtual Renderable2D* add(Renderable2D* renderable) { renderables.push_back(renderable); return renderable; };
+			DELTAENGINE_API inline virtual Renderable2D* submit(Renderable2D* renderable) { submitted.push_back(renderable); return renderable; };
 			DELTAENGINE_API inline virtual void remove(Renderable2D* renderable);
 			DELTAENGINE_API virtual void render();
 

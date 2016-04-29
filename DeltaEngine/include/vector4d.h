@@ -20,13 +20,22 @@ namespace DeltaEngine {
 			DELTAENGINE_API friend Vector4D operator*(Vector4D left, const Vector4D& right);
 			DELTAENGINE_API friend Vector4D operator/(Vector4D left, const Vector4D& right);
 
+			DELTAENGINE_API friend Vector4D operator+(Vector4D left, const float right);
+			DELTAENGINE_API friend Vector4D operator-(Vector4D left, const float right);
+			DELTAENGINE_API friend Vector4D operator*(Vector4D left, const float right);
+			DELTAENGINE_API friend Vector4D operator/(Vector4D left, const float right);
+
 			DELTAENGINE_API Vector4D& operator+=(const Vector4D& other);
 			DELTAENGINE_API Vector4D& operator-=(const Vector4D& other);
 			DELTAENGINE_API Vector4D& operator*=(const Vector4D& other);
 			DELTAENGINE_API Vector4D& operator/=(const Vector4D& other);
 
-			DELTAENGINE_API bool operator==(const Vector4D& other) { return x == other.x && y == other.y && z == other.z && w == other.w; };
-			DELTAENGINE_API bool Vector4D::operator!=(const Vector4D& other) { return !(*this == other); }
+			DELTAENGINE_API inline bool operator==(const Vector4D& other) const { return x == other.x && y == other.y && z == other.z && w == other.w; };
+			DELTAENGINE_API inline bool operator!=(const Vector4D& other) const { return !(*this == other); }
+			DELTAENGINE_API inline bool operator>=(const Vector4D& other) const { return x >= other.x && y >= other.y && z >= other.z && w >= other.w; }
+			DELTAENGINE_API inline bool operator<=(const Vector4D& other) const { return x <= other.x && y <= other.y && z <= other.z && w <= other.w; }
+			DELTAENGINE_API inline bool operator>(const Vector4D& other) const { return x > other.x && y > other.y && z > other.z && w > other.w; }
+			DELTAENGINE_API inline bool operator<(const Vector4D& other) const { return x < other.x && y < other.y && z < other.z && w < other.w; }
 
 			DELTAENGINE_API friend std::ostream& operator<<(std::ostream& stream, const Vector4D& vector);
 		};

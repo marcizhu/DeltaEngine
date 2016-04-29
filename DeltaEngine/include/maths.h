@@ -5,6 +5,11 @@
 #include "internal.h"
 #include "types.h"
 
+#if defined(min) || defined(max)
+#	undef min
+#	undef max
+#endif
+
 const double PI = 3.14159265358979323846;
 const double PHI = (sqrt(5) + 1) / 2; //Golden ratio
 
@@ -36,6 +41,12 @@ namespace DeltaEngine {
 
 		template<typename T>
 		inline uint32 nlen(T n) { return (uint32)(log10(n) + 1); }
+
+		template<typename T>
+		inline T min(T first, T second) { return first > second ? second : first; }
+
+		template<typename T>
+		inline T max(T first, T second) { return first > second ? first : second; }
 
 		DELTAENGINE_API inline double nlog(uint32 base, double value);
 

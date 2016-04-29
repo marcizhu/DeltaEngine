@@ -76,14 +76,18 @@ namespace DeltaEngine {
 
 		void Layer2D::remove(Renderable2D* renderable)
 		{
-			for (uint32 i = 0; i < renderables.size(); i++)
+			const auto& it = std::find(renderables.begin(), renderables.end(), renderable);
+
+			if(it != renderables.end()) renderables.erase(it);
+
+			/*for (uint32 i = 0; i < renderables.size(); i++)
 			{
 				if (renderables[i] == renderable)
 				{
 					renderables.erase(renderables.begin() + i);
 					break;
 				}
-			}
+			}*/
 		}
 
 	}

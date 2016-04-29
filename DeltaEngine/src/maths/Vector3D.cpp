@@ -74,6 +74,38 @@ namespace DeltaEngine {
 			return left;
 		}
 
+		Vector3D operator+(Vector3D left, const float right)
+		{
+			left.x += right;
+			left.y += right;
+			left.z += right;
+			return left;
+		}
+
+		Vector3D operator-(Vector3D left, const float right)
+		{
+			left.x -= right;
+			left.y -= right;
+			left.z -= right;
+			return left;
+		}
+
+		Vector3D operator*(Vector3D left, const float right)
+		{
+			left.x *= right;
+			left.y *= right;
+			left.z *= right;
+			return left;
+		}
+
+		Vector3D operator/(Vector3D left, const float right)
+		{
+			left.x /= right;
+			left.y /= right;
+			left.z /= right;
+			return left;
+		}
+
 		std::ostream & operator<<(std::ostream& stream, const Vector3D& vector)
 		{
 			stream << "Vector3D: (" << vector.x << ", " << vector.y << ", " << vector.z << ")";
