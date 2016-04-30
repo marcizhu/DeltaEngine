@@ -1,5 +1,4 @@
-# DeltaEngine [![Build status](https://ci.appveyor.com/api/projects/status/tfy6fqdgsltppda6?svg=true)](https://ci.appveyor.com/project/marcizhu/deltaengine)
-
+# DeltaEngine [![Build status](https://ci.appveyor.com/api/projects/status/d5sy40gk91xd4qgk?svg=true&passingText=Build%20passed&failingText=Build%20failed)](https://ci.appveyor.com/project/marcizhu/deltaengine-qk4sb)
 A 2D/3D Game Engine written in C++! (in development)
 
 ## Download
