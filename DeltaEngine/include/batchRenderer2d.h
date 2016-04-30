@@ -54,7 +54,7 @@ namespace DeltaEngine {
 			DELTAENGINE_API ~BatchRenderer2D();
 
 			DELTAENGINE_API void begin() override;
-			DELTAENGINE_API void submit(const Renderable2D* renderable) override;
+			DELTAENGINE_API void submit(const Renderable2D* renderable, bool stransformationStack = false) override;
 			DELTAENGINE_API void end() override;
 			DELTAENGINE_API void flush() override;
 

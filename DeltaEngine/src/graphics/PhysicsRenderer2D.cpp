@@ -102,7 +102,7 @@ namespace DeltaEngine {
 			return submitTexture(texture->getID());
 		}
 
-		void PhysicsRenderer2D::submit(const Renderable2D* renderable)
+		void PhysicsRenderer2D::submit(const Renderable2D* renderable, bool transformationStack)
 		{
 			const PhysicsRenderable2D* object = dynamic_cast<PhysicsRenderable2D*>(const_cast<Renderable2D*>(renderable));
 
@@ -117,7 +117,17 @@ namespace DeltaEngine {
 			float ts = 0.0f;
 			if (tid > 0) ts = submitTexture(object->getTexture());
 
-			Maths::Matrix4 mat(1.0f);
+			Maths::Matrix4 mat;
+
+			if (transformationStack)
+			{
+				mat = *transformationStackTop;
+			}
+			else
+			{
+				mat = Maths::Matrix4(1.0f);
+			}
+
 			mat.translate(position.x + size.x / 2, position.y + size.y / 2, 0.0f);
 			mat.rotate(object->getRotation(), 0.0f, 0.0f, 1.0f);
 

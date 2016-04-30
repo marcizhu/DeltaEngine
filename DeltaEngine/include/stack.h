@@ -12,18 +12,18 @@ namespace DeltaEngine {
 		template<typename T>
 		class Stack {
 		private:
-			list<T> data;
+			std::list<T> data;
 
 		public:
-			void push(const T& val) { data.push_front(val); };
-			void pop() { if (!data.empty()) data.pop_front(); };
+			void push(const T& val) { data.push_back(val); };
+			void pop() { if (!data.empty()) data.pop_back(); };
 
-			const T& front() const { return data.front(); };
-			const T& back() const { return data.back(); };
+			const T& top() const { return data.back(); };
+			const T& base() const { return data.front(); };
 
 			uint32 size() const { return data.size(); };
 
-			const list<T> getStack() const { return this->data; };
+			const std::list<T> getStack() const { return this->data; };
 
 			const T& operator[](uint32 idx) const { return data[idx]; };
 			const void operator=(const Stack& other) const { data = other.getStack(); };

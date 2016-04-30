@@ -101,7 +101,7 @@ namespace DeltaEngine {
 			return submitTexture(texture->getID());
 		}
 
-		void BatchRenderer2D::submit(const Renderable2D* renderable)
+		void BatchRenderer2D::submit(const Renderable2D* renderable, bool transformationStack)
 		{
 			const Types::uint32& color = renderable->getColor();
 			const Maths::Vector2D& position = renderable->getPosition();
@@ -112,30 +112,60 @@ namespace DeltaEngine {
 			float ts = 0.0f;
 			if (tid > 0) ts = submitTexture(renderable->getTexture());
 
-			buffer->vertex = position;
-			buffer->uv = uv[0];
-			buffer->tid = ts;
-			buffer->color = color;
-			buffer++;
+			if (!transformationStack)
+			{
+				buffer->vertex = position;
+				buffer->uv = uv[0];
+				buffer->tid = ts;
+				buffer->color = color;
+				buffer++;
 
-			buffer->vertex = Maths::Vector2D(position.x, position.y + size.y);
-			buffer->uv = uv[1];
-			buffer->tid = ts;
-			buffer->color = color;
-			buffer++;
+				buffer->vertex = Maths::Vector2D(position.x, position.y + size.y);
+				buffer->uv = uv[1];
+				buffer->tid = ts;
+				buffer->color = color;
+				buffer++;
 
-			buffer->vertex = Maths::Vector2D(position.x + size.x, position.y + size.y);
+				buffer->vertex = Maths::Vector2D(position.x + size.x, position.y + size.y);
 
-			buffer->uv = uv[2];
-			buffer->tid = ts;
-			buffer->color = color;
-			buffer++;
+				buffer->uv = uv[2];
+				buffer->tid = ts;
+				buffer->color = color;
+				buffer++;
 
-			buffer->vertex = Maths::Vector2D(position.x + size.x, position.y);
-			buffer->uv = uv[3];
-			buffer->tid = ts;
-			buffer->color = color;
-			buffer++;
+				buffer->vertex = Maths::Vector2D(position.x + size.x, position.y);
+				buffer->uv = uv[3];
+				buffer->tid = ts;
+				buffer->color = color;
+				buffer++;
+			}
+			else
+			{
+				buffer->vertex = *transformationStackTop * position;
+				buffer->uv = uv[0];
+				buffer->tid = ts;
+				buffer->color = color;
+				buffer++;
+
+				buffer->vertex = *transformationStackTop * Maths::Vector2D(position.x, position.y + size.y);
+				buffer->uv = uv[1];
+				buffer->tid = ts;
+				buffer->color = color;
+				buffer++;
+
+				buffer->vertex = *transformationStackTop * Maths::Vector2D(position.x + size.x, position.y + size.y);
+
+				buffer->uv = uv[2];
+				buffer->tid = ts;
+				buffer->color = color;
+				buffer++;
+
+				buffer->vertex = *transformationStackTop * Maths::Vector2D(position.x + size.x, position.y);
+				buffer->uv = uv[3];
+				buffer->tid = ts;
+				buffer->color = color;
+				buffer++;
+			}
 
 			indexCount += 6;
 		}
