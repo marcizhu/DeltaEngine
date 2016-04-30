@@ -37,8 +37,8 @@ namespace DeltaEngine {
 				velocity += acceleration * dt;
 
 				// tunneling
-				if((velocity.x * dt) >= size.x) DELTAENGINE_WARN("[Physics] Horizontal speed is too fast! (", velocity.x * dt,")");
-				if((velocity.y * dt) >= size.y) DELTAENGINE_WARN("[Physics] Vertical speed is too fast! (", velocity.y * dt, ")");
+				if(abs(velocity.x * dt) >= size.x) DELTAENGINE_WARN("[Physics] Horizontal speed is too fast! (", velocity.x * dt,")");
+				if(abs(velocity.y * dt) >= size.y) DELTAENGINE_WARN("[Physics] Vertical speed is too fast! (", velocity.y * dt, ")");
 
 				position += velocity * dt + (acceleration * dt * dt / 2.0f);
 
