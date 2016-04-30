@@ -12,65 +12,7 @@
 namespace DeltaEngine {
 	namespace Maths {
 
-		AABB2D::AABB2D(const Vector2D& min, const Vector2D& max)
-		{
-			this->min.x = Maths::min<float>(min.x, max.x);
-			this->min.y = Maths::min<float>(min.y, max.y);
-
-			this->max.x = Maths::max<float>(min.x, max.x);
-			this->max.y = Maths::max<float>(min.y, max.y);
-
-			DELTAENGINE_ASSERT(this->min < this->max);
-		}
-
-		bool AABB2D::contains(const Vector2D& point) const
-		{
-			return (point >= min && point <= max);
-		}
-
-		bool AABB2D::intersects(const AABB2D& other) const
-		{
-			return (max > other.min && min < other.max); //|| (min > other.max && max < other.min);
-		}
-
-		const Vector2D AABB2D::getCenter() const
-		{
-			return min + (max - min) / 2.0f;
-		}
-
-		bool AABB2D::operator==(const AABB2D& other) const
-		{
-			return (min == other.min && max == other.max);
-		}
-
-		bool AABB2D::operator!=(const AABB2D& other) const
-		{
-			return !(*this == other);
-		}
-
-		bool AABB2D::operator<=(const AABB2D& other) const
-		{
-			return (max < other.min);
-		}
-
-		bool AABB2D::operator>=(const AABB2D& other) const
-		{
-			return (min > other.max);
-		}
-
-		bool AABB2D::operator<(const AABB2D& other) const
-		{
-			return (max < other.min);
-		}
-
-		bool AABB2D::operator>(const AABB2D& other) const
-		{
-			return (min > other.max);
-		}
-
-		// AABB3D -> 3D Vectors:
-
-		AABB3D::AABB3D(const Vector3D& min, const Vector3D& max)
+		AABB::AABB(const Vector3D& min, const Vector3D& max)
 		{
 			this->min.x = Maths::min<float>(min.x, max.x);
 			this->min.y = Maths::min<float>(min.y, max.y);
@@ -83,47 +25,65 @@ namespace DeltaEngine {
 			DELTAENGINE_ASSERT(this->min < this->max);
 		}
 
-		bool AABB3D::contains(const Vector3D& point) const
+		AABB::AABB(const Vector2D& min, const Vector2D& max)
+		{
+			this->min.x = Maths::min<float>(min.x, max.x);
+			this->min.y = Maths::min<float>(min.y, max.y);
+			this->min.z = 0.0f;
+
+			this->max.x = Maths::max<float>(min.x, max.x);
+			this->max.y = Maths::max<float>(min.y, max.y);
+			this->max.z = 0.0f;
+
+			DELTAENGINE_ASSERT(this->min <= this->max); // We need the '=' because min.z == max.z
+		}
+
+		bool AABB::contains(const Vector3D& point) const
 		{
 			return (point >= min && point <= max);
 		}
 
-		bool AABB3D::intersects(const AABB3D& other) const
+		bool AABB::contains(const Vector2D& point) const
+		{
+			return (point.x >= min.x && point.y >= min.y && point.x <= max.x && point.y <= max.y);
+		}
+
+		bool AABB::intersects(const AABB& other) const
 		{
 			return (max > other.min && min < other.max); //|| (min > other.max && max < other.min);
 		}
 
-		const Vector3D AABB3D::getCenter() const
+		const Vector3D AABB::getCenter() const
 		{
 			return min + (max - min) / 2.0f;
 		}
 
-		bool AABB3D::operator==(const AABB3D& other) const
+		bool AABB::operator==(const AABB& other) const
 		{
 			return (min == other.min && max == other.max);
 		}
 
-		bool AABB3D::operator!=(const AABB3D& other) const
+		bool AABB::operator!=(const AABB& other) const
 		{
 			return !(*this == other);
 		}
 
-		bool AABB3D::operator<=(const AABB3D& other) const
+		bool AABB::operator<=(const AABB& other) const
 		{
 			return (max < other.min);
 		}
 
-		bool AABB3D::operator>=(const AABB3D& other) const
+		bool AABB::operator>=(const AABB& other) const
 		{
 			return (min > other.max);
 		}
 
-		bool AABB3D::operator<(const AABB3D& other) const
+		bool AABB::operator<(const AABB& other) const
 		{
 			return (max < other.min);
 		}
 
-		bool AABB3D::operator>(const AABB3D& other) const
+		bool AABB::operator>(const AABB& other) const
 		{
 			return (min > other.max);
 		}

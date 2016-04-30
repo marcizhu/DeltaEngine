@@ -2,6 +2,7 @@
 
 #include "renderable2d.h"
 #include "aabb.h"
+#include "log.h"
 
 namespace DeltaEngine {
 	namespace Graphics {
@@ -12,7 +13,7 @@ namespace DeltaEngine {
 			float rotationAngle; // in degrees!
 			Maths::Vector2D acceleration; // in units per second every second (u / s^2)
 			Maths::Vector2D velocity; // in units per second (u / s)
-			Maths::AABB2D aabb;
+			Maths::AABB aabb;
 
 		public:
 			PhysicsRenderable2D(float x, float y, float width, float height, Types::Color color)
@@ -33,13 +34,15 @@ namespace DeltaEngine {
 
 			void update(float dt)
 			{
-				velocity.x += acceleration.x * dt;
-				velocity.y += acceleration.y * dt;
+				velocity += acceleration * dt;
 
-				position.x += velocity.x * dt + (acceleration.x * dt * dt / 2.0f);
-				position.y += velocity.y * dt + (acceleration.y * dt * dt / 2.0f);
+				// tunneling
+				if((velocity.x * dt) >= size.x) DELTAENGINE_WARN("[Physics] Horizontal speed is too fast! (", velocity.x * dt,")");
+				if((velocity.y * dt) >= size.y) DELTAENGINE_WARN("[Physics] Vertical speed is too fast! (", velocity.y * dt, ")");
 
-				aabb = Maths::AABB2D(position, position + size);
+				position += velocity * dt + (acceleration * dt * dt / 2.0f);
+
+				aabb = Maths::AABB(position, position + size);
 			}
 
 			inline float getRotation() const { return rotationAngle; }
