@@ -21,32 +21,27 @@ namespace DeltaEngine {
 			const Maths::Matrix4* transformationStackTop;
 			Utils::Stack<Maths::Matrix4> transformationStack;
 
-			Renderer2D()
-			{
-				transformationStack.push(Maths::Matrix4::identity());
-				transformationStackTop = &transformationStack.top();
-			}
+			Renderer2D() { transformationStackTop = transformationStack.push(Maths::Matrix4::identity()); }
 
 		public:
 			DELTAENGINE_API virtual ~Renderer2D() { };
 
-			void push(const Maths::Matrix4& matrix, bool override = false)
+			inline void push(const Maths::Matrix4& matrix, bool override = false)
 			{
-				transformationStack.push(override ? matrix : matrix * transformationStack.top());
-				transformationStackTop = &transformationStack.top();
+				transformationStackTop = transformationStack.push(override ? matrix : matrix * transformationStack.top());
 			}
 
-			void pop()
+			inline void pop()
 			{
 				if (transformationStack.size() > 1)
 				{
-					transformationStack.pop();
-					transformationStackTop = &transformationStack.top();
+					transformationStackTop = transformationStack.pop();
 				}
-				/*else
+				else
 				{
-					DELTAENGINE_ERROR("Attempted to pop the identity matrix from the transformation stack!");
-				}*/
+					//DELTAENGINE_ERROR("Attempted to pop the identity matrix from the transformation stack!");
+					__debugbreak();
+				}
 			}
 
 

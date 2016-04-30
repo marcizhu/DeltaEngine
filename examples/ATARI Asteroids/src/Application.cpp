@@ -14,6 +14,7 @@ Application::Application() : Game()
 Application::~Application()
 {
 	delete mainLayer;
+	delete playArea;
 
 	Graphics::FontManager::clean();
 	Graphics::TextureManager::clean();
@@ -55,8 +56,6 @@ void Application::init()
 	Graphics::PhysicsRenderable2D* asteroid4 = (Graphics::PhysicsRenderable2D*)mainLayer->add(NEW Graphics::PhysicsRenderable2D(10.0f, 8.0f, 0.5f, 0.5f, Graphics::TextureManager::get("Asteroid Smaller 1")));
 
 	srand(Utils::getSystemTime().Milliseconds);
-	//float speed = (float)2.0f * rand() / RAND_MAX;
-	//float rotation = (float)360.0f * rand() / RAND_MAX;
 	asteroid1->setVelocity((float)2.0f * rand() / RAND_MAX, (float)360.0f * rand() / RAND_MAX);
 
 	background = NEW Graphics::Layer2D(NEW Graphics::BatchRenderer2D(), bgShader, Maths::Matrix4::orthographic(0.0f, 960.0f, 540.0f, 0.0f, -1.0f, 1.0f));
@@ -79,6 +78,8 @@ void Application::init()
 	window->setVSync(VSYNC_ENABLE);
 
 	mainLayer->setCameraPosition(0, 0);
+
+	playArea = NEW Maths::AABB(Maths::Vector2D(-1.0f, -1.0f), Maths::Vector2D(25.0f, 14.0f));
 }
 
 void Application::update()
@@ -118,8 +119,7 @@ void Application::update()
 
 	while (iter != shots.end())
 	{
-		if ((*iter)->getPosition().x > 25.0f || (*iter)->getPosition().x < -1.0f ||
-			(*iter)->getPosition().y > 14.0f || (*iter)->getPosition().y < -1.0f)
+		if (!playArea->contains((*iter)->getPosition()))
 		{
 			mainLayer->remove(*iter);
 			delete (*iter);

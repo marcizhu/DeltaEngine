@@ -22,6 +22,8 @@ private:
 
 	std::vector<Graphics::PhysicsRenderable2D*> shots;
 
+	Maths::AABB* playArea;
+
 	bool keyHeld;
 
 	void init() override;

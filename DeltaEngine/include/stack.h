@@ -15,18 +15,18 @@ namespace DeltaEngine {
 			std::list<T> data;
 
 		public:
-			void push(const T& val) { data.push_back(val); };
-			void pop() { if (!data.empty()) data.pop_back(); };
+			inline const T* push(const T& val) { data.push_back(val); return &data.back(); };
+			inline const T* pop() { if (!data.empty()) data.pop_back(); return &data.back(); };
 
-			const T& top() const { return data.back(); };
-			const T& base() const { return data.front(); };
+			inline const T& top() const { return data.back(); };
+			inline const T& base() const { return data.front(); };
 
-			uint32 size() const { return data.size(); };
+			inline uint32 size() const { return data.size(); };
 
-			const std::list<T> getStack() const { return this->data; };
+			inline const std::list<T> getStack() const { return this->data; };
 
-			const T& operator[](uint32 idx) const { return data[idx]; };
-			const void operator=(const Stack& other) const { data = other.getStack(); };
+			inline const T& operator[](uint32 idx) const { return data[idx]; };
+			inline const void operator=(const Stack& other) const { data = other.getStack(); };
 		};
 
 	}
