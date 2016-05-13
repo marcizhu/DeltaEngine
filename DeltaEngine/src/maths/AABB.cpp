@@ -50,7 +50,7 @@ namespace DeltaEngine {
 
 		bool AABB::intersects(const AABB& other) const
 		{
-			return (max > other.min && min < other.max); //|| (min > other.max && max < other.min);
+			return (max > other.min && min < other.max);
 		}
 
 		const Vector3D AABB::getCenter() const

@@ -42,6 +42,7 @@ namespace DeltaEngine {
 			virtual ~Renderable2D() {}
 
 			virtual void submit(Renderer2D* renderer) const { renderer->submit(this); }
+			virtual void submit(Renderer2D* renderer, bool transformationStack) const { renderer->submit(this, transformationStack); }
 
 			inline const Maths::Vector2D& getPosition() const { return position; }
 			inline const Maths::Vector2D& getSize() const { return size; }

@@ -133,21 +133,25 @@ namespace DeltaEngine {
 			return result;
 		}
 
-		void Matrix4::translate(const Vector3D& translation)
+		const Matrix4& Matrix4::translate(const Vector3D& translation)
 		{
 			this->elements[0 + 3 * 4] = translation.x;
 			this->elements[1 + 3 * 4] = translation.y;
 			this->elements[2 + 3 * 4] = translation.z;
+
+			return *this;
 		}
 
-		void Matrix4::translate(float x, float y, float z)
+		const Matrix4& Matrix4::translate(float x, float y, float z)
 		{
 			this->elements[0 + 3 * 4] = x;
 			this->elements[1 + 3 * 4] = y;
 			this->elements[2 + 3 * 4] = z;
+
+			return *this;
 		}
 
-		void Matrix4::rotate(float angle, const Vector3D& axis)
+		const Matrix4& Matrix4::rotate(float angle, const Vector3D& axis)
 		{
 			float c = cos(toRadians(angle));
 			float s = sin(toRadians(angle));
@@ -168,9 +172,11 @@ namespace DeltaEngine {
 			this->elements[0 + 2 * 4] = x * z * omc + y * s;
 			this->elements[1 + 2 * 4] = y * z * omc - x * s;
 			this->elements[2 + 2 * 4] = z * omc + c;
+
+			return *this;
 		}
 
-		void Matrix4::rotate(float angle, float xAxis, float yAxis, float zAxis)
+		const Matrix4& Matrix4::rotate(float angle, float xAxis, float yAxis, float zAxis)
 		{
 			float c = cos(toRadians(angle));
 			float s = sin(toRadians(angle));
@@ -188,20 +194,26 @@ namespace DeltaEngine {
 			this->elements[0 + 2 * 4] = xAxis * zAxis * omc + yAxis * s;
 			this->elements[1 + 2 * 4] = yAxis * zAxis * omc - xAxis * s;
 			this->elements[2 + 2 * 4] = zAxis * omc + c;
+
+			return *this;
 		}
 
-		void Matrix4::scale(const Vector3D& scale)
+		const Matrix4& Matrix4::scale(const Vector3D& scale)
 		{
 			this->elements[0 + 0 * 4] = scale.x;
 			this->elements[1 + 1 * 4] = scale.y;
 			this->elements[2 + 2 * 4] = scale.z;
+
+			return *this;
 		}
 
-		void Matrix4::scale(float x, float y, float z)
+		const Matrix4& Matrix4::scale(float x, float y, float z)
 		{
 			this->elements[0 + 0 * 4] = x;
 			this->elements[1 + 1 * 4] = y;
 			this->elements[2 + 2 * 4] = z;
+
+			return *this;
 		}
 
 	}

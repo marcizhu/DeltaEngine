@@ -11,6 +11,7 @@
 #include "buffer.h"
 #include "font.h"
 #include "fontManager.h"
+#include "group.h"
 #include "indexBuffer.h"
 #include "label.h"
 #include "layer2d.h"

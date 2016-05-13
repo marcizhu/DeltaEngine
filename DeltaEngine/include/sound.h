@@ -52,8 +52,11 @@ namespace DeltaEngine {
 
 			DELTAENGINE_API inline const bool isReady() const { return ready; };
 
-			//TODO: Implement set3DPosition() !
-			DELTAENGINE_API void set3DPosition(Maths::Vector3D position);
+			DELTAENGINE_API void setPosition(Maths::Vector2D position, float intensity = 1.0f) // AABB area
+			{
+				this->setPan((1.0f - intensity) + (intensity * position.x));
+				//this->setGain(1 / 1 + position.distance());
+			}
 		};
 
 	}

@@ -46,7 +46,7 @@ namespace DeltaEngine {
 
 
 			DELTAENGINE_API virtual void begin() { };
-			DELTAENGINE_API virtual void submit(const Renderable2D* renderable, bool stransformationStack = false) = 0;
+			DELTAENGINE_API virtual void submit(const Renderable2D* renderable, bool transformationStack = false) = 0;
 			DELTAENGINE_API virtual void end() { };
 			DELTAENGINE_API virtual void flush() = 0;
 

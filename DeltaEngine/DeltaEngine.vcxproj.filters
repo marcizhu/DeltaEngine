@@ -201,6 +201,9 @@
     <ClInclude Include="include\aabb.h">
       <Filter>Archivos de encabezado\DeltaEngine\Maths</Filter>
     </ClInclude>
+    <ClInclude Include="include\group.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\utils\Debug.cpp">
@@ -283,6 +286,9 @@
     </ClCompile>
     <ClCompile Include="src\maths\AABB.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\Group.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

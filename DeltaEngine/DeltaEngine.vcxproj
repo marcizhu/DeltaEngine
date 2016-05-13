@@ -193,6 +193,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\group.h" />
     <ClInclude Include="include\aabb.h" />
     <ClInclude Include="include\framebuffer.h" />
     <ClInclude Include="include\DeltaEngine.h" />
@@ -242,6 +243,7 @@
     <ClInclude Include="include\PlatformTimer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\graphics\Group.cpp" />
     <ClCompile Include="src\graphics\PhysicsRenderer2D.cpp" />
     <ClCompile Include="src\maths\AABB.cpp" />
     <ClCompile Include="src\memory\MemoryManager.cpp">

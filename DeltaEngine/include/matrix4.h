@@ -39,13 +39,13 @@ namespace DeltaEngine {
 			DELTAENGINE_API static Matrix4 orthographic(float left, float right, float top, float bottom, float near, float far);
 			DELTAENGINE_API static Matrix4 perspective(float fov, float aspectRatio, float near, float far);
 
-			DELTAENGINE_API void translate(const Vector3D& translation);
-			DELTAENGINE_API void rotate(float angle, const Vector3D& axis);
-			DELTAENGINE_API void scale(const Vector3D& scale);
+			DELTAENGINE_API const Matrix4& translate(const Vector3D& translation);
+			DELTAENGINE_API const Matrix4& rotate(float angle, const Vector3D& axis);
+			DELTAENGINE_API const Matrix4& scale(const Vector3D& scale);
 
-			DELTAENGINE_API void translate(float x, float y, float z);
-			DELTAENGINE_API void rotate(float angle, float xAxis, float yAxis, float zAxis);
-			DELTAENGINE_API void scale(float x, float y, float z);
+			DELTAENGINE_API const Matrix4& translate(float x, float y, float z);
+			DELTAENGINE_API const Matrix4& rotate(float angle, float xAxis, float yAxis, float zAxis);
+			DELTAENGINE_API const Matrix4& scale(float x, float y, float z);
 		};
 
 	}

@@ -101,10 +101,11 @@ void Application::update()
 
 	if (window->isKeyPressed(KB_KEY_W) && !keyHeld)
 	{
-		const float intensity = 0.7f;
-		const float pos = (1.0f - intensity) + ((intensity * (spaceship->getPosition().x) / 12) - 1);
+		//const float intensity = 0.7f;
+		//const float pos = (1.0f - intensity) + ((intensity * (spaceship->getPosition().x) / 12) - 1);
 		Sound::SoundManager::get("Laser")->play();
-		Sound::SoundManager::get("Laser")->setPan(pos);
+		Sound::SoundManager::get("Laser")->setPosition(Maths::Vector2D(spaceship->getPosition().x / 12.0f - 1.0f, spaceship->getPosition().y / 6.25f - 1.0f), 0.7f);
+		//Sound::SoundManager::get("Laser")->setPan(pos);
 
 		Graphics::PhysicsRenderable2D* laser = NEW Graphics::PhysicsRenderable2D(spaceship->getPosition().x + 0.5f, spaceship->getPosition().y + 0.25f, 0.5f, 0.5f, Graphics::TextureManager::get("Laser"));
 		laser->setRotation(spaceship->getRotation());
@@ -147,6 +148,8 @@ void Application::update()
 	background->setCameraPosition(background->getCameraPositionX() + 0.025f * absX, background->getCameraPositionY() + 0.025f * absY);
 
 	spaceship->update(1.0f / 60.0f);
+//	spaceship->update(1.0f / 120.0f);
+
 	asteroid1->update(1.0f / 60.0f);
 }
 
