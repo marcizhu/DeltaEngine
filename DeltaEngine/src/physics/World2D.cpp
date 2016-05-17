@@ -23,7 +23,7 @@ namespace DeltaEngine {
 				PhysicsRenderable2D* object = renderable->toPhysicsRenderable();
 
 				if (!object->needsUpdate()) continue;
-				if (!area.contains(object->getPosition())) continue;
+				if (limits && !area.contains(object->getPosition())) continue;
 
 				byte itr = object->getIterations();
 

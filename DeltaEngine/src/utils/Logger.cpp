@@ -9,6 +9,8 @@
 
 using namespace std;
 
+// TODO: Change return values with logging output and delete errors.h
+
 namespace DeltaEngine {
 	namespace Utils {
 

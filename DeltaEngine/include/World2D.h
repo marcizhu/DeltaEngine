@@ -12,14 +12,13 @@ namespace DeltaEngine {
 		class World2D : public Graphics::Layer2D
 		{
 		private:
-			//std::vector<Graphics::PhysicsRenderable2D*> objects;
+			bool limits;
 			Maths::AABB area;
 			float gravity;
 
 		public:
-			//Renderer2D* renderer, Shader* shader, const Maths::Matrix4& projectionMatrix
 			DELTAENGINE_API World2D(Graphics::Renderer2D* renderer, Graphics::Shader* shader, const Maths::Matrix4& projectionMatrix, float gravity)
-				: Layer2D(renderer, shader, projectionMatrix), gravity(gravity)
+				: Layer2D(renderer, shader, projectionMatrix), gravity(gravity), limits(true)
 			{
 				// We assume it is an orthographic matrix
 				area = projectionMatrix.orthographicToAABB();
@@ -28,6 +27,8 @@ namespace DeltaEngine {
 			DELTAENGINE_API Graphics::Renderable2D* add(Graphics::Renderable2D* object) override;
 
 			DELTAENGINE_API void update(float timestep);
+
+			DELTAENGINE_API void setLimits(bool enable) { limits = enable; }
 		};
 
 	}

@@ -3,7 +3,10 @@
 
 #include "fileIO.h"
 #include "types.h"
+#include "errors.h"
 #include "memoryManager.h"
+
+// TODO: Change return values with logging output and delete errors.h
 
 using namespace DeltaEngine::Types;
 

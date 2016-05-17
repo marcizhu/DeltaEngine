@@ -13,7 +13,7 @@ Application::Application() : Game()
 
 Application::~Application()
 {
-	delete mainLayer;
+	delete world;
 	delete playArea;
 
 	Graphics::FontManager::clean();
@@ -46,14 +46,14 @@ void Application::init()
 	Graphics::TextureManager::add(NEW Graphics::Texture("Asteroid Small 1", Utils::getCurrentPath() + "\\res\\assets\\asteroid-small-1.png"));
 	Graphics::TextureManager::add(NEW Graphics::Texture("Asteroid Smaller 1", Utils::getCurrentPath() + "\\res\\assets\\asteroid-smallest-1.png"));
 
-	mainLayer = NEW Graphics::Layer2D(NEW Physics::PhysicsRenderer2D(), shader, Maths::Matrix4::orthographic(0.0f, 24.0f, 13.5f, 0.0f, -1.0f, 1.0f));
-	mainLayer->add(NEW Physics::PhysicsRenderable2D(12.0f, 6.75f, 1.0f, 1.0f, Graphics::TextureManager::get("Spaceship"), 1.0f, 5));
-	//mainLayer->add(NEW Graphics::PhysicsRenderable2D(-1.0f, -1.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Alien")));
+	world = NEW Physics::World2D(NEW Physics::PhysicsRenderer2D(), shader, Maths::Matrix4::orthographic(0.0f, 24.0f, 13.5f, 0.0f, -1.0f, 1.0f), 0.0f);
+	world->setLimits(false);
+	world->add(NEW Physics::PhysicsRenderable2D(12.0f, 6.75f, 1.0f, 1.0f, Graphics::TextureManager::get("Spaceship"), 1.0f, 5));
 
-	Physics::PhysicsRenderable2D* asteroid1 = (Physics::PhysicsRenderable2D*)mainLayer->add(NEW Physics::PhysicsRenderable2D(3.0f, 3.0f, 2.0f, 2.0f, Graphics::TextureManager::get("Asteroid Big 1"), 1.0f, 1));
-	Physics::PhysicsRenderable2D* asteroid2 = (Physics::PhysicsRenderable2D*)mainLayer->add(NEW Physics::PhysicsRenderable2D(9.0f, 1.0f, 2.0f, 2.0f, Graphics::TextureManager::get("Asteroid Big 2"), 1.0f, 1));
-	Physics::PhysicsRenderable2D* asteroid3 = (Physics::PhysicsRenderable2D*)mainLayer->add(NEW Physics::PhysicsRenderable2D(16.0f, 11.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Asteroid Small 1"), 1.0f, 1));
-	Physics::PhysicsRenderable2D* asteroid4 = (Physics::PhysicsRenderable2D*)mainLayer->add(NEW Physics::PhysicsRenderable2D(10.0f, 8.0f, 0.5f, 0.5f, Graphics::TextureManager::get("Asteroid Smaller 1"), 1.0f, 1));
+	Physics::PhysicsRenderable2D* asteroid1 = (Physics::PhysicsRenderable2D*)world->add(NEW Physics::PhysicsRenderable2D(3.0f, 3.0f, 2.0f, 2.0f, Graphics::TextureManager::get("Asteroid Big 1"), 1.0f, 1));
+	Physics::PhysicsRenderable2D* asteroid2 = (Physics::PhysicsRenderable2D*)world->add(NEW Physics::PhysicsRenderable2D(9.0f, 1.0f, 2.0f, 2.0f, Graphics::TextureManager::get("Asteroid Big 2"), 1.0f, 1));
+	Physics::PhysicsRenderable2D* asteroid3 = (Physics::PhysicsRenderable2D*)world->add(NEW Physics::PhysicsRenderable2D(16.0f, 11.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Asteroid Small 1"), 1.0f, 1));
+	Physics::PhysicsRenderable2D* asteroid4 = (Physics::PhysicsRenderable2D*)world->add(NEW Physics::PhysicsRenderable2D(10.0f, 8.0f, 0.5f, 0.5f, Graphics::TextureManager::get("Asteroid Smaller 1"), 1.0f, 1));
 
 	srand(Utils::getSystemTime().Milliseconds);
 	asteroid1->setVelocity((float)2.0f * rand() / RAND_MAX, (float)360.0f * rand() / RAND_MAX);
@@ -77,7 +77,7 @@ void Application::init()
 
 	window->setVSync(VSYNC_ENABLE);
 
-	mainLayer->setCameraPosition(0, 0);
+	world->setCameraPosition(0, 0);
 
 	playArea = NEW Maths::AABB(Maths::Vector2D(-1.0f, -1.0f), Maths::Vector2D(25.0f, 14.0f));
 }
@@ -86,8 +86,8 @@ void Application::update()
 {
 	if (window->isKeyPressed(KB_KEY_ESCAPE)) window->close();
 
-	Physics::PhysicsRenderable2D* spaceship = (Physics::PhysicsRenderable2D*)(*mainLayer)[0];
-	Physics::PhysicsRenderable2D* asteroid1 = (Physics::PhysicsRenderable2D*)(*mainLayer)[1];
+	Physics::PhysicsRenderable2D* spaceship = (*world)[0]->toPhysicsRenderable();
+	Physics::PhysicsRenderable2D* asteroid1 = (*world)[1]->toPhysicsRenderable();
 
 	Sound::SoundManager::update();
 
@@ -111,7 +111,7 @@ void Application::update()
 		laser->setRotation(spaceship->getRotation());
 		laser->setVelocity(LASER_SPEED);
 		shots.push_back(laser);
-		mainLayer->add(laser);
+		world->add(laser);
 		keyHeld = true;
 	}
 	else if(!window->isKeyPressed(KB_KEY_W)) keyHeld = false;
@@ -122,16 +122,11 @@ void Application::update()
 	{
 		if (!playArea->contains((*iter)->getPosition()))
 		{
-			mainLayer->remove(*iter);
+			world->remove(*iter);
 			delete (*iter);
 			iter = shots.erase(iter);
 		}
-		else
-		{
-			(*iter)->update(1.0f / 60.0f);
-
-			++iter;
-		}
+		else ++iter;
 	}
 
 	shots.shrink_to_fit();
@@ -147,16 +142,13 @@ void Application::update()
 
 	background->setCameraPosition(background->getCameraPositionX() + 0.025f * absX, background->getCameraPositionY() + 0.025f * absY);
 
-	spaceship->update(1.0f / 60.0f);
-//	spaceship->update(1.0f / 120.0f);
-
-	asteroid1->update(1.0f / 60.0f);
+	world->update(1.0f / 60.0f);
 }
 
 void Application::render()
 {
 	background->render();
-	mainLayer->render();
+	world->render();
 }
 
 void Application::tick()

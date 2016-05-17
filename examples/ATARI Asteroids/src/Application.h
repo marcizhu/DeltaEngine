@@ -18,7 +18,7 @@ private:
 	Graphics::Shader* bgShader;
 
 	Graphics::Layer2D* background;
-	Graphics::Layer2D* mainLayer;
+	Physics::World2D* world;
 
 	std::vector<Physics::PhysicsRenderable2D*> shots;
 

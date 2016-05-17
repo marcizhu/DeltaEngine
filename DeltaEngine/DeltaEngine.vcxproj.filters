@@ -1,306 +1,302 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Archivos de código fuente">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Archivos de encabezado">
+    <Filter Include="Header files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Archivos de recursos">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Archivos de código fuente\DeltaEngine">
-      <UniqueIdentifier>{63d9ca65-eb28-4b4e-b11e-47df4e323368}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\DeltaEngine">
+    <Filter Include="Header files\DeltaEngine">
       <UniqueIdentifier>{389e2ae0-2cf2-4c51-bdb6-07936eabd194}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de código fuente\DeltaEngine\Graphics">
-      <UniqueIdentifier>{57e7b2d3-8b77-406c-a2fa-a087e4856085}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\DeltaEngine\Graphics">
+    <Filter Include="Header files\DeltaEngine\Graphics">
       <UniqueIdentifier>{38423df7-8220-4a8e-b47d-bcaeb01aa50d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\DeltaEngine\FileIO">
+    <Filter Include="Header files\DeltaEngine\FileIO">
       <UniqueIdentifier>{f8acc893-8338-4057-b88f-85f20b99cadb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de código fuente\DeltaEngine\FileIO">
-      <UniqueIdentifier>{d29edda7-4632-40a4-a85a-096885a3735b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de código fuente\DeltaEngine\Utils">
-      <UniqueIdentifier>{aab05b10-f3f5-4c8c-b7d8-944acefa64d4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\DeltaEngine\Utils">
+    <Filter Include="Header files\DeltaEngine\Utils">
       <UniqueIdentifier>{1e27ae35-757f-406b-8c8b-d754475d9e0f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de código fuente\DeltaEngine\Maths">
-      <UniqueIdentifier>{1b76a1ae-3288-4304-adce-2e77681ab4c4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\DeltaEngine\Maths">
+    <Filter Include="Header files\DeltaEngine\Maths">
       <UniqueIdentifier>{b5e476cd-929d-4181-8bf0-d4760df504cf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\DeltaEngine\Sound">
+    <Filter Include="Header files\DeltaEngine\Sound">
       <UniqueIdentifier>{01d868b9-13ef-4790-9dac-003e0238de95}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de código fuente\DeltaEngine\Sound">
-      <UniqueIdentifier>{edb0270e-d0a8-48ef-befc-c9fda6350398}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\DeltaEngine\Platform">
+    <Filter Include="Header files\DeltaEngine\Platform">
       <UniqueIdentifier>{5e4f9423-91f0-4489-9d28-507c341083ad}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de código fuente\DeltaEngine\Memory">
-      <UniqueIdentifier>{4e5e5f25-9046-4b25-9a1a-1f7389a92482}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\DeltaEngine\Memory">
+    <Filter Include="Header files\DeltaEngine\Memory">
       <UniqueIdentifier>{e0d3102d-12a0-4bac-a706-d0704be82fc0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\DeltaEngine\Physics">
+    <Filter Include="Header files\DeltaEngine\Physics">
       <UniqueIdentifier>{052473e6-a0ae-4cd3-a660-8447e5b398d0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de código fuente\DeltaEngine\Physics">
+    <Filter Include="Source files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source files\DeltaEngine">
+      <UniqueIdentifier>{63d9ca65-eb28-4b4e-b11e-47df4e323368}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\DeltaEngine\Graphics">
+      <UniqueIdentifier>{57e7b2d3-8b77-406c-a2fa-a087e4856085}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\DeltaEngine\FileIO">
+      <UniqueIdentifier>{d29edda7-4632-40a4-a85a-096885a3735b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\DeltaEngine\Utils">
+      <UniqueIdentifier>{aab05b10-f3f5-4c8c-b7d8-944acefa64d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\DeltaEngine\Maths">
+      <UniqueIdentifier>{1b76a1ae-3288-4304-adce-2e77681ab4c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\DeltaEngine\Sound">
+      <UniqueIdentifier>{edb0270e-d0a8-48ef-befc-c9fda6350398}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\DeltaEngine\Memory">
+      <UniqueIdentifier>{4e5e5f25-9046-4b25-9a1a-1f7389a92482}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\DeltaEngine\Physics">
       <UniqueIdentifier>{88c4891e-ddd7-4687-9d5d-e3279f2d71d5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\batchRenderable2d.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+      <Filter>Header files\DeltaEngine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="include\batchRenderer2d.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+      <Filter>Header files\DeltaEngine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="include\buffer.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+      <Filter>Header files\DeltaEngine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="include\debug.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Utils</Filter>
+      <Filter>Header files\DeltaEngine\Utils</Filter>
     </ClInclude>
     <ClInclude Include="include\errors.h">
-      <Filter>Archivos de encabezado\DeltaEngine</Filter>
+      <Filter>Header files\DeltaEngine</Filter>
     </ClInclude>
     <ClInclude Include="include\fileIO.h">
-      <Filter>Archivos de encabezado\DeltaEngine\FileIO</Filter>
+      <Filter>Header files\DeltaEngine\FileIO</Filter>
     </ClInclude>
     <ClInclude Include="include\font.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+      <Filter>Header files\DeltaEngine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="include\fontManager.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+      <Filter>Header files\DeltaEngine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="include\indexBuffer.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+      <Filter>Header files\DeltaEngine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="include\Label.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+      <Filter>Header files\DeltaEngine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="include\layer2d.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+      <Filter>Header files\DeltaEngine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="include\maths.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Maths</Filter>
+      <Filter>Header files\DeltaEngine\Maths</Filter>
     </ClInclude>
     <ClInclude Include="include\matrix4.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Maths</Filter>
+      <Filter>Header files\DeltaEngine\Maths</Filter>
     </ClInclude>
     <ClInclude Include="include\renderable2d.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+      <Filter>Header files\DeltaEngine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="include\renderer2d.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+      <Filter>Header files\DeltaEngine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="include\shader.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+      <Filter>Header files\DeltaEngine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="include\sound.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Sound</Filter>
+      <Filter>Header files\DeltaEngine\Sound</Filter>
     </ClInclude>
     <ClInclude Include="include\soundManager.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Sound</Filter>
+      <Filter>Header files\DeltaEngine\Sound</Filter>
     </ClInclude>
     <ClInclude Include="include\sprite.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+      <Filter>Header files\DeltaEngine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="include\stack.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Utils</Filter>
+      <Filter>Header files\DeltaEngine\Utils</Filter>
     </ClInclude>
     <ClInclude Include="include\texture.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+      <Filter>Header files\DeltaEngine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="include\textureManager.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+      <Filter>Header files\DeltaEngine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="include\timer.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Utils</Filter>
+      <Filter>Header files\DeltaEngine\Utils</Filter>
     </ClInclude>
     <ClInclude Include="include\types.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Utils</Filter>
+      <Filter>Header files\DeltaEngine\Utils</Filter>
     </ClInclude>
     <ClInclude Include="include\utils.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Utils</Filter>
+      <Filter>Header files\DeltaEngine\Utils</Filter>
     </ClInclude>
     <ClInclude Include="include\vector2d.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Maths</Filter>
+      <Filter>Header files\DeltaEngine\Maths</Filter>
     </ClInclude>
     <ClInclude Include="include\vector3d.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Maths</Filter>
+      <Filter>Header files\DeltaEngine\Maths</Filter>
     </ClInclude>
     <ClInclude Include="include\vector4d.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Maths</Filter>
+      <Filter>Header files\DeltaEngine\Maths</Filter>
     </ClInclude>
     <ClInclude Include="include\vertexArray.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+      <Filter>Header files\DeltaEngine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="include\window.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+      <Filter>Header files\DeltaEngine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="include\internal.h">
-      <Filter>Archivos de encabezado\DeltaEngine</Filter>
+      <Filter>Header files\DeltaEngine</Filter>
     </ClInclude>
     <ClInclude Include="include\DeltaEngine.h">
-      <Filter>Archivos de encabezado\DeltaEngine</Filter>
+      <Filter>Header files\DeltaEngine</Filter>
     </ClInclude>
     <ClInclude Include="include\log.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Utils</Filter>
+      <Filter>Header files\DeltaEngine\Utils</Filter>
     </ClInclude>
     <ClInclude Include="include\LogLevels.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Utils</Filter>
+      <Filter>Header files\DeltaEngine\Utils</Filter>
     </ClInclude>
     <ClInclude Include="include\PlatformUtils.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Platform</Filter>
+      <Filter>Header files\DeltaEngine\Platform</Filter>
     </ClInclude>
     <ClInclude Include="include\logger.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Utils</Filter>
+      <Filter>Header files\DeltaEngine\Utils</Filter>
     </ClInclude>
     <ClInclude Include="include\PlatformWindow.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Platform</Filter>
+      <Filter>Header files\DeltaEngine\Platform</Filter>
     </ClInclude>
     <ClInclude Include="include\input.h">
-      <Filter>Archivos de encabezado\DeltaEngine</Filter>
+      <Filter>Header files\DeltaEngine</Filter>
     </ClInclude>
     <ClInclude Include="include\Line.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+      <Filter>Header files\DeltaEngine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="include\eventHandler.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Header files</Filter>
     </ClInclude>
     <ClInclude Include="include\framebuffer.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+      <Filter>Header files\DeltaEngine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="include\PlatformGraphics.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Platform</Filter>
+      <Filter>Header files\DeltaEngine\Platform</Filter>
     </ClInclude>
     <ClInclude Include="include\memoryManager.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Memory</Filter>
+      <Filter>Header files\DeltaEngine\Memory</Filter>
     </ClInclude>
     <ClInclude Include="include\PlatformTimer.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Platform</Filter>
+      <Filter>Header files\DeltaEngine\Platform</Filter>
     </ClInclude>
     <ClInclude Include="include\aabb.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Maths</Filter>
+      <Filter>Header files\DeltaEngine\Maths</Filter>
     </ClInclude>
     <ClInclude Include="include\group.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+      <Filter>Header files\DeltaEngine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="include\physicsRenderable2D.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Physics</Filter>
+      <Filter>Header files\DeltaEngine\Physics</Filter>
     </ClInclude>
     <ClInclude Include="include\PhysicsRenderer2D.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Physics</Filter>
+      <Filter>Header files\DeltaEngine\Physics</Filter>
     </ClInclude>
     <ClInclude Include="include\World2D.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Physics</Filter>
+      <Filter>Header files\DeltaEngine\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\utils\Debug.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Utils</Filter>
+      <Filter>Source files\DeltaEngine\Utils</Filter>
     </ClCompile>
     <ClCompile Include="src\utils\FileIO.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\FileIO</Filter>
+      <Filter>Source files\DeltaEngine\FileIO</Filter>
     </ClCompile>
     <ClCompile Include="src\utils\Utils.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Utils</Filter>
+      <Filter>Source files\DeltaEngine\Utils</Filter>
     </ClCompile>
     <ClCompile Include="src\maths\Maths.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Maths</Filter>
+      <Filter>Source files\DeltaEngine\Maths</Filter>
     </ClCompile>
     <ClCompile Include="src\maths\Matrix4.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Maths</Filter>
+      <Filter>Source files\DeltaEngine\Maths</Filter>
     </ClCompile>
     <ClCompile Include="src\maths\Vector2D.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Maths</Filter>
+      <Filter>Source files\DeltaEngine\Maths</Filter>
     </ClCompile>
     <ClCompile Include="src\maths\Vector3D.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Maths</Filter>
+      <Filter>Source files\DeltaEngine\Maths</Filter>
     </ClCompile>
     <ClCompile Include="src\maths\Vector4D.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Maths</Filter>
+      <Filter>Source files\DeltaEngine\Maths</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\Buffer.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+      <Filter>Source files\DeltaEngine\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\Font.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+      <Filter>Source files\DeltaEngine\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\FontManager.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+      <Filter>Source files\DeltaEngine\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\IndexBuffer.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+      <Filter>Source files\DeltaEngine\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\Label.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+      <Filter>Source files\DeltaEngine\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\Layer2D.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+      <Filter>Source files\DeltaEngine\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\Shader.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+      <Filter>Source files\DeltaEngine\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\Texture.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+      <Filter>Source files\DeltaEngine\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\TextureManager.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+      <Filter>Source files\DeltaEngine\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\VertexArray.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+      <Filter>Source files\DeltaEngine\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\Window.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+      <Filter>Source files\DeltaEngine\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\utils\Logger.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Utils</Filter>
+      <Filter>Source files\DeltaEngine\Utils</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\Framebuffer.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+      <Filter>Source files\DeltaEngine\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\BatchRenderer2D.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+      <Filter>Source files\DeltaEngine\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\memory\MemoryManager.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Memory</Filter>
+      <Filter>Source files\DeltaEngine\Memory</Filter>
     </ClCompile>
     <ClCompile Include="src\sound\Sound.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Sound</Filter>
+      <Filter>Source files\DeltaEngine\Sound</Filter>
     </ClCompile>
     <ClCompile Include="src\sound\SoundManager.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Sound</Filter>
+      <Filter>Source files\DeltaEngine\Sound</Filter>
     </ClCompile>
     <ClCompile Include="src\maths\AABB.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Maths</Filter>
+      <Filter>Source files\DeltaEngine\Maths</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\Group.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+      <Filter>Source files\DeltaEngine\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\physics\PhysicsRenderer2D.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Physics</Filter>
+      <Filter>Source files\DeltaEngine\Physics</Filter>
     </ClCompile>
     <ClCompile Include="src\physics\World2D.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Physics</Filter>
+      <Filter>Source files\DeltaEngine\Physics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

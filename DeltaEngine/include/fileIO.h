@@ -3,7 +3,6 @@
 #include <string>
 
 #include "internal.h"
-#include "errors.h"
 #include "types.h"
 
 using namespace std;

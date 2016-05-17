@@ -49,7 +49,7 @@ namespace DeltaEngine {
 				aabb = Maths::AABB(position, position + size);
 			}
 
-			inline bool needsUpdate() { return (force / mass).distance() != 0.0f; }
+			inline bool needsUpdate() { return force.distance() != 0.0f || velocity.distance() != 0.0f; }
 
 			inline float getRotation() const { return rotationAngle; }
 			inline Maths::Vector2D getAcceleration() const { return (force / mass); }
@@ -57,8 +57,7 @@ namespace DeltaEngine {
 			inline Types::byte getIterations() const { return iterations; }
 			inline float getMass() const { return mass; }
 
-			// TODO: Test this!
-			inline float getForce() const { return (force / mass).distance() * mass; }
+			inline float getForce() const { return force.distance(); }
 
 			inline void setRotation(float degrees) { rotationAngle = degrees; }
 
