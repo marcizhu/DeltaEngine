@@ -216,5 +216,27 @@ namespace DeltaEngine {
 			return *this;
 		}
 
+		const AABB& Matrix4::orthographicToAABB() const
+		{
+			float rMinusL = 1.0f / (this->elements[0 + 0 * 4] / 2.0f);
+			float tMinusB = 1.0f / (this->elements[1 + 1 * 4] / 2.0f);
+			float nMinusF = 1.0f / (this->elements[2 + 2 * 4] / 2.0f);
+
+			float lPlusR = this->elements[0 + 3 * 4] * -rMinusL;
+			float bPlusT = this->elements[1 + 3 * 4] * -tMinusB;
+			float fPlusN = this->elements[2 + 3 * 4] * -nMinusF;
+
+			float left = (rMinusL - lPlusR) / -2.0f;
+			float right = rMinusL + left;
+
+			float bottom = (tMinusB - bPlusT) / -2.0f;
+			float top = tMinusB + bottom;
+
+			float near = (nMinusF - fPlusN) / -2.0f;
+			float far = fPlusN - near;
+
+			return AABB(Maths::Vector3D(left, bottom, near), Maths::Vector3D(right, top, far));
+		}
+
 	}
 }

@@ -28,7 +28,7 @@ namespace DeltaEngine {
 
 			inline void push(const Maths::Matrix4& matrix, bool override = false)
 			{
-				transformationStackTop = transformationStack.push(override ? matrix : matrix * transformationStack.top());
+				transformationStackTop = transformationStack.push(override ? matrix : transformationStack.top() * matrix);
 			}
 
 			inline void pop()

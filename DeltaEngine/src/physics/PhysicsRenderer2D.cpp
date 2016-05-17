@@ -7,14 +7,14 @@
 #include "physicsRenderable2d.h"
 
 namespace DeltaEngine {
-	namespace Graphics {
+	namespace Physics {
 
 		// FIXME: Optimize this using Buffers
 		// TODO: Rewrite Buffer.cpp
 
-		PhysicsRenderer2D::PhysicsRenderer2D() : Renderer2D(), indexCount(0)
+		PhysicsRenderer2D::PhysicsRenderer2D() : Graphics::Renderer2D(), indexCount(0)
 		{
-			vertexArray = NEW VertexArray();
+			vertexArray = NEW Graphics::VertexArray();
 			glGenBuffers(1, &vertexBuffer);
 
 			vertexArray->bind();
@@ -46,7 +46,7 @@ namespace DeltaEngine {
 				indices[i + 5] = offset + 0;
 			}
 
-			indexBuffer = NEW IndexBuffer(indices, RENDERER_INDICES_SIZE);
+			indexBuffer = NEW Graphics::IndexBuffer(indices, RENDERER_INDICES_SIZE);
 
 			delete indices;
 		}
@@ -97,16 +97,14 @@ namespace DeltaEngine {
 			return result;
 		}
 
-		float PhysicsRenderer2D::submitTexture(const Texture* texture)
+		float PhysicsRenderer2D::submitTexture(const Graphics::Texture* texture)
 		{
 			return submitTexture(texture->getID());
 		}
 
-		void PhysicsRenderer2D::submit(const Renderable2D* renderable, bool transformationStack)
+		void PhysicsRenderer2D::submit(const Graphics::Renderable2D* renderable, bool transformationStack)
 		{
-			const PhysicsRenderable2D* object = dynamic_cast<PhysicsRenderable2D*>(const_cast<Renderable2D*>(renderable));
-
-			DELTAENGINE_ASSERT(object != nullptr, "The renderable object is not an instance of a PhysicsRenderable2D class!");
+			const PhysicsRenderable2D* object = renderable->toPhysicsRenderable();
 
 			const Types::uint32& color = object->getColor();
 			const Maths::Vector2D& position = object->getPosition();
@@ -128,7 +126,7 @@ namespace DeltaEngine {
 				mat = Maths::Matrix4(1.0f);
 			}
 
-			mat.translate(position.x + size.x / 2, position.y + size.y / 2, 0.0f);
+			mat.translate(position.x, position.y, 0.0f);
 			mat.rotate(object->getRotation(), 0.0f, 0.0f, 1.0f);
 
 			const float hSizeX = size.x / 2;

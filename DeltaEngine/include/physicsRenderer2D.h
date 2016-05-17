@@ -9,7 +9,7 @@
 #include "framebuffer.h"
 
 namespace DeltaEngine {
-	namespace Graphics {
+	namespace Physics {
 
 #define RENDERER_MAX_SPRITES	60000
 #define RENDERER_VERTEX_SIZE	sizeof(Types::VertexData)
@@ -24,25 +24,25 @@ namespace DeltaEngine {
 #define SHADER_TID_INDEX	2
 #define SHADER_COLOR_INDEX	3
 
-		class PhysicsRenderer2D : public Renderer2D
+		class PhysicsRenderer2D : public Graphics::Renderer2D
 		{
 		private:
-			IndexBuffer* indexBuffer;
-			VertexArray* vertexArray;
+			Graphics::IndexBuffer* indexBuffer;
+			Graphics::VertexArray* vertexArray;
 			GLuint vertexBuffer;
 			GLsizei indexCount;
 			Types::VertexData* buffer;
 			std::vector<GLuint> textureSlots;
 
 			float submitTexture(Types::uint32 textureID);
-			float submitTexture(const Texture* texture);
+			float submitTexture(const Graphics::Texture* texture);
 
 		public:
 			DELTAENGINE_API PhysicsRenderer2D();
 			DELTAENGINE_API ~PhysicsRenderer2D();
 
 			DELTAENGINE_API void begin() override;
-			DELTAENGINE_API void submit(const Renderable2D* renderable, bool transformationStack = false) override;
+			DELTAENGINE_API void submit(const Graphics::Renderable2D* renderable, bool transformationStack = false) override;
 			DELTAENGINE_API void end() override;
 			DELTAENGINE_API void flush() override;
 		};

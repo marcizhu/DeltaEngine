@@ -16,8 +16,6 @@
 #include "label.h"
 #include "layer2d.h"
 #include "line.h"
-#include "physicsRenderable2D.h"
-#include "PhysicsRenderer2D.h"
 #include "renderable2d.h"
 #include "renderer2d.h"
 #include "shader.h"
@@ -52,6 +50,11 @@
 #include "utils.h"
 #include "log.h"
 #include "memoryManager.h"
+
+// Physics
+#include "world2d.h"
+#include "physicsRenderable2D.h"
+#include "PhysicsRenderer2D.h"
 
 namespace DeltaEngine {
 

@@ -37,7 +37,7 @@ namespace DeltaEngine {
 			DELTAENGINE_API inline bool operator>(const Vector3D& other) const { return x > other.x && y > other.y && z > other.z; }
 			DELTAENGINE_API inline bool operator<(const Vector3D& other) const { return x < other.x && y < other.y && z < other.z; }
 
-			DELTAENGINE_API inline float distance() { return sqrt(x * x + y * y + z * z); }
+			DELTAENGINE_API inline float distance() const { return sqrt(x * x + y * y + z * z); }
 
 			DELTAENGINE_API friend std::ostream& operator<<(std::ostream& stream, const Vector3D& vector);
 		};

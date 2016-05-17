@@ -1,3 +1,5 @@
+#include <FreeImage\FreeImage.h>
+
 #include "texture.h"
 #include "log.h"
 #include "memoryManager.h"
@@ -19,7 +21,7 @@ namespace DeltaEngine {
 
 		Texture::Texture(const std::string& name, const std::string& filename, Types::uint32 texParam) : textureName(name)
 		{
-			BYTE* pixels = loadImage(filename.c_str(), &width, &height, &bpp);
+			Types::byte* pixels = loadImage(filename.c_str(), &width, &height, &bpp);
 
 			if (pixels == nullptr)
 			{
@@ -52,7 +54,7 @@ namespace DeltaEngine {
 			delete[] pixels;
 		}
 
-		BYTE* Texture::loadImage(const char* filename, Types::uint32* width, Types::uint32* height, Types::uchar8* bpp)
+		Types::byte* Texture::loadImage(const char* filename, Types::uint32* width, Types::uint32* height, Types::uchar8* bpp)
 		{
 			FREE_IMAGE_FORMAT fif = FreeImage_GetFileType(filename, 0);
 			FIBITMAP *dib = nullptr;
@@ -67,7 +69,7 @@ namespace DeltaEngine {
 
 			if (!dib) return nullptr;
 
-			BYTE* pixels = FreeImage_GetBits(dib);
+			Types::byte* pixels = FreeImage_GetBits(dib);
 
 			*width = FreeImage_GetWidth(dib);
 			*height = FreeImage_GetHeight(dib);
@@ -75,7 +77,7 @@ namespace DeltaEngine {
 
 			Types::uint32 size = *width * *height * (*bpp / 8);
 
-			BYTE* result = NEW BYTE[size];
+			Types::byte* result = NEW Types::byte[size];
 			memcpy(result, pixels, size);
 
 			FreeImage_Unload(dib);

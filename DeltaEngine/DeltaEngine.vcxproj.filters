@@ -58,6 +58,12 @@
     <Filter Include="Archivos de encabezado\DeltaEngine\Memory">
       <UniqueIdentifier>{e0d3102d-12a0-4bac-a706-d0704be82fc0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\DeltaEngine\Physics">
+      <UniqueIdentifier>{052473e6-a0ae-4cd3-a660-8447e5b398d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\DeltaEngine\Physics">
+      <UniqueIdentifier>{88c4891e-ddd7-4687-9d5d-e3279f2d71d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\batchRenderable2d.h">
@@ -192,17 +198,20 @@
     <ClInclude Include="include\PlatformTimer.h">
       <Filter>Archivos de encabezado\DeltaEngine\Platform</Filter>
     </ClInclude>
-    <ClInclude Include="include\physicsRenderable2D.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="include\PhysicsRenderer2D.h">
-      <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="include\aabb.h">
       <Filter>Archivos de encabezado\DeltaEngine\Maths</Filter>
     </ClInclude>
     <ClInclude Include="include\group.h">
       <Filter>Archivos de encabezado\DeltaEngine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\physicsRenderable2D.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PhysicsRenderer2D.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\World2D.h">
+      <Filter>Archivos de encabezado\DeltaEngine\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -281,14 +290,17 @@
     <ClCompile Include="src\sound\SoundManager.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Sound</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\PhysicsRenderer2D.cpp">
-      <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="src\maths\AABB.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Maths</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\Group.cpp">
       <Filter>Archivos de código fuente\DeltaEngine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physics\PhysicsRenderer2D.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physics\World2D.cpp">
+      <Filter>Archivos de código fuente\DeltaEngine\Physics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <GLEW\glew.h>
-#include <FreeImage\FreeImage.h>
 #include <string>
 #include <map>
 
@@ -21,7 +20,7 @@ namespace DeltaEngine {
 			uint32 width, height;
 			uchar8 bpp;
 
-			BYTE* loadImage(const char* filename, uint32* width, uint32* height, uchar8* bpp);
+			Types::byte* loadImage(const char* filename, uint32* width, uint32* height, uchar8* bpp);
 
 		public:
 			DELTAENGINE_API Texture(uint32 width, uint32 height);

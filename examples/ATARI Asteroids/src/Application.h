@@ -20,7 +20,7 @@ private:
 	Graphics::Layer2D* background;
 	Graphics::Layer2D* mainLayer;
 
-	std::vector<Graphics::PhysicsRenderable2D*> shots;
+	std::vector<Physics::PhysicsRenderable2D*> shots;
 
 	Maths::AABB* playArea;
 

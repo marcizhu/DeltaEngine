@@ -46,14 +46,14 @@ void Application::init()
 	Graphics::TextureManager::add(NEW Graphics::Texture("Asteroid Small 1", Utils::getCurrentPath() + "\\res\\assets\\asteroid-small-1.png"));
 	Graphics::TextureManager::add(NEW Graphics::Texture("Asteroid Smaller 1", Utils::getCurrentPath() + "\\res\\assets\\asteroid-smallest-1.png"));
 
-	mainLayer = NEW Graphics::Layer2D(NEW Graphics::PhysicsRenderer2D(), shader, Maths::Matrix4::orthographic(0.0f, 24.0f, 13.5f, 0.0f, -1.0f, 1.0f));
-	mainLayer->add(NEW Graphics::PhysicsRenderable2D(11.5f, 6.25f, 1.0f, 1.0f, Graphics::TextureManager::get("Spaceship")));
+	mainLayer = NEW Graphics::Layer2D(NEW Physics::PhysicsRenderer2D(), shader, Maths::Matrix4::orthographic(0.0f, 24.0f, 13.5f, 0.0f, -1.0f, 1.0f));
+	mainLayer->add(NEW Physics::PhysicsRenderable2D(12.0f, 6.75f, 1.0f, 1.0f, Graphics::TextureManager::get("Spaceship"), 1.0f, 5));
 	//mainLayer->add(NEW Graphics::PhysicsRenderable2D(-1.0f, -1.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Alien")));
 
-	Graphics::PhysicsRenderable2D* asteroid1 = (Graphics::PhysicsRenderable2D*)mainLayer->add(NEW Graphics::PhysicsRenderable2D(3.0f, 3.0f, 2.0f, 2.0f, Graphics::TextureManager::get("Asteroid Big 1")));
-	Graphics::PhysicsRenderable2D* asteroid2 = (Graphics::PhysicsRenderable2D*)mainLayer->add(NEW Graphics::PhysicsRenderable2D(9.0f, 1.0f, 2.0f, 2.0f, Graphics::TextureManager::get("Asteroid Big 2")));
-	Graphics::PhysicsRenderable2D* asteroid3 = (Graphics::PhysicsRenderable2D*)mainLayer->add(NEW Graphics::PhysicsRenderable2D(16.0f, 11.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Asteroid Small 1")));
-	Graphics::PhysicsRenderable2D* asteroid4 = (Graphics::PhysicsRenderable2D*)mainLayer->add(NEW Graphics::PhysicsRenderable2D(10.0f, 8.0f, 0.5f, 0.5f, Graphics::TextureManager::get("Asteroid Smaller 1")));
+	Physics::PhysicsRenderable2D* asteroid1 = (Physics::PhysicsRenderable2D*)mainLayer->add(NEW Physics::PhysicsRenderable2D(3.0f, 3.0f, 2.0f, 2.0f, Graphics::TextureManager::get("Asteroid Big 1"), 1.0f, 1));
+	Physics::PhysicsRenderable2D* asteroid2 = (Physics::PhysicsRenderable2D*)mainLayer->add(NEW Physics::PhysicsRenderable2D(9.0f, 1.0f, 2.0f, 2.0f, Graphics::TextureManager::get("Asteroid Big 2"), 1.0f, 1));
+	Physics::PhysicsRenderable2D* asteroid3 = (Physics::PhysicsRenderable2D*)mainLayer->add(NEW Physics::PhysicsRenderable2D(16.0f, 11.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Asteroid Small 1"), 1.0f, 1));
+	Physics::PhysicsRenderable2D* asteroid4 = (Physics::PhysicsRenderable2D*)mainLayer->add(NEW Physics::PhysicsRenderable2D(10.0f, 8.0f, 0.5f, 0.5f, Graphics::TextureManager::get("Asteroid Smaller 1"), 1.0f, 1));
 
 	srand(Utils::getSystemTime().Milliseconds);
 	asteroid1->setVelocity((float)2.0f * rand() / RAND_MAX, (float)360.0f * rand() / RAND_MAX);
@@ -86,8 +86,8 @@ void Application::update()
 {
 	if (window->isKeyPressed(KB_KEY_ESCAPE)) window->close();
 
-	Graphics::PhysicsRenderable2D* spaceship = (Graphics::PhysicsRenderable2D*)(*mainLayer)[0];
-	Graphics::PhysicsRenderable2D* asteroid1 = (Graphics::PhysicsRenderable2D*)(*mainLayer)[1];
+	Physics::PhysicsRenderable2D* spaceship = (Physics::PhysicsRenderable2D*)(*mainLayer)[0];
+	Physics::PhysicsRenderable2D* asteroid1 = (Physics::PhysicsRenderable2D*)(*mainLayer)[1];
 
 	Sound::SoundManager::update();
 
@@ -107,7 +107,7 @@ void Application::update()
 		Sound::SoundManager::get("Laser")->setPosition(Maths::Vector2D(spaceship->getPosition().x / 12.0f - 1.0f, spaceship->getPosition().y / 6.25f - 1.0f), 0.7f);
 		//Sound::SoundManager::get("Laser")->setPan(pos);
 
-		Graphics::PhysicsRenderable2D* laser = NEW Graphics::PhysicsRenderable2D(spaceship->getPosition().x + 0.5f, spaceship->getPosition().y + 0.25f, 0.5f, 0.5f, Graphics::TextureManager::get("Laser"));
+		Physics::PhysicsRenderable2D* laser = NEW Physics::PhysicsRenderable2D(spaceship->getPosition().x, spaceship->getPosition().y, 0.5f, 0.5f, Graphics::TextureManager::get("Laser"), 1.0f, 1);
 		laser->setRotation(spaceship->getRotation());
 		laser->setVelocity(LASER_SPEED);
 		shots.push_back(laser);

@@ -13,7 +13,7 @@ Sandbox::Sandbox() : Game()
 
 Sandbox::~Sandbox()
 {
-	delete mainLayer;
+	delete myWorld;
 	delete ui;
 
 	Graphics::FontManager::clean();
@@ -33,23 +33,8 @@ void Sandbox::init()
 
 	Graphics::TextureManager::add(NEW Graphics::Texture("Mario", "mario.png", GL_NEAREST));
 
-	mainLayer = NEW Graphics::Layer2D(NEW Graphics::BatchRenderer2D(), shader, pr_matrix);
-	mainLayer->add(NEW Graphics::BatchRenderable2D(1.0f, 1.0f, 1, 1, Graphics::TextureManager::get("Mario")));
-
-#ifdef DELTAENGINE_DEBUG
-	mainLayer->add(NEW Graphics::Line(0.0f, 0.0f, 20.0f, 0.0f, 16.0f / 960.0f, 0xFF0000FF));
-	mainLayer->add(NEW Graphics::Line(0.0f, 0.0f, 0.0f, 20.0f, 16.0f / 960.0f, 0xFF0000FF));
-
-	for (float y = 1.0f; y < 20.0f; y++)
-	{
-		mainLayer->add(NEW Graphics::Line(0.0f, y, 20.0f, y, 16.0f / 960.0f, 0x3FFFFFFF));
-	}
-
-	for (float x = 1.0f; x < 20.0f; x++)
-	{
-		mainLayer->add(NEW Graphics::Line(x, 0.0f, x, 20.0f, 16.0f / 960.0f, 0x3FFFFFFF));
-	}
-#endif
+	myWorld = NEW Physics::World2D(NEW Physics::PhysicsRenderer2D(), shader, pr_matrix, 9.81f);
+	myWorld->add(NEW Physics::PhysicsRenderable2D(7.5f, 8.0f, 1, 1, Graphics::TextureManager::get("Mario"), 1.0f, 1));
 
 	Graphics::FontManager::add(NEW Graphics::Font("OpenSans", "OpenSans-Light.ttf", 24));
 	Graphics::FontManager::add(NEW Graphics::Font("Consolas", "consola.ttf", 18));
@@ -68,6 +53,21 @@ void Sandbox::init()
 	ui->add(fpsLabel);
 	ui->add(memoryLabel);
 
+#ifdef DELTAENGINE_DEBUG
+	ui->add(NEW Graphics::Line(0.0f, 0.0f, 20.0f, 0.0f, 16.0f / 960.0f, 0xFF0000FF));
+	ui->add(NEW Graphics::Line(0.0f, 0.0f, 0.0f, 20.0f, 16.0f / 960.0f, 0xFF0000FF));
+
+	for (float y = 1.0f; y < 20.0f; y++)
+	{
+		ui->add(NEW Graphics::Line(0.0f, y, 20.0f, y, 16.0f / 960.0f, 0x3FFFFFFF));
+	}
+
+	for (float x = 1.0f; x < 20.0f; x++)
+	{
+		ui->add(NEW Graphics::Line(x, 0.0f, x, 20.0f, 16.0f / 960.0f, 0x3FFFFFFF));
+	}
+#endif
+
 	GLint texIDs[] =
 	{
 		 0,  1,  2,  3,  4,  5,  6,  7,  8,  9,
@@ -82,7 +82,7 @@ void Sandbox::init()
 	uiShader->enable();
 	uiShader->setUniform1iv("textures", texIDs, 32);
 
-	window->setVSync(VSYNC_NON_BLOCKING);
+	window->setVSync(VSYNC_ENABLE);
 }
 
 void Sandbox::update()
@@ -91,18 +91,17 @@ void Sandbox::update()
 
 	if (window->isKeyPressed(KB_KEY_ESCAPE)) window->close();
 
-	if (window->isKeyPressed(KB_KEY_RIGHT)) (*mainLayer)[0]->move( 0.1f,  0.0f); // Right arrow
-	if (window->isKeyPressed(KB_KEY_LEFT )) (*mainLayer)[0]->move(-0.1f,  0.0f); // Left arrow
-	if (window->isKeyPressed(KB_KEY_DOWN )) (*mainLayer)[0]->move( 0.0f, -0.1f); // Down arrow
-	if (window->isKeyPressed(KB_KEY_UP   )) (*mainLayer)[0]->move( 0.0f,  0.1f); // Up arrow
+	if (window->isKeyPressed(KB_KEY_RIGHT)) (*myWorld)[0]->move( 0.1f,  0.0f); // Right arrow
+	if (window->isKeyPressed(KB_KEY_LEFT )) (*myWorld)[0]->move(-0.1f,  0.0f); // Left arrow
+	if (window->isKeyPressed(KB_KEY_DOWN )) (*myWorld)[0]->move( 0.0f, -0.1f); // Down arrow
+	if (window->isKeyPressed(KB_KEY_UP   )) (*myWorld)[0]->move( 0.0f,  0.1f); // Up arrow
 
-	//if (window->isKeyPressed(KB_KEY_RIGHT)) (*mainLayer)[0]->rotate(-2.0f);
-	//if (window->isKeyPressed(KB_KEY_LEFT )) (*mainLayer)[0]->rotate( 2.0f);
+	myWorld->update(1 / 60.0f);
 }
 
 void Sandbox::render()
 {
-	mainLayer->render();
+	myWorld->render();
 	ui->render();
 
 #ifdef _DEBUG

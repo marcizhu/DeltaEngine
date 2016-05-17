@@ -5,6 +5,7 @@
 #include "vector2d.h"
 #include "vector3d.h"
 #include "vector4d.h"
+#include "aabb.h"
 
 namespace DeltaEngine {
 	namespace Maths {
@@ -46,6 +47,8 @@ namespace DeltaEngine {
 			DELTAENGINE_API const Matrix4& translate(float x, float y, float z);
 			DELTAENGINE_API const Matrix4& rotate(float angle, float xAxis, float yAxis, float zAxis);
 			DELTAENGINE_API const Matrix4& scale(float x, float y, float z);
+
+			DELTAENGINE_API const AABB& orthographicToAABB() const;
 		};
 
 	}
