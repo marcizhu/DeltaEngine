@@ -238,5 +238,53 @@ namespace DeltaEngine {
 			return AABB(Maths::Vector3D(left, bottom, near), Maths::Vector3D(right, top, far));
 		}
 
+		const signed int Matrix4::getDownDirection() const
+		{
+			float tMinusB = 1.0f / (this->elements[1 + 1 * 4] / 2.0f);
+
+			float bPlusT = this->elements[1 + 3 * 4] * -tMinusB;
+
+			float bottom = (tMinusB - bPlusT) / -2.0f;
+			float top = tMinusB + bottom;
+
+			return top > bottom ? -1 : 1;
+		}
+
+		const signed int Matrix4::getUpDirection() const
+		{
+			float tMinusB = 1.0f / (this->elements[1 + 1 * 4] / 2.0f);
+
+			float bPlusT = this->elements[1 + 3 * 4] * -tMinusB;
+
+			float bottom = (tMinusB - bPlusT) / -2.0f;
+			float top = tMinusB + bottom;
+
+			return bottom > top ? -1 : 1;
+		}
+
+		const signed int Matrix4::getLeftDirection() const
+		{
+			float rMinusL = 1.0f / (this->elements[0 + 0 * 4] / 2.0f);
+
+			float lPlusR = this->elements[0 + 3 * 4] * -rMinusL;
+
+			float left = (rMinusL - lPlusR) / -2.0f;
+			float right = rMinusL + left;
+
+			return right > left ? -1 : 1;
+		}
+
+		const signed int Matrix4::getRightDirection() const
+		{
+			float rMinusL = 1.0f / (this->elements[0 + 0 * 4] / 2.0f);
+
+			float lPlusR = this->elements[0 + 3 * 4] * -rMinusL;
+
+			float left = (rMinusL - lPlusR) / -2.0f;
+			float right = rMinusL + left;
+
+			return left > right ? -1 : 1;
+		}
+
 	}
 }

@@ -29,6 +29,8 @@ namespace DeltaEngine {
 			DELTAENGINE_API void update(float timestep);
 
 			DELTAENGINE_API void setLimits(bool enable) { limits = enable; }
+
+			DELTAENGINE_API float getGravity() { return gravity; }
 		};
 
 	}

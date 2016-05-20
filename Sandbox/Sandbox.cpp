@@ -33,7 +33,8 @@ void Sandbox::init()
 
 	Graphics::TextureManager::add(NEW Graphics::Texture("Mario", "mario.png", GL_NEAREST));
 
-	myWorld = NEW Physics::World2D(NEW Physics::PhysicsRenderer2D(), shader, pr_matrix, 9.81f);
+	myWorld = NEW Physics::World2D(NEW Physics::PhysicsRenderer2D(), shader, pr_matrix, 1.0f);
+	myWorld->setLimits(true);
 	myWorld->add(NEW Physics::PhysicsRenderable2D(7.5f, 8.0f, 1, 1, Graphics::TextureManager::get("Mario"), 1.0f, 1));
 
 	Graphics::FontManager::add(NEW Graphics::Font("OpenSans", "OpenSans-Light.ttf", 24));
@@ -97,6 +98,8 @@ void Sandbox::update()
 	if (window->isKeyPressed(KB_KEY_UP   )) (*myWorld)[0]->move( 0.0f,  0.1f); // Up arrow
 
 	myWorld->update(1 / 60.0f);
+
+	//DELTAENGINE_INFO("Energy: ", Utils::toPhysicsRenderable((*myWorld)[0])->getMechanicalEnergy(myWorld->getGravity()));
 }
 
 void Sandbox::render()

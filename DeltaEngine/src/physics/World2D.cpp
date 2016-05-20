@@ -1,5 +1,6 @@
 #include "world2d.h"
 #include "types.h"
+#include "utils.h"
 
 using namespace DeltaEngine::Types;
 
@@ -8,10 +9,11 @@ namespace DeltaEngine {
 
 		Graphics::Renderable2D* World2D::add(Graphics::Renderable2D* object)
 		{
-			Physics::PhysicsRenderable2D* obj = object->toPhysicsRenderable();
+			Physics::PhysicsRenderable2D* obj = Utils::toPhysicsRenderable(object);
 
 			renderables.push_back(object);
-			obj->applyForce(gravity * obj->getMass(), -90.0f); //TODO: -90.0f depends on the pr matrix!
+
+			obj->applyForce(gravity * obj->getMass(), this->projectionMatrix.getDownDirection() * 90.0f); //TODO: -90.0f depends on the pr matrix!
 
 			return object;
 		}
@@ -20,7 +22,7 @@ namespace DeltaEngine {
 		{
 			for (Graphics::Renderable2D* renderable : renderables)
 			{
-				PhysicsRenderable2D* object = renderable->toPhysicsRenderable();
+				PhysicsRenderable2D* object = Utils::toPhysicsRenderable(renderable);
 
 				if (!object->needsUpdate()) continue;
 				if (limits && !area.contains(object->getPosition())) continue;

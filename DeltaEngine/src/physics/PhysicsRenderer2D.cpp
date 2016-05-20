@@ -104,7 +104,7 @@ namespace DeltaEngine {
 
 		void PhysicsRenderer2D::submit(const Graphics::Renderable2D* renderable, bool transformationStack)
 		{
-			const PhysicsRenderable2D* object = renderable->toPhysicsRenderable();
+			const PhysicsRenderable2D* object = Utils::toPhysicsRenderable(renderable);
 
 			const Types::uint32& color = object->getColor();
 			const Maths::Vector2D& position = object->getPosition();

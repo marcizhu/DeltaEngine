@@ -9,7 +9,6 @@
 
 #include "maths.h"
 #include "log.h"
-//#include "physicsRenderable2D.h"
 
 namespace DeltaEngine {
 	namespace Physics {
@@ -67,13 +66,6 @@ namespace DeltaEngine {
 			inline void setColor(Types::Color& color) { this->color = color.getABGRColor(); };
 
 			inline void move(float dx, float dy) { position.x +=  dx; position.y += dy; }
-
-			inline Physics::PhysicsRenderable2D* toPhysicsRenderable() const
-			{
-				Physics::PhysicsRenderable2D* object = (Physics::PhysicsRenderable2D*)const_cast<Renderable2D*>(this);
-
-				return object;
-			}
 		};
 
 	}
