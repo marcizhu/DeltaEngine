@@ -86,8 +86,8 @@ void Application::update()
 {
 	if (window->isKeyPressed(KB_KEY_ESCAPE)) window->close();
 
-	Physics::PhysicsRenderable2D* spaceship = (*world)[0]->toPhysicsRenderable();
-	Physics::PhysicsRenderable2D* asteroid1 = (*world)[1]->toPhysicsRenderable();
+	Physics::PhysicsRenderable2D* spaceship = Utils::toPhysicsRenderable((*world)[0]);
+	Physics::PhysicsRenderable2D* asteroid1 = Utils::toPhysicsRenderable((*world)[1]);
 
 	Sound::SoundManager::update();
 

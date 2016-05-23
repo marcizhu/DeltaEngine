@@ -3,6 +3,7 @@
 #include "renderable2d.h"
 #include "aabb.h"
 #include "log.h"
+#include "physicsSettings.h"
 
 namespace DeltaEngine {
 	namespace Physics {
@@ -10,40 +11,48 @@ namespace DeltaEngine {
 		class PhysicsRenderable2D : public Graphics::Renderable2D
 		{
 		private:
-			float rotationAngle; // in degrees!
-			float mass;
 			float angularVelocity;
+			float rotationAngle; // in degrees!
+			//float friction;
+			float mass;
 			Types::byte iterations;
 			Maths::Vector2D force; // in units per second every second (u / s^2)
 			Maths::Vector2D velocity; // in units per second (u / s)
 			Maths::AABB aabb;
 
+			void init(Graphics::Texture* texture, Types::byte iterations)
+			{
+				this->texture = texture;
+
+				rotationAngle = angularVelocity = 0.0f;
+
+				force = velocity = Maths::Vector2D(0, 0);
+
+				this->iterations = iterations;
+			}
+
 		public:
 			PhysicsRenderable2D(float x, float y, float width, float height, Types::Color color, float mass, Types::byte it)
-				: Renderable2D(Maths::Vector2D(x, y), Maths::Vector2D(width, height), color), aabb(position, position + size), mass(mass), iterations(it)
-			{ this->texture = nullptr; rotationAngle = angularVelocity = 0.0f; force = velocity = Maths::Vector2D(0, 0); };
+				: Renderable2D(Maths::Vector2D(x, y), Maths::Vector2D(width, height), color), aabb(position, position + size), mass(mass)
+			{ init(nullptr, it); };
 
 			PhysicsRenderable2D(float x, float y, float width, float height, Types::uint32 color, float mass, Types::byte it)
-				: Renderable2D(Maths::Vector2D(x, y), Maths::Vector2D(width, height), color), aabb(position, position + size), mass(mass), iterations(it)
-			{ this->texture = nullptr; rotationAngle = angularVelocity = 0.0f; force = velocity = Maths::Vector2D(0, 0); };
+				: Renderable2D(Maths::Vector2D(x, y), Maths::Vector2D(width, height), color), aabb(position, position + size), mass(mass)
+			{ init(nullptr, it); };
 
 			PhysicsRenderable2D(float x, float y, float width, float height, Graphics::Texture* texture, float mass, Types::byte it)
-				: Renderable2D(Maths::Vector2D(x, y), Maths::Vector2D(width, height), 0xffffffff), aabb(position, position + size), mass(mass), iterations(it)
-			{ this->texture = texture; rotationAngle = angularVelocity = 0.0f; force = velocity = Maths::Vector2D(0, 0); }
-
-			PhysicsRenderable2D(float x, float y, float width, float height, Graphics::Sprite sprite, float mass, Types::byte it)
-				: Renderable2D(Maths::Vector2D(x, y), Maths::Vector2D(width, height), 0xffffffff), aabb(position, position + size), mass(mass), iterations(it)
-			{ this->texture = nullptr; rotationAngle = angularVelocity = 0.0f; force = velocity = Maths::Vector2D(0, 0); }
+				: Renderable2D(Maths::Vector2D(x, y), Maths::Vector2D(width, height), 0xffffffff), aabb(position, position + size), mass(mass)
+			{ init(texture, it); }
 
 			void update(float dt)
 			{
-				position += velocity * dt + ((force / mass) * dt * dt / 2.0f);
+				position += velocity * dt + ((force / mass) * dt * dt * 0.5f);
 				rotationAngle += angularVelocity * dt;
 
 				velocity += (force / mass) * dt;
 
-				// tunneling
-				if(abs(velocity.x * dt) >= size.x) DELTAENGINE_WARN("[Physics] Horizontal speed is too fast! (", velocity.x,")");
+				// tunneling prevention
+				if(abs(velocity.x * dt) >= size.x) DELTAENGINE_WARN("[Physics] Horizontal speed is too fast! (", velocity.x, ")");
 				if(abs(velocity.y * dt) >= size.y) DELTAENGINE_WARN("[Physics] Vertical speed is too fast! (", velocity.y, ")");
 
 				aabb = Maths::AABB(position, position + size);
@@ -110,10 +119,10 @@ namespace DeltaEngine {
 				force.y -= sin(Maths::toRadians(angle)) * newtons;
 			}
 
-			inline void accelerate(Maths::Vector2D acceleration/*, float angle = this->getRotation()*/)
+			inline void applyImpulse(float impulse, float angle)
 			{
-				velocity.x += cos(Maths::toRadians(rotationAngle)) * acceleration.x;
-				velocity.y += sin(Maths::toRadians(rotationAngle)) * acceleration.y;
+				velocity.x += cos(Maths::toRadians(angle)) * impulse;
+				velocity.y += sin(Maths::toRadians(angle)) * impulse;
 			}
 		};
 
