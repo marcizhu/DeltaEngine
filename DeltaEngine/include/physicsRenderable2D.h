@@ -3,7 +3,6 @@
 #include "renderable2d.h"
 #include "aabb.h"
 #include "log.h"
-#include "physicsSettings.h"
 
 namespace DeltaEngine {
 	namespace Physics {
