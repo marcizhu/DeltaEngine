@@ -32,6 +32,7 @@
 #include "aabb.h"
 #include "maths.h"
 #include "matrix4.h"
+#include "obb.h"
 #include "vector2d.h"
 #include "vector3d.h"
 #include "vector4d.h"

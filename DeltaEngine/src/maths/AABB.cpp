@@ -88,5 +88,36 @@ namespace DeltaEngine {
 			return (min > other.max);
 		}
 
+		AABB& AABB::operator-=(const Vector2D& vec)
+		{
+			min -= Maths::Vector3D(vec.x, vec.y, 0.0f);
+			max -= Maths::Vector3D(vec.x, vec.y, 0.0f);
+
+			return *this;
+		}
+
+		AABB& AABB::operator+=(const Vector2D& vec)
+		{
+			min += Maths::Vector3D(vec.x, vec.y, 0.0f);
+			max += Maths::Vector3D(vec.x, vec.y, 0.0f);
+
+			return *this;
+		}
+
+		AABB& AABB::operator-=(const Vector3D& vec)
+		{
+			min -= vec;
+			max -= vec;
+
+			return *this;
+		}
+
+		AABB& AABB::operator+=(const Vector3D& vec)
+		{
+			min += vec;
+			max += vec;
+
+			return *this;
+		}
 	}
 }

@@ -66,7 +66,7 @@ namespace DeltaEngine {
 			Platform::PlatformSetConsoleColor(color);
 		}
 
-		string precision_to_string(const float& val, char n)
+		string precision_to_string(const float val, char n)
 		{
 			std::ostringstream out;
 			out << std::setprecision(n) << val;

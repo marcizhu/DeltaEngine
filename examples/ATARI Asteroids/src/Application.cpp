@@ -101,11 +101,11 @@ void Application::update()
 
 	if (window->isKeyPressed(KB_KEY_W) && !keyHeld)
 	{
-		//const float intensity = 0.7f;
-		//const float pos = (1.0f - intensity) + ((intensity * (spaceship->getPosition().x) / 12) - 1);
+		const float intensity = 0.7f;
+		const float pos = (1.0f - intensity) + ((intensity * (spaceship->getPosition().x) / 12) - 1);
 		Sound::SoundManager::get("Laser")->play();
-		Sound::SoundManager::get("Laser")->setPosition(Maths::Vector2D(spaceship->getPosition().x / 12.0f - 1.0f, spaceship->getPosition().y / 6.25f - 1.0f), 0.7f);
-		//Sound::SoundManager::get("Laser")->setPan(pos);
+		//Sound::SoundManager::get("Laser")->setPosition(Maths::Vector2D(spaceship->getPosition().x / 12.0f - 1.0f, spaceship->getPosition().y / 6.25f - 1.0f), 0.7f);
+		Sound::SoundManager::get("Laser")->setPan(pos);
 
 		Physics::PhysicsRenderable2D* laser = NEW Physics::PhysicsRenderable2D(spaceship->getPosition().x, spaceship->getPosition().y, 0.5f, 0.5f, Graphics::TextureManager::get("Laser"), 1.0f, 1);
 		laser->setRotation(spaceship->getRotation());

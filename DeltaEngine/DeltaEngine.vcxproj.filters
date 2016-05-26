@@ -209,6 +209,9 @@
     <ClInclude Include="include\World2D.h">
       <Filter>Header files\DeltaEngine\Physics</Filter>
     </ClInclude>
+    <ClInclude Include="include\obb.h">
+      <Filter>Header files\DeltaEngine\Maths</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\utils\Debug.cpp">
@@ -297,6 +300,9 @@
     </ClCompile>
     <ClCompile Include="src\physics\World2D.cpp">
       <Filter>Source files\DeltaEngine\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\maths\OBB.cpp">
+      <Filter>Source files\DeltaEngine\Maths</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

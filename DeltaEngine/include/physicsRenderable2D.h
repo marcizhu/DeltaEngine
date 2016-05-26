@@ -1,7 +1,7 @@
 #pragma once
 
 #include "renderable2d.h"
-#include "aabb.h"
+#include "obb.h"
 #include "log.h"
 
 namespace DeltaEngine {
@@ -17,34 +17,37 @@ namespace DeltaEngine {
 			Types::byte iterations;
 			Maths::Vector2D force; // in units per second every second (u / s^2)
 			Maths::Vector2D velocity; // in units per second (u / s)
-			Maths::AABB aabb;
+			Maths::OBB2D obb;
 
 			void init(Graphics::Texture* texture, Types::byte iterations)
 			{
 				this->texture = texture;
-
-				rotationAngle = angularVelocity = 0.0f;
-
-				force = velocity = Maths::Vector2D(0, 0);
-
 				this->iterations = iterations;
+
+				rotationAngle = 0.0f;
+				angularVelocity = 0.0f;
+
+				force = Maths::Vector2D(0.0f, 0.0f);
+				velocity = Maths::Vector2D(0.0f, 0.0f);
 			}
 
 		public:
 			PhysicsRenderable2D(float x, float y, float width, float height, Types::Color color, float mass, Types::byte it)
-				: Renderable2D(Maths::Vector2D(x, y), Maths::Vector2D(width, height), color), aabb(position, position + size), mass(mass)
+				: Renderable2D(Maths::Vector2D(x, y), Maths::Vector2D(width, height), color), obb(position, size, 0.0f), mass(mass)
 			{ init(nullptr, it); };
 
 			PhysicsRenderable2D(float x, float y, float width, float height, Types::uint32 color, float mass, Types::byte it)
-				: Renderable2D(Maths::Vector2D(x, y), Maths::Vector2D(width, height), color), aabb(position, position + size), mass(mass)
+				: Renderable2D(Maths::Vector2D(x, y), Maths::Vector2D(width, height), color), obb(position, size, 0.0f), mass(mass)
 			{ init(nullptr, it); };
 
 			PhysicsRenderable2D(float x, float y, float width, float height, Graphics::Texture* texture, float mass, Types::byte it)
-				: Renderable2D(Maths::Vector2D(x, y), Maths::Vector2D(width, height), 0xffffffff), aabb(position, position + size), mass(mass)
+				: Renderable2D(Maths::Vector2D(x, y), Maths::Vector2D(width, height), 0xffffffff), obb(position, size, 0.0f), mass(mass)
 			{ init(texture, it); }
 
 			void update(float dt)
 			{
+				//if (obb.contains(Maths::Vector2D(position.x, 0.0f))) return;
+
 				position += velocity * dt + ((force / mass) * dt * dt * 0.5f);
 				rotationAngle += angularVelocity * dt;
 
@@ -54,7 +57,7 @@ namespace DeltaEngine {
 				if(abs(velocity.x * dt) >= size.x) DELTAENGINE_WARN("[Physics] Horizontal speed is too fast! (", velocity.x, ")");
 				if(abs(velocity.y * dt) >= size.y) DELTAENGINE_WARN("[Physics] Vertical speed is too fast! (", velocity.y, ")");
 
-				aabb = Maths::AABB(position, position + size);
+				obb = Maths::OBB2D(position, size, rotationAngle);
 			}
 
 			inline bool needsUpdate() { return force.distance() != 0.0f || velocity.distance() != 0.0f; }

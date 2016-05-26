@@ -242,9 +242,11 @@
     <ClInclude Include="include\memoryManager.h" />
     <ClInclude Include="include\PlatformTimer.h" />
     <ClInclude Include="include\World2D.h" />
+    <ClInclude Include="include\obb.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\graphics\Group.cpp" />
+    <ClCompile Include="src\maths\OBB.cpp" />
     <ClCompile Include="src\physics\PhysicsRenderer2D.cpp" />
     <ClCompile Include="src\maths\AABB.cpp" />
     <ClCompile Include="src\memory\MemoryManager.cpp">

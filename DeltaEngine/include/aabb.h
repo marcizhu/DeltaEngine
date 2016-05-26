@@ -36,6 +36,12 @@ namespace DeltaEngine {
 			DELTAENGINE_API inline bool operator>=(const AABB& other) const;
 			DELTAENGINE_API inline bool operator<(const AABB& other) const;
 			DELTAENGINE_API inline bool operator>(const AABB& other) const;
+
+			DELTAENGINE_API inline AABB& operator-=(const Vector2D& vec);
+			DELTAENGINE_API inline AABB& operator+=(const Vector2D& vec);
+
+			DELTAENGINE_API inline AABB& operator-=(const Vector3D& vec);
+			DELTAENGINE_API inline AABB& operator+=(const Vector3D& vec);
 		};
 
 	}
