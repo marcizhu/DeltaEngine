@@ -13,7 +13,7 @@
 #include "fileIO.h"
 
 #ifdef DELTAENGINE_DEBUG
-#	define NEW			new(__FILE__, __LINE__)
+#	define NEW			new(strrchr(__FILE__, '\\') + 1, __LINE__)
 #else
 #	define NEW			new
 #endif
@@ -74,7 +74,6 @@ namespace DeltaEngine {
 
 		public:
 			DELTAENGINE_API static void start();
-			DELTAENGINE_API static void refresh();
 			DELTAENGINE_API static void end();
 
 			DELTAENGINE_API static uint32 getAllocatedMemory();
@@ -105,7 +104,7 @@ inline void* operator new(size_t size)
 	if (size > MB_IN_BYTES)
 	{
 		float mb = (float)size / (MB_IN_BYTES);
-		DELTAENGINE_ERROR("Large allocation (", Utils::precision_to_string(mb, Maths::nlen<float>(mb) + 2), " Mb) from an unknown source!");
+		DELTAENGINE_ERROR("[Memory] Large allocation (", Utils::precision_to_string(mb, Maths::nlen<float>(mb) + 2), " MB) from an unknown source!");
 		flags |= Memory::AllocationFlags::ALLOCATION_LARGE;
 	}
 
@@ -119,7 +118,7 @@ inline void* operator new(size_t size, const char* file, unsigned int line)
 	if (size > MB_IN_BYTES)
 	{
 		float mb = (float)size / (MB_IN_BYTES);
-		DELTAENGINE_WARN("Large allocation (", Utils::precision_to_string(mb, Maths::nlen<float>(mb) + 2), " Mb) at ", file, ":", line);
+		DELTAENGINE_WARN("[Memory] Large allocation (", Utils::precision_to_string(mb, Maths::nlen<float>(mb) + 2), " MB) at ", file, ":", line);
 		flags |= Memory::AllocationFlags::ALLOCATION_LARGE;
 	}
 
@@ -133,7 +132,7 @@ inline void* operator new[](size_t size)
 	if (size > MB_IN_BYTES)
 	{
 		float mb = (float)size / (MB_IN_BYTES);
-		DELTAENGINE_ERROR("Large allocation (", Utils::precision_to_string(mb, Maths::nlen<float>(mb) + 2), " Mb) from an unknown source!");
+		DELTAENGINE_ERROR("[Memory] Large allocation (", Utils::precision_to_string(mb, Maths::nlen<float>(mb) + 2), " MB) from an unknown source!");
 		flags |= Memory::AllocationFlags::ALLOCATION_LARGE;
 	}
 
@@ -147,7 +146,7 @@ inline void* operator new[](size_t size, const char* file, unsigned int line)
 	if (size > MB_IN_BYTES)
 	{
 		float mb = (float)size / (MB_IN_BYTES);
-		DELTAENGINE_WARN("Large allocation (", Utils::precision_to_string(mb, Maths::nlen<float>(mb) + 2), " Mb) at ", file, ":", line);
+		DELTAENGINE_WARN("[Memory] Large allocation (", Utils::precision_to_string(mb, Maths::nlen<float>(mb) + 2), " MB) at ", file, ":", line);
 		flags |= Memory::AllocationFlags::ALLOCATION_LARGE;
 	}
 
@@ -156,20 +155,40 @@ inline void* operator new[](size_t size, const char* file, unsigned int line)
 
 inline void operator delete(void* block)
 {
+	if ((Memory::MemoryManager::getFlags(block) & Memory::AllocationFlags::ALLOCATION_ARRAY) == Memory::AllocationFlags::ALLOCATION_ARRAY)
+	{
+		DELTAENGINE_ERROR("[Memory] Executing a normal deallocation from an array allocation!");
+	}
+
 	Memory::MemoryManager::deallocate(block);
 }
 
 inline void operator delete(void* block, const char* file, unsigned int line)
 {
+	if ((Memory::MemoryManager::getFlags(block) & Memory::AllocationFlags::ALLOCATION_ARRAY) == Memory::AllocationFlags::ALLOCATION_ARRAY)
+	{
+		DELTAENGINE_ERROR("[Memory] Executing a normal deallocation from an array allocation!");
+	}
+
 	Memory::MemoryManager::deallocate(block);
 }
 
 inline void operator delete[](void* block)
 {
+	if ((Memory::MemoryManager::getFlags(block) & Memory::AllocationFlags::ALLOCATION_ARRAY) != Memory::AllocationFlags::ALLOCATION_ARRAY)
+	{
+		DELTAENGINE_ERROR("[Memory] Executing an array deallocation from a non-array allocation!");
+	}
+
 	Memory::MemoryManager::deallocate(block);
 }
 
 inline void operator delete[](void* block, const char* file, unsigned int line)
 {
+	if ((Memory::MemoryManager::getFlags(block) & Memory::AllocationFlags::ALLOCATION_ARRAY) != Memory::AllocationFlags::ALLOCATION_ARRAY)
+	{
+		DELTAENGINE_ERROR("[Memory] Executing an array deallocation from a non-array allocation!");
+	}
+
 	Memory::MemoryManager::deallocate(block);
 }

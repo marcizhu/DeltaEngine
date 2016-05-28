@@ -16,7 +16,7 @@ namespace DeltaEngine {
 		public:
 			DELTAENGINE_API OBB2D() : vertex(), box() {};
 			DELTAENGINE_API OBB2D(Maths::Vector2D& center, float sizeX, float sizeY, float angle);
-			DELTAENGINE_API OBB2D(Maths::Vector2D& center, Maths::Vector2D& size, float angle);
+			DELTAENGINE_API OBB2D(Maths::Vector2D& center, Maths::Vector2D size, float angle);
 
 			DELTAENGINE_API bool intersects(Maths::OBB2D& other) const;
 			DELTAENGINE_API bool contains(Maths::Vector2D& point) const;

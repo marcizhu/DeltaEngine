@@ -19,7 +19,7 @@ namespace DeltaEngine {
 			this->fSize = getFileSize();
 		}
 
-		std::string File::read()
+		std::string File::read() const
 		{
 			FILE* file;
 			fopen_s(&file, this->path.c_str(), "r");
@@ -34,6 +34,21 @@ namespace DeltaEngine {
 
 			delete[] data;
 			return result;
+		}
+
+		byte* File::readBinary() const
+		{
+			FILE* file;
+			fopen_s(&file, this->path.c_str(), "rb");
+			if (file == nullptr) return nullptr;
+
+			byte* data = NEW byte[getFileSize() + 1];
+			memset(data, 0, getFileSize() + 1);
+			fread(data, 1, getFileSize(), file);
+			fclose(file);
+
+			//delete[] data; // TODO: Fix memory leak!
+			return data;
 		}
 
 		int File::write(std::string data)
@@ -62,7 +77,7 @@ namespace DeltaEngine {
 			return 0;
 		}
 
-		bool File::exists()
+		bool File::exists() const
 		{
 			struct stat buffer;
 			return (stat(this->path.c_str(), &buffer) == 0);
@@ -74,7 +89,7 @@ namespace DeltaEngine {
 			this->fSize = getFileSize();
 		}
 
-		uint32 File::getFileSize()
+		uint32 File::getFileSize() const
 		{
 			FILE* file;
 			fopen_s(&file, this->path.c_str(), "r");

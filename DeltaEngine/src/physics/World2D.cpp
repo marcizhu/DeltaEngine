@@ -13,7 +13,7 @@ namespace DeltaEngine {
 
 			renderables.push_back(object);
 
-			obj->applyForce(gravity * obj->getMass(), this->projectionMatrix.getDownDirection() * 90.0f); //TODO: -90.0f depends on the pr matrix!
+			obj->applyForce(gravity * obj->getMass(), this->projectionMatrix.getDownDirection() * 90.0f);
 
 			return object;
 		}

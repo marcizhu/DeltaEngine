@@ -43,7 +43,7 @@ namespace DeltaEngine {
 			box = Maths::AABB(Maths::Vector2D(minX, minY), Maths::Vector2D(maxX, maxY));
 		}
 
-		OBB2D::OBB2D(Maths::Vector2D& center, Maths::Vector2D& size, float angle)
+		OBB2D::OBB2D(Maths::Vector2D& center, Maths::Vector2D size, float angle)
 		{
 			angle = fmodf(angle, 90.0f);
 

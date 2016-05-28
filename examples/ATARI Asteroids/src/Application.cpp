@@ -46,7 +46,7 @@ void Application::init()
 	Graphics::TextureManager::add(NEW Graphics::Texture("Asteroid Small 1", Utils::getCurrentPath() + "\\res\\assets\\asteroid-small-1.png"));
 	Graphics::TextureManager::add(NEW Graphics::Texture("Asteroid Smaller 1", Utils::getCurrentPath() + "\\res\\assets\\asteroid-smallest-1.png"));
 
-	world = NEW Physics::World2D(NEW Physics::PhysicsRenderer2D(), shader, Maths::Matrix4::orthographic(0.0f, 24.0f, 13.5f, 0.0f, -1.0f, 1.0f), 0.0f);
+	world = NEW Physics::World2D(NEW Physics::PhysicsRenderer2D(), shader, Maths::Matrix4::orthographic(0.0f, 24.0f, 13.5f, 0.0f), 0.0f);
 	world->setLimits(false);
 	world->add(NEW Physics::PhysicsRenderable2D(12.0f, 6.75f, 1.0f, 1.0f, Graphics::TextureManager::get("Spaceship"), 1.0f, 5));
 
@@ -58,7 +58,7 @@ void Application::init()
 	srand(Utils::getSystemTime().Milliseconds);
 	asteroid1->setVelocity((float)2.0f * rand() / RAND_MAX, (float)360.0f * rand() / RAND_MAX);
 
-	background = NEW Graphics::Layer2D(NEW Graphics::BatchRenderer2D(), bgShader, Maths::Matrix4::orthographic(0.0f, 960.0f, 540.0f, 0.0f, -1.0f, 1.0f));
+	background = NEW Graphics::Layer2D(NEW Graphics::BatchRenderer2D(), bgShader, Maths::Matrix4::orthographic(0.0f, 960.0f, 540.0f, 0.0f));
 	background->add(NEW Graphics::BatchRenderable2D(-480.0f, -330.0f, 1920.0f, 1200.0f, Graphics::TextureManager::get("Background")));
 
 	GLint texIDs[] =

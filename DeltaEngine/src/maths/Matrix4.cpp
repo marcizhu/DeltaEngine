@@ -99,8 +99,11 @@ namespace DeltaEngine {
 			return multiply(other);
 		}
 
-		Matrix4 Matrix4::orthographic(float left, float right, float top, float bottom, float near, float far)
+		Matrix4 Matrix4::orthographic(float left, float right, float top, float bottom)
 		{
+			const float near = -1.0f;
+			const float far = 1.0f;
+
 			Matrix4 result(1.0f);
 
 			result.elements[0 + 0 * 4] = 2.0f / (right - left);

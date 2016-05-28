@@ -23,8 +23,8 @@ namespace DeltaEngine {
 
 		Font::~Font()
 		{
-			texture_atlas_delete(atlas);
-			texture_font_delete(font);
+			ftgl::texture_atlas_delete(atlas);
+			ftgl::texture_font_delete(font);
 		}
 	}
 }

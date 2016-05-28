@@ -26,7 +26,7 @@ void Sandbox::init()
 {
 	SetConsoleTitle(TEXT("DeltaEngine Debug Output"));
 
-	Maths::Matrix4 pr_matrix = Maths::Matrix4::orthographic(0.0f, 16.0f, 9.0f, 0.0f, -1.0f, 1.0f);
+	Maths::Matrix4 pr_matrix = Maths::Matrix4::orthographic(0.0f, 16.0f, 9.0f, 0.0f);
 
 	shader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\basic.shader");
 	uiShader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\basic.shader");
@@ -35,7 +35,7 @@ void Sandbox::init()
 
 	myWorld = NEW Physics::World2D(NEW Physics::PhysicsRenderer2D(), shader, pr_matrix, 1.0f);
 	myWorld->setLimits(true);
-	myWorld->add(NEW Physics::PhysicsRenderable2D(7.5f, 8.0f, 1, 1, Graphics::TextureManager::get("Mario"), 1.0f, 1));
+	myWorld->add(NEW Physics::PhysicsRenderable2D(8.0f, 8.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Mario"), 1.0f, 1));
 
 	Graphics::FontManager::add(NEW Graphics::Font("OpenSans", "OpenSans-Light.ttf", 24));
 	Graphics::FontManager::add(NEW Graphics::Font("Consolas", "consola.ttf", 18));
@@ -118,6 +118,4 @@ void Sandbox::tick()
 
 	memoryLabel->setText(Memory::MemoryManager::getCurrentMemoryString());
 	memoryLabel->setPosition(15.8f - memoryLabel->getSize().x, 8.6f);
-
-	Memory::MemoryManager::refresh();
 }

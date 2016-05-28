@@ -33,7 +33,7 @@ namespace DeltaEngine {
 
 			GLuint* indices = NEW GLuint[RENDERER_INDICES_SIZE];
 
-			for (int i = 0; i < RENDERER_INDICES_SIZE; i += 6)
+			for (unsigned int i = 0; i < RENDERER_INDICES_SIZE; i += 6)
 			{
 				uint32 offset = (i / 6) * 4;
 
@@ -48,7 +48,7 @@ namespace DeltaEngine {
 
 			indexBuffer = NEW Graphics::IndexBuffer(indices, RENDERER_INDICES_SIZE);
 
-			delete indices;
+			delete[] indices;
 		}
 
 		PhysicsRenderer2D::~PhysicsRenderer2D()

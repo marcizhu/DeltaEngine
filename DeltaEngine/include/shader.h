@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include <map>
+#include <unordered_map>
 #include <GLEW\glew.h>
 
 #include "internal.h"
@@ -21,7 +21,7 @@ namespace DeltaEngine {
 		{
 		private:
 			GLuint shaderID;
-			std::map<std::string, GLint> uniformLocations;
+			std::unordered_map<std::string, GLint> uniformLocations;
 
 			GLuint load(const string& vertPath, const string& fragPath);
 			GLint getUniformLocation(const GLchar* name);

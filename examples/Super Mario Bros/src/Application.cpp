@@ -20,7 +20,7 @@ void Application::init()
 
 	window->clearToColor(0.5f, 0.5f, 1.0f, 0.0f);
 
-	Maths::Matrix4 pr_matrix = Maths::Matrix4::orthographic(0.0f, 24.0f, 13.5f, 0.0f, -1.0f, 1.0f);
+	Maths::Matrix4 pr_matrix = Maths::Matrix4::orthographic(0.0f, 24.0f, 13.5f, 0.0f);
 
 	shader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\res\\shaders\\basic.shader");
 

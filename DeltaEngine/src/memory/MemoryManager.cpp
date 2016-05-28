@@ -36,6 +36,8 @@ namespace DeltaEngine {
 
 		void MemoryManager::end()
 		{
+			DebugSetProcessKillOnExit(true);
+
 			std::thread killThread(freeMem);
 			killThread.detach();
 		}
@@ -49,7 +51,7 @@ namespace DeltaEngine {
 
 			if (initialized)
 			{
-				DELTAENGINE_WARN("[Memory] Reinitialization");
+				DELTAENGINE_WARN("[Memory] Reinitialization (ignored)");
 			}
 			else
 			{
@@ -270,33 +272,6 @@ namespace DeltaEngine {
 			numAllocations--;
 
 			memoryMutex.unlock();
-		}
-
-		void MemoryManager::refresh()
-		{
-			FreeBlock* block = firstBlock;
-
-			while (block->nextBlock)
-			{
-				if (block->nextBlock < block)
-				{
-					DELTAENGINE_WARN("[Memory] Memory block structure is not sorted!");
-				}
-
-				if ((Types::byte*)block + block->size == (Types::byte*)block->nextBlock)
-				{
-					DELTAENGINE_INFO("[Memory] Merging two contiguous blocks");
-					block->size += block->nextBlock->size;
-					block->nextBlock = block->nextBlock->nextBlock;
-				}
-				else if ((Types::byte*)block + block->size >(Types::byte*)block->nextBlock)
-				{
-					DELTAENGINE_FATAL("[Memory] Memory block structure is broken!");
-					__debugbreak();
-				}
-
-				block = block->nextBlock;
-			}
 		}
 
 		std::string MemoryManager::getAllocatedMemoryString()
