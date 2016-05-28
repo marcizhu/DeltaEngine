@@ -20,9 +20,146 @@
 
     <section class="main-content">
       <h1>
-<a id="deltaengine" class="anchor" href="#deltaengine" aria-hidden="true"><span class="octicon octicon-link"></span></a>DeltaEngine</h1>
+<a id="deltaengine" class="anchor" href="#deltaengine" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DeltaEngine</h1>
 
 <p>A 2D/3D Game Engine written in C++! (in development)</p>
+
+<h2>
+<a id="download" class="anchor" href="#download" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Download</h2>
+
+<p>To download just click "Download as a zip". To use it you can rebuild the game engine or you can use the DeltaEngine.lib and DeltaEngine.dll files inside "bin/Debug".</p>
+
+<p>Keep in mind that you also will need all the header files. You don't need the .cpp files if you don't want to recompile it.</p>
+
+<p>Also, the version inside "bin/Debug" is obviously the debug version, it means that the library will output messages for errors into the console window. The release version doesn't output anything at all, even if there is an error, so you can close the console window using <code>FreeConsole()</code></p>
+
+<h2>
+<a id="projects-inside-the-solution" class="anchor" href="#projects-inside-the-solution" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Projects inside the solution</h2>
+
+<p>The Visual Studio solution contains two projects:</p>
+
+<ul>
+<li>
+<strong>DeltaEngine</strong>: Contains all the files needed to build the game engine.</li>
+<li>
+<strong>Game</strong>: This project is just for testing. It only contains a file, <code>main.cpp</code>. I recommend taking a look to it, as it will help you start developing your own game.</li>
+</ul>
+
+<h2>
+<a id="quick-start" class="anchor" href="#quick-start" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quick Start</h2>
+
+<h3>
+<a id="creating-a-window" class="anchor" href="#creating-a-window" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating a window</h3>
+
+<p>To create a window you will have to import the library file. Just add this line to the top:</p>
+
+<div class="highlight highlight-source-c++"><pre>#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">"</span>window.h<span class="pl-pds">"</span></span></pre></div>
+
+<p>Then, create an instance of the class <code>Window</code>. This class is inside the namespace <code>DeltaEngine::Graphics</code>, so you will need to call <code>DeltaEngine::Graphics::Window</code>:</p>
+
+<div class="highlight highlight-source-c++"><pre>#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">&lt;</span>string<span class="pl-pds">&gt;</span></span>
+#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">"</span>window.h<span class="pl-pds">"</span></span>
+
+<span class="pl-k">int</span> <span class="pl-en">main</span>(<span class="pl-k">int</span> argc, <span class="pl-k">char</span>* argv[])
+{
+  <span class="pl-k">int</span> height = <span class="pl-c1">960</span>;
+  <span class="pl-k">int</span> width = <span class="pl-c1">540</span>;
+  DeltaEngine::Graphics::Window <span class="pl-smi">myWindow</span>(<span class="pl-c1">std::string</span>(<span class="pl-s"><span class="pl-pds">"</span>Window title<span class="pl-pds">"</span></span>), height, width);
+
+  <span class="pl-k">return</span> <span class="pl-c1">0</span>;
+}</pre></div>
+
+<p>You need the <code>#include &lt;string&gt;</code> statement because the window title is an <code>std::string</code>.</p>
+
+<h3>
+<a id="initializing-the-library" class="anchor" href="#initializing-the-library" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Initializing the library</h3>
+
+<p>You have to call <code>DeltaEngine::init(int argc, char* argv[])</code> after you create your window, but <strong>before</strong> you call any OpenGL function.</p>
+
+<p>The library itself doesn't need any initialization, but GLEW does, so I created this little inline function to initialize OpenGL.</p>
+
+<p>To call this function, you have to include <code>DeltaEngine.h</code> and GLEW (normally <code>glew.h</code>).</p>
+
+<p>All the GLEW files I use are inside "dependencies/include/GLEW" for the header files, and "dependencies/lib/GLEW" for the static library version. If you want to use those files, remember to add the <code>GLEW_STATIC</code> define for the project. To do this, go to your project properties -&gt; click on "C/C++" -&gt; Select the "Preprocessor" page -&gt; Add <code>GLEW_STATIC</code> to the preprocessor definitions.</p>
+
+<h3>
+<a id="keyboard-and-mouse-input" class="anchor" href="#keyboard-and-mouse-input" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Keyboard and mouse input</h3>
+
+<p>To install keyboard, you just need to call the <code>installKeyboard()</code> method of your window, for example:</p>
+
+<div class="highlight highlight-source-c++"><pre>#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">&lt;</span>string<span class="pl-pds">&gt;</span></span>
+#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">"</span>window.h<span class="pl-pds">"</span></span>
+
+<span class="pl-k">int</span> <span class="pl-en">main</span>(<span class="pl-k">int</span> argc, <span class="pl-k">char</span>* argv[])
+{
+  <span class="pl-k">int</span> height = <span class="pl-c1">960</span>;
+  <span class="pl-k">int</span> width = <span class="pl-c1">540</span>;
+  DeltaEngine::Graphics::Window <span class="pl-smi">myWindow</span>(<span class="pl-c1">std::string</span>(<span class="pl-s"><span class="pl-pds">"</span>Window title<span class="pl-pds">"</span></span>), height, width);
+
+  myWindow.<span class="pl-c1">installKeyboard</span>();
+  <span class="pl-c">// Now the keyboard is installed, you can read keys</span>
+
+  <span class="pl-k">return</span> <span class="pl-c1">0</span>;
+}</pre></div>
+
+<p>Same with the mouse, but instead of calling <code>installKeyboard()</code> call <code>installMouse()</code>.</p>
+
+<p>To read the state of a key, just call <code>isKeyPressed(int key)</code>. This will return true if the key is pressed, false otherwise.</p>
+
+<p>To get the position of the mouse use the function <code>win.getMousePosition(int&amp; x, int&amp; y)</code>. This function takes two arguments by reference, and does not return anything, just sets the value of the X coordinate and Y coordinate in <code>x</code> and <code>y</code>. Here's an example:</p>
+
+<div class="highlight highlight-source-c++"><pre>#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">&lt;</span>string<span class="pl-pds">&gt;</span></span>
+#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">&lt;</span>iostream<span class="pl-pds">&gt;</span></span>
+
+#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">"</span>window.h<span class="pl-pds">"</span></span>
+
+<span class="pl-k">int</span> <span class="pl-en">main</span>(<span class="pl-k">int</span> argc, <span class="pl-k">char</span>* argv[])
+{
+  <span class="pl-k">int</span> height = <span class="pl-c1">960</span>;
+  <span class="pl-k">int</span> width = <span class="pl-c1">540</span>;
+  DeltaEngine::Graphics::Window <span class="pl-smi">myWindow</span>(<span class="pl-c1">std::string</span>(<span class="pl-s"><span class="pl-pds">"</span>Window title<span class="pl-pds">"</span></span>), height, width);
+
+  myWindow.<span class="pl-c1">installMouse</span>();
+  <span class="pl-c">// Now the mouse is installed, we can read the mouse position and scroll</span>
+
+  <span class="pl-k">float</span> mouseX;
+  <span class="pl-k">float</span> mouseY;
+
+  myWindow.<span class="pl-c1">getMousePosition</span>(mouseX, mouseY);
+
+  std::cout &lt;&lt; <span class="pl-s"><span class="pl-pds">"</span>Mouse position: X=<span class="pl-pds">"</span></span> &lt;&lt; mouseX &lt;&lt; <span class="pl-s"><span class="pl-pds">"</span> Y=<span class="pl-pds">"</span></span> &lt;&lt; mouseY &lt;&lt; std::endln;
+
+  <span class="pl-k">return</span> <span class="pl-c1">0</span>;
+}</pre></div>
+
+<h3>
+<a id="creating-a-basic-game-loop" class="anchor" href="#creating-a-basic-game-loop" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating a basic game loop</h3>
+
+<p>Because we want our game to be running until the player closes the window, we need a loop</p>
+
+<p>The method <code>closed()</code> of the class <code>Window</code> allows us to know the state of the window, so we can create our <code>while</code> loop using it.</p>
+
+<p>Inside the loop we will check for input, check for errors... and also update our window. This is easily done by calling <code>update()</code>:</p>
+
+<div class="highlight highlight-source-c++"><pre>#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">&lt;</span>string<span class="pl-pds">&gt;</span></span>
+#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">"</span>window.h<span class="pl-pds">"</span></span>
+
+<span class="pl-k">int</span> <span class="pl-en">main</span>(<span class="pl-k">int</span> argc, <span class="pl-k">char</span>* argv[])
+{
+  <span class="pl-k">int</span> height = <span class="pl-c1">960</span>;
+  <span class="pl-k">int</span> width = <span class="pl-c1">540</span>;
+  DeltaEngine::Graphics::Window <span class="pl-smi">myWindow</span>(<span class="pl-c1">std::string</span>(<span class="pl-s"><span class="pl-pds">"</span>Window title<span class="pl-pds">"</span></span>), height, width);
+
+  <span class="pl-k">while</span>(myWindow.<span class="pl-smi">closed</span> == <span class="pl-c1">false</span>)
+  {
+    <span class="pl-c">// Check for input, such as keyboard, mouse... </span>
+
+    <span class="pl-c">// Update our window so it doesn't freeze</span>
+    myWindow.<span class="pl-c1">update</span>();
+  }
+
+  <span class="pl-k">return</span> <span class="pl-c1">0</span>;
+}</pre></div>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/marcizhu/DeltaEngine">Deltaengine</a> is maintained by <a href="https://github.com/marcizhu">marcizhu</a>.</span>
