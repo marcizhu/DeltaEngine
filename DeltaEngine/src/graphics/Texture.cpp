@@ -31,11 +31,13 @@ namespace DeltaEngine {
 
 			glGenTextures(1, &textureID);
 			glBindTexture(GL_TEXTURE_2D, textureID);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, texParam);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, texParam == GL_NEAREST ? GL_NEAREST_MIPMAP_NEAREST : GL_LINEAR_MIPMAP_LINEAR);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, texParam);
 
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+
+			glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
 
 			switch (bpp)
 			{
@@ -48,6 +50,8 @@ namespace DeltaEngine {
 			default:
 				DELTAENGINE_WARN("[Texture] Invalid bpp value: ", bpp); break;
 			}
+
+			glGenerateMipmap(GL_TEXTURE_2D);
 
 			glBindTexture(GL_TEXTURE_2D, 0);
 
