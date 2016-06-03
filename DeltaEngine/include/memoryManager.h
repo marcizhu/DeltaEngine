@@ -82,7 +82,7 @@ namespace DeltaEngine {
 
 			DELTAENGINE_API static uint32 getAllocations();
 
-			DELTAENGINE_API static size_t getFlags(void* address);
+			DELTAENGINE_API static size_t getFlags(const void* address);
 
 			DELTAENGINE_API static std::string getAllocatedMemoryString();
 			DELTAENGINE_API static std::string getFreedMemoryString();

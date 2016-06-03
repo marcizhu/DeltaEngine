@@ -11,6 +11,13 @@ using namespace std;
 namespace DeltaEngine {
 	namespace Debug {
 
+		__forceinline void breakpoint()
+		{
+#ifdef DELTAENGINE_DEBUG
+			_asm int 3;
+#endif
+		}
+
 		void checkErrors()
 		{
 			GLenum error = glGetError();
@@ -18,7 +25,7 @@ namespace DeltaEngine {
 			if (error != GL_NO_ERROR)
 			{
 				_DELTAENGINE_ERROR("[OpenGL] OpenGL Error: ", error, '\n');
-				__debugbreak();
+				breakpoint();
 			}
 		}
 

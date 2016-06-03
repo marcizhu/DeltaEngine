@@ -14,16 +14,16 @@ namespace DeltaEngine {
 			float sine = sin(Maths::toRadians(angle));
 
 			this->vertex[0].x = center.x - sizeX * cosine - sizeY * sine;
-			this->vertex[0].y = center.y + sizeX * sine	  - sizeY * cosine;
+			this->vertex[0].y = center.y + sizeX * sine	- sizeY * cosine;
 
 			this->vertex[1].x = center.x - sizeX * cosine - sizeY * sine;
-			this->vertex[1].y = center.y + sizeX * sine   + sizeY * cosine;
+			this->vertex[1].y = center.y + sizeX * sine + sizeY * cosine;
 
 			this->vertex[2].x = center.x + sizeX * cosine - sizeY * sine;
-			this->vertex[2].y = center.y + sizeX * sine   + sizeY * cosine;
+			this->vertex[2].y = center.y + sizeX * sine + sizeY * cosine;
 
 			this->vertex[3].x = center.x + sizeX * cosine - sizeY * sine;
-			this->vertex[3].y = center.y + sizeX * sine   - sizeY * cosine;
+			this->vertex[3].y = center.y + sizeX * sine - sizeY * cosine;
 
 			float minX, maxX;
 			float minY, maxY;
@@ -53,16 +53,16 @@ namespace DeltaEngine {
 			float sine = sin(Maths::toRadians(angle));
 
 			this->vertex[0].x = center.x - size.x * cosine - size.y * sine;
-			this->vertex[0].y = center.y + size.x * sine   - size.y * cosine;
+			this->vertex[0].y = center.y + size.x * sine - size.y * cosine;
 
 			this->vertex[1].x = center.x - size.x * cosine - size.y * sine;
-			this->vertex[1].y = center.y + size.x * sine   + size.y * cosine;
+			this->vertex[1].y = center.y + size.x * sine + size.y * cosine;
 
 			this->vertex[2].x = center.x + size.x * cosine - size.y * sine;
-			this->vertex[2].y = center.y + size.x * sine   + size.y * cosine;
+			this->vertex[2].y = center.y + size.x * sine + size.y * cosine;
 
 			this->vertex[3].x = center.x + size.x * cosine - size.y * sine;
-			this->vertex[3].y = center.y + size.x * sine   - size.y * cosine;
+			this->vertex[3].y = center.y + size.x * sine - size.y * cosine;
 
 			float minX, maxX;
 			float minY, maxY;

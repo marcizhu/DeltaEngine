@@ -33,7 +33,16 @@ void Sandbox::init()
 
 	Graphics::TextureManager::add(NEW Graphics::Texture("Mario", "mario.png", GL_NEAREST));
 
-	myWorld = NEW Physics::World2D(NEW Physics::PhysicsRenderer2D(), shader, pr_matrix, 1.0f);
+	Types::byte* data = (Types::byte*)Graphics::TextureManager::get("Mario")->getPixels();
+
+	data[0] = 255;
+	data[1] = 128;
+	data[2] = 0;
+	data[3] = 255;
+
+	Graphics::TextureManager::get("Mario")->setData(data);
+
+	myWorld = NEW Physics::World2D(NEW Physics::PhysicsRenderer2D(), shader, pr_matrix, 0.81f);
 	myWorld->setLimits(true);
 	myWorld->add(NEW Physics::PhysicsRenderable2D(8.0f, 8.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Mario"), 1.0f, 1));
 
@@ -99,7 +108,7 @@ void Sandbox::update()
 
 	myWorld->update(1 / 60.0f);
 
-	//DELTAENGINE_INFO("Energy: ", Utils::toPhysicsRenderable((*myWorld)[0])->getMechanicalEnergy(myWorld->getGravity()));
+//	DELTAENGINE_INFO("Energy: ", Utils::toPhysicsRenderable((*myWorld)[0])->getMechanicalEnergy(myWorld->getGravity()));
 }
 
 void Sandbox::render()

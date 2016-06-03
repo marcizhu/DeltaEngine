@@ -7,16 +7,33 @@
 namespace DeltaEngine {
 	namespace Graphics {
 
-		Texture::Texture(uint32 width, uint32 height) : width(width), height(height)
+		Texture::Texture(uint32 width, uint32 height, uchar8 bpp) : width(width), height(height), bpp(bpp)
 		{
 			glGenTextures(1, &textureID);
+
 			glBindTexture(GL_TEXTURE_2D, textureID);
+
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_BGRA, GL_UNSIGNED_BYTE, NULL);
+
+			switch (bpp)
+			{
+			case 2:
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE_ALPHA, width, height, 0, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, NULL); break;
+
+			case 24:
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, NULL); break;
+
+			case 32:
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_BGRA, GL_UNSIGNED_BYTE, NULL); break;
+
+			default:
+				DELTAENGINE_WARN("[Texture] Invalid bpp value: ", bpp); break;
+			}
 		}
 
 		Texture::Texture(const std::string& name, const std::string& filename, Types::uint32 texParam) : textureName(name)
@@ -79,7 +96,15 @@ namespace DeltaEngine {
 			*height = FreeImage_GetHeight(dib);
 			*bpp = FreeImage_GetBPP(dib);
 
-			Types::uint32 size = *width * *height * (*bpp / 8);
+			/*RGBQUAD* quad = NEW RGBQUAD;
+			quad->rgbBlue = 255;
+			quad->rgbGreen = 0;
+			quad->rgbRed = 255;
+			quad->rgbReserved = 255;
+
+			FreeImage_SetPixelColor(dib, *width - 1, *height - 1, quad);*/
+
+			Types::uint32 size = *width * *height * *bpp / 8;
 
 			Types::byte* result = NEW Types::byte[size];
 			memcpy(result, pixels, size);
@@ -89,5 +114,40 @@ namespace DeltaEngine {
 			return result;
 		}
 
+		void* Texture::getPixels() const
+		{
+			Types::byte* out = NEW Types::byte[width * height * (bpp / 8)];
+
+			glGetTextureImage(textureID, 0, bpp == 32 ? GL_RGBA : GL_RGB, GL_UNSIGNED_BYTE, width * height * bpp / 8, out);
+
+			return out;
+		}
+
+		void Texture::setData(const void* pixels) const
+		{
+			glBindTexture(GL_TEXTURE_2D, textureID);
+
+			switch (bpp)
+			{
+			case 2:
+				glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, pixels); break;
+
+			case 24:
+				glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, pixels); break;
+
+			case 32:
+				glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixels); break;
+
+			default:
+				DELTAENGINE_WARN("[Texture] Invalid bpp value: ", bpp); break;
+			}
+
+			/*if ((Memory::MemoryManager::getFlags(pixels) & Memory::AllocationFlags::MAGIC) == Memory::AllocationFlags::MAGIC)
+			{
+				delete[] pixels;
+			}*/
+
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
 	}
 }

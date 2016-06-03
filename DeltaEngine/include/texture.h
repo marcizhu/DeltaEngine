@@ -23,7 +23,7 @@ namespace DeltaEngine {
 			Types::byte* loadImage(const char* filename, uint32* width, uint32* height, uchar8* bpp);
 
 		public:
-			DELTAENGINE_API Texture(uint32 width, uint32 height);
+			DELTAENGINE_API Texture(uint32 width, uint32 height, uchar8 bpp);
 			DELTAENGINE_API Texture(const std::string& name, const std::string& filename, uint32 texParam = GL_LINEAR);
 			DELTAENGINE_API ~Texture() { glDeleteTextures(1, &textureID); };
 
@@ -32,9 +32,13 @@ namespace DeltaEngine {
 
 			DELTAENGINE_API inline const uint32 getWidth() const { return width; }
 			DELTAENGINE_API inline const uint32 getHeight() const { return height; }
-			DELTAENGINE_API inline const uint32 getID() const { return textureID; }
+			DELTAENGINE_API inline uint32 getID() const { return textureID; }
 			DELTAENGINE_API inline const uchar8 getBPP() const { return bpp; }
 			DELTAENGINE_API inline const std::string& getName() const { return textureName; }
+			DELTAENGINE_API inline void* getPixels() const;
+
+			DELTAENGINE_API inline void setData(const void* pixels) const;
+
 		};
 
 	}

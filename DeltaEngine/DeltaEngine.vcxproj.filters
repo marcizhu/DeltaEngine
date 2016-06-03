@@ -212,6 +212,9 @@
     <ClInclude Include="include\obb.h">
       <Filter>Header files\DeltaEngine\Maths</Filter>
     </ClInclude>
+    <ClInclude Include="include\textureUtils.h">
+      <Filter>Header files\DeltaEngine\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\utils\Debug.cpp">
@@ -303,6 +306,9 @@
     </ClCompile>
     <ClCompile Include="src\maths\OBB.cpp">
       <Filter>Source files\DeltaEngine\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\TextureUtils.cpp">
+      <Filter>Source files\DeltaEngine\Utils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

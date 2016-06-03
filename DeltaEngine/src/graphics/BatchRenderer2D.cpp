@@ -206,7 +206,7 @@ namespace DeltaEngine {
 		void BatchRenderer2D::drawString(const std::string& text, const Maths::Vector2D& position, const Font& font, const Types::uint32 color)
 		{
 			float ts = 0.0f;
-			if (font.getID() > 0) ts = submitTexture(font.getID());
+			if (font.getTexture()->getID() > 0) ts = submitTexture(font.getTexture()->getID());
 
 			const Maths::Vector2D& scale = font.getScale();
 

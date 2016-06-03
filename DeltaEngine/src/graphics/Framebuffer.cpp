@@ -20,7 +20,7 @@ namespace DeltaEngine {
 			glGenFramebuffers(1, &data.framebufferID);
 			glGenRenderbuffers(1, &data.depthbufferID);
 
-			texture = NEW Texture(width, height);
+			texture = NEW Texture(width, height, 32);
 
 			glBindRenderbuffer(GL_RENDERBUFFER, data.depthbufferID);
 			glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, width, height);

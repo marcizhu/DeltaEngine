@@ -13,6 +13,7 @@
 #include "vector3d.h"
 #include "PlatformUtils.h"
 #include "LogLevels.h"
+#include "debug.h"
 
 //namespace std {
 
@@ -210,7 +211,7 @@ namespace DeltaEngine {
 			DELTAENGINE_FATAL(__FILE__, ": ", __LINE__); \
 			DELTAENGINE_FATAL("Condition: ", #x); \
 			DELTAENGINE_FATAL(__VA_ARGS__); \
-			__debugbreak(); \
+			Debug::breakpoint(); \
 		}
 #else
 	#define DELTAENGINE_ASSERT(x, ...)

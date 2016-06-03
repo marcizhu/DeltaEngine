@@ -1,7 +1,7 @@
 #include <string>
 #include <GLEW\glew.h>
-//#include <unordered_map>
 
+#include "debug.h"
 #include "window.h"
 #include "PlatformGraphics.h"
 
@@ -136,7 +136,7 @@ namespace DeltaEngine {
 				break;
 
 			default:
-				__debugbreak();
+				Debug::breakpoint();
 				break;
 			}
 		}

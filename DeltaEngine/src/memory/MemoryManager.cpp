@@ -27,7 +27,7 @@ namespace DeltaEngine {
 		{
 			while (currentMemory)
 			{
-				if (numAllocations == 0) __debugbreak();
+				if (numAllocations == 0) Debug::breakpoint();
 			}
 
 			initialized = false;
@@ -181,7 +181,7 @@ namespace DeltaEngine {
 
 			if (prev_free_block == nullptr)
 			{
-				__debugbreak();
+				Debug::breakpoint();
 				return nullptr;
 			}
 			else
@@ -323,7 +323,7 @@ namespace DeltaEngine {
 			return numAllocations;
 		}
 
-		size_t MemoryManager::getFlags(void* address)
+		size_t MemoryManager::getFlags(const void* address)
 		{
 			DELTAENGINE_ASSERT(address != nullptr);
 

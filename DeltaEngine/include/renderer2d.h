@@ -8,7 +8,7 @@
 #include "font.h"
 #include "stack.h"
 #include "matrix4.h"
-//#include "log.h"
+#include "debug.h"
 
 namespace DeltaEngine {
 	namespace Graphics {
@@ -40,7 +40,7 @@ namespace DeltaEngine {
 				else
 				{
 					//DELTAENGINE_ERROR("Attempted to pop the identity matrix from the transformation stack!");
-					__debugbreak();
+					Debug::breakpoint();
 				}
 			}
 
