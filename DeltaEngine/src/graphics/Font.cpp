@@ -1,5 +1,4 @@
 #include <FreeType-GL\texture-font.h>
-#include <FreeImage\FreeImage.h>
 #include <string>
 
 #include "font.h"
@@ -15,8 +14,14 @@ namespace DeltaEngine {
 			atlas = ftgl::texture_atlas_new(512, 512, 2);
 			font = ftgl::texture_font_new_from_file(atlas, size, filename.c_str());
 
+			if (font == nullptr)
+			{
+				DELTAENGINE_ERROR("[Font] Failed to load font file '", filename, "'!");
+				return;
+			}
+
 			texture = NEW Texture(512, 512, 2);
-			texture->setData(atlas->data);
+			texture->setPixels(atlas->data);
 		}
 
 		Font::Font(const std::string& name, const Types::byte* data, Types::uint32 dataSize, float size)
@@ -25,8 +30,14 @@ namespace DeltaEngine {
 			atlas = ftgl::texture_atlas_new(512, 512, 2);
 			font = ftgl::texture_font_new_from_memory(atlas, size, data, dataSize);
 
+			if (font == nullptr)
+			{
+				DELTAENGINE_ERROR("[Font] Failed to load font from address ", Utils::toHex(reinterpret_cast<unsigned int>(data)), "!");
+				return;
+			}
+
 			texture = NEW Texture(512, 512, 2);
-			texture->setData(atlas->data);
+			texture->setPixels(atlas->data);
 		}
 
 		Font::~Font()

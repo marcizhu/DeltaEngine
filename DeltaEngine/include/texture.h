@@ -37,7 +37,8 @@ namespace DeltaEngine {
 			DELTAENGINE_API inline const std::string& getName() const { return textureName; }
 			DELTAENGINE_API inline void* getPixels() const;
 
-			DELTAENGINE_API inline void setData(const void* pixels) const;
+			DELTAENGINE_API inline void setPixels(const void* pixels) const;
+			DELTAENGINE_API inline void setPixels(const Types::Color& color) const;
 
 		};
 

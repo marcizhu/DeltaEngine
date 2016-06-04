@@ -37,7 +37,7 @@ namespace DeltaEngine {
 			DELTAENGINE_API void setScale(float x, float y) { this->scale = Maths::Vector2D(x, y); }
 			DELTAENGINE_API void setScale(Maths::Vector2D scale) { this->scale = scale; }
 
-			DELTAENGINE_API inline Texture* getTexture() const { texture->setData(atlas->data); return texture; }
+			DELTAENGINE_API inline Texture* getTexture() const { return texture; }
 		};
 
 	}

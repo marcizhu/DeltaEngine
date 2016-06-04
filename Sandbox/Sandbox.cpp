@@ -40,7 +40,7 @@ void Sandbox::init()
 	data[2] = 0;
 	data[3] = 255;
 
-	Graphics::TextureManager::get("Mario")->setData(data);
+	Graphics::TextureManager::get("Mario")->setPixels(Color(255, 0, 255, 255));
 
 	myWorld = NEW Physics::World2D(NEW Physics::PhysicsRenderer2D(), shader, pr_matrix, 0.81f);
 	myWorld->setLimits(true);
@@ -48,8 +48,9 @@ void Sandbox::init()
 
 	Graphics::FontManager::add(NEW Graphics::Font("OpenSans", "OpenSans-Light.ttf", 24));
 	Graphics::FontManager::add(NEW Graphics::Font("Consolas", "consola.ttf", 18));
+
 	memoryLabel = NEW Graphics::Label("", 11.5f, 8.6f, "Consolas", 0xffffcf37);
-	fpsLabel = NEW Graphics::Label("FPS: 0", 14.2f, 8.0f, "OpenSans", 0xffffffff);
+	fpsLabel = NEW Graphics::Label("", 14.2f, 8.0f, "OpenSans", 0xffffffff);
 	debugLabel = NEW Graphics::Label("", 0.2f, 8.6f, "Consolas", 0xff00ffff);
 
 	string version = string((char*)glGetString(GL_VERSION));

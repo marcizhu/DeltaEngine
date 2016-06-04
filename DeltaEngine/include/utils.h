@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <iomanip>
 
 #include "internal.h"
 #include "types.h"
@@ -30,6 +31,16 @@ namespace DeltaEngine {
 		DELTAENGINE_API string getCurrentPath();
 
 		DELTAENGINE_API inline string precision_to_string(const float val, char n);
+
+		template<typename T>
+		string toHex(T i)
+		{
+			stringstream stream;
+
+			stream << "0x" << std::setfill('0') << std::setw(sizeof(T) * 2) << std::hex << std::uppercase << i;
+
+			return stream.str();
+		}
 
 		DELTAENGINE_API vector<string> splitString(const string& str, char delimiter);
 

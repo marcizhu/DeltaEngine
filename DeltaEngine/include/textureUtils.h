@@ -1,6 +1,6 @@
 #pragma once
 
-#include <FreeImage\FreeImage.h>
+#//include <FreeImage\FreeImage.h>
 
 #include "texture.h"
 #include "types.h"

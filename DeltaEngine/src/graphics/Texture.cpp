@@ -18,18 +18,16 @@ namespace DeltaEngine {
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_BGRA, GL_UNSIGNED_BYTE, NULL);
-
 			switch (bpp)
 			{
 			case 2:
 				glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE_ALPHA, width, height, 0, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, NULL); break;
 
 			case 24:
-				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, NULL); break;
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL); break;
 
 			case 32:
-				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_BGRA, GL_UNSIGNED_BYTE, NULL); break;
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL); break;
 
 			default:
 				DELTAENGINE_WARN("[Texture] Invalid bpp value: ", bpp); break;
@@ -43,6 +41,7 @@ namespace DeltaEngine {
 			if (pixels == nullptr)
 			{
 				DELTAENGINE_ERROR("[Texture] Unable to read the texture file '", filename, "'!");
+				this->setPixels(Color(255, 0, 255, 255));
 				return;
 			}
 
@@ -123,7 +122,7 @@ namespace DeltaEngine {
 			return out;
 		}
 
-		void Texture::setData(const void* pixels) const
+		void Texture::setPixels(const void* pixels) const
 		{
 			glBindTexture(GL_TEXTURE_2D, textureID);
 
@@ -149,5 +148,27 @@ namespace DeltaEngine {
 
 			glBindTexture(GL_TEXTURE_2D, 0);
 		}
+
+		void Texture::setPixels(const Types::Color& color) const
+		{
+			const uint32 bytes = bpp / 8;
+			const uint32 size = width * height * bytes;
+
+			Types::byte* data = NEW Types::byte[size];
+
+			for (uint32 x = 0; x < size; x += bytes)
+			{
+				data[x + 0] = color.R;
+				data[x + 1] = color.G;
+				data[x + 2] = color.B;
+
+				if (bpp == 32) data[x + 3] = color.A;
+			}
+
+			setPixels(data);
+
+			delete[] data;
+		}
+
 	}
 }
