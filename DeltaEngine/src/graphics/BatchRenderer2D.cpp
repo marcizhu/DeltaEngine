@@ -206,7 +206,7 @@ namespace DeltaEngine {
 		void BatchRenderer2D::drawString(const std::string& text, const Maths::Vector2D& position, const Font& font, const Types::uint32 color)
 		{
 			float ts = 0.0f;
-			if (font.getTexture()->getID() > 0) ts = submitTexture(font.getTexture()->getID());
+			if(font.getID() > 0) ts = submitTexture(font.getID()); // FIXME: Custome texture fails. Atlas->data is 0
 
 			const Maths::Vector2D& scale = font.getScale();
 

@@ -35,7 +35,7 @@ namespace DeltaEngine {
 		inline T constrain(T val, T min, T max) { return val > max ? max : val < min ? min : val; }
 
 		template<typename T>
-		inline bool isBetween(T x, T min, T max) { return x <= max ? x = > min ? true : false : false; }
+		inline bool isBetween(T x, T min, T max) { return x <= max ? x >= min ? true : false : false; }
 
 		inline bool isPowOf2(int n) { return (n & (n - 1)) == 0; }
 

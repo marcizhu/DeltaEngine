@@ -40,7 +40,7 @@ void Sandbox::init()
 	data[2] = 0;
 	data[3] = 255;
 
-	Graphics::TextureManager::get("Mario")->setPixels(Color(255, 0, 255, 255));
+	//Graphics::TextureManager::get("Mario")->setPixels(Color(255, 0, 255, 255));
 
 	myWorld = NEW Physics::World2D(NEW Physics::PhysicsRenderer2D(), shader, pr_matrix, 0.81f);
 	myWorld->setLimits(true);

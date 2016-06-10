@@ -13,7 +13,7 @@
 #include "fileIO.h"
 
 #ifdef DELTAENGINE_DEBUG
-#	define NEW			new(strrchr(__FILE__, '\\') + 1, __LINE__)
+#	define NEW			new(__FILE__, __LINE__)
 #else
 #	define NEW			new
 #endif
@@ -118,7 +118,7 @@ inline void* operator new(size_t size, const char* file, unsigned int line)
 	if (size > MB_IN_BYTES)
 	{
 		float mb = (float)size / (MB_IN_BYTES);
-		DELTAENGINE_WARN("[Memory] Large allocation (", Utils::precision_to_string(mb, Maths::nlen<float>(mb) + 2), " MB) at ", file, ":", line);
+		DELTAENGINE_WARN("[Memory] Large allocation (", Utils::precision_to_string(mb, Maths::nlen<float>(mb) + 2), " MB) at ", strrchr(file, '\\') + 1, ":", line);
 		flags |= Memory::AllocationFlags::ALLOCATION_LARGE;
 	}
 
@@ -146,7 +146,7 @@ inline void* operator new[](size_t size, const char* file, unsigned int line)
 	if (size > MB_IN_BYTES)
 	{
 		float mb = (float)size / (MB_IN_BYTES);
-		DELTAENGINE_WARN("[Memory] Large allocation (", Utils::precision_to_string(mb, Maths::nlen<float>(mb) + 2), " MB) at ", file, ":", line);
+		DELTAENGINE_WARN("[Memory] Large allocation (", Utils::precision_to_string(mb, Maths::nlen<float>(mb) + 2), " MB) at ", strrchr(file, '\\') + 1, ":", line);
 		flags |= Memory::AllocationFlags::ALLOCATION_LARGE;
 	}
 

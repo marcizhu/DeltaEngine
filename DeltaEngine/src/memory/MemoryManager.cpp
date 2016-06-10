@@ -181,6 +181,8 @@ namespace DeltaEngine {
 
 			if (prev_free_block == nullptr)
 			{
+				Debug::dump(memStart, (Types::byte*)firstBlock.load() - (Types::byte*)memStart);
+
 				Debug::breakpoint();
 				return nullptr;
 			}
