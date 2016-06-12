@@ -45,6 +45,7 @@ void Sandbox::init()
 	myWorld = NEW Physics::World2D(NEW Physics::PhysicsRenderer2D(), shader, pr_matrix, 0.81f);
 	myWorld->setLimits(true);
 	myWorld->add(NEW Physics::PhysicsRenderable2D(8.0f, 8.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Mario"), 1.0f, 1));
+	//Utils::toPhysicsRenderable(myWorld->getRenderables()[0])->rotate(45.0f);
 
 	Graphics::FontManager::add(NEW Graphics::Font("OpenSans", "OpenSans-Light.ttf", 24));
 	Graphics::FontManager::add(NEW Graphics::Font("Consolas", "consola.ttf", 18));
@@ -53,11 +54,12 @@ void Sandbox::init()
 	fpsLabel = NEW Graphics::Label("", 14.2f, 8.0f, "OpenSans", 0xffffffff);
 	debugLabel = NEW Graphics::Label("", 0.2f, 8.6f, "Consolas", 0xff00ffff);
 
-	string version = string((char*)glGetString(GL_VERSION));
-	string vendor = string((char*)glGetString(GL_VENDOR));
-	string renderer = string((char*)glGetString(GL_RENDERER));
+	string str = "";
+	str += "Version : " + string((char*)glGetString(GL_VERSION )) + '\n';
+	str += "Vendor  : " + string((char*)glGetString(GL_VENDOR  )) + '\n';
+	str += "Renderer: " + string((char*)glGetString(GL_RENDERER)) + '\0';
 
-	debugLabel->setText(string("Version : " + version + "\nVendor  : " + vendor + "\nRenderer: " + renderer));
+	debugLabel->setText(str);
 
 	ui = NEW Graphics::Layer2D(NEW Graphics::BatchRenderer2D(), uiShader, pr_matrix);
 	ui->add(debugLabel);
@@ -102,10 +104,13 @@ void Sandbox::update()
 
 	if (window->isKeyPressed(KB_KEY_ESCAPE)) window->close();
 
-	if (window->isKeyPressed(KB_KEY_RIGHT)) (*myWorld)[0]->move( 0.1f,  0.0f); // Right arrow
-	if (window->isKeyPressed(KB_KEY_LEFT )) (*myWorld)[0]->move(-0.1f,  0.0f); // Left arrow
+	//if (window->isKeyPressed(KB_KEY_RIGHT)) (*myWorld)[0]->move( 0.1f,  0.0f); // Right arrow
+	//if (window->isKeyPressed(KB_KEY_LEFT )) (*myWorld)[0]->move(-0.1f,  0.0f); // Left arrow
 	if (window->isKeyPressed(KB_KEY_DOWN )) (*myWorld)[0]->move( 0.0f, -0.1f); // Down arrow
 	if (window->isKeyPressed(KB_KEY_UP   )) (*myWorld)[0]->move( 0.0f,  0.1f); // Up arrow
+
+	if (window->isKeyPressed(KB_KEY_RIGHT)) Utils::toPhysicsRenderable(myWorld->getRenderables()[0])->rotate( 1.0f);
+	if (window->isKeyPressed(KB_KEY_LEFT )) Utils::toPhysicsRenderable(myWorld->getRenderables()[0])->rotate(-1.0f);
 
 	myWorld->update(1 / 60.0f);
 
@@ -114,6 +119,13 @@ void Sandbox::update()
 
 void Sandbox::render()
 {
+	Physics::PhysicsRenderable2D* obj = Utils::toPhysicsRenderable(myWorld->getRenderables()[0]);
+
+	for (int i = 0; i < 4; i++)
+	{
+		ui->submit(NEW Graphics::Line(obj->getOBB().getVertex(i).x, obj->getOBB().getVertex(i).y, obj->getOBB().getVertex(i < 3 ? i + 1 : 0).x, obj->getOBB().getVertex(i < 3 ? i + 1 : 0).y, 16.0f / 960.0f, 0xff00ff00));
+	}
+
 	myWorld->render();
 	ui->render();
 

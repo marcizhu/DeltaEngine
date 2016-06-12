@@ -46,7 +46,9 @@ namespace DeltaEngine {
 
 			void update(float dt)
 			{
-				//if (obb.contains(Maths::Vector2D(position.x, 0.0f))) return;
+				obb = Maths::OBB2D(position, size, rotationAngle);
+
+				if (obb.intersects(Maths::OBB2D(Maths::Vector2D(8.0f, 1.0f), 16.0f, 2.0f, 0.0f))) return;
 
 				position += velocity * dt + ((force / mass) * dt * dt * 0.5f);
 				rotationAngle += angularVelocity * dt;
@@ -56,9 +58,9 @@ namespace DeltaEngine {
 				// tunneling prevention
 				if(abs(velocity.x * dt) >= size.x) DELTAENGINE_WARN("[Physics] Horizontal speed is too fast! (", velocity.x, ")");
 				if(abs(velocity.y * dt) >= size.y) DELTAENGINE_WARN("[Physics] Vertical speed is too fast! (", velocity.y, ")");
-
-				obb = Maths::OBB2D(position, size, rotationAngle);
 			}
+
+			inline Maths::OBB2D& getOBB() { return this->obb; }
 
 			inline bool needsUpdate() { return force.distance() != 0.0f || velocity.distance() != 0.0f; }
 

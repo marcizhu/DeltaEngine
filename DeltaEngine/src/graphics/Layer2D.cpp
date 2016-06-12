@@ -34,7 +34,10 @@ namespace DeltaEngine {
 				renderable->submit(renderer);
 
 			for (const Renderable2D* renderable : submitted)
+			{
 				renderable->submit(renderer);
+				delete renderable;
+			}
 
 			submitted.clear();
 

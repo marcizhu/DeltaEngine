@@ -5,25 +5,18 @@ namespace DeltaEngine {
 
 		OBB2D::OBB2D(Maths::Vector2D& center, float sizeX, float sizeY, float angle)
 		{
-			angle = fmodf(angle, 90.0f);
-
 			sizeX /= 2.0f;
 			sizeY /= 2.0f;
 
-			float cosine = cos(Maths::toRadians(angle));
-			float sine = sin(Maths::toRadians(angle));
+			Maths::Matrix4 rotation = Maths::Matrix4::identity();
 
-			this->vertex[0].x = center.x - sizeX * cosine - sizeY * sine;
-			this->vertex[0].y = center.y + sizeX * sine	- sizeY * cosine;
+			rotation.translate(center.x, center.y, 0);
+			rotation.rotate(angle, 0, 0, 1);
 
-			this->vertex[1].x = center.x - sizeX * cosine - sizeY * sine;
-			this->vertex[1].y = center.y + sizeX * sine + sizeY * cosine;
-
-			this->vertex[2].x = center.x + sizeX * cosine - sizeY * sine;
-			this->vertex[2].y = center.y + sizeX * sine + sizeY * cosine;
-
-			this->vertex[3].x = center.x + sizeX * cosine - sizeY * sine;
-			this->vertex[3].y = center.y + sizeX * sine - sizeY * cosine;
+			this->vertex[0] = rotation * Maths::Vector2D(-sizeX, -sizeY);
+			this->vertex[1] = rotation * Maths::Vector2D(-sizeX,  sizeY);
+			this->vertex[2] = rotation * Maths::Vector2D( sizeX,  sizeY);
+			this->vertex[3] = rotation * Maths::Vector2D( sizeX, -sizeY);
 
 			float minX, maxX;
 			float minY, maxY;
@@ -39,30 +32,26 @@ namespace DeltaEngine {
 				if (vertex[i].y < minY) minY = vertex[i].y;
 				if (vertex[i].y > maxY) maxY = vertex[i].y;
 			}
+
+			minPoint = Maths::Vector2D(minX, minY);
+			maxPoint = Maths::Vector2D(maxX, maxY);
 
 			box = Maths::AABB(Maths::Vector2D(minX, minY), Maths::Vector2D(maxX, maxY));
 		}
 
 		OBB2D::OBB2D(Maths::Vector2D& center, Maths::Vector2D size, float angle)
 		{
-			angle = fmodf(angle, 90.0f);
-
 			size = size / 2.0f;
 
-			float cosine = cos(Maths::toRadians(angle));
-			float sine = sin(Maths::toRadians(angle));
+			Maths::Matrix4 rotation = Maths::Matrix4::identity();
 
-			this->vertex[0].x = center.x - size.x * cosine - size.y * sine;
-			this->vertex[0].y = center.y + size.x * sine - size.y * cosine;
+			rotation.translate(center.x, center.y, 0);
+			rotation.rotate(angle, 0, 0, 1);
 
-			this->vertex[1].x = center.x - size.x * cosine - size.y * sine;
-			this->vertex[1].y = center.y + size.x * sine + size.y * cosine;
-
-			this->vertex[2].x = center.x + size.x * cosine - size.y * sine;
-			this->vertex[2].y = center.y + size.x * sine + size.y * cosine;
-
-			this->vertex[3].x = center.x + size.x * cosine - size.y * sine;
-			this->vertex[3].y = center.y + size.x * sine - size.y * cosine;
+			this->vertex[0] = rotation * Maths::Vector2D(-size.x, -size.y);
+			this->vertex[1] = rotation * Maths::Vector2D(-size.x,  size.y);
+			this->vertex[2] = rotation * Maths::Vector2D( size.x,  size.y);
+			this->vertex[3] = rotation * Maths::Vector2D( size.x, -size.y);
 
 			float minX, maxX;
 			float minY, maxY;
@@ -78,6 +67,9 @@ namespace DeltaEngine {
 				if (vertex[i].y < minY) minY = vertex[i].y;
 				if (vertex[i].y > maxY) maxY = vertex[i].y;
 			}
+
+			minPoint = Maths::Vector2D(minX, minY);
+			maxPoint = Maths::Vector2D(maxX, maxY);
 
 			box = Maths::AABB(Maths::Vector2D(minX, minY), Maths::Vector2D(maxX, maxY));
 		}
@@ -93,6 +85,23 @@ namespace DeltaEngine {
 
 		bool OBB2D::intersects(Maths::OBB2D& other) const
 		{
+			const OBB2D* nearest;
+			const OBB2D* farthest;
+
+			if (other.getCenter().distance() < this->getCenter().distance())
+			{
+				nearest = &other;
+				farthest = this;
+			}
+			else
+			{
+				nearest = this;
+				farthest = &other;
+			}
+
+			if (nearest->getFarthestPoint().x <= farthest->getNearestPoint().x) return true;
+			if (nearest->getFarthestPoint().y >= farthest->getNearestPoint().y) return true;
+
 			return false;
 		}
 

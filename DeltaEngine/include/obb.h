@@ -4,6 +4,8 @@
 #include "vector2d.h"
 #include "aabb.h"
 
+#include "renderer2d.h"
+
 namespace DeltaEngine {
 	namespace Maths {
 
@@ -11,6 +13,8 @@ namespace DeltaEngine {
 		{
 		private:
 			Maths::Vector2D vertex[4];
+			Maths::Vector2D minPoint;
+			Maths::Vector2D maxPoint;
 			Maths::AABB box;
 
 		public:
@@ -24,6 +28,11 @@ namespace DeltaEngine {
 			DELTAENGINE_API void moveTo(Maths::Vector2D& point);
 
 			DELTAENGINE_API inline const Vector2D getCenter() const;
+
+			DELTAENGINE_API const Vector2D& getNearestPoint() const { return minPoint; }
+			DELTAENGINE_API const Vector2D& getFarthestPoint() const { return maxPoint; }
+
+			DELTAENGINE_API const Vector2D& getVertex(int index) const { return vertex[index]; }
 
 			/*
 			DELTAENGINE_API inline bool operator==(const AABB& other) const;
