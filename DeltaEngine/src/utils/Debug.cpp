@@ -96,6 +96,64 @@ namespace DeltaEngine {
 			Utils::setConsoleColor(0x07);
 		}
 
+		void dump(const void* object, Types::uint32 size, FileIO::File& file)
+		{
+#ifndef DELTAENGINE_DEBUG
+			DELTAENGINE_WARN("[Debug] Executing a memory dump operation in release mode (output: file)!");
+#endif
+
+			Types::byte* x = (Types::byte*)object;
+			vector<Types::byte> data;
+
+			std::string out = "0000:  ";
+
+			for (Types::uint32 i = 1; i <= size; i++)
+			{
+				char buffer[2];
+
+				itoa(x[i - 1], buffer, 16);
+
+				if (x[i - 1] < 0x10) out += "0";
+
+				out += std::string(buffer) + " ";
+				data.push_back(x[i - 1]);
+
+				if (((i % 16 == 0) && (i > 0)) || (i == size))
+				{
+					out += "        ";
+
+					for (Types::byte chars : data)
+					{
+						if (Maths::isBetween<Types::byte>(chars, 32, 126))
+						{
+							stringstream stream;
+
+							stream << chars;
+
+							out += stream.str();
+						}
+						else
+						{
+							out += ".";
+						}
+					}
+
+					if (i != size)
+					{
+						stringstream stream;
+
+						stream << "\n" << std::setfill('0') << std::setw(4) << std::hex << std::uppercase << Maths::constrain<uint32>(i, 0, 0xFFFF) << ":  ";
+
+						out += stream.str();
+					}
+
+					data.clear();
+				}
+			}
+
+			file.write(out);
+		}
+
 		//TODO: Add more debug features!
 	}
 }
