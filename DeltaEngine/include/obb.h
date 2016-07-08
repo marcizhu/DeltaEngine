@@ -15,9 +15,10 @@ namespace DeltaEngine {
 			Maths::Vector2D vertex[4];
 			Maths::Vector2D minPoint;
 			Maths::Vector2D maxPoint;
+			Maths::AABB box;
 
 		public:
-			DELTAENGINE_API OBB2D() : vertex() {};
+			DELTAENGINE_API OBB2D() : vertex(), box() {};
 			DELTAENGINE_API OBB2D(Maths::Vector2D& center, float sizeX, float sizeY, float angle);
 			DELTAENGINE_API OBB2D(Maths::Vector2D& center, Maths::Vector2D size, float angle);
 

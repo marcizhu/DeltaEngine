@@ -314,7 +314,7 @@
       <Filter>Source files\DeltaEngine\Maths</Filter>
     </ClCompile>
     <ClCompile Include="src\utils\TextureUtils.cpp">
-      <Filter>Source files\DeltaEngine\Utils</Filter>
+      <Filter>Source files\DeltaEngine\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\sound\Playlist.cpp">
       <Filter>Source files</Filter>

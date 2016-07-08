@@ -48,7 +48,7 @@ namespace DeltaEngine {
 			{
 				obb = Maths::OBB2D(position, size, rotationAngle);
 
-				//if (obb.intersects(Maths::OBB2D(Maths::Vector2D(8.0f, 1.0f), 16.0f, 2.0f, 0.0f))) return;
+				if (obb.intersects(Maths::OBB2D(Maths::Vector2D(8.0f, 1.0f), 16.0f, 2.0f, 0.0f))) return;
 
 				position += velocity * dt + ((force / mass) * dt * dt * 0.5f);
 				rotationAngle += angularVelocity * dt;

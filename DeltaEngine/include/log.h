@@ -218,4 +218,3 @@ namespace DeltaEngine {
 #endif
 
 #pragma warning(default:4996)
-#pragma warning(default:4390)

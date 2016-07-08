@@ -35,6 +35,8 @@ namespace DeltaEngine {
 
 			minPoint = Maths::Vector2D(minX, minY);
 			maxPoint = Maths::Vector2D(maxX, maxY);
+
+			box = Maths::AABB(Maths::Vector2D(minX, minY), Maths::Vector2D(maxX, maxY));
 		}
 
 		OBB2D::OBB2D(Maths::Vector2D& center, Maths::Vector2D size, float angle)
@@ -68,10 +70,14 @@ namespace DeltaEngine {
 
 			minPoint = Maths::Vector2D(minX, minY);
 			maxPoint = Maths::Vector2D(maxX, maxY);
+
+			box = Maths::AABB(Maths::Vector2D(minX, minY), Maths::Vector2D(maxX, maxY));
 		}
 
 		bool OBB2D::contains(Maths::Vector2D& point) const
 		{
+			if (!box.contains(point)) return false;
+
 			// TODO: Check if the dot is inside the OBB
 
 			return true;
@@ -101,7 +107,7 @@ namespace DeltaEngine {
 
 		const Vector2D OBB2D::getCenter() const
 		{
-			return minPoint + (maxPoint - minPoint) / 2.0f;
+			return Maths::Vector2D(box.getCenter().x, box.getCenter().y);
 		}
 
 		void OBB2D::moveTo(Maths::Vector2D& point)
@@ -112,6 +118,8 @@ namespace DeltaEngine {
 			{
 				vertex[i] += delta;
 			}
+
+			box += delta;
 		}
 
 	}

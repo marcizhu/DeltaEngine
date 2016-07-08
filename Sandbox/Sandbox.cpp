@@ -105,9 +105,8 @@ void Sandbox::init()
 
 	uiShader->enable();
 	uiShader->setUniform1iv("textures", texIDs, 32);
-	uiShader->disable();
 
-	window->setVSync(VSYNC_ENABLE);
+	window->setVSync(VSYNC_DISABLE);
 }
 
 void Sandbox::update()
@@ -130,13 +129,6 @@ void Sandbox::update()
 
 void Sandbox::render()
 {
-	Physics::PhysicsRenderable2D* obj = Utils::toPhysicsRenderable(myWorld->getRenderable(0));
-
-	for (int i = 0; i < 4; i++)
-	{
-		ui->submit(NEW Graphics::Line(obj->getOBB().getVertex(i).x, obj->getOBB().getVertex(i).y, obj->getOBB().getVertex(i < 3 ? i + 1 : 0).x, obj->getOBB().getVertex(i < 3 ? i + 1 : 0).y, 16.0f / 960.0f, 0xff00ff00));
-	}
-
 	myWorld->render();
 	ui->render();
 
@@ -151,7 +143,4 @@ void Sandbox::tick()
 
 	memoryLabel->setText(Memory::MemoryManager::getCurrentMemoryString());
 	memoryLabel->setPosition(15.8f - memoryLabel->getSize().x, 8.6f);
-
-	//Debug::dump(window, sizeof(Graphics::Window), FileIO::File(Utils::getCurrentPath() + "\\test.txt"));
-	//Debug::breakpoint();
 }
