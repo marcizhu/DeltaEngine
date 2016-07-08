@@ -38,6 +38,7 @@
 #include "vector4d.h"
 
 // Sound-related files
+#include "Playlist.h"
 #include "sound.h"
 #include "soundManager.h"
 

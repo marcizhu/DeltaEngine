@@ -55,7 +55,7 @@ void Application::init()
 	Physics::PhysicsRenderable2D* asteroid3 = (Physics::PhysicsRenderable2D*)world->add(NEW Physics::PhysicsRenderable2D(16.0f, 11.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Asteroid Small 1"), 1.0f, 1));
 	Physics::PhysicsRenderable2D* asteroid4 = (Physics::PhysicsRenderable2D*)world->add(NEW Physics::PhysicsRenderable2D(10.0f, 8.0f, 0.5f, 0.5f, Graphics::TextureManager::get("Asteroid Smaller 1"), 1.0f, 1));
 
-	srand(Utils::getSystemTime().Milliseconds);
+	srand(Utils::getSystemTime().Second);
 	asteroid1->setVelocity((float)2.0f * rand() / RAND_MAX, (float)360.0f * rand() / RAND_MAX);
 
 	background = NEW Graphics::Layer2D(NEW Graphics::BatchRenderer2D(), bgShader, Maths::Matrix4::orthographic(0.0f, 960.0f, 540.0f, 0.0f));

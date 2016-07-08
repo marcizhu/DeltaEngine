@@ -92,6 +92,8 @@ namespace DeltaEngine {
 
 			DELTAENGINE_API static Types::byte* allocate(size_t amount, size_t flags = 0);
 			DELTAENGINE_API static void deallocate(void* address);
+
+			DELTAENGINE_API static const void* getMemoryStart() { return memStart; }
 		};
 
 	}

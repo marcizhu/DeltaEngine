@@ -13,6 +13,30 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Archivos de recursos\Debug">
+      <UniqueIdentifier>{9ce1820d-a29c-4522-8d55-5b0d75938145}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de recursos\Release">
+      <UniqueIdentifier>{cbd66215-16d9-4761-a41f-50c130689966}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de recursos\Debug\Assets">
+      <UniqueIdentifier>{cc6e20be-4e85-4e13-9d57-40ecd1b999ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de recursos\Debug\Shaders">
+      <UniqueIdentifier>{b7f61a14-c517-454d-82b7-33e1656d51d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de recursos\Debug\Sounds">
+      <UniqueIdentifier>{7b91492a-7519-4cfb-97a6-d2acef141aa4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de recursos\Release\Assets">
+      <UniqueIdentifier>{3276fad4-86aa-451a-b38d-ce1ea7e3d935}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de recursos\Release\Shaders">
+      <UniqueIdentifier>{57d2140c-6194-4fea-9daa-2e69f55c0a15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de recursos\Release\Sounds">
+      <UniqueIdentifier>{ac0435f6-60fe-4b1c-a520-f7fa283c2eb3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -26,5 +50,63 @@
     <ClInclude Include="src\Application.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\res\shaders\basic.shader">
+      <Filter>Archivos de recursos\Debug\Shaders</Filter>
+    </None>
+    <None Include="bin\Debug\res\sounds\laser.ogg">
+      <Filter>Archivos de recursos\Debug\Sounds</Filter>
+    </None>
+    <None Include="bin\Release\res\shaders\basic.shader">
+      <Filter>Archivos de recursos\Release\Shaders</Filter>
+    </None>
+    <None Include="bin\Release\res\sounds\laser.ogg">
+      <Filter>Archivos de recursos\Release\Sounds</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="bin\Debug\res\assets\alien.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\asteroid-1.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\asteroid-2.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\asteroid-small-1.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\asteroid-smallest-1.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\background.jpg">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\explo.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\laser.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\spaceship.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\alien.png">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\background.jpg">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\explo.png">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\laser.png">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\spaceship.png">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
   </ItemGroup>
 </Project>

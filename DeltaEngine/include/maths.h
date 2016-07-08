@@ -50,10 +50,10 @@ namespace DeltaEngine {
 
 		DELTAENGINE_API inline double nlog(uint32 base, double value);
 
-		//template<typename T>
-		//inline T& max(T& first, T& second) { return first > second ? first : second; }
+		template<typename T>
+		inline T& max(T& first, T& second) { return first > second ? first : second; }
 
-		//template<typename T>
-		//inline T& min(T& first, T& second) { return first < second ? first : second; }
+		template<typename T>
+		inline T& min(T& first, T& second) { return first < second ? first : second; }
 	}
 }

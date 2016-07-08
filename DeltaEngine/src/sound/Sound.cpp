@@ -34,7 +34,7 @@ namespace DeltaEngine {
 		}
 
 		Sound::Sound(const string& name, const string& filename)
-			: name(name), playing(false), ready(false), playInstances(0)
+			: name(name), playing(false), ready(false), looping(false), playInstances(0)
 		{
 			thread audioThread(loadSound, this, filename);
 			audioThread.detach();
@@ -47,6 +47,7 @@ namespace DeltaEngine {
 			obj->handle = gau_create_handle_sound(SoundManager::mixer, obj->sound, loop ? &loop_on_finish : &destroy_on_finish, NULL, NULL);
 			obj->handle->sound = obj;
 			obj->playing = true;
+			obj->looping = loop;
 			obj->playInstances++;
 
 			ga_handle_play(obj->handle);
@@ -112,7 +113,10 @@ namespace DeltaEngine {
 		{
 			Sound* sound = (Sound*)in_handle->sound;
 			sound->playInstances--;
-			sound->loop();
+			if (sound->looping)
+				sound->loop();
+			else
+				sound->stop();
 		}
 
 	}

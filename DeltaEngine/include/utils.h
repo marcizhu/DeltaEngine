@@ -42,6 +42,14 @@ namespace DeltaEngine {
 			return stream.str();
 		}
 
+		template<typename T>
+		T random(T min, T max)
+		{
+			T value = rand() % (max - min);
+
+			return (value + min);
+		}
+
 		DELTAENGINE_API vector<string> splitString(const string& str, char delimiter);
 
 		// Console utilities

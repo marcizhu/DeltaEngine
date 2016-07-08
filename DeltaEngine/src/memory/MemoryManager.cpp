@@ -181,7 +181,12 @@ namespace DeltaEngine {
 
 			if (prev_free_block == nullptr)
 			{
-				Debug::dump(memStart, (Types::byte*)firstBlock.load() - (Types::byte*)memStart);
+				//Types::timestamp t = Utils::getSystemTime();
+
+				// t.Day + "-" + t.Month + "-" + t.Year + " " + t.Hour + ":" + t.Minute + ":" + t.Second
+
+				//Debug::dump(memStart, MEMORY_CHUNK, FileIO::File("mem" + Utils::random(0, 1000000)));
+				Debug::dump(memStart, MEMORY_CHUNK);
 
 				Debug::breakpoint();
 				return nullptr;

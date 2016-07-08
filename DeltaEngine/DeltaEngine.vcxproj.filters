@@ -218,6 +218,9 @@
     <ClInclude Include="include\textureUtils.h">
       <Filter>Header files\DeltaEngine\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="include\Playlist.h">
+      <Filter>Header files\DeltaEngine\Sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\utils\Debug.cpp">
@@ -312,6 +315,9 @@
     </ClCompile>
     <ClCompile Include="src\utils\TextureUtils.cpp">
       <Filter>Source files\DeltaEngine\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sound\Playlist.cpp">
+      <Filter>Source files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

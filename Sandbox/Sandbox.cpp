@@ -15,9 +15,11 @@ Sandbox::~Sandbox()
 {
 	delete myWorld;
 	delete ui;
+	delete myList;
 
 	Graphics::FontManager::clean();
 	Graphics::TextureManager::clean();
+	Sound::SoundManager::clean();
 
 	Memory::MemoryManager::end();
 }
@@ -30,6 +32,27 @@ void Sandbox::init()
 
 	shader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\basic.shader");
 	uiShader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\basic.shader");
+
+	Sound::SoundManager::init();
+	Sound::SoundManager::add(NEW Sound::Sound("Intro", Utils::getCurrentPath() + "\\intro.ogg"));
+	Sound::SoundManager::add(NEW Sound::Sound("Intro 2", Utils::getCurrentPath() + "\\intro 2.ogg"));
+
+	_DELTAENGINE_INFO("DeltaEngine: [Sandbox] Loading sounds");
+
+	while(Sound::SoundManager::get("Intro")->isReady() == false)
+	{
+		_DELTAENGINE_INFO(".");
+		Sleep(100);
+	}
+
+	_DELTAENGINE_INFO("\n");
+
+	myList = NEW Sound::Playlist;
+	myList->add(Sound::SoundManager::get("Intro"));
+	myList->add(Sound::SoundManager::get("Intro"));
+	myList->add(Sound::SoundManager::get("Intro 2"));
+
+	myList->play();
 
 	Graphics::TextureManager::add(NEW Graphics::Texture("Mario", "mario.png", GL_NEAREST));
 
@@ -89,6 +112,8 @@ void Sandbox::init()
 
 void Sandbox::update()
 {
+	Sound::SoundManager::update();
+
 	Graphics::FontManager::setScale(window->getHeight() / 9.0f, window->getWidth() / 16.0f);
 
 	if (window->isKeyPressed(KB_KEY_ESCAPE)) window->close();

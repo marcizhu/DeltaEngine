@@ -138,6 +138,28 @@
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\res\shaders\basic.shader" />
+    <None Include="bin\Debug\res\sounds\laser.ogg" />
+    <None Include="bin\Release\res\shaders\basic.shader" />
+    <None Include="bin\Release\res\sounds\laser.ogg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="bin\Debug\res\assets\alien.png" />
+    <Image Include="bin\Debug\res\assets\asteroid-1.png" />
+    <Image Include="bin\Debug\res\assets\asteroid-2.png" />
+    <Image Include="bin\Debug\res\assets\asteroid-small-1.png" />
+    <Image Include="bin\Debug\res\assets\asteroid-smallest-1.png" />
+    <Image Include="bin\Debug\res\assets\background.jpg" />
+    <Image Include="bin\Debug\res\assets\explo.png" />
+    <Image Include="bin\Debug\res\assets\laser.png" />
+    <Image Include="bin\Debug\res\assets\spaceship.png" />
+    <Image Include="bin\Release\res\assets\alien.png" />
+    <Image Include="bin\Release\res\assets\background.jpg" />
+    <Image Include="bin\Release\res\assets\explo.png" />
+    <Image Include="bin\Release\res\assets\laser.png" />
+    <Image Include="bin\Release\res\assets\spaceship.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

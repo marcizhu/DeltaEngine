@@ -25,6 +25,8 @@ private:
 
 	Physics::World2D* myWorld;
 
+	Sound::Playlist* myList;
+
 	void init() override;
 	void update() override;
 	void render() override;

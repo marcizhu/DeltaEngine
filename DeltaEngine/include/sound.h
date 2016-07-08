@@ -23,6 +23,7 @@ namespace DeltaEngine {
 			bool playing;
 			bool ready;
 			int playInstances;
+			bool looping;
 
 			ga_Sound* sound;
 			ga_Handle* handle;
@@ -43,6 +44,7 @@ namespace DeltaEngine {
 			DELTAENGINE_API void stop();
 			DELTAENGINE_API void loop();
 			DELTAENGINE_API void resume() { ga_handle_play(handle); };
+			DELTAENGINE_API void noLoop() { looping = false; }
 
 			DELTAENGINE_API inline void setPan(float value);
 			DELTAENGINE_API inline void setPitch(float value);
@@ -50,7 +52,8 @@ namespace DeltaEngine {
 
 			DELTAENGINE_API inline const string& getName() const { return name; }
 
-			DELTAENGINE_API inline const bool isReady() const { return ready; };
+			DELTAENGINE_API inline bool isReady() const { return ready; };
+			DELTAENGINE_API inline bool isPlaying() const { return playing; }
 
 			DELTAENGINE_API void setPosition(Maths::Vector2D position, float intensity = 1.0f) // AABB area
 			{

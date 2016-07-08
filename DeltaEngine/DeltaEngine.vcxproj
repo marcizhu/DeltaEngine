@@ -249,6 +249,7 @@
     <ClInclude Include="include\PlatformTimer.h" />
     <ClInclude Include="include\World2D.h" />
     <ClInclude Include="include\obb.h" />
+    <ClInclude Include="include\Playlist.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\graphics\Group.cpp" />
@@ -261,6 +262,7 @@
       </AssemblerOutput>
       <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)</AssemblerListingLocation>
     </ClCompile>
+    <ClCompile Include="src\sound\Playlist.cpp" />
     <ClCompile Include="src\sound\Sound.cpp" />
     <ClCompile Include="src\sound\SoundManager.cpp" />
     <ClCompile Include="src\graphics\Framebuffer.cpp" />
