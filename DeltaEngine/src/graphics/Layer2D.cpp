@@ -82,15 +82,6 @@ namespace DeltaEngine {
 			const auto& it = std::find(renderables.begin(), renderables.end(), renderable);
 
 			if(it != renderables.end()) renderables.erase(it);
-
-			/*for (uint32 i = 0; i < renderables.size(); i++)
-			{
-				if (renderables[i] == renderable)
-				{
-					renderables.erase(renderables.begin() + i);
-					break;
-				}
-			}*/
 		}
 
 	}

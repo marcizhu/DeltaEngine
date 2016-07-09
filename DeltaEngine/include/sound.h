@@ -22,7 +22,7 @@ namespace DeltaEngine {
 
 			bool playing;
 			bool ready;
-			int playInstances;
+			unsigned int playInstances;
 			bool looping;
 
 			ga_Sound* sound;
@@ -37,7 +37,7 @@ namespace DeltaEngine {
 
 		public:
 			DELTAENGINE_API Sound(const string& name, const string& filename);
-			DELTAENGINE_API ~Sound() { ga_sound_release(sound); };
+			DELTAENGINE_API ~Sound() { while (!ready); ga_sound_release(sound); };
 
 			DELTAENGINE_API void play();
 			DELTAENGINE_API void pause() { playing = false; ga_handle_stop(handle); }

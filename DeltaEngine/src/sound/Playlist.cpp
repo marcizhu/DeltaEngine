@@ -21,13 +21,13 @@ namespace DeltaEngine {
 
 		void Playlist::playSounds(Playlist* list)
 		{
-			for (Sound* sound : list->list)
+			for (unsigned int i = 0; i < list->list.size(); i++)
 			{
-				DELTAENGINE_INFO("[Playlist] Currently playing \"", list->list[list->current++]->getName(), "\"");
+				DELTAENGINE_INFO("[Playlist] Currently playing \"", list->list[i]->getName(), "\"");
 
-				sound->play();
+				list->list[i]->play();
 
-				do { Sleep(1); } while(sound->isPlaying());
+				do { Sleep(1); } while(list->list[i]->isPlaying());
 			}
 
 			DELTAENGINE_INFO("[Playlist] Playlist ended!");

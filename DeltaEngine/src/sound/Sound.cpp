@@ -77,9 +77,7 @@ namespace DeltaEngine {
 
 		void Sound::setParam(Sound* obj, gc_int32 param, float value)
 		{
-			while (!obj->ready);
-
-			Sleep(1);
+			do { Sleep(1); } while (!obj->ready);
 
 			ga_handle_setParamf(obj->handle, param, value);
 		}
@@ -113,6 +111,7 @@ namespace DeltaEngine {
 		{
 			Sound* sound = (Sound*)in_handle->sound;
 			sound->playInstances--;
+
 			if (sound->looping)
 				sound->loop();
 			else

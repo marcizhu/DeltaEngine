@@ -194,3 +194,5 @@ inline void operator delete[](void* block, const char* file, unsigned int line)
 
 	Memory::MemoryManager::deallocate(block);
 }
+
+#pragma warning(default:4595)

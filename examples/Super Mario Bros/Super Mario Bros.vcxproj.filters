@@ -13,6 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Archivos de recursos\Debug">
+      <UniqueIdentifier>{5ef26ed9-c222-4479-b404-98094065533d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de recursos\Debug\Assets">
+      <UniqueIdentifier>{6c08b8b3-686d-46e2-8b77-c375041ad5d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de recursos\Debug\Shaders">
+      <UniqueIdentifier>{32381a50-fc4d-4fb1-9690-63fe56dbfcf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de recursos\Release">
+      <UniqueIdentifier>{2f1068f6-e333-4223-9edc-d885e5196bb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de recursos\Release\Assets">
+      <UniqueIdentifier>{58d062fe-9bb1-467c-be49-676d712e0943}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de recursos\Release\Shaders">
+      <UniqueIdentifier>{1edc5609-42e4-488d-92c1-a0516235209f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -26,5 +44,165 @@
     <ClInclude Include="src\Application.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="bin\Debug\res\assets\block.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\bricks.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\bush-big.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\bush-small.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\castle.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\cloud-big.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\cloud-small.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\flag.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\flag-pole.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\flag-top.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\flower-1.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\flower-2.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\flower-3.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\flower-4.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\ground.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\hill-big.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\hill-small.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\left pipe.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\mushroom.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\pipe.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\question-block-1.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\question-block-2.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\question-block-3.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\question-disabled.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\right pipe.png">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\block.png">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\bricks.png">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\bush-big.png">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\bush-small.png">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\castle.png">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\cloud-big.png">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\cloud-small.png">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\flag.png">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\flag-pole.png">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\flag-top.png">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\flower-1.png">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\flower-2.png">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\flower-3.png">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\flower-4.png">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\ground.png">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\hill-big.png">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\hill-small.png">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\left pipe.png">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\mushroom.png">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\pipe.png">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\question-block-1.png">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\question-block-2.png">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\question-block-3.png">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\question-disabled.png">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\right pipe.png">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\res\shaders\basic.shader">
+      <Filter>Archivos de recursos\Debug\Shaders</Filter>
+    </None>
+    <None Include="bin\Release\res\shaders\basic.shader">
+      <Filter>Archivos de recursos\Release\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

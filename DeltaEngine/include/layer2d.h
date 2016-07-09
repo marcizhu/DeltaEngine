@@ -41,7 +41,7 @@ namespace DeltaEngine {
 			DELTAENGINE_API inline const float getCameraPositionX() const { return xCamera; }
 			DELTAENGINE_API inline const float getCameraPositionY() const { return yCamera; }
 
-			DELTAENGINE_API inline const std::vector<Renderable2D*>& getRenderables() const { return renderables; }
+			DELTAENGINE_API inline const Renderable2D* getRenderable(uint32 index) const { return renderables[index]; }
 
 			DELTAENGINE_API void rotate(float angle, Maths::Vector3D axis);
 			DELTAENGINE_API void rotate(float angle, float xAxis, float yAxis, float zAxis);

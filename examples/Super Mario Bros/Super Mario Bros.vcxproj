@@ -140,6 +140,62 @@
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\res\shaders\basic.shader" />
+    <None Include="bin\Release\res\shaders\basic.shader" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="bin\Debug\res\assets\block.png" />
+    <Image Include="bin\Debug\res\assets\bricks.png" />
+    <Image Include="bin\Debug\res\assets\bush-big.png" />
+    <Image Include="bin\Debug\res\assets\bush-small.png" />
+    <Image Include="bin\Debug\res\assets\castle.png" />
+    <Image Include="bin\Debug\res\assets\cloud-big.png" />
+    <Image Include="bin\Debug\res\assets\cloud-small.png" />
+    <Image Include="bin\Debug\res\assets\flag-pole.png" />
+    <Image Include="bin\Debug\res\assets\flag-top.png" />
+    <Image Include="bin\Debug\res\assets\flag.png" />
+    <Image Include="bin\Debug\res\assets\flower-1.png" />
+    <Image Include="bin\Debug\res\assets\flower-2.png" />
+    <Image Include="bin\Debug\res\assets\flower-3.png" />
+    <Image Include="bin\Debug\res\assets\flower-4.png" />
+    <Image Include="bin\Debug\res\assets\ground.png" />
+    <Image Include="bin\Debug\res\assets\hill-big.png" />
+    <Image Include="bin\Debug\res\assets\hill-small.png" />
+    <Image Include="bin\Debug\res\assets\left pipe.png" />
+    <Image Include="bin\Debug\res\assets\mushroom.png" />
+    <Image Include="bin\Debug\res\assets\pipe.png" />
+    <Image Include="bin\Debug\res\assets\question-block-1.png" />
+    <Image Include="bin\Debug\res\assets\question-block-2.png" />
+    <Image Include="bin\Debug\res\assets\question-block-3.png" />
+    <Image Include="bin\Debug\res\assets\question-disabled.png" />
+    <Image Include="bin\Debug\res\assets\right pipe.png" />
+    <Image Include="bin\Release\res\assets\block.png" />
+    <Image Include="bin\Release\res\assets\bricks.png" />
+    <Image Include="bin\Release\res\assets\bush-big.png" />
+    <Image Include="bin\Release\res\assets\bush-small.png" />
+    <Image Include="bin\Release\res\assets\castle.png" />
+    <Image Include="bin\Release\res\assets\cloud-big.png" />
+    <Image Include="bin\Release\res\assets\cloud-small.png" />
+    <Image Include="bin\Release\res\assets\flag-pole.png" />
+    <Image Include="bin\Release\res\assets\flag-top.png" />
+    <Image Include="bin\Release\res\assets\flag.png" />
+    <Image Include="bin\Release\res\assets\flower-1.png" />
+    <Image Include="bin\Release\res\assets\flower-2.png" />
+    <Image Include="bin\Release\res\assets\flower-3.png" />
+    <Image Include="bin\Release\res\assets\flower-4.png" />
+    <Image Include="bin\Release\res\assets\ground.png" />
+    <Image Include="bin\Release\res\assets\hill-big.png" />
+    <Image Include="bin\Release\res\assets\hill-small.png" />
+    <Image Include="bin\Release\res\assets\left pipe.png" />
+    <Image Include="bin\Release\res\assets\mushroom.png" />
+    <Image Include="bin\Release\res\assets\pipe.png" />
+    <Image Include="bin\Release\res\assets\question-block-1.png" />
+    <Image Include="bin\Release\res\assets\question-block-2.png" />
+    <Image Include="bin\Release\res\assets\question-block-3.png" />
+    <Image Include="bin\Release\res\assets\question-disabled.png" />
+    <Image Include="bin\Release\res\assets\right pipe.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

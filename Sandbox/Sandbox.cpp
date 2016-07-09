@@ -19,7 +19,7 @@ Sandbox::~Sandbox()
 
 	Graphics::FontManager::clean();
 	Graphics::TextureManager::clean();
-	Sound::SoundManager::clean();
+	//Sound::SoundManager::clean();
 
 	Memory::MemoryManager::end();
 }
@@ -33,7 +33,7 @@ void Sandbox::init()
 	shader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\basic.shader");
 	uiShader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\basic.shader");
 
-	Sound::SoundManager::init();
+	/*Sound::SoundManager::init();
 	Sound::SoundManager::add(NEW Sound::Sound("Intro", Utils::getCurrentPath() + "\\intro.ogg"));
 	Sound::SoundManager::add(NEW Sound::Sound("Intro 2", Utils::getCurrentPath() + "\\intro 2.ogg"));
 
@@ -52,7 +52,7 @@ void Sandbox::init()
 	myList->add(Sound::SoundManager::get("Intro"));
 	myList->add(Sound::SoundManager::get("Intro 2"));
 
-	myList->play();
+	myList->play();*/
 
 	Graphics::TextureManager::add(NEW Graphics::Texture("Mario", "mario.png", GL_NEAREST));
 
@@ -106,12 +106,12 @@ void Sandbox::init()
 	uiShader->enable();
 	uiShader->setUniform1iv("textures", texIDs, 32);
 
-	window->setVSync(VSYNC_DISABLE);
+	window->setVSync(VSYNC_ENABLE);
 }
 
 void Sandbox::update()
 {
-	Sound::SoundManager::update();
+	//Sound::SoundManager::update();
 
 	Graphics::FontManager::setScale(window->getHeight() / 9.0f, window->getWidth() / 16.0f);
 
@@ -129,6 +129,13 @@ void Sandbox::update()
 
 void Sandbox::render()
 {
+	Physics::PhysicsRenderable2D* obj = Utils::toPhysicsRenderable(myWorld->getRenderable(0));
+
+	for (int i = 0; i < 4; i++)
+	{
+		ui->submit(NEW Graphics::Line(obj->getOBB().getVertex(i).x, obj->getOBB().getVertex(i).y, obj->getOBB().getVertex(i < 3 ? i + 1 : 0).x, obj->getOBB().getVertex(i < 3 ? i + 1 : 0).y, 16.0f / 960.0f, 0xff00ff00));
+	}
+
 	myWorld->render();
 	ui->render();
 

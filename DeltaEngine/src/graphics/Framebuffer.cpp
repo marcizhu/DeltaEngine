@@ -5,17 +5,7 @@ namespace DeltaEngine {
 	namespace Graphics {
 
 		Framebuffer::Framebuffer(Types::uint32 width, Types::uint32 height)
-			: size(width, height), width(width), height(height)
-		{
-			create(width, height);
-		}
-
-		Framebuffer::~Framebuffer()
-		{
-			glDeleteFramebuffers(1, &data.framebufferID);
-		}
-
-		void Framebuffer::create(Types::uint32 width, Types::uint32 height)
+			: width(width), height(height)
 		{
 			glGenFramebuffers(1, &data.framebufferID);
 			glGenRenderbuffers(1, &data.depthbufferID);
@@ -30,13 +20,26 @@ namespace DeltaEngine {
 			glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, data.depthbufferID);
 		}
 
+		Framebuffer::~Framebuffer()
+		{
+			delete texture;
+
+			glDeleteFramebuffers(1, &data.framebufferID);
+			glDeleteRenderbuffers(1, &data.depthbufferID);
+		}
+
 		void Framebuffer::bind() const
 		{
 			glBindFramebuffer(GL_FRAMEBUFFER, data.framebufferID);
 			glViewport(0, 0, width, height);
 		}
 
-		void Framebuffer::clear()
+		void Framebuffer::unbind() const
+		{
+			glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		}
+
+		void Framebuffer::clear() const
 		{
 			glClearColor(clearColor.A / 255.0f, clearColor.B / 255.0f, clearColor.G / 255.0f, clearColor.R / 255.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
