@@ -19,15 +19,15 @@ namespace DeltaEngine {
 			}
 		}
 
-		void Playlist::playSounds(Playlist* list)
+		void Playlist::playSounds(Playlist* playlist)
 		{
-			for (unsigned int i = 0; i < list->list.size(); i++)
+			for (unsigned int i = 0; i < playlist->list.size(); i++)
 			{
-				DELTAENGINE_INFO("[Playlist] Currently playing \"", list->list[i]->getName(), "\"");
+				DELTAENGINE_INFO("[Playlist] Currently playing \"", playlist->list[i]->getName(), "\"");
 
-				list->list[i]->play();
+				playlist->list[i]->play();
 
-				do { Sleep(1); } while(list->list[i]->isPlaying());
+				do { Sleep(1); } while(playlist->list[i]->isPlaying());
 			}
 
 			DELTAENGINE_INFO("[Playlist] Playlist ended!");

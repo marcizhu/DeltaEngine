@@ -96,6 +96,7 @@ namespace DeltaEngine {
 		Graphics::Window* window;
 		Utils::Timer* timer;
 		Types::uint32 fps, ups;
+		float tickrate = 1.0f;
 
 		// Runs once upon initialization
 		virtual void init() = 0;
@@ -138,7 +139,7 @@ namespace DeltaEngine {
 					renderTimer += window->getVSyncTime();
 				}
 
-				if (timer->getElapsedTime() - seconds >= 1.0f)
+				if (timer->getElapsedTime() - seconds >= tickrate)
 				{
 					seconds += (timer->getElapsedTime() - seconds);
 					fps = frames;
@@ -166,6 +167,9 @@ namespace DeltaEngine {
 
 		const unsigned int getFPS() const { return fps; }
 		const unsigned int getUPS() const { return ups; }
+		const float getTickRate() const { return tickrate; }
+
+		void setTickRate(float seconds) { tickrate = seconds; }
 
 	public:
 		void start()

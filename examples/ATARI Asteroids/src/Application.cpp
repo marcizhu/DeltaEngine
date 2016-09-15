@@ -13,8 +13,10 @@ Application::Application() : Game()
 
 Application::~Application()
 {
+	delete background;
 	delete world;
 	delete playArea;
+	delete ui;
 
 	Graphics::FontManager::clean();
 	Graphics::TextureManager::clean();
@@ -29,6 +31,7 @@ void Application::init()
 
 	shader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\res\\shaders\\basic.shader");
 	bgShader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\res\\shaders\\basic.shader");
+	uiShader = Graphics::Shader::loadFromFile(Utils::getCurrentPath() + "\\res\\shaders\\basic.shader");
 
 	Sound::SoundManager::init();
 	Sound::SoundManager::add(NEW Sound::Sound("Laser", Utils::getCurrentPath() + "\\res\\sounds\\laser.ogg"));
@@ -36,6 +39,9 @@ void Application::init()
 
 	//Sound::SoundManager::get("Music")->loop();
 	//Sound::SoundManager::get("Music")->setGain(0.7f);
+
+	Graphics::FontManager::add(NEW Graphics::Font("FixedSys", Utils::getCurrentPath() + "\\fixedsys.ttf", 26.0f));
+	Graphics::FontManager::setScale(window->getHeight() / 9.0f, window->getWidth() / 16.0f);
 
 	Graphics::TextureManager::add(NEW Graphics::Texture("Spaceship", Utils::getCurrentPath() + "\\res\\assets\\spaceship.png", GL_NEAREST));
 	Graphics::TextureManager::add(NEW Graphics::Texture("Laser", Utils::getCurrentPath() + "\\res\\assets\\laser.png", GL_NEAREST));
@@ -61,6 +67,12 @@ void Application::init()
 	background = NEW Graphics::Layer2D(NEW Graphics::BatchRenderer2D(), bgShader, Maths::Matrix4::orthographic(0.0f, 960.0f, 540.0f, 0.0f));
 	background->add(NEW Graphics::BatchRenderable2D(-480.0f, -330.0f, 1920.0f, 1200.0f, Graphics::TextureManager::get("Background")));
 
+	score = NEW Graphics::Label("Score: 0", 0.2f, 8.5f, Graphics::FontManager::get("FixedSys"), 0xffffffff);
+	score->setPosition(0.2f, 8.5f);
+
+	ui = NEW Graphics::Layer2D(NEW Graphics::BatchRenderer2D(), uiShader, Maths::Matrix4::orthographic(0.0f, 16.0f, 9.0f, 0.0f));
+	ui->add(score);
+
 	GLint texIDs[] =
 	{
 		 0,  1,  2,  3,  4,  5,  6,  7,  8,  9,
@@ -84,6 +96,8 @@ void Application::init()
 
 void Application::update()
 {
+	Graphics::FontManager::setScale(window->getHeight() / 9.0f, window->getWidth() / 16.0f);
+
 	if (window->isKeyPressed(KB_KEY_ESCAPE)) window->close();
 
 	Physics::PhysicsRenderable2D* spaceship = Utils::toPhysicsRenderable((*world)[0]);
@@ -149,9 +163,12 @@ void Application::render()
 {
 	background->render();
 	world->render();
+	ui->render();
 }
 
 void Application::tick()
 {
-	//DELTAENGINE_INFO("FPS: ", getFPS());
+	DELTAENGINE_INFO("Test: ", getTickRate());
+
+	setTickRate(getTickRate() - 0.05f);
 }
