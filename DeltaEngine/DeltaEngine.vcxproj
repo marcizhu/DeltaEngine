@@ -197,6 +197,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\debugUI.h" />
     <ClInclude Include="include\Force.h" />
     <ClInclude Include="include\group.h" />
     <ClInclude Include="include\aabb.h" />
@@ -209,7 +210,6 @@
     <ClInclude Include="include\eventHandler.h" />
     <ClInclude Include="include\input.h" />
     <ClInclude Include="include\internal.h" />
-    <ClInclude Include="include\errors.h" />
     <ClInclude Include="include\fileIO.h" />
     <ClInclude Include="include\font.h" />
     <ClInclude Include="include\fontManager.h" />

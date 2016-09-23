@@ -11,9 +11,11 @@ using namespace std;
 namespace DeltaEngine {
 	namespace Debug {
 
-		__forceinline void breakpoint()
+		__forceinline void breakpoint(const char* file, int line)
 		{
 #ifdef DELTAENGINE_DEBUG
+			if(file) DELTAENGINE_ERROR("Breakpoint occurred on file ", file, " (line ", line, ")");
+
 			_asm int 3;
 #endif
 		}
@@ -50,14 +52,11 @@ namespace DeltaEngine {
 
 		void dump(const void* object, Types::uint32 size, int color)
 		{
-#ifndef DELTAENGINE_DEBUG
+#ifdef DELTAENGINE_RELEASE
 			DELTAENGINE_WARN("[Debug] Executing a memory dump operation in release mode!");
 #endif
 
-			if (Maths::nlog(16, size) > 4)
-			{
-				DELTAENGINE_WARN("[Debug] Not all the addresses will be shown!");
-			}
+			if (Maths::nlog(16, size) > 4) DELTAENGINE_WARN("[Debug] Not all the addresses will be shown!");
 
 			Types::byte* x = (Types::byte*)object;
 			vector<Types::byte> data;
@@ -98,7 +97,7 @@ namespace DeltaEngine {
 
 		void dump(const void* object, Types::uint32 size, FileIO::File& file)
 		{
-#ifndef DELTAENGINE_DEBUG
+#ifdef DELTAENGINE_RELEASE
 			DELTAENGINE_WARN("[Debug] Executing a memory dump operation in release mode (output: file)!");
 #endif
 

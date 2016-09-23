@@ -1,20 +1,18 @@
 #include <string>
-#include <Windows.h>
 
 #include "logger.h"
 #include "utils.h"
 #include "types.h"
 #include "fileIO.h"
-#include "errors.h"
 
 using namespace std;
 
-// TODO: Change return values with logging output and delete errors.h
+// TODO: Review error logging here
 
 namespace DeltaEngine {
 	namespace Utils {
 
-		int Logger::Log(const string& tag, unsigned char align, const string& message) const
+		void Logger::Log(const string& tag, unsigned char align, const string& message) const
 		{
 			string result = "";
 
@@ -52,23 +50,38 @@ namespace DeltaEngine {
 			} else if (tag.size() - align == 0)
 			{
 				result += tag;
-			} else return -ERR_INVALID_ARGUMENT;
+			}
+			else
+			{
+				DELTAENGINE_ERROR("[Logger] Invalid argument!");
+				return;
+			}
+
 			result += "] ";
 
 			if (this->_showGameName)
 			{
-				if(this->gameName == "") return -ERR_EXPECTED_ARGUMENT;
+				if(this->gameName == "")
+				{
+					DELTAENGINE_ERROR("[Logger] Expected an argument!!");
+					return;
+				}
+
 				result += "[" + gameName + "] ";
 			}
 
 			result += message + "\r\n";
 
-			return FileIO::File(this->file).append(result);
+			FileIO::File(this->file).append(result);
 		}
 
-		int Logger::Log(const string& message) const
+		void Logger::Log(const string& message) const
 		{
-			if (this->_showTags) return -ERR_EXPECTED_ARGUMENT;
+			if (this->_showTags)
+			{
+				DELTAENGINE_ERROR("[Logger] Expected an argument!!");
+				return;
+			}
 
 			string result = "";
 
@@ -87,11 +100,16 @@ namespace DeltaEngine {
 			if (this->_showGameName && this->gameName != "")
 			{
 				result += "[" + gameName + "] ";
-			} else return -ERR_EXPECTED_ARGUMENT;
+			}
+			else
+			{
+				DELTAENGINE_ERROR("[Logger] Expected an argument!!");
+				return;
+			}
 
 			result += message + "\r\n";
 
-			return FileIO::File(this->file).append(result);
+			FileIO::File(this->file).append(result);
 		}
 	}
 }

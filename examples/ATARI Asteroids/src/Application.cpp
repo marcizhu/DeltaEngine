@@ -166,9 +166,4 @@ void Application::render()
 	ui->render();
 }
 
-void Application::tick()
-{
-	DELTAENGINE_INFO("Test: ", getTickRate());
-
-	setTickRate(getTickRate() - 0.05f);
-}
+void Application::tick() { }

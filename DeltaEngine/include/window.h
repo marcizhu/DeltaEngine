@@ -17,8 +17,8 @@ using namespace std;
 namespace DeltaEngine {
 	namespace Graphics {
 
-		class Window {
-
+		class Window
+		{
 		private:
 			string title;
 

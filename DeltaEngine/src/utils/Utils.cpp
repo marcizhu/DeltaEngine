@@ -66,6 +66,11 @@ namespace DeltaEngine {
 			Platform::PlatformSetConsoleColor(color);
 		}
 
+		void clearScreen()
+		{
+			Platform::PlatformCls();
+		}
+
 		string precision_to_string(const float val, char n)
 		{
 			std::ostringstream out;
@@ -80,6 +85,36 @@ namespace DeltaEngine {
 			DELTAENGINE_ASSERT(object != nullptr, "The renderable is not an instance of a physicsRenderable2D object!");
 
 			return object;
+		}
+
+		Types::timestamp getBuildTime()
+		{
+			return Platform::PlatformGetBuildTime();
+		}
+
+		void printBuildTime()
+		{
+			Platform::PlatformSetConsoleColor(0x03);
+
+			printf("Build time: ");
+			printTimestamp(getBuildTime());
+
+			Platform::PlatformSetConsoleColor(0x07);
+		}
+
+		void printDate(const Types::date& date)
+		{
+			printf("%02i/%02i/%02i", date.Day, date.Month, date.Year);
+		}
+
+		void printTime(const Types::time& time)
+		{
+			printf("%02i:%02i:%02i", time.Hour, time.Minute, time.Second);
+		}
+
+		void printTimestamp(const Types::timestamp& t)
+		{
+			printf("%02i/%02i/%02i  %02i:%02i:%02i", t.Day, t.Month, t.Year, t.Hour, t.Minute, t.Second);
 		}
 
 	}

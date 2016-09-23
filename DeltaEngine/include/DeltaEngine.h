@@ -62,7 +62,34 @@ namespace DeltaEngine {
 
 	inline int init()
 	{
-		if (glewInit() != GLEW_OK) return DELTAENGINE_NOT_INITIALIZED;
+		if (GLenum err = glewInit() != GLEW_OK)
+		{
+			DELTAENGINE_ERROR("", glewGetErrorString(err));
+
+			return DELTAENGINE_NOT_INITIALIZED;
+		}
+
+		/*
+		if(GLEW_VERSION_1_1) DELTAENGINE_INFO("Version 1.1 supported!");
+		if(GLEW_VERSION_1_2) DELTAENGINE_INFO("Version 1.2 supported!");
+		if(GLEW_VERSION_1_3) DELTAENGINE_INFO("Version 1.3 supported!");
+		if(GLEW_VERSION_1_4) DELTAENGINE_INFO("Version 1.4 supported!");
+		if(GLEW_VERSION_1_5) DELTAENGINE_INFO("Version 1.5 supported!");
+		if(GLEW_VERSION_2_0) DELTAENGINE_INFO("Version 2.0 supported!");
+		if(GLEW_VERSION_2_1) DELTAENGINE_INFO("Version 2.1 supported!");
+		if(GLEW_VERSION_3_0) DELTAENGINE_INFO("Version 3.0 supported!");
+		if(GLEW_VERSION_3_1) DELTAENGINE_INFO("Version 3.1 supported!");
+		if(GLEW_VERSION_3_2) DELTAENGINE_INFO("Version 3.2 supported!");
+		if(GLEW_VERSION_3_3) DELTAENGINE_INFO("Version 3.3 supported!");
+		if(GLEW_VERSION_4_0) DELTAENGINE_INFO("Version 4.0 supported!");
+		if(GLEW_VERSION_4_1) DELTAENGINE_INFO("Version 4.1 supported!");
+		if(GLEW_VERSION_4_2) DELTAENGINE_INFO("Version 4.2 supported!");
+		if(GLEW_VERSION_4_3) DELTAENGINE_INFO("Version 4.3 supported!");
+		if(GLEW_VERSION_4_4) DELTAENGINE_INFO("Version 4.4 supported!");
+		if(GLEW_VERSION_4_5) DELTAENGINE_INFO("Version 4.5 supported!");
+		*/
+
+		//if (!GLEW_VERSION_3_3) DELTAENGINE_ERROR("Version 3.3 is not supported! Shaders won't work! :(");
 
 		Platform::PlatformSetConsoleColor(0x02);
 
@@ -80,10 +107,15 @@ namespace DeltaEngine {
 		std::cout << "           " << (char)179 << "                                                        " << (char)179 << std::endl;
 		std::cout << "          [+]~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[+] " << std::endl << std::endl;
 
-		DELTAENGINE_MSG("OpenGL:", "\n\n");
-		DELTAENGINE_MSG("Version : ", glGetString(GL_VERSION));
-		DELTAENGINE_MSG("Vendor  : ", glGetString(GL_VENDOR));
-		DELTAENGINE_MSG("Renderer: ", glGetString(GL_RENDERER), '\n');
+		DELTAENGINE_DBG("OpenGL:\n\n");
+		DELTAENGINE_DBG("Version : ", glGetString(GL_VERSION));
+		DELTAENGINE_DBG("Vendor  : ", glGetString(GL_VENDOR));
+		DELTAENGINE_DBG("Renderer: ", glGetString(GL_RENDERER));
+		DELTAENGINE_DBG("Shaders : GLSL Shading Language v", glGetString(GL_SHADING_LANGUAGE_VERSION), "\n\n");
+
+		_DELTAENGINE_DBG("DeltaEngine ", DELTAENGINE_VERSION_S, " ", DELTAENGINE_PHASE_S, " (");
+		Utils::printBuildTime();
+		DELTAENGINE_DBG(")\n");
 
 		return DELTAENGINE_VERSION;
 	}

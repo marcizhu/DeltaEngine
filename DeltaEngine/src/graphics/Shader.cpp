@@ -91,7 +91,7 @@ namespace DeltaEngine {
 			return NEW Shader(source, SOURCE);
 		}
 
-		bool Shader::compile(GLuint shader, const char* source, const string& shaderType)
+		bool Shader::compile(GLuint shader, const char* source, uint32 shaderType)
 		{
 			glShaderSource(shader, 1, &source, NULL);
 			glCompileShader(shader);
@@ -101,12 +101,27 @@ namespace DeltaEngine {
 
 			if (result == GL_FALSE)
 			{
+#ifdef DELTAENGINE_DEBUG
 				GLint length;
 				glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &length);
 				std::vector<char> error(length);
 				glGetShaderInfoLog(shader, length, &length, &error[0]);
-				DELTAENGINE_FATAL("[Shader] Failed to compile ", shaderType, " shader!\n", &error[0]);
+
+				switch (shaderType)
+				{
+				case GL_VERTEX_SHADER:
+					DELTAENGINE_FATAL("[Shader] Failed to compile vertex shader!\n", &error[0]); break;
+
+				case GL_FRAGMENT_SHADER:
+					DELTAENGINE_FATAL("[Shader] Failed to compile fragment shader!\n", &error[0]); break;
+
+				default:
+					DELTAENGINE_FATAL("[Shader] Failed to compile unknown type shader!\n", &error[0]); break;
+				}
+
+#endif
 				glDeleteShader(shader);
+
 				return false;
 			}
 
@@ -122,8 +137,8 @@ namespace DeltaEngine {
 			const char* vertSource = vertData.c_str();
 			const char* fragSource = fragData.c_str();
 
-			if (compile(vertex, vertSource, "vertex") == false) return 0;
-			if (compile(fragment, fragSource, "fragment") == false) return 0;
+			if (compile(vertex, vertSource, GL_VERTEX_SHADER) == false) return 0;
+			if (compile(fragment, fragSource, GL_FRAGMENT_SHADER) == false) return 0;
 
 			glAttachShader(program, vertex);
 			glAttachShader(program, fragment);
@@ -152,7 +167,12 @@ namespace DeltaEngine {
 			else
 			{
 				location = glGetUniformLocation(shaderID, name);
-				if (location == -1) DELTAENGINE_ERROR("[Shader] Could not find uniform \'", name, "\' in shader!");
+
+				if (location == -1)
+				{
+					DELTAENGINE_ERROR("[Shader] Could not find uniform \'", name, "\' in shader!");
+					return 0;
+				}
 
 				uniformLocations[name] = location;
 			}

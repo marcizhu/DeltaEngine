@@ -48,7 +48,7 @@ namespace DeltaEngine {
 			DELTAENGINE_API const Matrix4& rotate(float angle, float xAxis, float yAxis, float zAxis);
 			DELTAENGINE_API const Matrix4& scale(float x, float y, float z);
 
-			DELTAENGINE_API const AABB& orthographicToAABB() const;
+			DELTAENGINE_API AABB orthographicToAABB() const;
 
 			DELTAENGINE_API const signed int getDownDirection() const;
 			DELTAENGINE_API const signed int getUpDirection() const;

@@ -13,8 +13,10 @@ namespace DeltaEngine {
 		{
 		private:
 			Maths::Vector2D vertex[4];
-			Maths::Vector2D minPoint;
-			Maths::Vector2D maxPoint;
+			//Maths::Vector2D minPoint;
+			//Maths::Vector2D maxPoint;
+
+			inline Maths::Vector2D rotateVector(Maths::Vector2D& center, Maths::Vector2D& point, float degrees);
 
 		public:
 			DELTAENGINE_API OBB2D() : vertex() {};
@@ -28,8 +30,8 @@ namespace DeltaEngine {
 
 			DELTAENGINE_API inline const Vector2D getCenter() const;
 
-			DELTAENGINE_API const Vector2D& getNearestPoint() const { return minPoint; }
-			DELTAENGINE_API const Vector2D& getFarthestPoint() const { return maxPoint; }
+			//DELTAENGINE_API const Vector2D& getNearestPoint() const { return minPoint; }
+			//DELTAENGINE_API const Vector2D& getFarthestPoint() const { return maxPoint; }
 
 			DELTAENGINE_API const Vector2D& getVertex(int index) const { return vertex[index]; }
 

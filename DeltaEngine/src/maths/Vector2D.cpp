@@ -93,7 +93,7 @@ namespace DeltaEngine {
 			return left;
 		}
 
-		std::ostream & operator<<(std::ostream& stream, const Vector2D& vector)
+		std::ostream& operator<<(std::ostream& stream, const Vector2D& vector)
 		{
 			stream << "Vector2D: (" << vector.x << ", " << vector.y  << ")";
 			return stream;

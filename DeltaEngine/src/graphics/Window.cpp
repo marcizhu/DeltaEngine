@@ -94,7 +94,7 @@ namespace DeltaEngine {
 
 			modifier &= 0xFC;
 
-			window->keys[key] = (repeat << 1) | pressed;
+			window->keys[key] = ((int)repeat << 1) | (int)pressed;
 
 			//TODO: Check this!
  			if (pressed)

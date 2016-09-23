@@ -4,6 +4,9 @@
 #include "vector4d.h"
 #include "maths.h"
 
+#undef near
+#undef far
+
 namespace DeltaEngine {
 	namespace Maths {
 
@@ -164,17 +167,17 @@ namespace DeltaEngine {
 			float y = axis.y;
 			float z = axis.z;
 
-			this->elements[0 + 0 * 4] = x * omc + c;
+			this->elements[0 + 0 * 4] = x * x * omc + c;
 			this->elements[1 + 0 * 4] = y * x * omc + z * s;
 			this->elements[2 + 0 * 4] = x * z * omc - y * s;
 
 			this->elements[0 + 1 * 4] = x * y * omc - z * s;
-			this->elements[1 + 1 * 4] = y * omc + c;
+			this->elements[1 + 1 * 4] = y * y * omc + c;
 			this->elements[2 + 1 * 4] = y * z * omc + x * s;
 
 			this->elements[0 + 2 * 4] = x * z * omc + y * s;
 			this->elements[1 + 2 * 4] = y * z * omc - x * s;
-			this->elements[2 + 2 * 4] = z * omc + c;
+			this->elements[2 + 2 * 4] = z * z * omc + c;
 
 			return *this;
 		}
@@ -186,17 +189,17 @@ namespace DeltaEngine {
 			float omc = 1.0f - c;
 
 
-			this->elements[0 + 0 * 4] = xAxis * omc + c;
+			this->elements[0 + 0 * 4] = xAxis * xAxis * omc + c;
 			this->elements[1 + 0 * 4] = yAxis * xAxis * omc + zAxis * s;
 			this->elements[2 + 0 * 4] = xAxis * zAxis * omc - yAxis * s;
 
 			this->elements[0 + 1 * 4] = xAxis * yAxis * omc - zAxis * s;
-			this->elements[1 + 1 * 4] = yAxis * omc + c;
+			this->elements[1 + 1 * 4] = yAxis * yAxis * omc + c;
 			this->elements[2 + 1 * 4] = yAxis * zAxis * omc + xAxis * s;
 
 			this->elements[0 + 2 * 4] = xAxis * zAxis * omc + yAxis * s;
 			this->elements[1 + 2 * 4] = yAxis * zAxis * omc - xAxis * s;
-			this->elements[2 + 2 * 4] = zAxis * omc + c;
+			this->elements[2 + 2 * 4] = zAxis * zAxis * omc + c;
 
 			return *this;
 		}
@@ -219,7 +222,7 @@ namespace DeltaEngine {
 			return *this;
 		}
 
-		const AABB& Matrix4::orthographicToAABB() const
+		AABB Matrix4::orthographicToAABB() const
 		{
 			float rMinusL = 1.0f / (this->elements[0 + 0 * 4] / 2.0f);
 			float tMinusB = 1.0f / (this->elements[1 + 1 * 4] / 2.0f);

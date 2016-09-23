@@ -23,7 +23,7 @@ namespace DeltaEngine {
 
 			inline uint32 size() const { return data.size(); };
 
-			inline const std::list<T> getStack() const { return this->data; };
+			inline const std::list<T>& getStack() const { return this->data; };
 
 			inline const T& operator[](uint32 idx) const { return data[idx]; };
 			inline const void operator=(const Stack& other) const { data = other.getStack(); };

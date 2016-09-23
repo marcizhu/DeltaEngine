@@ -3,27 +3,23 @@
 
 #include "fileIO.h"
 #include "types.h"
-#include "errors.h"
 #include "memoryManager.h"
-
-// TODO: Change return values with logging output and delete errors.h
 
 using namespace DeltaEngine::Types;
 
 namespace DeltaEngine {
 	namespace FileIO {
 
-		File::File(std::string path)
-		{
-			this->path = path;
-			this->fSize = getFileSize();
-		}
-
 		std::string File::read() const
 		{
 			FILE* file;
 			fopen_s(&file, this->path.c_str(), "r");
-			if (file == nullptr) return std::string("");
+
+			if (file == nullptr)
+			{
+				DELTAENGINE_ERROR("[FileIO] Unable to read the file!");
+				return std::string("");
+			}
 
 			char* data = NEW char[getFileSize() + 1];
 			memset(data, 0, getFileSize() + 1);
@@ -36,13 +32,18 @@ namespace DeltaEngine {
 			return result;
 		}
 
-		byte* File::readBinary() const
+		Types::byte* File::readBinary() const
 		{
 			FILE* file;
 			fopen_s(&file, this->path.c_str(), "rb");
-			if (file == nullptr) return nullptr;
 
-			byte* data = NEW byte[getFileSize() + 1];
+			if (file == nullptr)
+			{
+				DELTAENGINE_ERROR("[FileIO] Unable to read the binary file!");
+				return nullptr;
+			}
+
+			Types::byte* data = NEW Types::byte[getFileSize() + 1];
 			memset(data, 0, getFileSize() + 1);
 			fread(data, 1, getFileSize(), file);
 			fclose(file);
@@ -51,30 +52,38 @@ namespace DeltaEngine {
 			return data;
 		}
 
-		int File::write(std::string data)
+		void File::write(std::string data)
 		{
 			FILE* file;
 			fopen_s(&file, this->path.c_str(), "w");
-			if (file == nullptr) return -ERR_CREATING_FILE;
+
+			if (file == nullptr)
+			{
+				DELTAENGINE_ERROR("[FileIO] Unable to create the file!");
+				return;
+			}
 
 			fputs(data.c_str(), file);
 			fclose(file);
 
 			this->fSize = getFileSize();
-			return 0;
 		}
 
-		int File::append(std::string data)
+		void File::append(std::string data)
 		{
 			FILE* file;
 			fopen_s(&file, this->path.c_str(), "a");
-			if (file == nullptr) return -ERR_CREATING_FILE;
+
+			if (file == nullptr)
+			{
+				DELTAENGINE_ERROR("[FileIO] Unable to create the file!");
+				return;
+			}
 
 			fputs(data.c_str(), file);
 			fclose(file);
 
 			this->fSize = getFileSize();
-			return 0;
 		}
 
 		bool File::exists() const
@@ -93,7 +102,12 @@ namespace DeltaEngine {
 		{
 			FILE* file;
 			fopen_s(&file, this->path.c_str(), "r");
-			if (file == nullptr) return 0;
+
+			if (file == nullptr)
+			{
+				DELTAENGINE_ERROR("[FileIO] Unable to read the file size!");
+				return 0 ;
+			}
 
 			fseek(file, 0, SEEK_END);
 			uint32 len = ftell(file);

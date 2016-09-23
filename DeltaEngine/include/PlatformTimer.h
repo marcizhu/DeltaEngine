@@ -33,7 +33,7 @@ namespace DeltaEngine {
 #elif defined(DELTAENGINE_PLATFORM_LINUX)
 #include <unistd.h>
 
-		static __forceinline uint64 rdtsc()
+		static __attribute__((always_inline)) uint64 rdtsc()
 		{
 			uint32 lo, hi;
 
@@ -42,7 +42,7 @@ namespace DeltaEngine {
 			return (uint64)hi << 32 | lo;
 		}
 
-		static __forceinline uint64 getTimerFrequency()
+		static __attribute__((always_inline)) uint64 getTimerFrequency()
 		{
 			uint64 before, after;
 
@@ -53,7 +53,7 @@ namespace DeltaEngine {
 			return (after - before) / 1000;
 		}
 
-		static __forceinline uint64 getCurrentCount()
+		static __attribute__((always_inline)) uint64 getCurrentCount()
 		{
 			return rdtsc();
 		}

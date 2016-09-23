@@ -1,6 +1,6 @@
 #pragma once
 
-#ifndef _DEBUG
+#ifdef DELTAENGINE_RELEASE
 #	pragma warning(disable:4390)
 #endif
 
@@ -159,7 +159,7 @@ namespace DeltaEngine {
 
 
 #ifndef DELTAENGINE_LOG_LEVEL
-	#define DELTAENGINE_LOG_LEVEL DELTAENGINE_LOG_LEVEL_MSG
+	#define DELTAENGINE_LOG_LEVEL DELTAENGINE_LOG_LEVEL_DEBUG
 #endif
 
 #if DELTAENGINE_LOG_LEVEL >= DELTAENGINE_LOG_LEVEL_FATAL && defined(DELTAENGINE_DEBUG)
@@ -194,12 +194,12 @@ namespace DeltaEngine {
 	#define _DELTAENGINE_INFO(...)
 #endif
 
-#if DELTAENGINE_LOG_LEVEL >= DELTAENGINE_LOG_LEVEL_MSG && defined(DELTAENGINE_DEBUG)
-	#define DELTAENGINE_MSG(...) DeltaEngine::Internal::log_message(DELTAENGINE_LOG_LEVEL_MSG, true, __VA_ARGS__)
-	#define _DELTAENGINE_MSG(...) DeltaEngine::Internal::log_message(DELTAENGINE_LOG_LEVEL_MSG, false, __VA_ARGS__)
+#if DELTAENGINE_LOG_LEVEL >= DELTAENGINE_LOG_LEVEL_DEBUG && defined(DELTAENGINE_DEBUG)
+	#define DELTAENGINE_DBG(...) DeltaEngine::Internal::log_message(DELTAENGINE_LOG_LEVEL_DEBUG, true, __VA_ARGS__)
+	#define _DELTAENGINE_DBG(...) DeltaEngine::Internal::log_message(DELTAENGINE_LOG_LEVEL_DEBUG, false, __VA_ARGS__)
 #else
-	#define DELTAENGINE_MSG(...)
-	#define _DELTAENGINE_MSG(...)
+	#define DELTAENGINE_DBG(...)
+	#define _DELTAENGINE_DBG(...)
 #endif
 
 #ifdef DELTAENGINE_DEBUG

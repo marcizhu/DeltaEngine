@@ -56,7 +56,7 @@ void Sandbox::init()
 
 	Graphics::TextureManager::add(NEW Graphics::Texture("Mario", "mario.png", GL_NEAREST));
 
-	myWorld = NEW Physics::World2D(NEW Physics::PhysicsRenderer2D(), shader, pr_matrix, 1.0f);
+	myWorld = NEW Physics::World2D(NEW Physics::PhysicsRenderer2D(), shader, pr_matrix, 0.010f);
 	myWorld->setLimits(true);
 	myWorld->add(NEW Physics::PhysicsRenderable2D(8.0f, 8.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Mario"), 1.0f, 1));
 
@@ -117,14 +117,12 @@ void Sandbox::update()
 
 	if (window->isKeyPressed(KB_KEY_ESCAPE)) window->close();
 
-	if (window->isKeyPressed(KB_KEY_RIGHT)) (*myWorld)[0]->move( 0.1f,  0.0f); // Right arrow
-	if (window->isKeyPressed(KB_KEY_LEFT )) (*myWorld)[0]->move(-0.1f,  0.0f); // Left arrow
+	if (window->isKeyPressed(KB_KEY_RIGHT)) Utils::toPhysicsRenderable((*myWorld)[0])->rotate( 5.0f); // Right arrow
+	if (window->isKeyPressed(KB_KEY_LEFT )) Utils::toPhysicsRenderable((*myWorld)[0])->rotate(-5.0f); // Left arrow
 	if (window->isKeyPressed(KB_KEY_DOWN )) (*myWorld)[0]->move( 0.0f, -0.1f); // Down arrow
 	if (window->isKeyPressed(KB_KEY_UP   )) (*myWorld)[0]->move( 0.0f,  0.1f); // Up arrow
 
 	myWorld->update(1 / 60.0f);
-
-	//DELTAENGINE_INFO("Energy: ", Utils::toPhysicsRenderable((*myWorld)[0])->getMechanicalEnergy(myWorld->getGravity()));
 }
 
 void Sandbox::render()
@@ -133,13 +131,13 @@ void Sandbox::render()
 
 	for (int i = 0; i < 4; i++)
 	{
-		ui->submit(NEW Graphics::Line(obj->getOBB().getVertex(i).x, obj->getOBB().getVertex(i).y, obj->getOBB().getVertex(i < 3 ? i + 1 : 0).x, obj->getOBB().getVertex(i < 3 ? i + 1 : 0).y, 16.0f / 960.0f, 0xff00ff00));
+		ui->submit(NEW Graphics::Line(obj->getOBB().getVertex(i).x, obj->getOBB().getVertex(i).y, obj->getOBB().getVertex(i < 3 ? i + 1 : 0).x, obj->getOBB().getVertex(i < 3 ? i + 1 : 0).y, 16.0f / 960.0f, i == 0 ? 0xff0000ff : 0xff00ff00));
 	}
 
 	myWorld->render();
 	ui->render();
 
-#ifdef _DEBUG
+#ifdef DELTAENGINE_DEBUG
 	Debug::checkErrors();
 #endif
 }

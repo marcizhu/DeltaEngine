@@ -1,5 +1,4 @@
 #include <malloc.h>
-#include <Windows.h>
 #include <mutex>
 #include <atomic>
 
@@ -23,6 +22,11 @@ namespace DeltaEngine {
 		Types::uint32 MemoryManager::currentMemory;
 		Types::uint32 MemoryManager::numAllocations;
 
+		static_assert(MEMORY_CHUNK > sizeof(FreeBlock), "Invalid MEMORY_CHUNK value: MEMORY_CHUNK < sizeof(FreeBlock)");
+		static_assert(MEMORY_CHUNK < 0xFFFFFFFFU, "MEMORY_CHUNK size causes overflow!");
+		static_assert(sizeof(size_t) == 4, "Invalid size_t size!");
+		static_assert(sizeof(AllocationHeader) >= sizeof(FreeBlock), "sizeof(AllocationHeader) < sizeof(FreeBlock)!");
+
 		void MemoryManager::freeMem()
 		{
 			while (currentMemory)
@@ -36,19 +40,12 @@ namespace DeltaEngine {
 
 		void MemoryManager::end()
 		{
-			DebugSetProcessKillOnExit(true);
-
 			std::thread killThread(freeMem);
 			killThread.detach();
 		}
 
 		void MemoryManager::start()
 		{
-			static_assert(MEMORY_CHUNK > sizeof(FreeBlock), "Invalid MEMORY_CHUNK value: MEMORY_CHUNK < sizeof(FreeBlock)");
-			static_assert(sizeof(AllocationHeader) >= sizeof(FreeBlock), "sizeof(AllocationHeader) < sizeof(FreeBlock)!");
-			static_assert(MEMORY_CHUNK < 0xFFFFFFFFU, "MEMORY_CHUNK size causes overflow!");
-			static_assert(sizeof(size_t) == 4, "Invalid size_t size!");
-
 			if (initialized)
 			{
 				DELTAENGINE_WARN("[Memory] Reinitialization (ignored)");
@@ -93,7 +90,7 @@ namespace DeltaEngine {
 			memoryMutex.lock();
 
 			DELTAENGINE_ASSERT(amount != 0, "Attempted to allocate 0 bytes!");
-			DELTAENGINE_ASSERT(amount < GB_IN_BYTES, "Invalid allocation size! (> 1 Gb!)");
+			DELTAENGINE_ASSERT(amount < ALLOCATION_MAX, "Invalid allocation size!");
 
 			FreeBlock* prev_free_block = nullptr;
 			FreeBlock* free_block = firstBlock.load();
@@ -181,11 +178,6 @@ namespace DeltaEngine {
 
 			if (prev_free_block == nullptr)
 			{
-				//Types::timestamp t = Utils::getSystemTime();
-
-				// t.Day + "-" + t.Month + "-" + t.Year + " " + t.Hour + ":" + t.Minute + ":" + t.Second
-
-				//Debug::dump(memStart, MEMORY_CHUNK, FileIO::File("mem" + Utils::random(0, 1000000)));
 				Debug::dump(memStart, MEMORY_CHUNK);
 
 				Debug::breakpoint();

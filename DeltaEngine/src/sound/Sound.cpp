@@ -1,6 +1,5 @@
 #include <string>
 #include <thread>
-#include <Windows.h>
 
 #include <gorilla\ga.h>
 #include <gorilla\gau.h>
@@ -9,6 +8,7 @@
 #include "soundManager.h"
 #include "utils.h"
 #include "log.h"
+#include "platformUtils.h"
 
 using namespace std;
 
@@ -77,7 +77,7 @@ namespace DeltaEngine {
 
 		void Sound::setParam(Sound* obj, gc_int32 param, float value)
 		{
-			do { Sleep(1); } while (!obj->ready);
+			do { Platform::PlatformSleep(1); } while (!obj->ready);
 
 			ga_handle_setParamf(obj->handle, param, value);
 		}

@@ -27,8 +27,8 @@ namespace DeltaEngine {
 			DELTAENGINE_API inline void showTags() { this->_showTags = true; }
 			DELTAENGINE_API inline void showGameName(string gameName) { this->_showGameName = true; this->gameName = gameName; }
 
-			DELTAENGINE_API int Log(const string& tag, unsigned char align, const string& message) const;
-			DELTAENGINE_API int Log(const string& message) const;
+			DELTAENGINE_API void Log(const string& tag, unsigned char align, const string& message) const;
+			DELTAENGINE_API void Log(const string& message) const;
 		};
 
 	}

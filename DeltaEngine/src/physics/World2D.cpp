@@ -27,11 +27,11 @@ namespace DeltaEngine {
 				if (!object->needsUpdate()) continue;
 				if (limits && !area.contains(object->getPosition())) continue;
 
-				byte itr = object->getIterations();
+				Types::byte itr = object->getIterations();
 
 				float dt = (float)timestep / itr;
 
-				for (byte i = 0; i < itr; i++)
+				for (Types::byte i = 0; i < itr; i++)
 				{
 					object->update(dt);
 				}

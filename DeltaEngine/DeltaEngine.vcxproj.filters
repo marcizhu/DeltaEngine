@@ -74,9 +74,6 @@
     <ClInclude Include="include\debug.h">
       <Filter>Header files\DeltaEngine\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="include\errors.h">
-      <Filter>Header files\DeltaEngine</Filter>
-    </ClInclude>
     <ClInclude Include="include\fileIO.h">
       <Filter>Header files\DeltaEngine\FileIO</Filter>
     </ClInclude>
@@ -219,6 +216,9 @@
       <Filter>Header files\DeltaEngine\Sound</Filter>
     </ClInclude>
     <ClInclude Include="include\textureUtils.h">
+      <Filter>Header files\DeltaEngine\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\debugUI.h">
       <Filter>Header files\DeltaEngine\Utils</Filter>
     </ClInclude>
   </ItemGroup>
