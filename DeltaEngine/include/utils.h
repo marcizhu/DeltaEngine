@@ -57,6 +57,19 @@ namespace DeltaEngine {
 			return (value + min);
 		}
 
+		template<typename T>
+		T cycle(T value, T min, T max, T step)
+		{
+			if (value < max)
+			{
+				return value + step;
+			}
+			else
+			{
+				return min;
+			}
+		}
+
 		DELTAENGINE_API vector<string> splitString(const string& str, char delimiter);
 
 		// Console utilities

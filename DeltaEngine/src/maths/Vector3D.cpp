@@ -1,3 +1,5 @@
+#include <sstream>
+
 #include "vector3d.h"
 
 namespace DeltaEngine {
@@ -106,10 +108,19 @@ namespace DeltaEngine {
 			return left;
 		}
 
-		std::ostream & operator<<(std::ostream& stream, const Vector3D& vector)
+		std::ostream& operator<<(std::ostream& stream, const Vector3D& vector)
 		{
 			stream << "Vector3D: (" << vector.x << ", " << vector.y << ", " << vector.z << ")";
 			return stream;
+		}
+
+		std::string Vector3D::toString() const
+		{
+			std::stringstream stream;
+
+			stream << "Vector3D: (" << x << ", " << y << ", " << z <<  ")";
+
+			return stream.str();
 		}
 	}
 }

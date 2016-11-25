@@ -79,7 +79,11 @@ void Application::update()
 	if (window->isKeyPressed(KB_KEY_ESCAPE)) window->close();
 
 	if (window->isKeyPressed(KB_KEY_RIGHT)) mainLayer->setCameraPosition(mainLayer->getCameraPositionX() - 0.1f, 0.0f);
-	if (window->isKeyPressed(KB_KEY_LEFT) && (mainLayer->getCameraPositionX() <= -0.1f)) mainLayer->setCameraPosition(mainLayer->getCameraPositionX() + 0.1f, 0.0f);
+
+	if (window->isKeyPressed(KB_KEY_LEFT) && (mainLayer->getCameraPositionX() <= -0.1f))
+		mainLayer->setCameraPosition(mainLayer->getCameraPositionX() + 0.1f, 0.0f);
+	else if(window->isKeyPressed(KB_KEY_LEFT) && (mainLayer->getCameraPositionX() > 0.0f))
+		mainLayer->setCameraPosition(0.0f, 0.0f);
 }
 
 void Application::render()

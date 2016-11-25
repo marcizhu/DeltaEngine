@@ -1,3 +1,5 @@
+#include <sstream>
+
 #include "vector2d.h"
 
 namespace DeltaEngine {
@@ -97,6 +99,15 @@ namespace DeltaEngine {
 		{
 			stream << "Vector2D: (" << vector.x << ", " << vector.y  << ")";
 			return stream;
+		}
+
+		std::string Vector2D::toString() const
+		{
+			std::stringstream stream;
+
+			stream << "Vector2D: (" << x << ", " << y << ")";
+
+			return stream.str();
 		}
 	}
 }

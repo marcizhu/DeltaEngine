@@ -312,7 +312,7 @@ namespace DeltaEngine {
 			default: ret += " ??"; break;
 			}
 
-			ret.replace(ret.find("."), 1, ",");
+			if(ret.find('.') != ret.npos) ret.replace(ret.find("."), 1, ",");
 
 			return ret;
 		}

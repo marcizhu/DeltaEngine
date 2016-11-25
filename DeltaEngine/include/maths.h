@@ -26,6 +26,8 @@ namespace DeltaEngine {
 
 		DELTAENGINE_API std::vector<uint32> factorialDecomposition(uint32 number);
 
+		DELTAENGINE_API inline double nlog(uint32 base, double value);
+
 		inline float toRadians(float degrees) { return degrees * (float)(PI / 180.0f); }
 		inline float toDegrees(float radians) { return radians * (float)(180.0f / PI); }
 
@@ -48,12 +50,49 @@ namespace DeltaEngine {
 		template<typename T>
 		inline T max(T first, T second) { return first > second ? first : second; }
 
-		DELTAENGINE_API inline double nlog(uint32 base, double value);
+		//template<typename T>
+		//inline T& max(T& first, T& second) { return first > second ? first : second; }
 
-		template<typename T>
-		inline T& max(T& first, T& second) { return first > second ? first : second; }
+		//template<typename T>
+		//inline T& min(T& first, T& second) { return first < second ? first : second; }
 
-		template<typename T>
-		inline T& min(T& first, T& second) { return first < second ? first : second; }
+		double __forceinline __declspec(naked) __fastcall sqrt(double n)
+		{
+			_asm
+			{
+				fld qword ptr[esp + 4]
+				fsqrt
+				ret 8
+			}
+		}
+
+		float __forceinline __declspec(naked) __fastcall sqrt(float n)
+		{
+			_asm
+			{
+				fld dword ptr[esp + 4]
+				fsqrt
+				ret 4
+			}
+		}
+
+		// from "Quake III Arena" :)
+		float __forceinline rsqrt(float number)
+		{
+			long i;
+			float x2, y;
+			const float threehalfs = 1.5F;
+
+			x2 = number * 0.5F;
+			y = number;
+			i = *(long *)&y;							// evil floating point bit level hacking
+			i = 0x5f3759df - (i >> 1);					// what the fuck?
+			y = *(float *)&i;
+			y = y * (threehalfs - (x2 * y * y));		// 1st iteration
+			y = y * (threehalfs - (x2 * y * y));		// 2nd iteration, this can be removed
+
+			return y;
+		}
+
 	}
 }

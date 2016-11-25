@@ -1,7 +1,5 @@
 #include "obb.h"
 
-// Rotation: http://stackoverflow.com/questions/12161277/how-to-rotate-a-vertex-around-a-certain-point
-
 namespace DeltaEngine {
 	namespace Maths {
 
@@ -54,9 +52,15 @@ namespace DeltaEngine {
 
 		const Vector2D OBB2D::getCenter() const
 		{
-			// TODO: Calculate the center
+			float ymax = max(max(vertex[0].y, vertex[1].y), max(vertex[2].y, vertex[3].y));
+			float ymin = min(min(vertex[0].y, vertex[1].y), min(vertex[2].y, vertex[3].y));
+			float y = (ymax + ymin) / 2.0f;
 
-			return Maths::Vector2D(); //minPoint + (maxPoint - minPoint) / 2.0f;
+			float xmax = max(max(vertex[0].x, vertex[1].x), max(vertex[2].x, vertex[3].x));
+			float xmin = min(min(vertex[0].x, vertex[1].x), min(vertex[2].x, vertex[3].x));
+			float x = (xmax + xmin) / 2.0f;
+
+			return Maths::Vector2D(x, y);
 		}
 
 		void OBB2D::moveTo(Maths::Vector2D& point)

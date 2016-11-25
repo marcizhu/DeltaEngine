@@ -126,6 +126,8 @@ namespace DeltaEngine {
 				mat = Maths::Matrix4(1.0f);
 			}
 
+			// TODO: Change mat4 rotation with sin/cos rotation (like OBBs)
+
 			mat.translate(position.x, position.y, 0.0f);
 			mat.rotate(object->getRotation(), 0.0f, 0.0f, 1.0f);
 

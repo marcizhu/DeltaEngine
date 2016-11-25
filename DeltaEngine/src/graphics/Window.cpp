@@ -123,16 +123,19 @@ namespace DeltaEngine {
 			case VSYNC_ENABLE:
 				Platform::PlatformSwapInterval(1);
 				vsyncTime = 0.0f;
+				vsync = true;
 				break;
 
 			case VSYNC_DISABLE:
 				Platform::PlatformSwapInterval(0);
 				vsyncTime = 0.0f;
+				vsync = false;
 				break;
 
 			case VSYNC_NON_BLOCKING:
 				Platform::PlatformSwapInterval(0);
 				vsyncTime = (float)1.0 / fps;
+				vsync = true;
 				break;
 
 			default:

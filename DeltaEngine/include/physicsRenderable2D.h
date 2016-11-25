@@ -46,14 +46,14 @@ namespace DeltaEngine {
 
 			void update(float dt)
 			{
-				obb = Maths::OBB2D(position, size, rotationAngle);
-
 				//if (obb.intersects(Maths::OBB2D(Maths::Vector2D(8.0f, 1.0f), 16.0f, 2.0f, 0.0f))) return;
 
 				position += velocity * dt + ((force / mass) * dt * dt * 0.5f);
 				rotationAngle += angularVelocity * dt;
 
 				velocity += (force / mass) * dt;
+
+				obb = Maths::OBB2D(position, size, rotationAngle);
 
 				// tunneling prevention
 				if(abs(velocity.x * dt) >= size.x) DELTAENGINE_WARN("[Physics] Horizontal speed is too fast! (", velocity.x, ")");
@@ -62,10 +62,10 @@ namespace DeltaEngine {
 
 			inline Maths::OBB2D& getOBB() { return this->obb; }
 
-			inline bool needsUpdate() { return force.distance() != 0.0f || velocity.distance() != 0.0f; }
+			inline bool needsUpdate() { return force.lenght() != 0.0f || velocity.lenght() != 0.0f; }
 
 			inline float getMass() const { return mass; }
-			inline float getForce() const { return force.distance(); }
+			inline float getForce() const { return force.lenght(); }
 			inline float getRotation() const { return rotationAngle; }
 			inline float getAngularVelocity() const { return angularVelocity; }
 			inline Types::byte getIterations() const { return iterations; }
@@ -76,7 +76,7 @@ namespace DeltaEngine {
 			inline const Maths::Vector2D& getAngularMomentum() const { return (size / 2) * angularVelocity * (size / 2) * mass; }
 
 			inline float getPotentialEnergy(float gravity) const { return mass * gravity * position.y; }
-			inline float getKineticEnergy() const { return (mass * velocity.distance() * velocity.distance()) / 2.0f; }
+			inline float getKineticEnergy() const { return (mass * velocity.lenght() * velocity.lenght()) / 2.0f; }
 			inline float getMechanicalEnergy(float gravity) const { return getKineticEnergy() + getPotentialEnergy(gravity); }
 
 			inline void setRotation(float degrees) { rotationAngle = degrees; }

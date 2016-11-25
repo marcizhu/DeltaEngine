@@ -75,8 +75,8 @@ namespace DeltaEngine {
 		static const char* to_string<Maths::Vector2D>(const Maths::Vector2D& t)
 		{
 			// TODO: sprintf
-			std::string string = std::string("Vector2D: (") + /*std::*/to_string(t.x) + ", " + /*std::*/to_string(t.y) + ")";
-			char* result = new char[string.length()];
+			std::string string = t.toString();
+			char* result = new char[string.length()]; // TODO: Fix memory leak
 			return strcpy(result, &string[0]);
 		}
 
@@ -84,8 +84,8 @@ namespace DeltaEngine {
 		static const char* to_string<Maths::Vector3D>(const Maths::Vector3D& t)
 		{
 			// TODO: sprintf
-			std::string string = std::string("Vector3D: (") + /*std::*/to_string(t.x) + ", " + /*std::*/to_string(t.y) + ", " + /*std::*/to_string(t.z) + ")";
-			char* result = new char[string.length()];
+			std::string string = t.toString();
+			char* result = new char[string.length()]; // TODO: Fix memory leak
 			strcpy_s(result, string.length(), &string[0]);
 			return result;
 		}
@@ -159,7 +159,7 @@ namespace DeltaEngine {
 
 
 #ifndef DELTAENGINE_LOG_LEVEL
-	#define DELTAENGINE_LOG_LEVEL DELTAENGINE_LOG_LEVEL_DEBUG
+	#define DELTAENGINE_LOG_LEVEL DELTAENGINE_LOG_LEVEL_TRACE
 #endif
 
 #if DELTAENGINE_LOG_LEVEL >= DELTAENGINE_LOG_LEVEL_FATAL && defined(DELTAENGINE_DEBUG)
@@ -194,12 +194,12 @@ namespace DeltaEngine {
 	#define _DELTAENGINE_INFO(...)
 #endif
 
-#if DELTAENGINE_LOG_LEVEL >= DELTAENGINE_LOG_LEVEL_DEBUG && defined(DELTAENGINE_DEBUG)
-	#define DELTAENGINE_DBG(...) DeltaEngine::Internal::log_message(DELTAENGINE_LOG_LEVEL_DEBUG, true, __VA_ARGS__)
-	#define _DELTAENGINE_DBG(...) DeltaEngine::Internal::log_message(DELTAENGINE_LOG_LEVEL_DEBUG, false, __VA_ARGS__)
+#if DELTAENGINE_LOG_LEVEL >= DELTAENGINE_LOG_LEVEL_TRACE && defined(DELTAENGINE_DEBUG)
+	#define DELTAENGINE_TRACE(...) DeltaEngine::Internal::log_message(DELTAENGINE_LOG_LEVEL_TRACE, true, __VA_ARGS__)
+	#define _DELTAENGINE_TRACE(...) DeltaEngine::Internal::log_message(DELTAENGINE_LOG_LEVEL_TRACE, false, __VA_ARGS__)
 #else
-	#define DELTAENGINE_DBG(...)
-	#define _DELTAENGINE_DBG(...)
+	#define DELTAENGINE_TRACE(...)
+	#define _DELTAENGINE_TRACE(...)
 #endif
 
 #ifdef DELTAENGINE_DEBUG

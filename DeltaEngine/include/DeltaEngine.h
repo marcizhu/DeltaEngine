@@ -107,15 +107,15 @@ namespace DeltaEngine {
 		std::cout << "           " << (char)179 << "                                                        " << (char)179 << std::endl;
 		std::cout << "          [+]~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[+] " << std::endl << std::endl;
 
-		DELTAENGINE_DBG("OpenGL:\n\n");
-		DELTAENGINE_DBG("Version : ", glGetString(GL_VERSION));
-		DELTAENGINE_DBG("Vendor  : ", glGetString(GL_VENDOR));
-		DELTAENGINE_DBG("Renderer: ", glGetString(GL_RENDERER));
-		DELTAENGINE_DBG("Shaders : GLSL Shading Language v", glGetString(GL_SHADING_LANGUAGE_VERSION), "\n\n");
+		DELTAENGINE_TRACE("OpenGL:\n\n");
+		DELTAENGINE_TRACE("Version : ", glGetString(GL_VERSION));
+		DELTAENGINE_TRACE("Vendor  : ", glGetString(GL_VENDOR));
+		DELTAENGINE_TRACE("Renderer: ", glGetString(GL_RENDERER));
+		DELTAENGINE_TRACE("Shaders : GLSL Shading Language v", glGetString(GL_SHADING_LANGUAGE_VERSION), "\n\n");
 
-		_DELTAENGINE_DBG("DeltaEngine ", DELTAENGINE_VERSION_S, " ", DELTAENGINE_PHASE_S, " (");
+		_DELTAENGINE_TRACE("DeltaEngine ", DELTAENGINE_VERSION_S, " ", DELTAENGINE_PHASE_S, " (");
 		Utils::printBuildTime();
-		DELTAENGINE_DBG(")\n");
+		DELTAENGINE_TRACE(")\n");
 
 		return DELTAENGINE_VERSION;
 	}
