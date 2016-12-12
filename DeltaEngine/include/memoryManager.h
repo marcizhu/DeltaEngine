@@ -83,6 +83,7 @@ namespace DeltaEngine {
 			DELTAENGINE_API static uint32 getFreedMemory();
 			DELTAENGINE_API static uint32 getCurrentMemory();
 			DELTAENGINE_API static uint32 getAllocations();
+			DELTAENGINE_API static uint32 getBlockCount();
 
 			DELTAENGINE_API static size_t getFlags(const void* address);
 
@@ -93,6 +94,8 @@ namespace DeltaEngine {
 
 			DELTAENGINE_API static Types::byte* allocate(size_t amount, size_t flags = 0);
 			DELTAENGINE_API static void deallocate(void* address);
+
+			DELTAENGINE_API static void dumpMemory();
 
 			DELTAENGINE_API static const void* getMemoryStart() { return memStart; }
 

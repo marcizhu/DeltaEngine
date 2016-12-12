@@ -108,5 +108,8 @@
     <Image Include="bin\Release\res\assets\spaceship.png">
       <Filter>Archivos de recursos\Release\Assets</Filter>
     </Image>
+    <Image Include="bin\Debug\res\assets\spaceship.ico">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
   </ItemGroup>
 </Project>

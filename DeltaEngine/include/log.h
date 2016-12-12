@@ -76,6 +76,7 @@ namespace DeltaEngine {
 		{
 			// TODO: sprintf
 			std::string string = t.toString();
+
 			char* result = new char[string.length()]; // TODO: Fix memory leak
 			return strcpy(result, &string[0]);
 		}

@@ -153,6 +153,7 @@
     <Image Include="bin\Debug\res\assets\background.jpg" />
     <Image Include="bin\Debug\res\assets\explo.png" />
     <Image Include="bin\Debug\res\assets\laser.png" />
+    <Image Include="bin\Debug\res\assets\spaceship.ico" />
     <Image Include="bin\Debug\res\assets\spaceship.png" />
     <Image Include="bin\Release\res\assets\alien.png" />
     <Image Include="bin\Release\res\assets\background.jpg" />

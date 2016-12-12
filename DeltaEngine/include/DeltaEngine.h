@@ -64,7 +64,7 @@ namespace DeltaEngine {
 	{
 		if (GLenum err = glewInit() != GLEW_OK)
 		{
-			DELTAENGINE_ERROR("", glewGetErrorString(err));
+			DELTAENGINE_ERROR(glewGetErrorString(err));
 
 			return DELTAENGINE_NOT_INITIALIZED;
 		}
@@ -191,9 +191,9 @@ namespace DeltaEngine {
 			Memory::MemoryManager::end();
 		}
 
-		Graphics::Window* createWindow(std::string name, int width, int height)
+		Graphics::Window* createWindow(std::string name, int width, int height, const char* iconPath = nullptr)
 		{
-			this->window = NEW Graphics::Window(name, width, height);
+			this->window = NEW Graphics::Window(name, width, height, false, iconPath);
 			return window;
 		}
 

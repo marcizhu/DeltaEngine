@@ -36,16 +36,8 @@ namespace DeltaEngine {
 
 		Texture::Texture(const std::string& name, const std::string& filename, Types::uint32 texParam) : textureName(name)
 		{
-			Types::byte* pixels = loadImage(filename.c_str(), &width, &height, &bpp);
-
-			if (pixels == nullptr)
-			{
-				DELTAENGINE_ERROR("[Texture] Unable to read the texture file '", filename, "'!");
-				this->setPixels(Color(255, 0, 255, 255));
-				return;
-			}
-
 			glGenTextures(1, &textureID);
+
 			glBindTexture(GL_TEXTURE_2D, textureID);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, texParam == GL_NEAREST ? GL_NEAREST_MIPMAP_NEAREST : GL_LINEAR_MIPMAP_LINEAR);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, texParam);
@@ -54,6 +46,22 @@ namespace DeltaEngine {
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 
 			glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
+
+			Types::byte* pixels = loadImage(filename.c_str(), &width, &height, &bpp);
+
+			if (pixels == nullptr)
+			{
+				DELTAENGINE_ERROR("[Texture] Unable to read the texture file '", filename, "'!");
+
+				height = width = 1;
+				bpp = 32;
+
+				unsigned int color = 0xFFFF00FF;
+
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_BGRA, GL_UNSIGNED_BYTE, &color);
+
+				return;
+			}
 
 			switch (bpp)
 			{
@@ -140,11 +148,6 @@ namespace DeltaEngine {
 			default:
 				DELTAENGINE_WARN("[Texture] Invalid bpp value: ", bpp); break;
 			}
-
-			/*if ((Memory::MemoryManager::getFlags(pixels) & Memory::AllocationFlags::MAGIC) == Memory::AllocationFlags::MAGIC)
-			{
-				delete[] pixels;
-			}*/
 
 			glBindTexture(GL_TEXTURE_2D, 0);
 		}

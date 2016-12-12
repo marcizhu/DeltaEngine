@@ -56,7 +56,7 @@ namespace DeltaEngine {
 			static void keyCallback(Window* window, int flags, int key, unsigned int message);
 
 		public:
-			DELTAENGINE_API Window(string& title, int height, int width, bool fullscreen = false);
+			DELTAENGINE_API Window(string& title, int height, int width, bool fullscreen = false, const char* iconPath = nullptr);
 			DELTAENGINE_API ~Window() { handles.clear(); };
 
 			DELTAENGINE_API inline int getHeight() { return height; }

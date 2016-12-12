@@ -7,8 +7,6 @@
 
 using namespace std;
 
-// TODO: Review error logging here
-
 namespace DeltaEngine {
 	namespace Utils {
 

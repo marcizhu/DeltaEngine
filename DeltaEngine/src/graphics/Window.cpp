@@ -11,10 +11,10 @@ namespace DeltaEngine {
 		std::unordered_map<void*, Window*> Window::handles;
 
 		//Creates a window
-		Window::Window(std::string& title, int width, int height, bool fullscreen)
+		Window::Window(std::string& title, int width, int height, bool fullscreen, const char* iconPath)
 			: title(title), height(height), width(width), closed(false), vsync(false), mouseGrabbed(false), vsyncTime(0.0f)
 		{
-			if (!Platform::PlatformCreateWindow(this, width, height, title.c_str()))
+			if (!Platform::PlatformCreateWindow(this, width, height, title.c_str(), iconPath))
 			{
 				DELTAENGINE_FATAL("Failed to create base window!");
 				return;

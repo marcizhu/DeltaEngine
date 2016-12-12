@@ -124,7 +124,7 @@ namespace DeltaEngine {
 
 		std::ostream& operator<<(std::ostream& stream, const Vector4D& vector)
 		{
-			stream << "Vector4D: (" << vector.x << ", " << vector.y << ", " << vector.z << ", " << vector.w << ")";
+			stream << "(" << vector.x << ", " << vector.y << ", " << vector.z << ", " << vector.w << ")";
 			return stream;
 		}
 
@@ -132,7 +132,7 @@ namespace DeltaEngine {
 		{
 			std::stringstream stream;
 
-			stream << "Vector4D: (" << x << ", " << y << ", " << z << ", " << w << ")";
+			stream << "(" << x << ", " << y << ", " << z << ", " << w << ")";
 
 			return stream.str();
 		}

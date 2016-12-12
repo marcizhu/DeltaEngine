@@ -6,7 +6,7 @@
 
 Application::Application() : Game()
 {
-	this->createWindow("[DeltaEngine] ATARI Asteroids", 960, 540);
+	this->createWindow("[DeltaEngine] ATARI Asteroids", 960, 540, "res/assets/spaceship.ico");
 	int init = DeltaEngine::init();
 	DELTAENGINE_ASSERT(init != DELTAENGINE_NOT_INITIALIZED, "DELTAENGINE NOT INITIALIZED!");
 }
@@ -92,6 +92,8 @@ void Application::init()
 	world->setCameraPosition(0, 0);
 
 	playArea = NEW Maths::AABB(Maths::Vector2D(-1.0f, -1.0f), Maths::Vector2D(25.0f, 14.0f));
+
+	Memory::MemoryManager::dumpMemory();
 }
 
 void Application::update()

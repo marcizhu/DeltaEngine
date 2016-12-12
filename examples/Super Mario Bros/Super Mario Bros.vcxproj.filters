@@ -196,6 +196,18 @@
     <Image Include="bin\Release\res\assets\right pipe.png">
       <Filter>Archivos de recursos\Release\Assets</Filter>
     </Image>
+    <Image Include="bin\Release\res\assets\mario.ico">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\mario.ico">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Debug\res\assets\Mushroom.ico">
+      <Filter>Archivos de recursos\Debug\Assets</Filter>
+    </Image>
+    <Image Include="bin\Release\res\assets\mushroom.ico">
+      <Filter>Archivos de recursos\Release\Assets</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\Debug\res\shaders\basic.shader">

@@ -4,7 +4,7 @@
 
 Application::Application() : Game()
 {
-	this->createWindow("[DeltaEngine] Super Mario Bros", 960, 540);
+	this->createWindow("[DeltaEngine] Super Mario Bros", 960, 540, "res/assets/mushroom.ico");
 	int init = DeltaEngine::init();
 	DELTAENGINE_ASSERT(init != DELTAENGINE_NOT_INITIALIZED, "DELTAENGINE NOT INITIALIZED!");
 }

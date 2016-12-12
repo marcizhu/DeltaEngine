@@ -1,4 +1,4 @@
-#include <malloc.h>
+﻿#include <malloc.h>
 #include <mutex>
 #include <atomic>
 
@@ -320,6 +320,80 @@ namespace DeltaEngine {
 		uint32 MemoryManager::getAllocations()
 		{
 			return numAllocations;
+		}
+
+		uint32 MemoryManager::getBlockCount()
+		{
+			uint32 count = 0;
+			FreeBlock* block = firstBlock.load();
+
+			while (block->nextBlock)
+			{
+				count++;
+
+				block = block->nextBlock;
+			}
+
+			return count;
+		}
+
+		void MemoryManager::dumpMemory()
+		{
+			uint32 count = 0;
+			FreeBlock* block = firstBlock.load();
+
+			printf("%c", 218);
+
+			for (int i = 0; i < 5; i++) printf("%c", 196);
+
+			printf("%c", 194);
+
+			for (int i = 0; i < 12; i++) printf("%c", 196);
+
+			printf("%c", 194);
+
+			for (int i = 0; i < 10; i++) printf("%c", 196);
+
+			printf("%c\n", 191);
+
+			printf("%c  #  %c    NEXT    %c   SIZE   %c\n", 179, 179, 179, 179);
+
+			printf("%c", 195);
+
+			for (int i = 0; i < 5; i++) printf("%c", 196);
+
+			printf("%c", 197);
+
+			for (int i = 0; i < 12; i++) printf("%c", 196);
+
+			printf("%c", 197);
+
+			for (int i = 0; i < 10; i++) printf("%c", 196);
+
+			printf("%c\n", 180);
+
+			while (block->nextBlock)
+			{
+				count++;
+
+				printf("%c %3i %c %s %c %8i %c\n", 179, count, 179, Utils::toHex(block->nextBlock).c_str(), 179, block->size, 179);
+
+				block = block->nextBlock;
+			}
+
+			printf("%c", 192);
+
+			for (int i = 0; i < 5; i++) printf("%c", 196);
+
+			printf("%c", 193);
+
+			for (int i = 0; i < 12; i++) printf("%c", 196);
+
+			printf("%c", 193);
+
+			for (int i = 0; i < 10; i++) printf("%c", 196);
+
+			printf("%c\n", 217);
 		}
 
 		size_t MemoryManager::getFlags(const void* address)

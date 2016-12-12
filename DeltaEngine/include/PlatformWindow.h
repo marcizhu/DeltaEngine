@@ -38,7 +38,7 @@ namespace DeltaEngine {
 			return result;
 		}
 
-		static __forceinline bool PlatformCreateWindow(Graphics::Window* win, int width, int height, const char* title)
+		static __forceinline bool PlatformCreateWindow(Graphics::Window* win, int width, int height, const char* title, const char* iconPath = nullptr)
 		{
 			hInstance = (HINSTANCE)&__ImageBase;
 
@@ -46,9 +46,18 @@ namespace DeltaEngine {
 			winClass.hInstance = hInstance;
 			winClass.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
 			winClass.lpfnWndProc = (WNDPROC)WndProc;
+#if defined(DELTAENGINE_PLATFORM_X86)
 			winClass.lpszClassName = "DeltaEngine Win32 Window";
+#elif defined DELTAENGINE_PLATFORM_X64
+			winClass.lpszClassName = "DeltaEngine Win64 Window";
+#else
+#	error Undefined platform!
+#endif
 			winClass.hCursor = LoadCursor(NULL, IDC_ARROW);
-			winClass.hIcon = LoadIcon(NULL, IDI_APPLICATION); // TODO: Allow custom icons
+			if (iconPath)
+				winClass.hIcon = (HICON)LoadImage(hInstance, TEXT(iconPath), IMAGE_ICON, 16, 16, LR_LOADFROMFILE);
+			else
+				winClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
 
 			if (!RegisterClass(&winClass))
 			{
