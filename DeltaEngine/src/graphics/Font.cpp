@@ -11,7 +11,7 @@ namespace DeltaEngine {
 		Font::Font(const std::string& name, const std::string& filename, float size)
 			: name(name), size(size)
 		{
-			atlas = ftgl::texture_atlas_new(512, 512, 2);
+			atlas = ftgl::texture_atlas_new(256, 256, 2);
 			font = ftgl::texture_font_new_from_file(atlas, size, filename.c_str());
 
 			if (font == nullptr)
@@ -20,7 +20,7 @@ namespace DeltaEngine {
 				return;
 			}
 
-			texture = NEW Texture(512, 512, 2);
+			texture = NEW Texture(256, 256, 2);
 			texture->setPixels(atlas->data);
 		}
 

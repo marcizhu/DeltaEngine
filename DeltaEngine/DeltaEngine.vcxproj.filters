@@ -209,9 +209,6 @@
     <ClInclude Include="include\obb.h">
       <Filter>Header files\DeltaEngine\Maths</Filter>
     </ClInclude>
-    <ClInclude Include="include\Force.h">
-      <Filter>Header files\DeltaEngine\Physics</Filter>
-    </ClInclude>
     <ClInclude Include="include\Playlist.h">
       <Filter>Header files\DeltaEngine\Sound</Filter>
     </ClInclude>
@@ -318,6 +315,9 @@
     </ClCompile>
     <ClCompile Include="src\sound\Playlist.cpp">
       <Filter>Source files\DeltaEngine\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physics\PhysicsRenderable2D.cpp">
+      <Filter>Source files\DeltaEngine\Physics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

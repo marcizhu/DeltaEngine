@@ -187,7 +187,7 @@ namespace DeltaEngine {
 			vertexOut = fragmentOut = "";
 
 			//0 = unknown, 1 = vertex, 2 = fragment
-			byte shaderType = 0;
+			Types::byte shaderType = 0;
 
 			for (uint32 i = 0; i < file.size(); i++)
 			{

@@ -73,7 +73,7 @@ void Application::init()
 	window->setVSync(true);
 }
 
-void Application::update()
+void Application::update(float deltaTime)
 {
 	// 60 times per second
 	if (window->isKeyPressed(KB_KEY_ESCAPE)) window->close();

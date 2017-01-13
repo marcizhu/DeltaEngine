@@ -6,14 +6,13 @@
 #include "types.h"
 
 using namespace std;
-using namespace DeltaEngine::Types;
 
 namespace DeltaEngine {
 	namespace FileIO {
 
 		class File {
 		private:
-			uint32 fSize;
+			Types::uint32 fSize;
 			string path;
 
 		public:
@@ -28,7 +27,7 @@ namespace DeltaEngine {
 
 			DELTAENGINE_API void changeFilePath(string path);
 
-			DELTAENGINE_API uint32 getFileSize() const;
+			DELTAENGINE_API Types::uint32 getFileSize() const;
 		};
 
 	}

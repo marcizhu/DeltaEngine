@@ -28,7 +28,7 @@ private:
 	Sound::Playlist* myList;
 
 	void init() override;
-	void update() override;
+	void update(float deltaTime) override;
 	void render() override;
 	void tick() override;
 };

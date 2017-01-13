@@ -5,8 +5,6 @@
 #include "types.h"
 #include "memoryManager.h"
 
-using namespace DeltaEngine::Types;
-
 namespace DeltaEngine {
 	namespace FileIO {
 
@@ -98,7 +96,7 @@ namespace DeltaEngine {
 			this->fSize = getFileSize();
 		}
 
-		uint32 File::getFileSize() const
+		Types::uint32 File::getFileSize() const
 		{
 			FILE* file;
 			fopen_s(&file, this->path.c_str(), "r");
@@ -110,7 +108,7 @@ namespace DeltaEngine {
 			}
 
 			fseek(file, 0, SEEK_END);
-			uint32 len = ftell(file);
+			Types::uint32 len = ftell(file);
 
 			fclose(file);
 

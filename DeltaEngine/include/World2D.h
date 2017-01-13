@@ -12,25 +12,17 @@ namespace DeltaEngine {
 		class World2D : public Graphics::Layer2D
 		{
 		private:
-			bool limits;
-			Maths::AABB area;
-			float gravity;
+			b2World* world;
+			Maths::Vector2D gravity;
 
 		public:
-			DELTAENGINE_API World2D(Graphics::Renderer2D* renderer, Graphics::Shader* shader, const Maths::Matrix4& projectionMatrix, float gravity)
-				: Layer2D(renderer, shader, projectionMatrix), gravity(gravity), limits(true)
-			{
-				// We assume it is an orthographic matrix
-				area = projectionMatrix.orthographicToAABB();
-			}
+			DELTAENGINE_API World2D(Graphics::Renderer2D* renderer, Graphics::Shader* shader, const Maths::Matrix4& projectionMatrix, const Maths::Vector2D& gravity);
 
 			DELTAENGINE_API Graphics::Renderable2D* add(Graphics::Renderable2D* object) override;
 
-			DELTAENGINE_API void update(float timestep);
+			DELTAENGINE_API void step(float timestep, int vIterations, int posIterations);
 
-			DELTAENGINE_API void setLimits(bool enable) { limits = enable; }
-
-			DELTAENGINE_API float getGravity() { return gravity; }
+			DELTAENGINE_API const Maths::Vector2D& getGravity() { return gravity; }
 		};
 
 	}

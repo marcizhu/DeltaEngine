@@ -1,23 +1,21 @@
 #include "maths.h"
 #include "types.h"
 
-using namespace DeltaEngine::Types;
-
 namespace DeltaEngine {
 	namespace Maths {
 
-		bool isPrime(uint32 n)
+		bool isPrime(Types::uint32 n)
 		{
 			//prime numbers can only be divided by 1 & themselves
 			if (n <= 1) return false;
 
-			for (uint32 i = 1; i < (sqrt((float)n) + 1); i++)
+			for (Types::uint32 i = 1; i < (sqrt((float)n) + 1); i++)
 				if ((n % i == 0) && (i != 1)) return false;
 
 			return true;
 		}
 
-		uint32 findPrime(uint32 start)
+		Types::uint32 findPrime(Types::uint32 start)
 		{
 			while (start)
 			{
@@ -28,10 +26,10 @@ namespace DeltaEngine {
 			return start;
 		}
 
-		std::vector<uint32> factorialDecomposition(uint32 number)
+		std::vector<Types::uint32> factorialDecomposition(Types::uint32 number)
 		{
-			uint32 prime = 1;
-			std::vector<uint32> temp;
+			Types::uint32 prime = 1;
+			std::vector<Types::uint32> temp;
 
 			while (number != 1)
 			{
@@ -50,7 +48,7 @@ namespace DeltaEngine {
 			return temp;
 		}
 
-		double nlog(uint32 base, double value)
+		double nlog(Types::uint32 base, double value)
 		{
 			return log(value) / log(base);
 		}

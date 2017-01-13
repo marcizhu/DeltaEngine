@@ -107,7 +107,7 @@ namespace DeltaEngine {
 			const PhysicsRenderable2D* object = Utils::toPhysicsRenderable(renderable);
 
 			const Types::uint32& color = object->getColor();
-			const Maths::Vector2D& position = object->getPosition();
+			const Maths::Vector2D& position = object->getPositionEx();
 			const Maths::Vector2D& size = object->getSize();
 			const std::vector<Maths::Vector2D>& uv = object->getUV();
 			const GLuint tid = object->getTextureID();

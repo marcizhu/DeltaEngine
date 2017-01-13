@@ -1,21 +1,17 @@
 #pragma once
 
-//#include <time.h>
-
 #include "internal.h"
 #include "types.h"
 
 #include "PlatformTimer.h"
-
-using namespace DeltaEngine::Types;
 
 namespace DeltaEngine {
 	namespace Utils {
 
 		class Timer {
 		private:
-			uint64 begin;
-			uint64 freq;
+			Types::uint64 begin;
+			Types::uint64 freq;
 
 		public:
 			Timer() { freq = Platform::getTimerFrequency(); restart(); };

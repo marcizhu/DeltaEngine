@@ -67,10 +67,10 @@ namespace DeltaEngine {
 		private:
 			static bool initialized;
 			static void* memStart;
-			static uint32 allocatedMemory;
-			static uint32 freedMemory;
-			static uint32 currentMemory;
-			static uint32 numAllocations;
+			static Types::uint32 allocatedMemory;
+			static Types::uint32 freedMemory;
+			static Types::uint32 currentMemory;
+			static Types::uint32 numAllocations;
 			static std::atomic<FreeBlock*> firstBlock;
 
 			static void freeMem();
@@ -79,11 +79,11 @@ namespace DeltaEngine {
 			DELTAENGINE_API static void start();
 			DELTAENGINE_API static void end();
 
-			DELTAENGINE_API static uint32 getAllocatedMemory();
-			DELTAENGINE_API static uint32 getFreedMemory();
-			DELTAENGINE_API static uint32 getCurrentMemory();
-			DELTAENGINE_API static uint32 getAllocations();
-			DELTAENGINE_API static uint32 getBlockCount();
+			DELTAENGINE_API static Types::uint32 getAllocatedMemory();
+			DELTAENGINE_API static Types::uint32 getFreedMemory();
+			DELTAENGINE_API static Types::uint32 getCurrentMemory();
+			DELTAENGINE_API static Types::uint32 getAllocations();
+			DELTAENGINE_API static Types::uint32 getBlockCount();
 
 			DELTAENGINE_API static size_t getFlags(const void* address);
 

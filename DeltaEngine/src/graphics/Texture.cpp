@@ -7,7 +7,7 @@
 namespace DeltaEngine {
 	namespace Graphics {
 
-		Texture::Texture(uint32 width, uint32 height, uchar8 bpp) : width(width), height(height), bpp(bpp)
+		Texture::Texture(Types::uint32 width, Types::uint32 height, Types::uchar8 bpp) : width(width), height(height), bpp(bpp)
 		{
 			glGenTextures(1, &textureID);
 

@@ -56,9 +56,8 @@ void Sandbox::init()
 
 	Graphics::TextureManager::add(NEW Graphics::Texture("Mario", "mario.png", GL_NEAREST));
 
-	myWorld = NEW Physics::World2D(NEW Physics::PhysicsRenderer2D(), shader, pr_matrix, 0.10f); // 0.010f
-	myWorld->setLimits(true);
-	myWorld->add(NEW Physics::PhysicsRenderable2D(8.0f, 8.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Mario"), 1.0f, 1));
+	myWorld = NEW Physics::World2D(NEW Physics::PhysicsRenderer2D(), shader, pr_matrix, Maths::Vector2D(0.0f, -2.0f)); // 0.010f
+	myWorld->add(NEW Physics::PhysicsRenderable2D(8.0f, 8.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Mario"), 1.0f));
 
 	Graphics::FontManager::add(NEW Graphics::Font("OpenSans", "OpenSans-Light.ttf", 24));
 	Graphics::FontManager::add(NEW Graphics::Font("Consolas", "consola.ttf", 18));
@@ -106,10 +105,10 @@ void Sandbox::init()
 	uiShader->enable();
 	uiShader->setUniform1iv("textures", texIDs, 32);
 
-	window->setVSync(VSYNC_ENABLE);
+	window->setVSync(VSYNC_NON_BLOCKING);
 }
 
-void Sandbox::update()
+void Sandbox::update(float deltaTime)
 {
 	//Sound::SoundManager::update();
 
@@ -126,18 +125,18 @@ void Sandbox::update()
 
 	//DELTAENGINE_INFO("dt: ", deltaTime);
 
-	//myWorld->update(1 / 60.0f);
+	myWorld->step(1 / 60.0f, 6, 2);
 }
 
 void Sandbox::render()
 {
 	Physics::PhysicsRenderable2D* obj = Utils::toPhysicsRenderable(myWorld->getRenderable(0));
 
-	for (int i = 0; i < 4; i++)
+	/*for (int i = 0; i < 4; i++)
 	{
 		const int c = Utils::cycle(i, 0, 3, 1);
 		ui->submit(NEW Graphics::Line(obj->getOBB().getVertex(i).x, obj->getOBB().getVertex(i).y, obj->getOBB().getVertex(c).x, obj->getOBB().getVertex(c).y, 16.0f / 960.0f, i == 0 ? 0xff0000ff : 0xff00ff00));
-	}
+	}*/
 
 	myWorld->render();
 	ui->render();
@@ -149,7 +148,7 @@ void Sandbox::render()
 
 void Sandbox::tick()
 {
-	Maths::OBB2D& obb = Utils::toPhysicsRenderable(myWorld->getRenderable(0))->getOBB();
+	//Maths::OBB2D& obb = Utils::toPhysicsRenderable(myWorld->getRenderable(0))->getOBB();
 	//DELTAENGINE_TRACE("OBB center: (", obb.getCenter().x, ", ", obb.getCenter().y, ")");
 	//DELTAENGINE_TRACE("OBB center: ", obb.getCenter());
 	fpsLabel->setText(string("FPS: " + std::to_string(getFPS())));
@@ -157,5 +156,5 @@ void Sandbox::tick()
 	memoryLabel->setText(Memory::MemoryManager::getCurrentMemoryString());
 	memoryLabel->setPosition(15.8f - memoryLabel->getSize().x, 8.6f);
 
-	//DELTAENGINE_INFO("UPS: ", getUPS());
+	DELTAENGINE_INFO("UPS: ", getUPS());
 }

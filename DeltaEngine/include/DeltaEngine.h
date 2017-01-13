@@ -62,6 +62,8 @@ namespace DeltaEngine {
 
 	inline int init()
 	{
+		Memory::MemoryManager::start();
+
 		if (GLenum err = glewInit() != GLEW_OK)
 		{
 			DELTAENGINE_ERROR(glewGetErrorString(err));
@@ -135,7 +137,7 @@ namespace DeltaEngine {
 		// Runs once per second
 		virtual void tick() {}
 		// Runs 60 times per second
-		virtual void update() {}
+		virtual void update(float deltaTime) {}
 		// Runs as fast as possible (unless vsync is enabled)
 		virtual void render() = 0;
 
@@ -149,21 +151,24 @@ namespace DeltaEngine {
 			unsigned int frames = 0;
 			unsigned int updates = 0;
 
+			timer->restart();
+
 			while (!window->isClosed())
 			{
-				window->clear();
+				float dt = timer->getElapsedTime() - updateTimer;
 
-				if (timer->getElapsedTime() - updateTimer >= updateTick)
+				if (dt >= updateTick)
 				{
 					//TODO: Window->updateInput(); (Events)
 					//window->updateInput();
-					update();
+					update(dt);
 					updates++;
-					updateTimer += updateTick;
+					updateTimer += dt;
 				}
 
 				if (timer->getElapsedTime() - renderTimer >= window->getVSyncTime())
 				{
+					window->clear();
 					render();
 					frames++;
 					window->update();
@@ -176,8 +181,7 @@ namespace DeltaEngine {
 					seconds += (timer->getElapsedTime() - seconds);
 					fps = frames;
 					ups = updates;
-					frames = 0;
-					updates = 0;
+					frames = updates = 0;
 					tick();
 				}
 			}

@@ -87,7 +87,7 @@ void Application::init()
 	bgShader->enable();
 	bgShader->setUniform1iv("textures", texIDs, 32);
 
-	window->setVSync(VSYNC_ENABLE);
+	window->setVSync(VSYNC_NON_BLOCKING);
 
 	world->setCameraPosition(0, 0);
 
@@ -96,7 +96,7 @@ void Application::init()
 	Memory::MemoryManager::dumpMemory();
 }
 
-void Application::update()
+void Application::update(float deltaTime)
 {
 	Graphics::FontManager::setScale(window->getHeight() / 9.0f, window->getWidth() / 16.0f);
 
@@ -168,4 +168,4 @@ void Application::render()
 	ui->render();
 }
 
-void Application::tick() { }
+void Application::tick() { DELTAENGINE_INFO("UPS: ", getUPS()); }

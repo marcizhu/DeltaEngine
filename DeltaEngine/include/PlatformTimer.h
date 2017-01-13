@@ -3,8 +3,6 @@
 #include "internal.h"
 #include "types.h"
 
-using namespace DeltaEngine::Types;
-
 namespace DeltaEngine {
 	namespace Platform {
 
@@ -14,7 +12,7 @@ namespace DeltaEngine {
 #	endif
 #include <Windows.h>
 
-		static __forceinline uint64 getTimerFrequency()
+		static __forceinline Types::uint64 getTimerFrequency()
 		{
 			LARGE_INTEGER frequency;
 			QueryPerformanceFrequency(&frequency);
@@ -22,7 +20,7 @@ namespace DeltaEngine {
 			return frequency.QuadPart;
 		}
 
-		static __forceinline uint64 getCurrentCount()
+		static __forceinline Types::uint64 getCurrentCount()
 		{
 			LARGE_INTEGER count;
 			QueryPerformanceCounter(&count);
@@ -35,7 +33,7 @@ namespace DeltaEngine {
 
 		static __attribute__((always_inline)) uint64 rdtsc()
 		{
-			uint32 lo, hi;
+			Types::uint32 lo, hi;
 
 			__asm__ __volatile__("rdtsc" : "=a" (lo), "=d" (hi));
 
@@ -44,7 +42,7 @@ namespace DeltaEngine {
 
 		static __attribute__((always_inline)) uint64 getTimerFrequency()
 		{
-			uint64 before, after;
+			Types::uint64 before, after;
 
 			before = rdtsc();
 			usleep(1000000); //10^6 microseconds = 1 second

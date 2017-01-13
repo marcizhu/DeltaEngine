@@ -26,7 +26,7 @@ namespace DeltaEngine {
 			GLuint load(const string& vertPath, const string& fragPath);
 			GLint getUniformLocation(const GLchar* name);
 
-			bool compile(GLuint shader, const char* source, uint32 shaderType);
+			bool compile(GLuint shader, const char* source, Types::uint32 shaderType);
 			vector<string> preProcess(const std::string& input, std::string& vertexOut, std::string& fragmentOut);
 
 		public:

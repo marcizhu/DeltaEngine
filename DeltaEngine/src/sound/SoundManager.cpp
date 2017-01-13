@@ -7,8 +7,6 @@
 #include "types.h"
 #include "memoryManager.h"
 
-using namespace DeltaEngine::Types;
-
 namespace DeltaEngine {
 	namespace Sound {
 
@@ -35,7 +33,7 @@ namespace DeltaEngine {
 
 		void SoundManager::clean()
 		{
-			for (uint32 i = 0; i < sounds.size(); i++)
+			for (Types::uint32 i = 0; i < sounds.size(); i++)
 			{
 				sounds[i]->stop();
 				delete sounds[i];
@@ -47,7 +45,7 @@ namespace DeltaEngine {
 
 		bool SoundManager::isReady()
 		{
-			for (uint32 i = 0; i < sounds.size(); i++)
+			for (Types::uint32 i = 0; i < sounds.size(); i++)
 				if (sounds[i]->isReady() == false) return false;
 
 			return true;

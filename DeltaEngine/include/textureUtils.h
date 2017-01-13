@@ -5,8 +5,6 @@
 #include "texture.h"
 #include "types.h"
 
-using namespace DeltaEngine::Types;
-
 namespace DeltaEngine {
 	namespace Utils {
 

@@ -4,8 +4,6 @@
 
 #include "types.h"
 
-using namespace DeltaEngine::Types;
-
 namespace DeltaEngine {
 	namespace Utils {
 
@@ -21,11 +19,11 @@ namespace DeltaEngine {
 			inline const T& top() const { return data.back(); };
 			inline const T& base() const { return data.front(); };
 
-			inline uint32 size() const { return data.size(); };
+			inline Types::uint32 size() const { return data.size(); };
 
 			inline const std::list<T>& getStack() const { return this->data; };
 
-			inline const T& operator[](uint32 idx) const { return data[idx]; };
+			inline const T& operator[](Types::uint32 idx) const { return data[idx]; };
 			inline const void operator=(const Stack& other) const { data = other.getStack(); };
 		};
 
