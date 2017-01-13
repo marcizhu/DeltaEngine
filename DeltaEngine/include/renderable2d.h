@@ -11,12 +11,6 @@
 #include "log.h"
 
 namespace DeltaEngine {
-	namespace Physics {
-		class PhysicsRenderable2D;
-	}
-}
-
-namespace DeltaEngine {
 	namespace Graphics {
 
 		class Renderer2D;

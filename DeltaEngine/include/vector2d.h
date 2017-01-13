@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <Box2D\Common\b2Math.h>
 
 #include "internal.h"
 
@@ -13,6 +14,7 @@ namespace DeltaEngine {
 			float x, y;
 
 			DELTAENGINE_API Vector2D(const float& x, const float& y);
+			DELTAENGINE_API Vector2D(b2Vec2 vector);
 			DELTAENGINE_API inline Vector2D() { x = y = 0.0f; }
 
 			DELTAENGINE_API friend Vector2D operator+(Vector2D left, const Vector2D& right);

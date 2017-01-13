@@ -1,10 +1,10 @@
-#include "physicsRenderer2d.h"
 #include "types.h"
 #include "maths.h"
 #include "log.h"
 #include "memoryManager.h"
 #include "matrix4.h"
 #include "physicsRenderable2d.h"
+#include "physicsRenderer2d.h"
 
 namespace DeltaEngine {
 	namespace Physics {
@@ -12,8 +12,10 @@ namespace DeltaEngine {
 		// FIXME: Optimize this using Buffers
 		// TODO: Rewrite Buffer.cpp
 
-		PhysicsRenderer2D::PhysicsRenderer2D() : Graphics::Renderer2D(), indexCount(0)
+		PhysicsRenderer2D::PhysicsRenderer2D() : indexCount(0)
 		{
+			init();
+
 			vertexArray = NEW Graphics::VertexArray();
 			glGenBuffers(1, &vertexBuffer);
 
@@ -102,12 +104,10 @@ namespace DeltaEngine {
 			return submitTexture(texture->getID());
 		}
 
-		void PhysicsRenderer2D::submit(const Graphics::Renderable2D* renderable, bool transformationStack)
+		void PhysicsRenderer2D::submit(const PhysicsRenderable2D* object, bool transformationStack)
 		{
-			const PhysicsRenderable2D* object = Utils::toPhysicsRenderable(renderable);
-
 			const Types::uint32& color = object->getColor();
-			const Maths::Vector2D& position = object->getPositionEx();
+			const Maths::Vector2D& position = object->getPosition();
 			const Maths::Vector2D& size = object->getSize();
 			const std::vector<Maths::Vector2D>& uv = object->getUV();
 			const GLuint tid = object->getTextureID();

@@ -11,6 +11,12 @@ namespace DeltaEngine {
 			this->y = y;
 		}
 
+		Vector2D::Vector2D(b2Vec2 vector)
+		{
+			this->x = vector.x;
+			this->y = vector.y;
+		}
+
 		Vector2D& Vector2D::operator+=(const Vector2D& other)
 		{
 			x += other.x;

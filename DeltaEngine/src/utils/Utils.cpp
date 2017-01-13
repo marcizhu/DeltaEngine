@@ -78,15 +78,6 @@ namespace DeltaEngine {
 			return out.str();
 		}
 
-		Physics::PhysicsRenderable2D* toPhysicsRenderable(const Graphics::Renderable2D* renderable)
-		{
-			Physics::PhysicsRenderable2D* object = dynamic_cast<Physics::PhysicsRenderable2D*>(const_cast<Graphics::Renderable2D*>(renderable));
-
-			DELTAENGINE_ASSERT(object != nullptr, "The renderable is not an instance of a physicsRenderable2D object!");
-
-			return object;
-		}
-
 		Types::timestamp getBuildTime()
 		{
 			return Platform::PlatformGetBuildTime();

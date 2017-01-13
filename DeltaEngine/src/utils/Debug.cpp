@@ -5,6 +5,7 @@
 #include "types.h"
 #include "utils.h"
 #include "log.h"
+#include "maths.h"
 
 using namespace std;
 

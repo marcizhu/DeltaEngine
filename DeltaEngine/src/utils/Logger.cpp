@@ -4,6 +4,7 @@
 #include "utils.h"
 #include "types.h"
 #include "fileIO.h"
+#include "log.h"
 
 using namespace std;
 
