@@ -130,14 +130,6 @@ void Sandbox::update(float deltaTime)
 
 void Sandbox::render()
 {
-	//const Physics::PhysicsRenderable2D* obj = myWorld->getRenderable(0);
-
-	/*for (int i = 0; i < 4; i++)
-	{
-		const int c = Utils::cycle(i, 0, 3, 1);
-		ui->submit(NEW Graphics::Line(obj->getOBB().getVertex(i).x, obj->getOBB().getVertex(i).y, obj->getOBB().getVertex(c).x, obj->getOBB().getVertex(c).y, 16.0f / 960.0f, i == 0 ? 0xff0000ff : 0xff00ff00));
-	}*/
-
 	myWorld->render();
 	ui->render();
 
@@ -148,9 +140,6 @@ void Sandbox::render()
 
 void Sandbox::tick()
 {
-	//Maths::OBB2D& obb = Utils::toPhysicsRenderable(myWorld->getRenderable(0))->getOBB();
-	//DELTAENGINE_TRACE("OBB center: (", obb.getCenter().x, ", ", obb.getCenter().y, ")");
-	//DELTAENGINE_TRACE("OBB center: ", obb.getCenter());
 	fpsLabel->setText(string("FPS: " + std::to_string(getFPS())));
 
 	memoryLabel->setText(Memory::MemoryManager::getCurrentMemoryString());

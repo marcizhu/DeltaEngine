@@ -5,7 +5,7 @@ namespace DeltaEngine {
 
 		PhysicsRenderable2D::~PhysicsRenderable2D()
 		{
-			world->DestroyBody(body);
+			//world->DestroyBody(body);
 		}
 
 	}

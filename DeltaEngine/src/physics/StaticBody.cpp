@@ -8,6 +8,7 @@ namespace DeltaEngine {
 			b2BodyDef bodyDef;
 			bodyDef.type = b2_staticBody;
 			bodyDef.position.Set(position.x, position.y);
+			bodyDef.fixedRotation = false;
 
 			body = world->CreateBody(&bodyDef);
 

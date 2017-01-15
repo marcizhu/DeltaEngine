@@ -94,6 +94,8 @@ namespace DeltaEngine {
 
 			inline void setAngularVelocity(float velocity) { body->SetAngularVelocity(velocity); }
 
+			inline void setLinearVelocity(float x, float y) { body->SetLinearVelocity(b2Vec2(x, y)); }
+
 			inline void setMass(float newMass) {}
 
 			inline void rotate(float rads) { }

@@ -41,7 +41,10 @@ namespace DeltaEngine {
 			return object;
 		}
 
-		void World2D::step(float timestep, int vIterations, int posIterations) { world->Step(timestep, vIterations, posIterations); }
+		void World2D::step(float timestep, int vIterations, int posIterations)
+		{
+			world->Step(timestep, vIterations, posIterations);
+		}
 
 		void World2D::render()
 		{
