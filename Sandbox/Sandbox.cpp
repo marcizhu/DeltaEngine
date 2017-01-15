@@ -56,8 +56,8 @@ void Sandbox::init()
 
 	Graphics::TextureManager::add(NEW Graphics::Texture("Mario", "mario.png", GL_NEAREST));
 
-	myWorld = NEW Physics::World2D(shader, pr_matrix, Maths::Vector2D(0.0f, -2.0f)); // 0.010f
-	myWorld->add(NEW Physics::PhysicsRenderable2D(8.0f, 8.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Mario"), 1.0f));
+	myWorld = NEW Physics::World2D(shader, pr_matrix, Maths::Vector2D(0.0f, -1.0f)); // 0.010f
+	myWorld->add(NEW Physics::PlayerBody(8.0f, 8.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Mario"), 1.0f));
 
 	Graphics::FontManager::add(NEW Graphics::Font("OpenSans", "OpenSans-Light.ttf", 24));
 	Graphics::FontManager::add(NEW Graphics::Font("Consolas", "consola.ttf", 18));
@@ -118,10 +118,10 @@ void Sandbox::update(float deltaTime)
 
 	//if (window->isKeyPressed(KB_KEY_RIGHT)) Utils::toPhysicsRenderable((*myWorld)[0])->rotate( 5.0f); // Right arrow
 	//if (window->isKeyPressed(KB_KEY_LEFT )) Utils::toPhysicsRenderable((*myWorld)[0])->rotate(-5.0f); // Left arrow
-	//if (window->isKeyPressed(KB_KEY_DOWN )) (*myWorld)[0]->move( 0.0f, -0.1f); // Down arrow
-	//if (window->isKeyPressed(KB_KEY_UP   )) (*myWorld)[0]->move( 0.0f,  0.1f); // Up arrow
-	//if (window->isKeyPressed(KB_KEY_RIGHT)) (*myWorld)[0]->move( 0.1f,  0.0f); // Down arrow
-	//if (window->isKeyPressed(KB_KEY_LEFT )) (*myWorld)[0]->move(-0.1f,  0.0f); // Up arrow
+	if (window->isKeyPressed(KB_KEY_DOWN )) (*myWorld)[0]->applyForce(9.0f, Maths::toRadians(270.0f)); // Down arrow
+	if (window->isKeyPressed(KB_KEY_UP   )) (*myWorld)[0]->applyForce(9.0f, Maths::toRadians( 90.0f)); // Up arrow
+	if (window->isKeyPressed(KB_KEY_RIGHT)) (*myWorld)[0]->applyForce(9.0f, Maths::toRadians(  0.0f)); // Down arrow
+	if (window->isKeyPressed(KB_KEY_LEFT )) (*myWorld)[0]->applyForce(9.0f, Maths::toRadians(180.0f)); // Up arrow
 
 	//DELTAENGINE_INFO("dt: ", deltaTime);
 

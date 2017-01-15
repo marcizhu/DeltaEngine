@@ -218,6 +218,18 @@
     <ClInclude Include="include\debugUI.h">
       <Filter>Header files\DeltaEngine\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="include\Bullet.h">
+      <Filter>Header files\DeltaEngine\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DynamicBody.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\StaticBody.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Player.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\utils\Debug.cpp">
@@ -316,8 +328,20 @@
     <ClCompile Include="src\sound\Playlist.cpp">
       <Filter>Source files\DeltaEngine\Sound</Filter>
     </ClCompile>
+    <ClCompile Include="src\physics\Player.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physics\DynamicBody.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physics\StaticBody.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physics\Bullet.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
     <ClCompile Include="src\physics\PhysicsRenderable2D.cpp">
-      <Filter>Source files\DeltaEngine\Physics</Filter>
+      <Filter>Source files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

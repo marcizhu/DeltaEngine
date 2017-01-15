@@ -36,30 +36,12 @@ namespace DeltaEngine {
 		{
 			renderables.push_back(object);
 
-			const float* data = object->getData();
-
-			b2BodyDef bodyDef;
-			bodyDef.type = b2_dynamicBody;
-			bodyDef.position.Set(data[1], data[2]);
-			object->setBody(world->CreateBody(&bodyDef));
-
-			b2PolygonShape dynamicBox;
-			dynamicBox.SetAsBox(data[3], data[4]);
-
-			b2FixtureDef fixtureDef;
-			fixtureDef.shape = &dynamicBox;
-			fixtureDef.density = data[5];
-			fixtureDef.friction = data[6]; // TODO: Add friction
-
-			object->getBody()->CreateFixture(&fixtureDef);
+			object->setWorld(this->world);
 
 			return object;
 		}
 
-		void World2D::step(float timestep, int vIterations, int posIterations)
-		{
-			world->Step(timestep, vIterations, posIterations);
-		}
+		void World2D::step(float timestep, int vIterations, int posIterations) { world->Step(timestep, vIterations, posIterations); }
 
 		void World2D::render()
 		{

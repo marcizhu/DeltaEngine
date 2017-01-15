@@ -57,6 +57,10 @@
 #include "world2d.h"
 #include "physicsRenderable2D.h"
 #include "PhysicsRenderer2D.h"
+#include "Bullet.h"
+#include "Player.h"
+#include "StaticBody.h"
+#include "DynamicBody.h"
 
 namespace DeltaEngine {
 

@@ -52,17 +52,16 @@ void Application::init()
 	Graphics::TextureManager::add(NEW Graphics::Texture("Asteroid Small 1", Utils::getCurrentPath() + "\\res\\assets\\asteroid-small-1.png"));
 	Graphics::TextureManager::add(NEW Graphics::Texture("Asteroid Smaller 1", Utils::getCurrentPath() + "\\res\\assets\\asteroid-smallest-1.png"));
 
-	world = NEW Physics::World2D(NEW Physics::PhysicsRenderer2D(), shader, Maths::Matrix4::orthographic(0.0f, 24.0f, 13.5f, 0.0f), 0.0f);
-	world->setLimits(false);
-	world->add(NEW Physics::PhysicsRenderable2D(12.0f, 6.75f, 1.0f, 1.0f, Graphics::TextureManager::get("Spaceship"), 1.0f, 5));
+	world = NEW Physics::World2D(shader, Maths::Matrix4::orthographic(0.0f, 24.0f, 13.5f, 0.0f), Maths::Vector2D(0.0f, 0.0f));
+	world->add(NEW Physics::PhysicsRenderable2D(12.0f, 6.75f, 1.0f, 1.0f, Graphics::TextureManager::get("Spaceship"), 1.0f));
 
-	Physics::PhysicsRenderable2D* asteroid1 = (Physics::PhysicsRenderable2D*)world->add(NEW Physics::PhysicsRenderable2D(3.0f, 3.0f, 2.0f, 2.0f, Graphics::TextureManager::get("Asteroid Big 1"), 1.0f, 1));
-	Physics::PhysicsRenderable2D* asteroid2 = (Physics::PhysicsRenderable2D*)world->add(NEW Physics::PhysicsRenderable2D(9.0f, 1.0f, 2.0f, 2.0f, Graphics::TextureManager::get("Asteroid Big 2"), 1.0f, 1));
-	Physics::PhysicsRenderable2D* asteroid3 = (Physics::PhysicsRenderable2D*)world->add(NEW Physics::PhysicsRenderable2D(16.0f, 11.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Asteroid Small 1"), 1.0f, 1));
-	Physics::PhysicsRenderable2D* asteroid4 = (Physics::PhysicsRenderable2D*)world->add(NEW Physics::PhysicsRenderable2D(10.0f, 8.0f, 0.5f, 0.5f, Graphics::TextureManager::get("Asteroid Smaller 1"), 1.0f, 1));
+	Physics::PhysicsRenderable2D* asteroid1 = world->add(NEW Physics::PhysicsRenderable2D(3.0f, 3.0f, 2.0f, 2.0f, Graphics::TextureManager::get("Asteroid Big 1"), 1.0f));
+	Physics::PhysicsRenderable2D* asteroid2 = world->add(NEW Physics::PhysicsRenderable2D(9.0f, 1.0f, 2.0f, 2.0f, Graphics::TextureManager::get("Asteroid Big 2"), 1.0f));
+	Physics::PhysicsRenderable2D* asteroid3 = world->add(NEW Physics::PhysicsRenderable2D(16.0f, 11.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Asteroid Small 1"), 1.0f));
+	Physics::PhysicsRenderable2D* asteroid4 = world->add(NEW Physics::PhysicsRenderable2D(10.0f, 8.0f, 0.5f, 0.5f, Graphics::TextureManager::get("Asteroid Smaller 1"), 1.0f));
 
 	srand(Utils::getSystemTime().Second);
-	asteroid1->setVelocity((float)2.0f * rand() / RAND_MAX, (float)360.0f * rand() / RAND_MAX);
+	//asteroid1->setVelocity((float)2.0f * rand() / RAND_MAX, (float)360.0f * rand() / RAND_MAX);
 
 	background = NEW Graphics::Layer2D(NEW Graphics::BatchRenderer2D(), bgShader, Maths::Matrix4::orthographic(0.0f, 960.0f, 540.0f, 0.0f));
 	background->add(NEW Graphics::BatchRenderable2D(-480.0f, -330.0f, 1920.0f, 1200.0f, Graphics::TextureManager::get("Background")));
@@ -102,15 +101,15 @@ void Application::update(float deltaTime)
 
 	if (window->isKeyPressed(KB_KEY_ESCAPE)) window->close();
 
-	Physics::PhysicsRenderable2D* spaceship = Utils::toPhysicsRenderable((*world)[0]);
-	Physics::PhysicsRenderable2D* asteroid1 = Utils::toPhysicsRenderable((*world)[1]);
+	Physics::PhysicsRenderable2D* spaceship = (*world)[0];
+	Physics::PhysicsRenderable2D* asteroid1 = (*world)[1];
 
 	Sound::SoundManager::update();
 
 	if (window->isKeyPressed(KB_KEY_SPACE))
-		spaceship->setAcceleration(9.0f);
-	else
-		spaceship->setAcceleration(0.0f);
+		spaceship->applyForce(9.0f, spaceship->getRotation());
+	//else
+		//spaceship->setAcceleration(0.0f);
 
 	if (window->isKeyPressed(KB_KEY_RIGHT)) spaceship->rotate(-5.0f);
 	if (window->isKeyPressed(KB_KEY_LEFT )) spaceship->rotate( 5.0f);
@@ -123,11 +122,12 @@ void Application::update(float deltaTime)
 		//Sound::SoundManager::get("Laser")->setPosition(Maths::Vector2D(spaceship->getPosition().x / 12.0f - 1.0f, spaceship->getPosition().y / 6.25f - 1.0f), 0.7f);
 		Sound::SoundManager::get("Laser")->setPan(pos);
 
-		Physics::PhysicsRenderable2D* laser = NEW Physics::PhysicsRenderable2D(spaceship->getPosition().x, spaceship->getPosition().y, 0.5f, 0.5f, Graphics::TextureManager::get("Laser"), 1.0f, 1);
-		laser->setRotation(spaceship->getRotation());
-		laser->setVelocity(LASER_SPEED);
-		shots.push_back(laser);
+		Physics::PhysicsRenderable2D* laser = NEW Physics::PhysicsRenderable2D(spaceship->getPosition().x, spaceship->getPosition().y, 0.5f, 0.5f, Graphics::TextureManager::get("Laser"), 1.0f);
+		//laser->setRotation(spaceship->getRotation());
 		world->add(laser);
+		float rotation = spaceship->getRotation();
+		laser->applyImpulse(LASER_SPEED, spaceship->getRotation());
+		shots.push_back(laser);
 		keyHeld = true;
 	}
 	else if(!window->isKeyPressed(KB_KEY_W)) keyHeld = false;
@@ -147,18 +147,18 @@ void Application::update(float deltaTime)
 
 	shots.shrink_to_fit();
 
-	if (spaceship->getPosition().x > 25.0f) spaceship->setPosition(-1.0f, spaceship->getPosition().y);
-	if (spaceship->getPosition().x < -1.0f) spaceship->setPosition(25.0f, spaceship->getPosition().y);
-
-	if (spaceship->getPosition().y > 14.0f) spaceship->setPosition(spaceship->getPosition().x, -1.0f);
-	if (spaceship->getPosition().y < -1.0f) spaceship->setPosition(spaceship->getPosition().x, 14.0f);
+	//if (spaceship->getPosition().x > 25.0f) spaceship->setPosition(-1.0f, spaceship->getPosition().y);
+	//if (spaceship->getPosition().x < -1.0f) spaceship->setPosition(25.0f, spaceship->getPosition().y);
+	//
+	//if (spaceship->getPosition().y > 14.0f) spaceship->setPosition(spaceship->getPosition().x, -1.0f);
+	//if (spaceship->getPosition().y < -1.0f) spaceship->setPosition(spaceship->getPosition().x, 14.0f);
 
 	const float absX = 11.5f - spaceship->getPosition().x;
 	const float absY = 6.25f - spaceship->getPosition().y;
 
 	background->setCameraPosition(background->getCameraPositionX() + 0.025f * absX, background->getCameraPositionY() + 0.025f * absY);
 
-	world->update(1.0f / 60.0f);
+	world->step(1.0f / 60.0f, 8, 3);
 }
 
 void Application::render()

@@ -16,7 +16,7 @@ public:
 private:
 	Graphics::Shader* shader;
 
-	Graphics::Layer2D* mainLayer;
+	Physics::World2D* world;
 
 	void init() override;
 	void update(float deltaTime) override;

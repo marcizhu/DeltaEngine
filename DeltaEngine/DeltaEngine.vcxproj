@@ -197,7 +197,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\Bullet.h" />
     <ClInclude Include="include\debugUI.h" />
+    <ClInclude Include="include\DynamicBody.h" />
     <ClInclude Include="include\group.h" />
     <ClInclude Include="include\aabb.h" />
     <ClInclude Include="include\framebuffer.h" />
@@ -222,6 +224,7 @@
     <ClInclude Include="include\physicsRenderable2D.h" />
     <ClInclude Include="include\PhysicsRenderer2D.h" />
     <ClInclude Include="include\PlatformWindow.h" />
+    <ClInclude Include="include\Player.h" />
     <ClInclude Include="include\renderable2d.h" />
     <ClInclude Include="include\renderer2d.h" />
     <ClInclude Include="include\shader.h" />
@@ -229,6 +232,7 @@
     <ClInclude Include="include\soundManager.h" />
     <ClInclude Include="include\sprite.h" />
     <ClInclude Include="include\stack.h" />
+    <ClInclude Include="include\StaticBody.h" />
     <ClInclude Include="include\texture.h" />
     <ClInclude Include="include\textureManager.h" />
     <ClInclude Include="include\textureUtils.h" />
@@ -251,9 +255,11 @@
     <ClInclude Include="include\Playlist.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\physics\PhysicsRenderable2D.cpp" />
     <ClCompile Include="src\graphics\Group.cpp" />
     <ClCompile Include="src\maths\OBB.cpp" />
+    <ClCompile Include="src\physics\Bullet.cpp" />
+    <ClCompile Include="src\physics\DynamicBody.cpp" />
+    <ClCompile Include="src\physics\PhysicsRenderable2D.cpp" />
     <ClCompile Include="src\physics\PhysicsRenderer2D.cpp" />
     <ClCompile Include="src\maths\AABB.cpp" />
     <ClCompile Include="src\memory\MemoryManager.cpp">
@@ -262,6 +268,8 @@
       </AssemblerOutput>
       <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)</AssemblerListingLocation>
     </ClCompile>
+    <ClCompile Include="src\physics\Player.cpp" />
+    <ClCompile Include="src\physics\StaticBody.cpp" />
     <ClCompile Include="src\sound\Playlist.cpp" />
     <ClCompile Include="src\sound\Sound.cpp" />
     <ClCompile Include="src\sound\SoundManager.cpp" />

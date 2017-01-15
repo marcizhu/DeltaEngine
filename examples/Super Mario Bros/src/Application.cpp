@@ -11,7 +11,7 @@ Application::Application() : Game()
 
 Application::~Application()
 {
-	delete mainLayer;
+	delete world;
 }
 
 void Application::init()
@@ -35,28 +35,28 @@ void Application::init()
 	Graphics::TextureManager::add(new Graphics::Texture("Bricks", ".\\res\\assets\\bricks.png", GL_NEAREST));
 	Graphics::TextureManager::add(new Graphics::Texture("Mushroom", ".\\res\\assets\\mushroom.png", GL_NEAREST));
 
-	mainLayer = new Graphics::Layer2D(new Graphics::BatchRenderer2D(), shader, pr_matrix);
+	world = new Physics::World2D(shader, pr_matrix, Maths::Vector2D(0.0f, -10.0f));
 
-	mainLayer->add(new Graphics::BatchRenderable2D(0.0f, 2.0f, 5.0f, 3.0f, Graphics::TextureManager::get("Hill big")));
-	mainLayer->add(new Graphics::BatchRenderable2D(9.0f, 10.0f, 3.0f, 2.0f, Graphics::TextureManager::get("Cloud small")));
+	world->add(new Physics::DynamicBody(0.0f, 2.0f, 5.0f, 3.0f, Graphics::TextureManager::get("Hill big"), 1.0f));
+	world->add(new Physics::DynamicBody(9.0f, 10.0f, 3.0f, 2.0f, Graphics::TextureManager::get("Cloud small"), 1.0f));
 
 	// this should be bigger (3-piece bush, not 2)
-	mainLayer->add(new Graphics::BatchRenderable2D(12.0f, 2.0f, 3.0f, 1.0f, Graphics::TextureManager::get("Bush big")));
-	mainLayer->add(new Graphics::BatchRenderable2D(17.0f, 2.0f, 3.0f, 2.0f, Graphics::TextureManager::get("Hill small")));
-	mainLayer->add(new Graphics::BatchRenderable2D(17.0f, 5.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Question 1")));
-	mainLayer->add(new Graphics::BatchRenderable2D(21.0f, 5.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Bricks")));
-	mainLayer->add(new Graphics::BatchRenderable2D(22.0f, 5.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Question 1")));
-	mainLayer->add(new Graphics::BatchRenderable2D(22.0f, 6.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Mushroom")));
-	mainLayer->add(new Graphics::BatchRenderable2D(23.0f, 5.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Bricks")));
-	mainLayer->add(new Graphics::BatchRenderable2D(23.0f, 9.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Question 1")));
-	mainLayer->add(new Graphics::BatchRenderable2D(24.0f, 5.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Question 1")));
-	mainLayer->add(new Graphics::BatchRenderable2D(25.0f, 5.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Bricks")));
-	mainLayer->add(new Graphics::BatchRenderable2D(29.0f, 2.0f, 2.0f, 2.0f, Graphics::TextureManager::get("Pipe")));
+	world->add(new Physics::DynamicBody(12.0f, 2.0f, 3.0f, 1.0f, Graphics::TextureManager::get("Bush big"), 1.0f));
+	world->add(new Physics::DynamicBody(17.0f, 2.0f, 3.0f, 2.0f, Graphics::TextureManager::get("Hill small"), 1.0f));
+	world->add(new Physics::DynamicBody(17.0f, 5.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Question 1"), 1.0f));
+	world->add(new Physics::DynamicBody(21.0f, 5.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Bricks"), 1.0f));
+	world->add(new Physics::DynamicBody(22.0f, 5.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Question 1"), 1.0f));
+	world->add(new Physics::DynamicBody(22.0f, 6.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Mushroom"), 1.0f));
+	world->add(new Physics::DynamicBody(23.0f, 5.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Bricks"), 1.0f));
+	world->add(new Physics::DynamicBody(23.0f, 9.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Question 1"), 1.0f));
+	world->add(new Physics::DynamicBody(24.0f, 5.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Question 1"), 1.0f));
+	world->add(new Physics::DynamicBody(25.0f, 5.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Bricks"), 1.0f));
+	world->add(new Physics::StaticBody(30.0f, 3.0f, 2.0f, 2.0f, Graphics::TextureManager::get("Pipe"), 1.0f));
 
 	for (float i = 0.0f; i < 69.0f; i++)
 	{
-		mainLayer->add(new Graphics::BatchRenderable2D(i, 0.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Ground")));
-		mainLayer->add(new Graphics::BatchRenderable2D(i, 1.0f, 1.0f, 1.0f, Graphics::TextureManager::get("Ground")));
+		world->add(new Physics::StaticBody(i + 0.5f, 0.5f, 1.0f, 1.0f, Graphics::TextureManager::get("Ground"), 0.0f));
+		world->add(new Physics::StaticBody(i + 0.5f, 1.5f, 1.0f, 1.0f, Graphics::TextureManager::get("Ground"), 0.0f));
 	}
 
 	GLint texIDs[] =
@@ -70,7 +70,7 @@ void Application::init()
 	shader->enable();
 	shader->setUniform1iv("textures", texIDs, 32);
 
-	window->setVSync(true);
+	window->setVSync(VSYNC_NON_BLOCKING);
 }
 
 void Application::update(float deltaTime)
@@ -78,21 +78,23 @@ void Application::update(float deltaTime)
 	// 60 times per second
 	if (window->isKeyPressed(KB_KEY_ESCAPE)) window->close();
 
-	if (window->isKeyPressed(KB_KEY_RIGHT)) mainLayer->setCameraPosition(mainLayer->getCameraPositionX() - 0.1f, 0.0f);
+	if (window->isKeyPressed(KB_KEY_RIGHT)) world->setCameraPosition(world->getCameraPositionX() - 0.1f, 0.0f);
 
-	if (window->isKeyPressed(KB_KEY_LEFT) && (mainLayer->getCameraPositionX() <= -0.1f))
-		mainLayer->setCameraPosition(mainLayer->getCameraPositionX() + 0.1f, 0.0f);
-	else if(window->isKeyPressed(KB_KEY_LEFT) && (mainLayer->getCameraPositionX() > 0.0f))
-		mainLayer->setCameraPosition(0.0f, 0.0f);
+	if (window->isKeyPressed(KB_KEY_LEFT) && (world->getCameraPositionX() <= -0.1f))
+		world->setCameraPosition(world->getCameraPositionX() + 0.1f, 0.0f);
+	else if(window->isKeyPressed(KB_KEY_LEFT) && (world->getCameraPositionX() > 0.0f))
+		world->setCameraPosition(0.0f, 0.0f);
+
+	world->step(1.0f / 60.0f, 6, 3);
 }
 
 void Application::render()
 {
 	// as fast as possible (unless vsync is enabled)
-	mainLayer->render();
+	world->render();
 }
 
 void Application::tick()
 {
-	DELTAENGINE_INFO("FPS: ", getFPS());
+	DELTAENGINE_INFO("FPS: ", getFPS(), " (UPS: ", getUPS(), ")");
 }
